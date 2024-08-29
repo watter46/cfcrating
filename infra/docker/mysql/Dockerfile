@@ -1,8 +1,5 @@
-FROM mysql:8.4.2
-SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
+FROM mysql:9.0
 
-COPY ./infra/docker/mysql/my.cnf /etc/my.cnf
+ENV TZ=UTC
 
-ENV LC_ALL ja_JP.UTF-8
-
-USER mysql
+COPY ./infra/docker/mysql/*.cnf /etc/mysql/conf.d/
