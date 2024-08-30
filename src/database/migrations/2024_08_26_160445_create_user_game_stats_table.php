@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_game_stats', function (Blueprint $table) {
-            $table->ulid('id');
+            $table->ulid('id')->primary();
             $table->tinyInteger('mom_count')->unsigned();
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
