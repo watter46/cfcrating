@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->ulid('id');
+            $table->ulid('id')->primary();
             $table->mediumInteger('fixture_id')->unsigned();
             $table->mediumInteger('league_id')->unsigned();
             $table->smallInteger('season')->length(4)->unsigned();
@@ -21,7 +21,6 @@ return new class extends Migration
             $table->json('score');
             $table->json('teams');
             $table->json('league');
-            $table->json('fixture');
         });
     }
 

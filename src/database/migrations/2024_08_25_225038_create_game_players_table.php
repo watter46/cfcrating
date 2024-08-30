@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('game_players', function (Blueprint $table) {
-            $table->ulid('id');
-            $table->mediumInteger('api_player_id')->unsigned();
+            $table->ulid('id')->primary();
+            // $table->mediumInteger('api_player_id')->unsigned();
             $table->tinyInteger('assists')->unsigned();
             $table->tinyInteger('goals')->unsigned();
             $table->float('rating', 3, 1)->unsigned()->nullable();

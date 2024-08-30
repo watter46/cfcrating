@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ratings', function (Blueprint $table) {
-            $table->ulid('id');
+            $table->ulid('id')->primary();
             $table->float('rating', 3, 1)->nullable()->unsigned()->checkBetween([0, 10.0]);
             $table->boolean('is_mom');
 
