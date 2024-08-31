@@ -4,8 +4,8 @@ namespace App\UseCases\Admin;
 
 use Illuminate\Support\Facades\DB;
 
-use App\Domain\Admin\ApiFootballRepositoryInterface;
-use App\Domain\Admin\GameDetailRepositoryInterface;
+use App\UseCases\Admin\ApiFootballRepositoryInterface;
+use App\UseCases\Admin\GameDetailRepositoryInterface;
 
 
 class RegisterGames
@@ -28,5 +28,7 @@ class RegisterGames
         DB::transaction(function () use ($gameDetailList) {
             $this->gameDetailRepository->bulkUpdate($gameDetailList);
         });
+
+        // GameDetailListをwrapしてドメインサービスを書く
     }
 }

@@ -4,22 +4,23 @@ namespace App\Infrastructure\ApiFootball;
 
 use Illuminate\Support\Collection;
 
-use App\Domain\Admin\ApiFootballRepositoryInterface;
-use App\UseCases\Admin\GameDetail\GameDetailFactoryInterface;
+use App\UseCases\Admin\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\GameDetail\GameDetailList;
-use File\FixturesFile;
-use App\Domain\Game\GameId;
-use App\Models\Game as GameModel;
 use App\UseCases\Admin\GameDetail\GameDetail;
-use App\UseCases\Admin\GameDetail\ApiSquad;
+
+use App\Domain\Game\GameId;
+use App\Infrastructure\Game\Admin\GameDetailFactory;
+use App\Models\Game as GameModel;
 use File\FixtureFile;
+use File\FixturesFile;
+
 
 class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface
 {
     public function __construct(
         private FixturesFile $fixturesFile,
         private FixtureFile $fixtureFile,
-        private GameDetailFactoryInterface $gameDetailFactory
+        private GameDetailFactory $gameDetailFactory
     ) {
         
     }

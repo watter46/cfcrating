@@ -5,9 +5,10 @@ namespace App\UseCases\Admin\GameDetail;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-use App\Domain\Game\FixtureStatusType;
+use App\UseCases\Admin\GameDetail\FixtureStatusType;
 use App\Domain\Game\FixtureId;
 use App\Domain\Game\Season;
+
 
 class Fixture
 {
