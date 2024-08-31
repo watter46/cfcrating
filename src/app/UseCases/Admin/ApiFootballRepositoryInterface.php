@@ -1,12 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Admin;
+namespace App\UseCases\Admin;
 
-use Illuminate\Support\Collection;
-
-use App\Domain\Admin\Player;
 use App\Domain\Game\GameId;
-use App\UseCases\Admin\Api\ApiSquad;
 use App\UseCases\Admin\GameDetail\GameDetail;
 use App\UseCases\Admin\GameDetail\GameDetailList;
 

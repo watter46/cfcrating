@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 
 use App\UseCases\Admin\GameDetail\Fixture;
 use App\UseCases\Admin\GameDetail\GameDetail;
-use App\UseCases\Admin\GameDetail\GameDetailFactoryInterface;
 use App\UseCases\Admin\GameDetail\League;
 use App\UseCases\Admin\GameDetail\Score;
 use App\UseCases\Admin\GameDetail\Teams;
@@ -15,7 +14,8 @@ use App\Domain\Game\GameId;
 use App\Domain\Game\FixtureId;
 use App\Models\Game;
 
-class GameDetailFactory implements GameDetailFactoryInterface
+
+class GameDetailFactory
 {
     public function create(Collection $raw_game_detail): GameDetail
     {

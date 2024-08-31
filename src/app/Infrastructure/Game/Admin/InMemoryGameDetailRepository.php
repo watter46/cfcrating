@@ -2,21 +2,19 @@
 
 namespace App\Infrastructure\Game\Admin;
 
-use App\Domain\Admin\GameDetailRepositoryInterface;
+use App\UseCases\Admin\GameDetailRepositoryInterface;
 use App\Domain\Game\GameId;
-use App\Domain\Game\Season;
-use App\UseCases\Admin\GameDetail\GameDetailFactoryInterface;
 use App\UseCases\Admin\GameDetail\GameDetailList;
 use App\Models\Game as GameModel;
 use App\UseCases\Admin\GameDetail\GameDetail;
 use File\FixturesFile;
-use Illuminate\Support\Carbon;
+
 
 class InMemoryGameDetailRepository implements GameDetailRepositoryInterface
 {
     public function __construct(
         private FixturesFile $fixturesFile,
-        private GameDetailFactoryInterface $gameDetailFactory
+        private GameDetailFactory $gameDetailFactory
     ) {
         
     }
