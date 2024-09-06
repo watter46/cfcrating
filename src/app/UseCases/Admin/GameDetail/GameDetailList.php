@@ -2,9 +2,9 @@
 
 namespace App\UseCases\Admin\GameDetail;
 
-use App\Domain\Game\FixtureId;
 use Illuminate\Support\Collection;
 
+use App\Domain\Game\FixtureId;
 use App\UseCases\Admin\GameDetail\GameDetail;
 
 
@@ -63,8 +63,22 @@ class GameDetailList
             });
     }
 
-    public function invalidImages()
+    public function leagueIds()
     {
+        return $this->gameDetailList
+            ->map(function (GameDetail $gameDetail) {
+                return $gameDetail->getLeagueId()->first();
+            })
+            ->unique();
+    }
 
+    public function teamIds()
+    {
+        return $this->gameDetailList
+            ->map(function (GameDetail $gameDetail) {
+                return $gameDetail->getTeamIds();
+            })
+            ->flatten()
+            ->unique();
     }
 }

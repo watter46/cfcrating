@@ -6,13 +6,15 @@ use Illuminate\Support\Facades\DB;
 
 use App\UseCases\Admin\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\GameDetailRepositoryInterface;
+use App\UseCases\Admin\GameImageChecker;
 
 
 class RegisterGames
 {
     public function __construct(
         private ApiFootballRepositoryInterface $apiFootballRepository,
-        private GameDetailRepositoryInterface $gameDetailRepository
+        private GameDetailRepositoryInterface $gameDetailRepository,
+        private GameImageChecker $gameImageChecker
     ) {
         
     }
@@ -29,6 +31,8 @@ class RegisterGames
             $this->gameDetailRepository->bulkUpdate($gameDetailList);
         });
 
-        // GameDetailListをwrapしてドメインサービスを書く
+        $this->gameImageChecker
+            ->fromGames($gameDetailList)
+            ->dispatch();
     }
 }

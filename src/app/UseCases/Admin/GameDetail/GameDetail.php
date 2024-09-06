@@ -4,7 +4,7 @@ namespace App\UseCases\Admin\GameDetail;
 
 use App\Domain\Game\FixtureId;
 use App\Domain\Game\GameId;
-use App\Models\Game;
+use App\Domain\Game\TeamId;
 use App\UseCases\Admin\GameDetail\Teams;
 use App\UseCases\Admin\GameDetail\Score;
 use App\UseCases\Admin\GameDetail\League;
@@ -19,7 +19,8 @@ class GameDetail
         private ?Teams $teams,
         private ?Score $score,
         private ?League $league,
-        private ?Fixture $fixture
+        private ?Fixture $fixture,
+        private ?Lineups $lineups
     ) {
         
     }
@@ -30,7 +31,8 @@ class GameDetail
         ?Teams $teams = null,
         ?Score $score = null,
         ?League $league = null,
-        ?Fixture $fixture = null
+        ?Fixture $fixture = null,
+        ?Lineups $lineups = null
     ): self {
         return new self(
             $gameId,
@@ -38,7 +40,8 @@ class GameDetail
             $teams,
             $score,
             $league,
-            $fixture
+            $fixture,
+            $lineups
         );
     }
 
@@ -64,7 +67,7 @@ class GameDetail
         return [
             'id' => $this->gameId->get(),
             'fixture_id' => $this->fixtureId->get(),
-            'league_id' => $this->getLeagueId()->get(),
+            'league_id' => $this->getLeagueId()->first(),
             'season' => $this->fixture->getSeason(),
             'date' => $this->fixture->getDate(),
             'is_end' => $this->fixture->getIsEnd(),
@@ -72,6 +75,11 @@ class GameDetail
             'teams' => $this->teams->toCollect(),
             'league' => $this->league->toCollect()
         ];
+    }
+
+    public function getLineups()
+    {
+        return $this->lineups;
     }
 
     public function equalByFixtureId(FixtureId $fixtureId)
@@ -95,16 +103,25 @@ class GameDetail
 
     public function newDetail()
     {
-        return [$this->teams, $this->score, $this->league, $this->fixture];
+        return [$this->teams, $this->score, $this->league, $this->fixture, $this->lineups];
     }
 
     public function getTeamIds()
     {
-        return $this->teams->teamIds();
+        return $this->teams
+            ->teamIds()
+            ->map(fn(TeamId $teamId) => $teamId->get());
     }
 
     public function getLeagueId()
     {
-        return $this->league->leagueId();
+        return collect($this->league
+            ->leagueId()
+            ->get());
+    }
+
+    public function getPlayerIds()
+    {
+        return $this->lineups->getPlayerIds();
     }
 }

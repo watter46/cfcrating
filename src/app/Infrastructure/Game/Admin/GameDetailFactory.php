@@ -10,6 +10,7 @@ use App\UseCases\Admin\GameDetail\GameDetail;
 use App\UseCases\Admin\GameDetail\League;
 use App\UseCases\Admin\GameDetail\Score;
 use App\UseCases\Admin\GameDetail\Teams;
+use App\UseCases\Admin\GameDetail\Lineups;
 use App\Domain\Game\GameId;
 use App\Domain\Game\FixtureId;
 use App\Models\Game;
@@ -25,7 +26,8 @@ class GameDetailFactory
             Teams::create($raw_game_detail->getDot('teams')),
             Score::create($raw_game_detail->getDot('score')),
             League::create($raw_game_detail->getDot('league')),
-            Fixture::create($raw_game_detail->getDot('fixture'))
+            Fixture::create($raw_game_detail->getDot('fixture')),
+            Lineups::create($raw_game_detail->only(['lineups', 'statistics', 'players']))
         );
     }
 

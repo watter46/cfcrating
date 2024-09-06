@@ -11,6 +11,8 @@ use App\UseCases\Admin\GameDetail\GameDetail;
 use App\Domain\Game\GameId;
 use App\Infrastructure\Game\Admin\GameDetailFactory;
 use App\Models\Game as GameModel;
+use App\UseCases\Admin\GameDetail\LeagueImage;
+use App\UseCases\Admin\GameDetail\TeamImage;
 use File\FixtureFile;
 use File\FixturesFile;
 
@@ -59,13 +61,21 @@ class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface
 
     }
 
-    public function fetchLeagueImage(int $leagueId): string
+    public function fetchLeagueImage(int $leagueId): LeagueImage
     {
+        $image = 'league image'.$leagueId;
 
+        dd('repository');
+        
+        return new LeagueImage($leagueId, $image);
     }
 
-    public function fetchTeamImage(int $teamId): string
+    public function fetchTeamImage(int $teamId): TeamImage
     {
+        $image = 'team image'.$teamId;
 
+        dd('repository');
+
+        return new TeamImage($teamId, $image);
     }
 }

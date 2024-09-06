@@ -2,22 +2,17 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Support\ServiceProvider;
 
-use App\Domain\Admin\ApiFootballRepositoryInterface;
-use App\Domain\Admin\GameDetailRepositoryInterface;
-use App\Domain\Admin\GameFactoryInterface;
-use App\Domain\Admin\GameRepositoryInterface;
-use App\Infrastructure\ApiFootball\ApiFootballRepository;
-use App\Infrastructure\ApiFootball\MockApiFootballRepository;
-use App\Domain\Admin\PlayerFactoryInterface;
+use App\UseCases\Admin\ApiFootballRepositoryInterface;
+use App\UseCases\Admin\GameDetailRepositoryInterface;
+use App\Infrastructure\Image\ImageRepository;
 use App\Infrastructure\ApiFootball\InMemoryApiFootballRepository;
-use App\Infrastructure\Game\Admin\GameDetailFactory;
-use App\Infrastructure\Game\Admin\InMemoryGameRepository;
-use App\Infrastructure\Game\Admin\GameFactory;
+use App\Infrastructure\FlashLive\InMemoryFlashLiveRepository;
 use App\Infrastructure\Game\Admin\InMemoryGameDetailRepository;
-use App\Infrastructure\Player\PlayerFactory;
-use App\UseCases\Admin\GameDetail\GameDetailFactoryInterface;
+use App\UseCases\Admin\FlashLiveRepositoryInterface;
+use App\UseCases\Admin\ImageRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -27,14 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public $bindings = [
         ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
-
-        PlayerFactoryInterface::class => PlayerFactory::class,
-
-        GameFactoryInterface::class => GameFactory::class,        
-        GameRepositoryInterface::class => InMemoryGameRepository::class,
-
-        GameDetailFactoryInterface::class => GameDetailFactory::class,
-        GameDetailRepositoryInterface::class => InMemoryGameDetailRepository::class
+        FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
+        GameDetailRepositoryInterface::class => InMemoryGameDetailRepository::class,
+        ImageRepositoryInterface::class => ImageRepository::class,
     ];
     
     /**
