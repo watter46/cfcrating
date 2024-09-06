@@ -18,6 +18,7 @@ return new class extends Migration
             $table->smallInteger('season')->length(4)->unsigned();
             $table->tinyInteger('number')->nullable()->unsigned();
             $table->mediumInteger('api_player_id')->unsigned();
+            $table->boolean('is_fetched');
             $table->tinyText('flash_id')->nullable();
             $table->tinyText('flash_image_id')->nullable();
         });

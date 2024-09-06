@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('game_players', function (Blueprint $table) {
+        Schema::create('game_player', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            // $table->mediumInteger('api_player_id')->unsigned();
+            $table->boolean('is_starter');
+            $table->tinyText('grid')->nullable();
             $table->tinyInteger('assists')->unsigned();
             $table->tinyInteger('goals')->unsigned();
             $table->float('rating', 3, 1)->unsigned()->nullable();
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('game_players');
+        Schema::dropIfExists('game_player');
     }
 };

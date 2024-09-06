@@ -53,6 +53,9 @@ namespace App\Models{
  * @property AsCollection $score
  * @property AsCollection $teams
  * @property AsCollection $league
+ * @property-read \App\Models\GamePlayer $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Player> $gamePlayers
+ * @property-read int|null $game_players_count
  * @method static \Database\Factories\GameFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Game fixtureId(int $fixtureId)
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
@@ -75,21 +78,9 @@ namespace App\Models{
 /**
  * 
  *
- * @property string $id
- * @property int $assists
- * @property int $goals
- * @property float|null $rating
- * @property string $game_id
- * @property string $player_id
  * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer query()
- * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer whereAssists($value)
- * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer whereGameId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer whereGoals($value)
- * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer wherePlayerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|GamePlayer whereRating($value)
  */
 	class GamePlayer extends \Eloquent {}
 }
@@ -106,6 +97,9 @@ namespace App\Models{
  * @property int $api_player_id
  * @property string|null $flash_id
  * @property string|null $flash_image_id
+ * @property-read \App\Models\GamePlayer $game_player
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Game> $games
+ * @property-read int|null $games_count
  * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Player query()
@@ -113,7 +107,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereFlashId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereFlashImageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereInApiPlayerId(\Illuminate\Support\Collection $apiPlayerIds)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereNotInApiPlayerId(\Illuminate\Support\Collection $apiPlayerIds)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereSeason($value)
@@ -125,17 +121,9 @@ namespace App\Models{
 /**
  * 
  *
- * @property string $id
- * @property float|null $rating
- * @property int $is_mom
- * @property string $game_player_id
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Rating query()
- * @method static \Illuminate\Database\Eloquent\Builder|Rating whereGamePlayerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rating whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rating whereIsMom($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rating whereRating($value)
  */
 	class Rating extends \Eloquent {}
 }

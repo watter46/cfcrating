@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use App\Models\GamePlayer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->float('rating', 3, 1)->nullable()->unsigned()->checkBetween([0, 10.0]);
             $table->boolean('is_mom');
 
-            $table->foreignUlid('game_player_id')->constrained();
+            $table->foreignUlid('game_player_id')->constrained('game_player');
         });
     }
 

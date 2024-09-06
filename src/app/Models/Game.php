@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -61,5 +62,20 @@ class Game extends Model
     public function scopeFixtureId(Builder $query, int $fixtureId): void
     {
         $query->where('fixture_id', $fixtureId);
+    }
+
+    public function players(): BelongsToMany
+    {
+        return $this->belongsToMany(Player::class)
+            ->using(GamePlayer::class)
+            ->as('gamePlayer')
+            ->withPivot(
+                'id',
+                'is_starter',
+                'grid',
+                'assists',
+                'goals',
+                'rating'
+            );
     }
 }
