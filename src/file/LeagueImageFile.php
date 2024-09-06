@@ -7,20 +7,27 @@ class LeagueImageFile extends FileHandler implements PathInterface
 {
     private const DIR_PATH  = 'image/league';
 
-    private int $league;
+    private int $leagueId;
 
-    public function exist(int $league)
+    public function exist(int $leagueId)
     {
-        $this->league = $league;
+        $this->leagueId = $leagueId;
 
         return $this->existFile($this);
     }
 
-    public function get(int $league)
+    public function get(int $leagueId)
     {
-        $this->league = $league;
+        $this->leagueId = $leagueId;
 
         return $this->getFile($this); 
+    }
+
+    public function write(int $leagueId, string $image)
+    {
+        $this->leagueId = $leagueId;
+        
+        $this->writeFile($this, collect($image));
     }
 
     public function getDirPath(): string
@@ -30,6 +37,6 @@ class LeagueImageFile extends FileHandler implements PathInterface
 
     public function getFullPath(): string
     {
-        return public_path(self::DIR_PATH.'/'.$this->league);
+        return public_path(self::DIR_PATH.'/'.$this->leagueId);
     }
 }

@@ -27,7 +27,7 @@ class FileHandler
         return collect(json_decode($data, true))->recursiveCollect();
     }
 
-    public function writeFile(PathInterface $path, Collection $data)
+    protected function writeFile(PathInterface $path, Collection $data)
     {        
         File::ensureDirectoryExists($path->getDirPath());
 
