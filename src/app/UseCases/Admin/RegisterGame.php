@@ -13,7 +13,8 @@ class RegisterGame
 {
     public function __construct(
         private ApiFootballRepositoryInterface $apiFootballRepository,
-        private GameDetailRepositoryInterface $gameDetailRepository
+        private GameDetailRepositoryInterface $gameDetailRepository,
+        private GameImageChecker $gameImageChecker
     ) {
         
     }
@@ -29,5 +30,9 @@ class RegisterGame
         DB::transaction(function () use ($gameDetail) {
             $this->gameDetailRepository->save($gameDetail);
         });
+
+        $this->gameImageChecker
+            ->fromGame($gameDetail)
+            ->dispatch();
     }
 }
