@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Domain\Game\Season;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,5 +45,13 @@ class Player extends Model
     public function scopeWhereNotInApiPlayerId(Builder $query, Collection $apiPlayerIds): void
     {
         $query->whereNotIn('api_player_id', $apiPlayerIds->toArray());
+    }
+
+    /**
+     * @param  Builder<Player> $query
+     */
+    public function scopeCurrentSeason(Builder $query): void
+    {
+        $query->where('season', Season::current());
     }
 }

@@ -13,13 +13,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()
-            ->count(2)
+            ->count(5)
             ->state(new Sequence([
-                'email' => 'user@gmail.com',
-                'password' => 'testuser'
-            ], [
-                'email' => 'user2@gmail.com',
-                'password' => 'testuser2'
+                'password' => 'a'
             ]))
             ->create();
     }
