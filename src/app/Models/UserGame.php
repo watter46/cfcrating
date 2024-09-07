@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 
-class UserGameStat extends Model
+class UserGame extends Model
 {
     use HasFactory;
     use HasUlids;

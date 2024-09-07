@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('is_mom');
 
             $table->foreignUlid('game_player_id')->constrained('game_player');
+            $table->foreignId('user_id')->constrained();
         });
     }
 
