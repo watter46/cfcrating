@@ -166,6 +166,12 @@ class GamePlayer extends Pivot
         return $this->hasMany(Rating::class, 'game_player_id');
     }
 
+    public function myRating(): HasOne
+    {
+        return $this->hasOne(Rating::class, 'game_player_id')
+            ->where('user_id', 1);
+    }
+
     public function usersRating(): HasOne
     {
         return $this->hasOne(UsersRating::class, 'game_player_id');

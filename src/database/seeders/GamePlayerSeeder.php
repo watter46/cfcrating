@@ -11,6 +11,7 @@ use App\Models\GameUser;
 use App\Models\Player;
 use App\Models\Rating;
 use App\Models\User;
+use App\Models\UsersRating;
 use File\Eloquent\GamePlayerModelFile;
 
 
@@ -99,5 +100,16 @@ class GamePlayerSeeder extends Seeder
             ->flatten(1);
         
         GameUser::upsert($gameUsers->toArray(), 'id');
+
+        $usersRatings = $gamePlayerIds
+            ->map(function (string $gamePlayerId) {
+                return [
+                    'rating' => random_int(4,10),
+                    'is_mom' => false,
+                    'game_player_id' => $gamePlayerId
+                ];
+            });
+        
+        UsersRating::upsert($usersRatings->toArray(), 'id');
     }
 }

@@ -82,7 +82,6 @@ class Game extends Model
             ->using(GamePlayer::class)
             ->as('gamePlayer')
             ->withPivot(
-                'id',
                 'is_starter',
                 'grid',
                 'assists',
@@ -94,7 +93,6 @@ class Game extends Model
     public function gameUser(): HasMany
     {
         return $this->hasMany(GameUser::class)
-            // ->where('user_id', Auth::user()->id)
-            ;
+            ->where('user_id', Auth::user()->id);
     }
 }
