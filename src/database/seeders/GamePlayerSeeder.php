@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 
 use App\Models\Game;
 use App\Models\GamePlayer;
+use App\Models\GameUser;
 use App\Models\Player;
 use App\Models\Rating;
 use App\Models\User;
@@ -80,5 +81,23 @@ class GamePlayerSeeder extends Seeder
             ->flatten(1);
 
         Rating::upsert($ratings->toArray(), 'id');
+
+        $gameIds = Game::orderBy('date', 'desc')->whereFixtureId($fixtureId)->pluck('id');
+
+        $gameUsers = User::pluck('id')
+            ->map(function (int $userId) use ($gameIds) {
+                return $gameIds
+                    ->map(function ($gameId) use ($userId) {
+                        return [
+                            'is_rated' => true,
+                            'mom_count' => 1,
+                            'user_id' => $userId,
+                            'game_id' => $gameId
+                        ];
+                    });
+            })
+            ->flatten(1);
+        
+        GameUser::upsert($gameUsers->toArray(), 'id');
     }
 }

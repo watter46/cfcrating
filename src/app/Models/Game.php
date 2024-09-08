@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Domain\Game\Season;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * 
@@ -54,6 +57,15 @@ class Game extends Model
         'teams',
         'league',
     ];
+
+    /**
+     * @param  Builder<Game> $query
+     */
+    public function scopeCurrentSeason(Builder $query): void
+    {
+        $query->where('season', 2023);
+        // $query->where('season', Season::current());
+    }
     
     /**
      * @param  Builder<Game> $query
@@ -77,5 +89,12 @@ class Game extends Model
                 'goals',
                 'rating'
             );
+    }
+
+    public function gameUser(): HasMany
+    {
+        return $this->hasMany(GameUser::class)
+            // ->where('user_id', Auth::user()->id)
+            ;
     }
 }
