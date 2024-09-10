@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->float('rating', 3, 1)->nullable()->unsigned()->checkBetween([0, 10.0]);
-            $table->boolean('is_mom');
+            $table->tinyInteger('rate_count')->unsigned();
 
-            $table->foreignUlid('game_player_id')->constrained('game_player');
             $table->foreignId('user_id')->constrained();
+            $table->foreignUlid('game_player_id')->constrained('game_player');
         });
     }
 

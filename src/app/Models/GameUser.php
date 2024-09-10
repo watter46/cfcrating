@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 
-class UserGame extends Model
+class GameUser extends Model
 {
     use HasFactory;
     use HasUlids;
 
     public $incrementing = false;
+    public $timestamps = false;
     
     protected $keyType = 'string';
+
+    protected $table = 'game_user';
 }

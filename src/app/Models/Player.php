@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
 class Player extends Model
@@ -53,5 +55,10 @@ class Player extends Model
     public function scopeCurrentSeason(Builder $query): void
     {
         $query->where('season', Season::current());
+    }
+
+    public function gamePlayer(): HasOne
+    {
+        return $this->hasOne(GamePlayer::class);
     }
 }

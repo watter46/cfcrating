@@ -7,9 +7,11 @@ use Illuminate\Support\Collection;
 
 use App\Models\Game;
 use App\Models\GamePlayer;
+use App\Models\GameUser;
 use App\Models\Player;
 use App\Models\Rating;
 use App\Models\User;
+use App\Models\UsersRating;
 use File\Eloquent\GamePlayerModelFile;
 
 
@@ -72,7 +74,8 @@ class GamePlayerSeeder extends Seeder
                         return [
                             'game_player_id' => $gamePlayerId,
                             'rating' => $rand_ratings[$index],
-                            'is_mom' => $index === $momIndex,
+                            // 'is_mom' => $index === $momIndex,
+                            'rate_count' => 1,
                             'user_id' => $userId
                         ];
                     });
@@ -80,5 +83,35 @@ class GamePlayerSeeder extends Seeder
             ->flatten(1);
 
         Rating::upsert($ratings->toArray(), 'id');
+
+        $gameIds = Game::orderBy('date', 'desc')->whereFixtureId($fixtureId)->pluck('id');
+
+        $gameUsers = User::pluck('id')
+            ->map(function (int $userId) use ($gameIds) {
+                return $gameIds
+                    ->map(function ($gameId) use ($userId) {
+                        return [
+                            'is_rated' => true,
+                            'mom_count' => 1,
+                            'user_id' => $userId,
+                            'game_id' => $gameId,
+                            'mom_game_player_id' => null
+                        ];
+                    });
+            })
+            ->flatten(1);
+        
+        GameUser::upsert($gameUsers->toArray(), 'id');
+
+        $usersRatings = $gamePlayerIds
+            ->map(function (string $gamePlayerId) {
+                return [
+                    'rating' => random_int(4,10),
+                    'is_mom' => false,
+                    'game_player_id' => $gamePlayerId
+                ];
+            });
+        
+        UsersRating::upsert($usersRatings->toArray(), 'id');
     }
 }
