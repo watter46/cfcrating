@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,9 +91,16 @@ class Game extends Model
             );
     }
 
-    public function gameUser(): HasMany
+    public function gamePlayers(): HasMany
     {
-        return $this->hasMany(GameUser::class)
-            ->where('user_id', Auth::user()->id);
+        return $this->hasMany(GamePlayer::class);
+    }
+
+    public function gameUser(): HasOne
+    {
+        return $this->hasOne(GameUser::class)
+            // ->where('user_id', Auth::user()->id)
+            ->where('user_id', 1)
+            ;
     }
 }

@@ -16,9 +16,11 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->boolean('is_rated');
             $table->tinyInteger('mom_count')->unsigned();
+            $table->ulid('mom_game_player_id')->nullable();
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignUlid('game_id')->constrained();
+            $table->foreign('mom_game_player_id')->references('id')->on('game_player');
         });
     }
 
