@@ -74,7 +74,8 @@ class GamePlayerSeeder extends Seeder
                         return [
                             'game_player_id' => $gamePlayerId,
                             'rating' => $rand_ratings[$index],
-                            'is_mom' => $index === $momIndex,
+                            // 'is_mom' => $index === $momIndex,
+                            'rate_count' => 1,
                             'user_id' => $userId
                         ];
                     });
@@ -93,7 +94,8 @@ class GamePlayerSeeder extends Seeder
                             'is_rated' => true,
                             'mom_count' => 1,
                             'user_id' => $userId,
-                            'game_id' => $gameId
+                            'game_id' => $gameId,
+                            'mom_game_player_id' => null
                         ];
                     });
             })
