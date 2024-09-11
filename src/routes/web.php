@@ -20,8 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('games')
         ->group(function () {
             Route::get('/', [GameController::class, 'index'])->name('games');
-            // Route::get('/latest', [GameController::class, 'latest'])->name('fixtures.latest');
-            // Route::get('/{fixtureId}', [GameController::class, 'find'])->name('fixtures.find');
+            Route::get('/latest', [GameController::class, 'latest'])->name('games.latest');
+            // Route::get('/{gameId}', [GameController::class, 'find'])->name('games.find');
         });
 });
 

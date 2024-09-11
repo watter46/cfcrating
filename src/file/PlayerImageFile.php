@@ -9,27 +9,32 @@ class PlayerImageFile extends FileHandler implements PathInterface
 {
     private const DIR_PATH  = 'image/player';
 
-    private int $player;
+    private int $playerId;
 
-    public function exist(int $player)
+    public function exist(int $playerId)
     {
-        $this->player = $player;
+        $this->playerId = $playerId;
 
         return $this->existFile($this);
     }
 
-    public function get(int $player)
+    public function get(int $playerId)
     {
-        $this->player = $player;
+        $this->playerId = $playerId;
 
         return $this->getFile($this); 
     }
 
-    public function write(int $player, string $image)
+    public function write(int $playerId, string $image)
     {
-        $this->player = $player;
+        $this->playerId = $playerId;
         
         $this->writeFile($this, collect($image));
+    }
+
+    public function path(int $playerId)
+    {
+        return self::DIR_PATH.'/'.$playerId;
     }
 
     public function getDirPath(): string
@@ -39,6 +44,6 @@ class PlayerImageFile extends FileHandler implements PathInterface
 
     public function getFullPath(): string
     {
-        return public_path(self::DIR_PATH.'/'.$this->player);
+        return public_path(self::DIR_PATH.'/'.$this->playerId);
     }
 }
