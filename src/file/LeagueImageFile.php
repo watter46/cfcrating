@@ -30,6 +30,11 @@ class LeagueImageFile extends FileHandler implements PathInterface
         $this->writeFile($this, collect($image));
     }
 
+    public function path(int $leagueId)
+    {
+        return self::DIR_PATH.'/'.$leagueId;
+    }
+
     public function getDirPath(): string
     {
         return self::DIR_PATH;
