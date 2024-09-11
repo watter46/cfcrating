@@ -1,0 +1,20 @@
+/* ロード時のプレイヤーのアニメーション */
+.zoomIn {
+    position: relative;
+    animation: zoomIn 0.7s ease-in-out forwards;
+}
+
+@keyframes zoomIn {
+    0% {
+      transform: scale(0.3);
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+}
+
+.player:hover {
+    @apply duration-100 transform scale-125;
+}
