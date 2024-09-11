@@ -3,9 +3,10 @@
 namespace App\UseCases\User;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Game;
-use Illuminate\Support\Facades\Auth;
+
 
 class FetchLatestGame
 {
