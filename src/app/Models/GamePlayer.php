@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-
+use Illuminate\Support\Facades\Auth;
 
 class GamePlayer extends Pivot
 {
@@ -22,6 +22,10 @@ class GamePlayer extends Pivot
     protected $keyType = 'string';
 
     protected $table = 'game_player';
+
+    protected $casts = [
+        'is_starter' => 'boolean'
+    ];
 
     /**
      * ツアーでソートする
@@ -169,7 +173,7 @@ class GamePlayer extends Pivot
     public function myRating(): HasOne
     {
         return $this->hasOne(Rating::class, 'game_player_id')
-            ->where('user_id', 1);
+            ->where('user_id', Auth::user()->id);
     }
 
     public function usersRating(): HasOne

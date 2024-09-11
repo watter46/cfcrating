@@ -22,7 +22,7 @@ class PlayerRateRules
     public const MOM_LIMIT_EXCEEDED_MESSAGE = 'MOM limit exceeded.';
 
 
-    public function isRateExceeded(Game $game): bool
+    public function isRateExpired(Game $game): bool
     {
         $specifiedDate = Carbon::parse($game->date);
         
@@ -49,5 +49,14 @@ class PlayerRateRules
         }
 
         return false;
+    }
+
+    public function getLimits(Game $game)
+    {
+        return [
+            'isRateExpired' => $this->isRateExpired($game),
+            'rateLimit' => self::RATE_LIMIT,
+            'momLimit' => self::MOM_LIMIT
+        ];
     }
 }

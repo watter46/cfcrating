@@ -5,22 +5,27 @@ namespace App\UseCases\User;
 use Exception;
 
 use App\Models\Game;
-
+use Illuminate\Support\Facades\Auth;
 
 class FetchLatestGame
 {
+    public function __construct(private PlayerRateRules $playerRateRules)
+    {
+        
+    }
+    
     public function execute()
     {
         try {
-            return collect(Game::query()
+            $game = Game::query()
                 ->with([
-                    'gameUser:game_id,is_rated,mom_count',
-                    'players:id,name,number',
+                    'gameUser' => fn($query) => $query
+                        ->where('user_id', Auth::user()->id),
+                    'players:id,api_player_id,name,number,position',
                     'players' => fn($query) => $query
                         ->with([
-                            'gamePlayer:id,game_id,player_id',
                             'gamePlayer' => [
-                                'myRating:game_player_id,rating,is_mom',
+                                'myRating:game_player_id,rating,rate_count',
                                 'usersRating'
                             ]
                         ])
@@ -29,8 +34,11 @@ class FetchLatestGame
                 ->where('is_end', true)
                 ->orderBy('date', 'desc')
                 ->limit(1)
-                ->first());
-                
+                ->first();
+
+            return collect($game)
+                ->merge($this->playerRateRules->getLimits($game))
+                ->recursiveCollect();
 
         } catch (Exception $e) {
             throw $e;

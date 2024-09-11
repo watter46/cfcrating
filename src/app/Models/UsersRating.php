@@ -16,4 +16,8 @@ class UsersRating extends Model
     public $timestamps = false;
     
     protected $keyType = 'string';
+
+    protected $casts = [
+        'is_mom' => 'boolean'
+    ];
 }
