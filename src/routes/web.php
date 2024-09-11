@@ -21,7 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->group(function () {
             Route::get('/', [GameController::class, 'index'])->name('games');
             Route::get('/latest', [GameController::class, 'latest'])->name('games.latest');
-            // Route::get('/{gameId}', [GameController::class, 'find'])->name('games.find');
+            Route::get('/{gameId}', [GameController::class, 'find'])->name('games.find');
         });
 });
 
