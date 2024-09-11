@@ -102,6 +102,7 @@
                             :$startXI
                             :$substitutes
                             :$mobileSubstitutes
+                            :$isWinner
                             :$playerGridCss
                             :$id />
                     </div>
