@@ -34,7 +34,7 @@ class DecideMom
                 throw new ModelNotFoundException('Game Not Found');
             }
 
-            if ($this->playerRateRules->isRateExceeded($game)) {
+            if ($this->playerRateRules->isRateExpired($game)) {
                 throw new DomainException($this->playerRateRules::RATE_PERIOD_EXPIRED_MESSAGE);
             }
 

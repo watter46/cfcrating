@@ -49,7 +49,7 @@ class RatePlayer
                 throw new ModelNotFoundException('GamePlayer Not Found');
             }
 
-            if ($this->playerRateRules->isRateExceeded($game)) {
+            if ($this->playerRateRules->isRateExpired($game)) {
                 throw new DomainException($this->playerRateRules::RATE_PERIOD_EXPIRED_MESSAGE);
             }
 
