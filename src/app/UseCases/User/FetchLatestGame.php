@@ -33,9 +33,10 @@ class FetchLatestGame
                 ->first();
 
             $game->gamePlayers
-                ->map(function (GamePlayer $gamePlayer) {
+                ->map(function (GamePlayer $gamePlayer) use ($game) {
                     $gamePlayer['canRate'] = $this->playerRateRules->canRate($gamePlayer);
-                    
+                    $gamePlayer['canMom']  = $this->playerRateRules->canDecideMOM($game->gameUser);
+
                     return $gamePlayer;
                 });
             

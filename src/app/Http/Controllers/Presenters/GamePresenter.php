@@ -92,7 +92,6 @@ class GamePresenter
         $rateLimit = $game['rateLimit'];
         $momCount  = $game->getDotRaw('game_user.mom_count');
         $momLimit  = $game['momLimit'];
-        $isRateExpired = $game['isRateExpired'];
 
         return collect([
             'id' => $gamePlayer['id'],
@@ -115,7 +114,7 @@ class GamePresenter
             'canRate' => $gamePlayer['canRate'],
             'momCount' => $momCount,
             'momLimit' => $momLimit,
-            'canMom' => $momLimit - $momCount > 0 && !$isRateExpired
+            'canMom' => $gamePlayer['canMom']
         ]);
     }
 }
