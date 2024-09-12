@@ -6,6 +6,7 @@ use App\Domain\Game\TournamentType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -165,6 +166,11 @@ class GamePlayer extends Pivot
         $query->where('game_id', $gameId);
     }
 
+    public function player(): BelongsTo
+    {
+        return $this->belongsTo(Player::class);
+    }
+
     public function ratings(): HasMany
     {
         return $this->hasMany(Rating::class, 'game_player_id');
@@ -173,7 +179,7 @@ class GamePlayer extends Pivot
     public function myRating(): HasOne
     {
         return $this->hasOne(Rating::class, 'game_player_id')
-            ->where('user_id', Auth::user()->id);
+            ->where('user_id', Auth::id());
     }
 
     public function usersRating(): HasOne

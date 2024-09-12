@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 use App\UseCases\Util\TournamentType;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * 
@@ -97,6 +99,7 @@ class Game extends Model
             ->using(GamePlayer::class)
             ->as('gamePlayer')
             ->withPivot(
+                'id',
                 'is_starter',
                 'grid',
                 'assists',
@@ -110,8 +113,9 @@ class Game extends Model
         return $this->hasMany(GamePlayer::class);
     }
 
-    public function gameUser(): HasMany
+    public function gameUser(): HasOne
     {
-        return $this->hasMany(GameUser::class);
+        return $this->hasOne(GameUser::class)
+            ->where('user_id', Auth::id());
     }
 }

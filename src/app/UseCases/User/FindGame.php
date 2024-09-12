@@ -20,16 +20,12 @@ class FindGame
         try {
             $game = Game::query()
                 ->with([
-                    'gameUser' => fn($query) => $query
-                        ->where('user_id', Auth::user()->id),
-                    'players:id,api_player_id,name,number,position',
-                    'players' => fn($query) => $query
-                        ->with([
-                            'gamePlayer' => [
-                                'myRating:game_player_id,rating,rate_count',
-                                'usersRating'
-                            ]
-                        ])
+                    'gameUser',
+                    'gamePlayers' => [
+                        'player:id,api_player_id,name,number,position',
+                        'myRating',
+                        'usersRating'
+                    ]
                 ])
                 ->find($gameId);
 
