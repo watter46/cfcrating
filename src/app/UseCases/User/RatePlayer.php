@@ -32,6 +32,7 @@ class RatePlayer
                 ->with([
                     'gameUser:game_id,mom_count',
                     'gamePlayers' => fn ($query) => $query
+                        ->select(['id', 'game_id'])
                         ->with('myRating')
                         ->where('id', $gamePlayerId)
                 ])
@@ -53,7 +54,7 @@ class RatePlayer
                 throw new DomainException($this->playerRateRules::RATE_PERIOD_EXPIRED_MESSAGE);
             }
 
-            if ($this->playerRateRules->canRate($gamePlayer)) {
+            if (!$this->playerRateRules->canRate($gamePlayer)) {
                 throw new DomainException($this->playerRateRules::RATE_LIMIT_EXCEEDED_MESSAGE);
             }
 
@@ -66,18 +67,30 @@ class RatePlayer
                 ]);
 
             $myRating->rate_count++;
+            $myRating->rating = $rating;
 
             DB::transaction(function () use ($myRating) {
                 $myRating->save();
             });
 
+            $newGamePlayer = $gamePlayer->refresh();
+
+            return [
+                'id'        => $gamePlayer->id,
+                'canRate'   => $this->playerRateRules->canRate($newGamePlayer),
+                'rateCount' => $newGamePlayer->myRating->rate_count,
+                'myRating'  => $newGamePlayer->myRating->rating,
+            ];
+
         } catch (ModelNotFoundException $e) {
             throw $e;
 
         } catch (DomainException $e) {
+            dd($e);
             throw $e;
             
         } catch (Exception $e) {
+            dd($e);
             throw $e;
         }
     }

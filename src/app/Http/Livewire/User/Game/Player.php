@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\User\Game;
 
+use App\Http\Livewire\Util\MessageType;
 use App\UseCases\User\DecideMom;
 use App\UseCases\User\RatePlayer;
 use Exception;
@@ -52,13 +53,12 @@ class Player extends Component
     {
         try {
             $player = $this->ratePlayer->execute(
-                    $this->player['fixture_info_id'],
-                    $this->player['player_info_id'],
+                    $this->player['gameId'],
+                    $this->player['id'],
                     $rating
                 );
-            
+
             $this->dispatchPlayerUpdated($player);
-            $this->dispatch('player-rated');
             $this->dispatch('notify', message: MessageType::Success->toArray(self::RATED_MESSAGE));
             $this->dispatch('close');
 
@@ -67,27 +67,27 @@ class Player extends Component
         }
     }
 
-    /**
-     * ManOfTheMatchを決める
-     *
-     * @return void
-     */
-    public function decideMom(): void
-    {
-        try {
-            [$newMom, $oldMom] = $this->decideMom->execute(
-                    $this->player['fixture_info_id'],
-                    $this->player['player_info_id']
-                );
+    // /**
+    //  * ManOfTheMatchを決める
+    //  *
+    //  * @return void
+    //  */
+    // public function decideMom(): void
+    // {
+    //     try {
+    //         [$newMom, $oldMom] = $this->decideMom->execute(
+    //                 $this->player['fixture_info_id'],
+    //                 $this->player['player_info_id']
+    //             );
 
-            $this->dispatch('mom-count-updated', $newMom);
-            $this->dispatchPlayerUpdated($newMom);
-            $this->dispatchPlayerUpdated($oldMom);
-            $this->dispatch('notify', message: MessageType::Success->toArray(self::Decided_MOM_MESSAGE));
-            $this->dispatch('close');
+    //         $this->dispatch('mom-count-updated', $newMom);
+    //         $this->dispatchPlayerUpdated($newMom);
+    //         $this->dispatchPlayerUpdated($oldMom);
+    //         $this->dispatch('notify', message: MessageType::Success->toArray(self::Decided_MOM_MESSAGE));
+    //         $this->dispatch('close');
 
-        } catch (Exception $e) {
-            $this->dispatch('notify', message: MessageType::Error->toArray($e->getMessage()));
-        }
-    }
+    //     } catch (Exception $e) {
+    //         $this->dispatch('notify', message: MessageType::Error->toArray($e->getMessage()));
+    //     }
+    // }
 }

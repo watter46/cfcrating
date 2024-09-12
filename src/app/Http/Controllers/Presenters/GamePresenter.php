@@ -109,9 +109,10 @@ class GamePresenter
             'usersRating' => $gamePlayer->getDotRaw('users_rating.rating'),
             'usersMom' => $gamePlayer->getDotRaw('users_rating.is_mom'),
             'machineRating' => $gamePlayer['rating'],
+            'gameId' => $game['id'],
             'rateCount' => $rateCount,
             'rateLimit' => $rateLimit,
-            'canRate' => $rateLimit - $rateCount > 0 && !$isRateExpired,
+            'canRate' => $gamePlayer['canRate'],
             'momCount' => $momCount,
             'momLimit' => $momLimit,
             'canMom' => $momLimit - $momCount > 0 && !$isRateExpired
