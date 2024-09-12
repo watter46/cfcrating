@@ -3,7 +3,6 @@
 namespace App\UseCases\User;
 
 use Exception;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\Game;
 use App\UseCases\Util\TournamentType;
@@ -15,10 +14,7 @@ class FetchGames
     {
         try {
             return Game::query()
-                ->with([
-                    'gameUser' => fn($query) => $query
-                        ->where('user_id', Auth::user()->id)
-                ])
+                ->with('gameUser')
                 ->select(['id', 'date', 'score', 'teams', 'league'])
                 ->tournament($tournament)
                 ->currentSeason()

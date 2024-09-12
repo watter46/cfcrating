@@ -32,9 +32,17 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
         
         $data = $lineups->get()
             ->flatten(1)
-            ->map(fn($player) => 
-                $player->only(['id', 'grid', 'assists', 'goal', 'rating'])
-            );
+            ->map(function (Collection $player) {
+                $player = $player->only(['id', 'grid', 'assists', 'goal', 'rating']);
+
+                return [
+                    'id'      => $player['id'],
+                    'grid'    => $player['grid'],
+                    'goals'   => $player['goal'],
+                    'assists' => $player['assists'],
+                    'rating'  => $player['rating']
+                ];
+            });
 
         $this->write($fixtureId, $data);
     }

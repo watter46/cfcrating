@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Game;
-
+use App\Models\GamePlayer;
 
 class FetchLatestGame
 {
@@ -20,23 +20,18 @@ class FetchLatestGame
         try {
             $game = Game::query()
                 ->with([
-                    'gameUser' => fn($query) => $query
-                        ->where('user_id', Auth::user()->id),
-                    'players:id,api_player_id,name,number,position',
-                    'players' => fn($query) => $query
-                        ->with([
-                            'gamePlayer' => [
-                                'myRating:game_player_id,rating,rate_count',
-                                'usersRating'
-                            ]
-                        ])
+                    'gameUser',
+                    'gamePlayers' => [
+                        'player:id,api_player_id,name,number,position',
+                        'myRating',
+                        'usersRating'
+                    ]
                 ])
                 ->currentSeason()
                 ->where('is_end', true)
                 ->orderBy('date', 'desc')
-                ->limit(1)
                 ->first();
-
+                
             return collect($game)
                 ->merge($this->playerRateRules->getLimits($game))
                 ->recursiveCollect();

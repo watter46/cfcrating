@@ -31,9 +31,9 @@ class GamePresenter
     public function presentGame(Collection $game): Collection
     {
         $players = $game
-            ->getDot('players')
-            ->map(function (Collection $player) use ($game) {
-                return $this->formatPlayer($player, $game);
+            ->getDot('game_players')
+            ->map(function (Collection $gamePlayer) use ($game) {
+                return $this->formatPlayer($gamePlayer, $game);
             });
         
         $startXI = $players
@@ -78,7 +78,7 @@ class GamePresenter
             'isWinner' => $game['teams']
                 ->firstWhere('id', config('api-football.chelsea-id'))
                 ->get('winner'),
-            'isRated' => $game->getDotRaw('game_user.0.is_rated'),
+            'isRated' => $game->getDotRaw('game_user.is_rated'),
             'startXI' => $startXI,
             'substitutes' => $substitutes,
             'mobileSubstitutes' => $mobileSubstitutes,
@@ -86,29 +86,29 @@ class GamePresenter
         ]);
     }
 
-    private function formatPlayer(Collection $player, Collection $game)
+    private function formatPlayer(Collection $gamePlayer, Collection $game)
     {
-        $rateCount = $player->getDotRaw('game_player.my_rating.rate_count');
+        $rateCount = $gamePlayer->getDotRaw('my_rating.rate_count');
         $rateLimit = $game['rateLimit'];
-        $momCount  = $game->getDotRaw('game_user.0.mom_count');
+        $momCount  = $game->getDotRaw('game_user.mom_count');
         $momLimit  = $game['momLimit'];
         $isRateExpired = $game['isRateExpired'];
 
         return collect([
-            'id' => $player->getDotRaw('game_player.id'),
-            'name' => Str::afterLast($player['name'], ' '),
-            'number' => $player['number'],
-            'position' => $player['position'],
-            'path' => $this->playerImageFile->path($player['api_player_id']),
-            'grid' => $player->getDotRaw('game_player.grid'),
-            'isStarter' => $player->getDotRaw('game_player.is_starter'),
-            'assists' => $player->getDotRaw('game_player.assists'),
-            'goals' => $player->getDotRaw('game_player.goals'),
-            'myRating' => $player->getDotRaw('game_player.my_rating.rating'),
-            'myMom' => $player->getDotRaw('game_player.id') === $game->getDotRaw('game_player.id'),
-            'usersRating' => $player->getDotRaw('game_player.users_rating.rating'),
-            'usersMom' => $player->getDotRaw('game_player.users_rating.is_mom'),
-            'machineRating' => $player->getDotRaw('game_player.rating'),
+            'id' => $gamePlayer['id'],
+            'name' => Str::afterLast($gamePlayer->getDotRaw('player.name'), ' '),
+            'number' => $gamePlayer->getDotRaw('player.number'),
+            'position' => $gamePlayer->getDotRaw('player.position'),
+            'path' => $this->playerImageFile->path($gamePlayer->getDotRaw('player.api_player_id')),
+            'grid' => $gamePlayer['grid'],
+            'isStarter' => $gamePlayer['is_starter'],
+            'assists' => $gamePlayer['assists'],
+            'goals' => $gamePlayer['goals'],
+            'myRating' => $gamePlayer->getDotRaw('my_rating.rating'),
+            'myMom' => $gamePlayer['id'] === $game->getDotRaw('game_user.mom_game_player_id'),
+            'usersRating' => $gamePlayer->getDotRaw('users_rating.rating'),
+            'usersMom' => $gamePlayer->getDotRaw('users_rating.is_mom'),
+            'machineRating' => $gamePlayer['rating'],
             'rateCount' => $rateCount,
             'rateLimit' => $rateLimit,
             'canRate' => $rateLimit - $rateCount > 0 && !$isRateExpired,
