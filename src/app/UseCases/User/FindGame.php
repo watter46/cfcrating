@@ -3,9 +3,9 @@
 namespace App\UseCases\User;
 
 use Exception;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\Game;
+use App\Models\GamePlayer;
 
 
 class FindGame
@@ -28,6 +28,13 @@ class FindGame
                     ]
                 ])
                 ->find($gameId);
+
+            $game->gamePlayers
+                ->map(function (GamePlayer $gamePlayer) {
+                    $gamePlayer['canRate'] = $this->playerRateRules->canRate($gamePlayer);
+                    
+                    return $gamePlayer;
+                });
 
             return collect($game)
                 ->merge($this->playerRateRules->getLimits($game))

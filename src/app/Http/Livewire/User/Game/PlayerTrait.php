@@ -4,32 +4,42 @@ namespace App\Http\Livewire\User\Game;
 
 use Livewire\Attributes\On;
 
-use App\Models\Player;
-
 
 trait PlayerTrait
 {
     /**
      * プロパティを更新するイベントを発行する
      *
-     * @param  ?Player $player
+     * @param  array $player
      * @return void
      */
-    public function dispatchPlayerUpdated(?Player $player)
+    public function dispatchPlayerUpdated(array $player)
     {
-        if (!$player) return;
-
-        $this->dispatch('update-player.'.$player->player_info_id, $player);
+        $this->dispatch('update-player.'.$this->player['id'], $player);
     }
 
     #[On('update-player.{player.id}')]
     public function update(array $player)
     {
-        $this->player['canRate'] = $player['canRate'];
-        $this->player['canMom'] = $player['canMom'];
-        $this->player['rateCount'] = $player['rate_count'];
-        $this->player['ratings']['my']['rating'] = $player['rating'];
-        $this->player['ratings']['my']['mom'] = $player['mom'];
+        if (isset($player['canRate'])) {
+            $this->player['canRate'] = $player['canRate'];
+        }
+    
+        if (isset($player['rateCount'])) {
+            $this->player['rateCount'] = $player['rateCount'];
+        }
+
+        if (isset($player['myRating'])) {
+            $this->player['myRating'] = $player['myRating'];
+        }
+    
+        // if (isset($player['canMom'])) {
+        //     $this->player['canMom'] = $player['canMom'];
+        // }
+    
+        // if (isset($player['mom'])) {
+        //     $this->player['ratings']['my']['mom'] = $player['mom'];
+        // }
     }
 
     #[On('mom-count-updated')]
