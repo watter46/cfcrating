@@ -57,24 +57,21 @@ class RatePlayer
             if (!$this->playerRateRules->canRate($gamePlayer)) {
                 throw new DomainException($this->playerRateRules::RATE_LIMIT_EXCEEDED_MESSAGE);
             }
-
+            
             /** @var Rating $myRating */
-            $myRating = $gamePlayer->myRating
-                ?? new Rating([
-                    'game_player_id' => $gamePlayerId,
-                    'user_id' => 1,
-                    'rating' => $rating
-                ]);
+            $myRating = $gamePlayer->myRating;
 
             $myRating->rate_count++;
             $myRating->rating = $rating;
 
-            DB::transaction(function () use ($myRating) {
-                $myRating->save();
+            DB::transaction(function () use ($myRating, $gamePlayer) {
+                $gamePlayer
+                    ->myRating()
+                    ->save($myRating);
             });
-
-            $newGamePlayer = $gamePlayer->refresh();
-
+            
+            $newGamePlayer = $gamePlayer->refresh()->load('myRating');
+            
             return [
                 'id'        => $gamePlayer->id,
                 'canRate'   => $this->playerRateRules->canRate($newGamePlayer),
@@ -86,11 +83,9 @@ class RatePlayer
             throw $e;
 
         } catch (DomainException $e) {
-            dd($e);
             throw $e;
             
         } catch (Exception $e) {
-            dd($e);
             throw $e;
         }
     }
