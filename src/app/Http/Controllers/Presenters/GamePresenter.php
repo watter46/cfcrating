@@ -89,9 +89,7 @@ class GamePresenter
     private function formatPlayer(Collection $gamePlayer, Collection $game)
     {
         $rateCount = $gamePlayer->getDotRaw('my_rating.rate_count') ?? 0;
-        $rateLimit = $game['rateLimit'];
         $momCount  = $game->getDotRaw('game_user.mom_count');
-        $momLimit  = $game['momLimit'];
 
         return collect([
             'id' => $gamePlayer['id'],
@@ -110,10 +108,10 @@ class GamePresenter
             'machineRating' => $gamePlayer['rating'],
             'gameId' => $game['id'],
             'rateCount' => $rateCount,
-            'rateLimit' => $rateLimit,
+            'rateLimit' => $gamePlayer['rateLimit'],
             'canRate' => $gamePlayer['canRate'],
             'momCount' => $momCount,
-            'momLimit' => $momLimit,
+            'momLimit' => $gamePlayer['momLimit'],
             'canMom' => $gamePlayer['canMom']
         ]);
     }

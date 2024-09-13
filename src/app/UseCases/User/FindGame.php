@@ -6,11 +6,12 @@ use Exception;
 
 use App\Models\Game;
 use App\Models\GamePlayer;
+use App\UseCases\User\GamePlayerValidator;
 
 
 class FindGame
 {
-    public function __construct(private PlayerRateRules $playerRateRules)
+    public function __construct(private GamePlayerValidator $validator)
     {
         
     }
@@ -29,17 +30,13 @@ class FindGame
                 ])
                 ->find($gameId);
 
-            $game->gamePlayers
+            $game
+                ->gamePlayers
                 ->map(function (GamePlayer $gamePlayer) use ($game) {
-                    $gamePlayer['canRate'] = $this->playerRateRules->canRate($gamePlayer);
-                    $gamePlayer['canMom']  = $this->playerRateRules->canDecideMOM($game->gameUser);
-
-                    return $gamePlayer;
+                    return $this->validator->validated($game, $gamePlayer);
                 });
 
-            return collect($game)
-                ->merge($this->playerRateRules->getLimits($game))
-                ->recursiveCollect();
+            return collect($game)->recursiveCollect();
 
         } catch (Exception $e) {
             throw $e;
