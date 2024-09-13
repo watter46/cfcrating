@@ -14,11 +14,11 @@ class PlayerRateRules
     public const RATE_PERIOD_EXPIRED_MESSAGE = 'Rate period has expired.';
 
     /** レーティング評価可能回数 */
-    private const RATE_LIMIT = 3;
+    public const RATE_LIMIT = 3;
     public const RATE_LIMIT_EXCEEDED_MESSAGE = 'Rate limit exceeded.';
 
     /** MOM評価可能回数 */
-    private const MOM_LIMIT = 5;
+    public const MOM_LIMIT = 5;
     public const MOM_LIMIT_EXCEEDED_MESSAGE = 'MOM limit exceeded.';
 
 
@@ -31,10 +31,6 @@ class PlayerRateRules
 
     public function canRate(GamePlayer $gamePlayer): bool
     {
-        if (!isset($gamePlayer->myRating)) {
-            return true;
-        }
-        
         if ($gamePlayer->myRating->rate_count < self::RATE_LIMIT) {
             return true;
         }

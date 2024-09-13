@@ -64,10 +64,16 @@ class RatePlayer
             $myRating->rate_count++;
             $myRating->rating = $rating;
 
-            DB::transaction(function () use ($myRating, $gamePlayer) {
+            /** @var GameUser $gameUser */
+            $gameUser = $game->gameUser;
+            $gameUser->is_rated = true;
+
+            DB::transaction(function () use ($myRating, $gamePlayer, $gameUser) {
                 $gamePlayer
                     ->myRating()
                     ->save($myRating);
+
+                $gameUser->save();
             });
             
             $newGamePlayer = $gamePlayer->refresh()->load('myRating');

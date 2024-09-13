@@ -10,7 +10,7 @@ use App\Models\GamePlayer;
 
 class FetchLatestGame
 {
-    public function __construct(private PlayerRateRules $playerRateRules)
+    public function __construct(private GamePlayerValidator $validator)
     {
         
     }
@@ -32,17 +32,13 @@ class FetchLatestGame
                 ->orderBy('date', 'desc')
                 ->first();
 
-            $game->gamePlayers
+            $game
+                ->gamePlayers
                 ->map(function (GamePlayer $gamePlayer) use ($game) {
-                    $gamePlayer['canRate'] = $this->playerRateRules->canRate($gamePlayer);
-                    $gamePlayer['canMom']  = $this->playerRateRules->canDecideMOM($game->gameUser);
-
-                    return $gamePlayer;
+                    return $this->validator->validated($game, $gamePlayer);
                 });
 
-            return collect($game)
-                ->merge($this->playerRateRules->getLimits($game))
-                ->recursiveCollect();
+            return collect($game)->recursiveCollect();
 
         } catch (Exception $e) {
             throw $e;
