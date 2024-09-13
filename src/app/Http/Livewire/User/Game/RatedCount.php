@@ -6,7 +6,7 @@ use Exception;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-use App\Livewire\MessageType;
+use App\Http\Livewire\Util\MessageType;
 use App\UseCases\User\CalculateRatingPercentage;
 
 
@@ -34,7 +34,7 @@ class RatedCount extends Component
         return view('livewire.user.game.rated-count');
     }
 
-    #[On('player-rated')]
+    #[On('player-updated')]
     public function fetch(): void
     {
         try {            
@@ -43,8 +43,7 @@ class RatedCount extends Component
             $this->isZero = $this->ratedPercentage === 0;
 
         } catch (Exception $e) {
-            dd($e);
-            // $this->dispatch('notify', message: MessageType::Error->toArray($e->getMessage()));
+            $this->dispatch('notify', message: MessageType::Error->toArray($e->getMessage()));
         }
     }
 }

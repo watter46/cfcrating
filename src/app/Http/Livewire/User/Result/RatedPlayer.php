@@ -4,7 +4,7 @@ namespace App\Http\Livewire\User\Result;
 
 use Livewire\Component;
 
-use App\Http\Livewire\User\Game\PlayerTrait;
+use App\Http\Livewire\User\Game\PlayerDispatcher;
 
 
 class RatedPlayer extends Component
@@ -14,7 +14,7 @@ class RatedPlayer extends Component
     
     public array $player;
 
-    use PlayerTrait;
+    use PlayerDispatcher;
 
     public function render()
     {

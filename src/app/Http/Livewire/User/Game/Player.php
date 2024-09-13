@@ -5,9 +5,9 @@ namespace App\Http\Livewire\User\Game;
 use Exception;
 use Livewire\Component;
 
-use App\Http\Livewire\Util\MessageType;
 use App\UseCases\User\DecideMom;
 use App\UseCases\User\RatePlayer;
+use App\Http\Livewire\User\Game\PlayerDispatcher;
 
 
 class Player extends Component
@@ -21,10 +21,7 @@ class Player extends Component
     private readonly PlayerPresenter   $presenter;
     private readonly DecideMom $decideMom;
 
-    private const RATED_MESSAGE = 'Rated!!';
-    private const Decided_MOM_MESSAGE = 'Decided MOM!!';
-
-    use PlayerTrait;
+    use PlayerDispatcher;
 
     public function boot(
         RatePlayer $ratePlayer,
@@ -59,12 +56,10 @@ class Player extends Component
                     $rating
                 );
 
-            $this->dispatch('player-rated.'.$player['id'], $player);
-            $this->dispatch('notify', message: MessageType::Success->toArray(self::RATED_MESSAGE));
-            $this->dispatch('close');
+            $this->dispatchPlayerRated($player);
 
         } catch (Exception $e) {
-            $this->dispatch('notify', message: MessageType::Error->toArray($e->getMessage()));
+            $this->dispatchError($e->getMessage());
         }
     }
 
@@ -81,12 +76,10 @@ class Player extends Component
                     $this->player['id']
                 );
 
-            $this->dispatch('mom-decided', $momPlayer);
-            $this->dispatch('notify', message: MessageType::Success->toArray(self::Decided_MOM_MESSAGE));
-            $this->dispatch('close');
+            $this->dispatchMomDecided($momPlayer);
 
         } catch (Exception $e) {
-            $this->dispatch('notify', message: MessageType::Error->toArray($e->getMessage()));
+            $this->dispatchError($e->getMessage());
         }
     }
 }

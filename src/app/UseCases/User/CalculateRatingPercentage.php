@@ -3,21 +3,17 @@
 namespace App\UseCases\User;
 
 use App\Models\Game;
-use Illuminate\Database\Eloquent\Builder;
+
 
 class CalculateRatingPercentage
 {
     public function execute(string $gameId)
     {
-        $game = Game::query()
+        $game =  Game::query()
             ->select('id')
             ->withCount([
                 'gamePlayers as playerCount',
-                'gamePlayers as ratedCount' => function (Builder $query) {
-                    $query->whereHas('ratings', function ($q) {
-                        $q->whereNotNull('rating');
-                    });
-                }
+                'hasRatingGamePlayers as ratedCount'
             ])
             ->find($gameId);
 
