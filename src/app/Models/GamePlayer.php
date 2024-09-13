@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Domain\Game\TournamentType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -11,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Facades\Auth;
+
+use App\Domain\Game\TournamentType;
+
 
 class GamePlayer extends Pivot
 {
@@ -179,7 +181,10 @@ class GamePlayer extends Pivot
     public function myRating(): HasOne
     {
         return $this->hasOne(Rating::class, 'game_player_id')
-            ->where('user_id', Auth::id());
+            ->where('user_id', Auth::id())
+            ->withDefault(function (Rating $rating) {
+                $rating->user_id = Auth::id();
+            });
     }
 
     public function usersRating(): HasOne

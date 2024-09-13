@@ -88,7 +88,7 @@ class GamePresenter
 
     private function formatPlayer(Collection $gamePlayer, Collection $game)
     {
-        $rateCount = $gamePlayer->getDotRaw('my_rating.rate_count');
+        $rateCount = $gamePlayer->getDotRaw('my_rating.rate_count') ?? 0;
         $rateLimit = $game['rateLimit'];
         $momCount  = $game->getDotRaw('game_user.mom_count');
         $momLimit  = $game['momLimit'];
