@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-
-use App\UseCases\Util\TournamentType;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
+
+use App\UseCases\Util\TournamentType;
+
 
 /**
  * 
@@ -113,9 +114,18 @@ class Game extends Model
         return $this->hasMany(GamePlayer::class);
     }
 
+    public function hasRatingGamePlayers(): HasMany
+    {
+        return $this->hasMany(GamePlayer::class)
+            ->whereHas('myRating');
+    }
+
     public function gameUser(): HasOne
     {
         return $this->hasOne(GameUser::class)
-            ->where('user_id', Auth::id());
+            ->where('user_id', Auth::id())
+            ->withDefault(function (GameUser $gameUser) {
+                $gameUser->user_id = Auth::id();
+            });
     }
 }

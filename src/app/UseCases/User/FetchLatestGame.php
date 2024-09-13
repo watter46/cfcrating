@@ -39,7 +39,7 @@ class FetchLatestGame
 
                     return $gamePlayer;
                 });
-            
+
             return collect($game)
                 ->merge($this->playerRateRules->getLimits($game))
                 ->recursiveCollect();
