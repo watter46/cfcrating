@@ -5,32 +5,40 @@ namespace App\UseCases\User;
 use Exception;
 
 use App\Models\Game;
+use App\Models\GamePlayer;
 
 
 class FetchLatestGame
 {
+    public function __construct(private GamePlayerValidator $validator)
+    {
+        
+    }
+    
     public function execute()
     {
         try {
-            return collect(Game::query()
+            $game = Game::query()
                 ->with([
-                    'gameUser:game_id,is_rated,mom_count',
-                    'players:id,name,number',
-                    'players' => fn($query) => $query
-                        ->with([
-                            'gamePlayer:id,game_id,player_id',
-                            'gamePlayer' => [
-                                'myRating:game_player_id,rating,is_mom',
-                                'usersRating'
-                            ]
-                        ])
+                    'gameUser',
+                    'gamePlayers' => [
+                        'player:id,api_player_id,name,number,position',
+                        'myRating',
+                        'usersRating'
+                    ]
                 ])
                 ->currentSeason()
                 ->where('is_end', true)
                 ->orderBy('date', 'desc')
-                ->limit(1)
-                ->first());
-                
+                ->first();
+
+            $game
+                ->gamePlayers
+                ->map(function (GamePlayer $gamePlayer) use ($game) {
+                    return $this->validator->validated($game, $gamePlayer);
+                });
+
+            return collect($game)->recursiveCollect();
 
         } catch (Exception $e) {
             throw $e;

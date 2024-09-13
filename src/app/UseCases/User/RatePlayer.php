@@ -32,6 +32,7 @@ class RatePlayer
                 ->with([
                     'gameUser:game_id,mom_count',
                     'gamePlayers' => fn ($query) => $query
+                        ->select(['id', 'game_id'])
                         ->with('myRating')
                         ->where('id', $gamePlayerId)
                 ])
@@ -49,27 +50,40 @@ class RatePlayer
                 throw new ModelNotFoundException('GamePlayer Not Found');
             }
 
-            if ($this->playerRateRules->isRateExceeded($game)) {
+            if ($this->playerRateRules->isRateExpired($game)) {
                 throw new DomainException($this->playerRateRules::RATE_PERIOD_EXPIRED_MESSAGE);
             }
 
-            if ($this->playerRateRules->canRate($gamePlayer)) {
+            if (!$this->playerRateRules->canRate($gamePlayer)) {
                 throw new DomainException($this->playerRateRules::RATE_LIMIT_EXCEEDED_MESSAGE);
             }
-
+            
             /** @var Rating $myRating */
-            $myRating = $gamePlayer->myRating
-                ?? new Rating([
-                    'game_player_id' => $gamePlayerId,
-                    'user_id' => 1,
-                    'rating' => $rating
-                ]);
+            $myRating = $gamePlayer->myRating;
 
             $myRating->rate_count++;
+            $myRating->rating = $rating;
 
-            DB::transaction(function () use ($myRating) {
-                $myRating->save();
+            /** @var GameUser $gameUser */
+            $gameUser = $game->gameUser;
+            $gameUser->is_rated = true;
+
+            DB::transaction(function () use ($myRating, $gamePlayer, $gameUser) {
+                $gamePlayer
+                    ->myRating()
+                    ->save($myRating);
+
+                $gameUser->save();
             });
+            
+            $newGamePlayer = $gamePlayer->refresh()->load('myRating');
+            
+            return [
+                'id'        => $gamePlayer->id,
+                'canRate'   => $this->playerRateRules->canRate($newGamePlayer),
+                'rateCount' => $newGamePlayer->myRating->rate_count,
+                'myRating'  => $newGamePlayer->myRating->rating,
+            ];
 
         } catch (ModelNotFoundException $e) {
             throw $e;

@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-use App\Domain\Game\Season;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
+
+use App\UseCases\Util\TournamentType;
+
 
 /**
  * 
@@ -60,6 +62,21 @@ class Game extends Model
     ];
 
     /**
+     * ツアーでソートする
+     *
+     * @param  Builder<Game> $query
+     * @param  TournamentType $tournament
+     */
+    public function scopeTournament(Builder $query, TournamentType $tournament)
+    {
+        if ($tournament->isAll()) {
+            return;
+        }
+        
+        $query->where('league_id', $tournament->value);
+    }
+
+    /**
      * @param  Builder<Game> $query
      */
     public function scopeCurrentSeason(Builder $query): void
@@ -83,6 +100,7 @@ class Game extends Model
             ->using(GamePlayer::class)
             ->as('gamePlayer')
             ->withPivot(
+                'id',
                 'is_starter',
                 'grid',
                 'assists',
@@ -96,11 +114,18 @@ class Game extends Model
         return $this->hasMany(GamePlayer::class);
     }
 
+    public function hasRatingGamePlayers(): HasMany
+    {
+        return $this->hasMany(GamePlayer::class)
+            ->whereHas('myRating');
+    }
+
     public function gameUser(): HasOne
     {
         return $this->hasOne(GameUser::class)
-            // ->where('user_id', Auth::user()->id)
-            ->where('user_id', 1)
-            ;
+            ->where('user_id', Auth::id())
+            ->withDefault(function (GameUser $gameUser) {
+                $gameUser->user_id = Auth::id();
+            });
     }
 }

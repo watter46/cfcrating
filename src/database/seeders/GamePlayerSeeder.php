@@ -22,8 +22,17 @@ class GamePlayerSeeder extends Seeder
      */
     public function run(): void
     {
-        $fixtureId = 1035480;
-        
+        collect([
+            1035480,
+            1035548
+        ])
+        ->each(function (int $fixtureId) {
+            $this->save($fixtureId);
+        });
+    }
+
+    private function save(int $fixtureId)
+    {
         $file = new GamePlayerModelFile;
 
         $gamePlayers = $file->get($fixtureId);
@@ -41,7 +50,7 @@ class GamePlayerSeeder extends Seeder
                 return [$player->api_player_id => $player->id];
             });
 
-        $data = $file->get($fixtureId)
+        $data = $gamePlayers
             ->map(function(Collection $player) use ($gameId, $gamePlayersByApiPlayerId) {
                 $player['is_starter'] = $player['grid'] ? true : false;
                 $player['game_id']    = $gameId;
@@ -65,16 +74,13 @@ class GamePlayerSeeder extends Seeder
         $rand_ratings = [8.4, 4.4, 7.6, 5.6, 10.0, 5.2, 8.8, 6.4, 9.6, 4.8, 6.0,
             7.2, 9.2, 4.0, 8.0, 6.8];
 
-        $momIndex = 4;
-                
         $ratings = User::pluck('id')
-            ->map(function ($userId) use ($gamePlayerIds, $rand_ratings, $momIndex) {
+            ->map(function ($userId) use ($gamePlayerIds, $rand_ratings) {
                 return $gamePlayerIds
-                    ->map(function(string $gamePlayerId, $index) use ($userId, $rand_ratings, $momIndex) {
+                    ->map(function(string $gamePlayerId, $index) use ($userId, $rand_ratings) {
                         return [
                             'game_player_id' => $gamePlayerId,
                             'rating' => $rand_ratings[$index],
-                            // 'is_mom' => $index === $momIndex,
                             'rate_count' => 1,
                             'user_id' => $userId
                         ];

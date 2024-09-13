@@ -34,11 +34,11 @@ class DecideMom
                 throw new ModelNotFoundException('Game Not Found');
             }
 
-            if ($this->playerRateRules->isRateExceeded($game)) {
+            if ($this->playerRateRules->isRateExpired($game)) {
                 throw new DomainException($this->playerRateRules::RATE_PERIOD_EXPIRED_MESSAGE);
             }
 
-            if ($this->playerRateRules->canDecideMOM($game->gameUser)) {
+            if (!$this->playerRateRules->canDecideMOM($game->gameUser)) {
                 throw new DomainException($this->playerRateRules::MOM_LIMIT_EXCEEDED_MESSAGE);
             }
 
@@ -62,6 +62,14 @@ class DecideMom
             DB::transaction(function () use ($gameUser) {
                 $gameUser->save();
             });
+
+            $newGameUser = $gameUser->refresh();
+
+            return [
+                'id'       => $gamePlayerId,
+                'canMom'   => $this->playerRateRules->canDecideMOM($newGameUser),
+                'momCount' => $newGameUser->mom_count
+            ];
 
         } catch (ModelNotFoundException $e) {
             throw $e;
