@@ -22,15 +22,6 @@ class Player extends Model
     
     protected $keyType = 'string';
 
-    protected $fillable = [
-        // 'season',
-        // 'date',
-        // 'is_end',
-        // 'score',
-        // 'teams',
-        // 'league',
-    ];
-
     /**
      * @param  Builder<Player> $query
      * @param  Collection $apiPlayerIds

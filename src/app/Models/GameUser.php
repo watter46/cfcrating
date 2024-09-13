@@ -18,4 +18,9 @@ class GameUser extends Model
     protected $keyType = 'string';
 
     protected $table = 'game_user';
+
+    protected $attributes = [
+        'is_rated' => false,
+        'mom_count' => 0
+    ];
 }

@@ -55,7 +55,9 @@ namespace App\Models{
  * @property AsCollection $league
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\GamePlayer> $gamePlayers
  * @property-read int|null $game_players_count
- * @property-read \App\Models\GameUser|null $gameUser
+ * @property-read \App\Models\GameUser $gameUser
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\GamePlayer> $hasRatingGamePlayers
+ * @property-read int|null $has_rating_game_players_count
  * @property-read \App\Models\GamePlayer $gamePlayer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Player> $players
  * @property-read int|null $players_count
@@ -65,6 +67,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game tournament(\App\UseCases\Util\TournamentType $tournament)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereFixtureId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereId($value)
@@ -83,14 +86,15 @@ namespace App\Models{
  * 
  *
  * @property string $id
- * @property int $is_starter
+ * @property bool $is_starter
  * @property string|null $grid
  * @property int $assists
  * @property int $goals
  * @property float|null $rating
  * @property string $game_id
  * @property string $player_id
- * @property-read \App\Models\Rating|null $myRating
+ * @property-read \App\Models\Rating $myRating
+ * @property-read \App\Models\Player $player
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rating> $ratings
  * @property-read int|null $ratings_count
  * @property-read \App\Models\UsersRating|null $usersRating
@@ -225,7 +229,7 @@ namespace App\Models{
  *
  * @property string $id
  * @property float|null $rating
- * @property int $is_mom
+ * @property bool $is_mom
  * @property string $game_player_id
  * @method static \Illuminate\Database\Eloquent\Builder|UsersRating newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UsersRating newQuery()

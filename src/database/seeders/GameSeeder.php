@@ -2,20 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\Game;
 use Illuminate\Database\Seeder;
-use Template\File\ApiFootball\FixtureFile;
+
+use App\Models\Game;
+
 
 class GameSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1035480 vs UTD
-        $fixture_id = 1035480;
+        $game = Game::query()
+            ->fixtureId(1035548)
+            ->first();
 
-        // Game::factory()
-
-        // $f = new FixtureFile;
-
+        $game->update([
+            'date' => now('UTC')
+        ]);
     }
 }

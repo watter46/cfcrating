@@ -1,0 +1,14 @@
+.field {
+    min-width: 300px;
+    max-width: 400px;
+}
+
+/* ロード時のフィールドのアニメーション */
+.initial-state {
+    transform: rotateX(0deg);
+    transition: transform 0.8s ease;
+}
+
+.tilted-state {
+    transform: perspective(1200px) rotateX(10deg);
+}

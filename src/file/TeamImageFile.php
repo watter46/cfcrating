@@ -32,6 +32,11 @@ class TeamImageFile extends FileHandler implements PathInterface
         $this->writeFile($this, collect($image));
     }
 
+    public function path(int $teamId)
+    {
+        return self::DIR_PATH.'/'.$teamId;
+    }
+
     public function getDirPath(): string
     {
         return self::DIR_PATH;

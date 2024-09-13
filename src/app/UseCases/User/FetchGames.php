@@ -2,10 +2,10 @@
 
 namespace App\UseCases\User;
 
-use App\Domain\Game\TournamentType;
 use Exception;
 
 use App\Models\Game;
+use App\UseCases\Util\TournamentType;
 
 
 class FetchGames
@@ -14,12 +14,13 @@ class FetchGames
     {
         try {
             return Game::query()
-                ->with('gameUser:game_id,is_rated')
+                ->with('gameUser')
+                ->select(['id', 'date', 'score', 'teams', 'league'])
+                ->tournament($tournament)
                 ->currentSeason()
                 ->where('is_end', true)
                 ->orderBy('date', 'desc')
-                ->simplePaginate()
-                ->recursiveCollect();
+                ->simplePaginate();
                 
 
         } catch (Exception $e) {
