@@ -7,7 +7,7 @@
 </x-util.button>
 
 <x-util.modal name="result">
-    <div class="flex flex-col justify-center bg-green-950">
+    <div class="flex flex-col justify-center bg-sky-950">
         <x-result.rating-image-previewer
             :$teams
             :$score
@@ -29,18 +29,17 @@
             :$id />
     
         <!-- Button -->
-        <button class="border border-gray-400 rounded-md h-fit"
+        {{-- <button class="border border-gray-400 rounded-md h-fit"
             @click="saveRatingImage">
             <p id="saveBtn" class="px-2 py-1 text-gray-400">Save</p>
-        </button>
+        </button> --}}
     
         <!-- Copy -->
         <button class="border border-gray-400 rounded-md h-fit"
-            {{-- @click="saveRatingImage" --}}
-            >
-            <p id="saveBtn" class="px-2 py-1 text-gray-400">Copy</p>
+            @click="copyRatings">
+            <p id="copyBtn" class="px-2 py-1 text-gray-400">Copy</p>
         </button>
         
-        @vite(['resources/js/saveRatingImage.js', 'resources/js/save.js'])
+        @vite(['resources/js/saveRatingImage.js','resources/js/copyRatings.js', 'resources/js/save.js'])
     </div>
 </x-util.modal>

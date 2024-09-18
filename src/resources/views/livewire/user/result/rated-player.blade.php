@@ -1,7 +1,9 @@
 <div id="result-{{ $name }}" class="flex justify-center"
     x-data="{
+        machineRating: @entangle('player.machineRating'),
         rating: @entangle('player.myRating'),
-        mom: @entangle('player.myMom')
+        mom: @entangle('player.myMom'),
+        name: @entangle('player.name')
     }"
     wire:ignore.self>
     
@@ -46,10 +48,11 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-center mt-1 pointer-events-none gap-x-2">    
-            <p class="text-sm font-black text-white md:text-2xl">
-                {{ $player['name'] }}
-            </p>
+        <div id="player-data" class="flex items-center justify-center mt-1 pointer-events-none gap-x-2">    
+            <p id="player-name" x-text="name" class="text-sm font-black text-white md:text-2xl"></p>
+            <p id="player-mom" x-text="mom" class="hidden"></p>
+            <p id="player-rating" x-text="rating" class="hidden"></p>
+            <p id="machine-rating" x-text="machineRating" class="hidden"></p>
         </div>
     </div>
 
