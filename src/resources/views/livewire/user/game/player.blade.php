@@ -50,10 +50,10 @@
                                 ">
 
                                 <template x-if="myMom">
-                                    <p class="text-xs font-black text-gray-50">★</p>
+                                    <p class="text-sm font-black text-gray-50">★</p>
                                 </template>
                                 
-                                <p class="text-xs font-black md:text-sm text-gray-50"
+                                <p class="text-sm font-black text-gray-50"
                                     x-text="ratingValue(myRating)">
                                 </p>
                             </div>
@@ -68,10 +68,10 @@
                                 ">
 
                                 <template x-if="usersMom">
-                                    <p class="text-xs font-black text-gray-50">★</p>
+                                    <p class="text-sm font-black text-gray-50">★</p>
                                 </template>
                                 
-                                <p class="text-xs font-black md:text-sm text-gray-50"
+                                <p class="text-sm font-black text-gray-50"
                                     x-text="ratingValue(usersRating)">
                                 </p>
                             </div>
@@ -82,7 +82,7 @@
                             <div class="flex items-center justify-center rounded-xl"
                                 :style="`background-color: ${ratingBgColor(machineRating)}`">
                                 
-                                <p class="text-xs font-black md:text-sm text-gray-50"
+                                <p class="text-sm font-black text-gray-50"
                                     x-text="ratingValue(machineRating)">
                                 </p>
                             </div>
@@ -92,7 +92,7 @@
             </div>
 
             <div class="flex items-center justify-center pointer-events-none gap-x-2">            
-                <p class="text-xs font-black text-white md:text-sm">
+                <p class="text-sm font-black text-white">
                     {{ $player['name'] }}
                 </p>
             </div>

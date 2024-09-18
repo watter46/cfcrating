@@ -1,102 +1,90 @@
 <x-app-layout>
-    <div class="w-full h-full pb-5">
+    <div class="w-full h-full p-1 border border-red-500">
         <!-- Score -->
-        <div class="flex justify-center w-full">
+        <div class="flex justify-center w-full border border-green-500">
             <div class="w-full md:w-3/4 md:px-10">
                 <x-game.score :$teams :$score :$league />
             </div>
         </div>
         
-        <div class="flex items-center justify-center w-full h-full">
-            <div class="relative flex flex-col justify-center items-center h-full w-full min-w-[300px] max-w-[400px]">
+        <div class="flex items-center w-full h-full border md:justify-center border-sky-500">
+            <div class="flex flex-col justify-center w-full md:flex-row md:space-x-5">
                 <!-- Field -->
-                <x-svg.field
-                    id="fixture-field"
-                    class="w-[90%] invisible initial-state" />
-                
-                <!-- StartXI -->
-                <div class="w-[90%] absolute top-0 aspect-[74/111]">
-                    <div id="box" class="flex items-end justify-center w-full h-full">
-                        <div class="flex flex-col w-full h-[90%]">
-                            @foreach($startXI as $line => $players)
-                                <div id="line-{{ $line + 1 }}"
-                                    class="flex items-stretch w-full h-full justify-evenly">
-                                    @foreach($players as $player)
-                                        <div class="flex justify-center items-center
-                                            {{ $playerGridCss }}">
+                <div class="relative flex flex-col items-center justify-center h-full max-w-[600px] w-full">
+                    <div class="flex items-center justify-center w-full mt-3">
+                        <div class="relative flex flex-col items-center justify-center w-full">
+                            <x-svg.field id="field" />
+                            
+                            <!-- StartXI -->
+                            <div class="absolute w-full h-full">
+                                <div id="box" class="flex items-end justify-center w-full h-full">
+                                    <div class="flex flex-col w-full h-full">
+                                        @foreach($startXI as $line => $players)
+                                            <div id="line-{{ $line + 1 }}"
+                                                class="flex items-stretch w-full h-full justify-evenly">
+                                                @foreach($players as $player)
+                                                    <div class="flex justify-center items-center
+                                                        {{ $playerGridCss }} w-full">
+                                                        <livewire:user.game.player
+                                                            name="startXI"
+                                                            size="w-[50px] h-[50px] md:w-16 md:h-16"
+                                                            :$player
+                                                            :key="$player['id']" />
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Substitutes Responsive(~767px) -->
+                    <div class="w-full mt-5">
+                        <div class="grid w-full grid-cols-6 gap-x-10 gap-y-2 justify-items-center">
+                            @foreach($mobileSubstitutes as $mobileSubstitute)
+                                @if($loop->odd)
+                                    @foreach($mobileSubstitute as $player)
+                                    
+                                        <div class="flex justify-center w-full col-span-2">
                                             <livewire:user.game.player
-                                                name="startXI"
-                                                size="w-[40px] h-[40px] md:w-[45px] md:h-[45px]"
+                                                name="substitutes"
+                                                size="w-[50px] h-[50px] md:w-16 md:h-16"
                                                 :$player
                                                 :key="$player['id']" />
                                         </div>
                                     @endforeach
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Substitutes Responsive(~767px) -->
-                <div class="w-[90%] top-full right-full mt-5 md:hidden">
-                    <div class="grid w-full grid-cols-6 gap-x-10 gap-y-2 justify-items-center">
-                        @foreach($mobileSubstitutes as $mobileSubstitute)
-                            @if($loop->odd)
-                                @foreach($mobileSubstitute as $player)
-                                    <div class="flex justify-center w-full col-span-2">
-                                        <livewire:user.game.player
-                                            name="substitutes"
-                                            size="w-[40px] h-[40px]"
-                                            :$player
-                                            :key="$player['id']" />
-                                    </div>
-                                @endforeach
-                            @endif
-                            
-                            @if($loop->even)
-                                @foreach($mobileSubstitute as $player)
-                                    <div class="col-span-2 flex justify-center w-full
-                                        @if($loop->first) col-start-2 @endif">
-                                        <livewire:user.game.player
-                                            name="substitutes"
-                                            size="w-[40px] h-[40px]"
-                                            :$player
-                                            :key="$player['id']" />
-                                    </div>
-                                @endforeach
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-        
-                <!-- Substitutes Responsive(768px~) -->
-                <div class="absolute hidden h-full mr-5 right-full md:block">
-                    <div class="flex items-center h-full">
-                        <div class="grid grid-flow-col grid-rows-4 gap-10">
-                            @foreach($substitutes as $player)
-                                <div class="flex justify-center w-full">
-                                    <livewire:user.game.player
-                                        name="substitutes"
-                                        size="w-12 h-12"
-                                        :$player
-                                        :key="$player['id']" />
-                                </div>
+                                @endif
+                
+                                @if($loop->even)
+                                    @foreach($mobileSubstitute as $player)
+                                        <div class="col-span-2 flex justify-center w-full
+                                            @if($loop->first) col-start-2 @endif">
+                                            <livewire:user.game.player
+                                                name="substitutes"
+                                                size="w-[50px] h-[50px] md:w-16 md:h-16"
+                                                :$player
+                                                :key="$player['id']" />
+                                        </div>
+                                    @endforeach
+                                @endif
                             @endforeach
                         </div>
                     </div>
                 </div>
 
                 <!-- Options -->
-                <div class="flex flex-col w-full px-2 gap-y-5 md:absolute md:left-full"> 
+                <div class="flex flex-col px-2 mt-3 md:mt-0 gap-y-5"> 
                     <!-- RatedCount -->
                     <livewire:user.game.rated-count :gameId="$id" />
 
                     <!-- ToggleUserMacine -->
                     <livewire:user.game.rating-toggle-button />
 
-                    <div class="w-fit">
+                    <div class="flex space-x-5 w-fit">
                         <!-- Result -->
-                        <x-result.result-button
+                        <x-result.result
                             :$teams
                             :$score
                             :$startXI
@@ -109,6 +97,8 @@
                 </div>
             </div>
         </div>
+
+        
     </div>
 
     @vite(['resources/css/field.css', 'resources/js/field.js'])

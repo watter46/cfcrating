@@ -18,3 +18,36 @@
 .player:hover {
     @apply duration-100 transform scale-125;
 }
+
+.player-size {
+    width: 48px;
+    height: 48px;
+}
+
+@media (min-width: 375px) {
+    .player-size {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+@media (min-width: 425px) {
+    .player-size {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (min-width: 600px) {
+    .player-size {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (min-width: 768px) {
+    .player-size {
+        width: 95px;
+        height: 95px;
+    }
+}
