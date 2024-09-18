@@ -1,16 +1,5 @@
-<svg id="{{ $id }}" {{ $attributes }} xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 74 111">
-    <rect width="74" height="111" fill="#082F49"/>
-    <g id="infield" fill="none" stroke="#fff"  stroke-width="0.3" transform="translate(3 3)">
-        <path id="Border" d="M 0 0 h 68 v 105 h -68 Z"/>
-        <path id="Centre line" d="M 0 52.5 h 68"/>
-        <circle id="Centre circle" r="9.15" cx="34" cy="52.5"/>
-        <circle id="Centre mark" r="0.75" cx="34" cy="52.5" fill="#fff" stroke="none"/>
-        <g id="Penalty area">
-            <path id="Penalty area line" d="M 13.84 0 v 16.5 h 40.32 v -16.5"/>
-            <path id="Goal area line" d="M 24.84 0 v 5.5 h 18.32 v -5.5"/>
-            <path id="Penalty arc" d="M 26.733027 16.5 a 9.15 9.15 0 0 0 14.533946 0"/>
-        </g>
-        <use xlink:href="#Penalty area" transform="rotate(180,34,52.5)"/>
-        <path id="Corner arcs" d="M 0 2 a 2 2 0 0 0 2 -2M 66 0 a 2 2 0 0 0 2 2M 68 103 a 2 2 0 0 0 -2 2M 2 105 a 2 2 0 0 0 -2 -2"/>
-    </g>
+<svg id="{{ $id }}"
+    {{ $attributes }}
+    xmlns="http://www.w3.org/2000/svg" viewBox="-10.8 -0.3 89.1 105.6">
+	<path d="M -0.5 0 h 69 l 9.5 105 h -88.5 Z M -4.65 46 h 77.3 M 34 52.5 m -10.5 -6.5 a 9.15 7.95 0 1 1 20.8 0 a 9.15 7.95 0 1 1 -20.8 0 m 31.5 -33 L 13 13 L 13.5 0 L 54 0 m 1 13 l -0.6 -13 Z M 24.6 0 l -0.1 4.2 h 18.9 l -0.2 -4.2 Z M 8 105 L 7.8 105 l 1 -20.5 h 50 l 1.2 20.5 Z M 22 105 v -7.2 h 23.6 l 0.2 7.2 Z M 25 84.5 a 10.9 9.15 0 0 1 18 0 M 42 13 Z A 10.9 9.15 0 0 1 26 13" stroke="#FFF" stroke-width="0.3" fill="#082F49"/>
 </svg>

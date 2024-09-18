@@ -6,8 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-
-class ResultButton extends Component
+class RatingImagePreviewer extends Component
 {
     /**
      * Create a new component instance.
@@ -30,6 +29,6 @@ class ResultButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.result.result-button');
+        return view('components.result.rating-image-previewer');
     }
 }
