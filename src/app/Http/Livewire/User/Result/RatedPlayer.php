@@ -10,7 +10,6 @@ use App\Http\Livewire\User\Game\PlayerDispatcher;
 class RatedPlayer extends Component
 {
     public string $name;
-    public string $size;
     
     public array $player;
 
