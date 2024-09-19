@@ -1,4 +1,4 @@
-<div id="result-{{ $name }}" class="flex justify-center"
+<div id="rated-player" class="flex justify-center"
     x-data="{
         machineRating: @entangle('player.machineRating'),
         rating: @entangle('player.myRating'),
