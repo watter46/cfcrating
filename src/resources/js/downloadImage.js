@@ -18,6 +18,12 @@ window.downloadImage = () => {
             clonedDoc.querySelector('#downloader-startXI').replaceWith(startXIEl);
             clonedDoc.querySelector('#downloader-substitutes').replaceWith(substitutesEl);
 
+            clonedDoc
+                .querySelectorAll('#rated-player')
+                .forEach(player => {
+                    player.classList.add('scale-125');
+                });
+
             // html2canvasのバグでテキストの位置が下がるので調整する
             let textElements = clonedDoc.querySelectorAll('p');
 
