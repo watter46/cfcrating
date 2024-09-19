@@ -1,5 +1,5 @@
 <div class="flex justify-center">
-    <div id="content1" class="h-full max-w-[600px] w-full p-1 bg-sky-950">
+    <div id="content1" class="h-full max-w-[600px] w-full p-1">
         <div class="grid w-full grid-cols-2 text-center">
             <div class="w-full col-span-1">
                 <x-result.score
