@@ -40,14 +40,7 @@
 
 @media (min-width: 600px) {
     .player-size {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-@media (min-width: 768px) {
-    .player-size {
-        width: 95px;
-        height: 95px;
+        width: 75px;
+        height: 75px;
     }
 }
