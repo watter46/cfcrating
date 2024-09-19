@@ -1,4 +1,4 @@
-window.copyRatings = () => {
+window.copyRatings = (includeMachineRating) => {
     const players = document.querySelectorAll('#player-data');
 
     const playerText = [...players]
@@ -10,23 +10,18 @@ window.copyRatings = () => {
                 machineRating: toFloat(player.querySelector('#machine-rating').textContent)
             };
         })
-        .map(player => formatText(player, false))
+        .map(player => formatText(player, includeMachineRating))
         .join('\n');
         
-    navigator
+    return navigator
         .clipboard
-        .writeText(playerText)
-        .then(function() {
-            console.log('テキストがコピーされました:', playerText);
-        }).catch(function(error) {
-            console.error('コピーに失敗しました:', error);
-        });
+        .writeText(playerText);
 }
 
 const toBoolean = (booleanStr) => booleanStr.toLowerCase() === "true";
 const toFloat   = (floatStr)   => floatStr !== '' ? parseFloat(floatStr) : 0;
 
-const formatText = (player, shouldAddMachineRating) => {
+const formatText = (player, includeMachineRating) => {
     const toText = (player) => {
         const playerText = 
             `${player.mom ? `☆\u2006` : ''}`+
@@ -36,7 +31,7 @@ const formatText = (player, shouldAddMachineRating) => {
         return playerText;
     }
 
-    return shouldAddMachineRating
+    return includeMachineRating
         ? toText(player)+`(${player.machineRating ? player.machineRating : '-'})`
         : toText(player);
 }

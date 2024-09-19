@@ -38,10 +38,10 @@
                     ">
 
                     <template x-if="mom">
-                        <p class="text-sm font-black text-gray-50 md:text-2xl">★</p>
+                        <p class="text-sm font-black text-gray-50 md:text-xl">★</p>
                     </template>
                     
-                    <p class="text-sm font-black text-gray-50 md:text-2xl"
+                    <p class="text-sm font-black text-gray-50 md:text-xl"
                         x-text="ratingValue(rating)">
                     </p>
                 </div>

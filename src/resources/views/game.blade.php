@@ -40,7 +40,7 @@
                         </div>
                     </div>
             
-                    <!-- Substitutes Responsive(~767px) -->
+                    <!-- Substitutes -->
                     <div class="w-full mt-5">
                         <div class="grid w-full grid-cols-6 gap-x-10 gap-y-2 justify-items-center">
                             @foreach($mobileSubstitutes as $mobileSubstitute)

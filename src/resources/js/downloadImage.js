@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas';
 
-window.saveRatingImage = () => {
+window.downloadImage = () => {
     const contentEl = document.querySelector('#content');
     
     html2canvas(contentEl, {
@@ -9,8 +9,6 @@ window.saveRatingImage = () => {
         width: 800,
         onclone: function(clonedDoc) {
             clonedDoc.querySelector('#content').classList.remove('hidden')
-
-            // clonedDoc.body.style.windowWidth = '800px';
 
             const startXIEl = document.getElementById('startXI-players').cloneNode(true);
             const substitutesEl = document.getElementById('substitute-players').cloneNode(true);
