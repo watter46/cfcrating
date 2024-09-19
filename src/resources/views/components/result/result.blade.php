@@ -1,7 +1,7 @@
-<x-util.button name="result">
-    <x-svg.photo class="w-8 h-8 cursor-pointer" />
+<x-util.button name="result" class="p-1 rounded-md hover:bg-gray-400 hover:bg-opacity-20">
+    <x-svg.photo class="w-8 h-8 cursor-pointer md:w-9 md:h-9" />
 
-    <p class="text-xs font-black text-center text-gray-400">
+    <p class="text-xs font-black text-center text-gray-400 md:text-base">
         Result
     </p>
 </x-util.button>
@@ -46,7 +46,7 @@
         <div class="flex flex-col justify-center w-full mt-5 space-y-2 md:space-x-5 md:flex-row">
             <div class="flex flex-col space-y-2 justify-center border-2 border-gray-500 rounded-xl p-3 max-w-[400px] w-full">
                 <!-- Button -->
-                <button class="flex items-center justify-center bg-green-600 rounded-md"
+                <button class="flex items-center justify-center bg-green-600 rounded-md hover:bg-green-500"
                     @click="downloadImage">
                     <x-svg.download class="w-5 h-5 stroke-gray-200" />
                     <p class="px-2 py-1 text-lg font-black text-gray-200 md:text-2xl">Download Image</p>
@@ -63,7 +63,7 @@
     
             <div class="flex flex-col space-y-2 justify-center border-2 border-gray-500 rounded-xl p-3 max-w-[400px] w-full">
                 <!-- Copy -->
-                <button class="flex items-center justify-center bg-yellow-600 rounded-md"
+                <button class="flex items-center justify-center bg-yellow-600 rounded-md hover:bg-yellow-500"
                     @click="copy">
                     <x-svg.copy class="w-5 h-5 fill-gray-200" />
                     <p class="px-2 py-1 text-lg font-black text-gray-200 md:text-2xl" x-text="!isCopied ? 'Copy' : 'Copied!!'"></p>
