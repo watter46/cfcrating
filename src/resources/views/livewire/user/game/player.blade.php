@@ -99,12 +99,12 @@
     </x-util.button>
 
     <x-util.modal name="player-{{ $player['id'] }}">
-        <div class="flex flex-col items-stretch w-full p-3">
+        <div class="flex flex-col justify-center w-full h-[75dvh] md:h-full md:w-[70dvw] bg-cyan-950 p-2 md:p-5 rounded-xl">
             <!-- PlayerStats -->
             <x-game.player-stats :$player />
         
             <!-- Rating -->
-            <div class="flex items-center justify-center w-full h-full border-t-2 border-gray-700">
+            <div class="flex items-center justify-center w-full h-full">
                 <div x-data="{
                         ratingInput: null,
                         myRating: @entangle('player.myRating'),
@@ -116,9 +116,9 @@
                     class="w-full"
                     @mom-button-disabled.window="canMom = false">
                     
-                    <div class="px-10 py-2">
+                    <div class="px-3 py-2 md:px-10">
                         <div class="flex flex-col h-full">
-                            <p class="mb-3 text-2xl font-bold text-center text-gray-100 whitespace-nowrap">
+                            <p class="mb-3 text-xl font-bold text-center text-gray-400 md:text-2xl whitespace-nowrap">
                                 Your Rating
                             </p>
                 
@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 
-                    <div class="flex justify-end mt-8 gap-x-5">
+                    <div class="flex justify-center mt-8 md:justify-end gap-x-5">
                         <div class="w-fit">
                             <div class="w-full mb-1 rounded-lg bg-gray-800 grid-flow-col grid gap-1
                                 grid-cols-{{ $player['momLimit'] }}">
