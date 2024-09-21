@@ -21,7 +21,7 @@ window.downloadImage = () => {
             clonedDoc
                 .querySelectorAll('#rated-player')
                 .forEach(player => {
-                    player.classList.add('scale-125');
+                    player.classList.add('scale-150');
                 });
 
             // html2canvasのバグでテキストの位置が下がるので調整する
