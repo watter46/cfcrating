@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users_ratings', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->float('rating', 3, 1)->nullable()->unsigned()->checkBetween([0, 10.0]);
+            $table->float('rating', 3, 1)->nullable()->unsigned()->checkBetween([3, 10.0]);
             $table->boolean('is_mom');
             
             $table->foreignUlid('game_player_id')->constrained('game_player');

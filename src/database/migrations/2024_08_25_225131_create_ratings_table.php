@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->float('rating', 3, 1)->nullable()->unsigned()->checkBetween([0, 10.0]);
+            $table->float('rating', 3, 1)->nullable()->unsigned()->checkBetween([3, 10.0]);
             $table->tinyInteger('rate_count')->unsigned();
 
             $table->foreignId('user_id')->constrained();

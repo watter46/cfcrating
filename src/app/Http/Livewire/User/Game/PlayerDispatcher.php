@@ -16,7 +16,7 @@ trait PlayerDispatcher
         $this->dispatch('player-rated.'.$player['id'], $player);
         $this->dispatch('player-updated');
         $this->dispatchSuccess(self::RATED_MESSAGE);
-        $this->dispatch('close');
+        $this->dispatch('close-modal');
     }
     
     #[On('player-rated.{player.id}')]
@@ -31,18 +31,29 @@ trait PlayerDispatcher
     {
         $this->dispatch('mom-decided', $player);
         $this->dispatchSuccess(self::Decided_MOM_MESSAGE);
-        $this->dispatch('close');
+        $this->dispatch('close-modal');
     }
 
     #[On('mom-decided')]
     public function momDecided(array $player)
     {
         if (!$player['canMom']) {
-            $this->dispatch('mom-button-disabled');
+            $this->player['myMom'] = $this->player['id'] === $player['id'];
+            $this->player['canMom'] = false;
+            $this->player['momCount'] = $player['momCount'];
+            return;
         }
 
-        $this->player['myMom'] = $this->player['id'] === $player['id'];
+        $isMom = $this->player['id'] === $player['id'];
+
+        $this->player['myMom'] = false;
+        $this->player['canMom'] = true;
         $this->player['momCount'] = $player['momCount'];
+
+        if ($isMom) {
+            $this->player['myMom'] = true;
+            $this->player['canMom'] = false;
+        }
     }
 
     private function dispatchSuccess(string $message)
