@@ -6,7 +6,7 @@
     </p>
 </x-util.button>
 
-<x-util.modal name="result">
+<x-util.modal name="result" class="w-full md:w-3/4">
     <div x-data="{
             includeSubs: true,
             isCopied: false,
@@ -25,12 +25,13 @@
                     });
             }
         }"
-        class="flex flex-col w-full p-5 bg-sky-950"
+        class="flex flex-col p-3 md:p-5 rounded-xl bg-sky-950"
         x-init="$watch('includeSubs', (include) => {
             const substitutes = document.getElementById('substitute-players');
 
             substitutes.classList.toggle('hidden');
         })">
+        
         <x-result.rating-image-previewer
             :$teams
             :$score
@@ -43,7 +44,7 @@
     
         <x-result.rating-image-downloader />
 
-        <div class="flex flex-col justify-center w-full mt-5 space-y-2 md:space-x-5 md:flex-row">
+        <div class="flex flex-col justify-center w-full mt-5 md:space-x-5 md:flex-row">
             <div class="flex flex-col space-y-2 justify-center border-2 border-gray-500 rounded-xl p-3 max-w-[400px] w-full">
                 <!-- Button -->
                 <button class="flex items-center justify-center bg-green-600 rounded-md hover:bg-green-500"
@@ -57,7 +58,7 @@
                         <input type="checkbox" value="" x-model="includeSubs" class="sr-only peer">
                         <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
-                    <p class="font-black md:text-2xl ms-3 text-md dark:text-gray-300">include subs</p>
+                    <p class="w-full font-black md:text-2xl ms-3 text-md dark:text-gray-300">include subs</p>
                 </div>
             </div>
     

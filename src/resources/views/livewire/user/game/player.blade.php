@@ -98,8 +98,8 @@
         </div>
     </x-util.button>
 
-    <x-util.modal name="player-{{ $player['id'] }}">
-        <div class="flex flex-col justify-center w-full h-[75dvh] md:h-full md:w-[70dvw] bg-cyan-950 p-2 md:p-5 rounded-xl">
+    <x-util.modal name="player-{{ $player['id'] }}" class="md:w-2/3">
+        <div class="flex flex-col justify-center p-2 bg-cyan-950 md:p-5 rounded-xl">
             <!-- PlayerStats -->
             <x-game.player-stats :$player />
         
@@ -151,7 +151,7 @@
                             <button class="px-8 py-1 border-2 border-gray-200 rounded-lg bg-amber-400"
                                 :class="!canMom ? 'pointer-events-none opacity-30' : ''"
                                 wire:click="decideMom">
-                                <p class="font-bold text-gray-200">★ MOM</p>
+                                <p class="font-bold text-center text-gray-200">★ MOM</p>
                             </button>
                         </div>
                 
@@ -175,7 +175,7 @@
                                     $el.classList.remove('pointer-events-none', 'opacity-30');
                                 })"
                                 wire:click="rate(ratingInput)">
-                                <p class="font-bold text-gray-200">Rate</p>
+                                <p class="font-bold text-center text-gray-200">Rate</p>
                             </button>
                         </div>
                     </div>

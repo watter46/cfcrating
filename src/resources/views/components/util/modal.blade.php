@@ -13,10 +13,10 @@
     x-cloak>
 
     <div x-show="open"
-        {{ $attributes->merge(['class' => 'fixed inset-0 w-screen z-[99] h-screen overflow-y-auto']) }}
+        class="fixed inset-0 w-screen z-[99] h-screen overflow-y-auto"
         style="background: rgba(31, 41, 55, 0.9);">
         <div class="grid w-full h-full place-items-center">
-            <div class="relative" @click.outside="$dispatch('close-modal')">
+            <div {{ $attributes->class(['relative']) }} @click.outside="$dispatch('close-modal')">
                 <!-- CloseButton -->
                 <div class="absolute top-0 right-0 m-1 md:m-2">
                     <div class="p-1 rounded-full cursor-pointer hover:bg-gray-500"
