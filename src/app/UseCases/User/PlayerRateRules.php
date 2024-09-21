@@ -9,6 +9,10 @@ use Illuminate\Support\Carbon;
 
 class PlayerRateRules
 {
+    private const MIN_RATING = 3.0;
+    private const MAX_RATING = 10.0;
+    public const OUT_OF_RANGE_MESSAGE = 'rating must be between 3.0 and 10.0';
+    
     /** 評価可能期間 5日間 */
     private const RATE_PERIOD_HOURS = 24 * 5;
     public const RATE_PERIOD_EXPIRED_MESSAGE = 'Rate period has expired.';
@@ -21,6 +25,10 @@ class PlayerRateRules
     public const MOM_LIMIT = 5;
     public const MOM_LIMIT_EXCEEDED_MESSAGE = 'MOM limit exceeded.';
 
+    public function isInRange(float $rating)
+    {
+        return self::MIN_RATING <= $rating && $rating <= self::MAX_RATING;
+    }
 
     public function isRateExpired(Game $game): bool
     {

@@ -91,6 +91,8 @@ class GamePresenter
         $rateCount = $gamePlayer->getDotRaw('my_rating.rate_count') ?? 0;
         $momCount  = $game->getDotRaw('game_user.mom_count');
 
+        $myMom = $gamePlayer['id'] === $game->getDotRaw('game_user.mom_game_player_id');
+
         return collect([
             'id' => $gamePlayer['id'],
             'name' => Str::afterLast($gamePlayer->getDotRaw('player.name'), ' '),
@@ -102,7 +104,7 @@ class GamePresenter
             'assists' => $gamePlayer['assists'],
             'goals' => $gamePlayer['goals'],
             'myRating' => $gamePlayer->getDotRaw('my_rating.rating'),
-            'myMom' => $gamePlayer['id'] === $game->getDotRaw('game_user.mom_game_player_id'),
+            'myMom' => $myMom,
             'usersRating' => $gamePlayer->getDotRaw('users_rating.rating'),
             'usersMom' => $gamePlayer->getDotRaw('users_rating.is_mom'),
             'machineRating' => $gamePlayer['rating'],
@@ -112,7 +114,27 @@ class GamePresenter
             'canRate' => $gamePlayer['canRate'],
             'momCount' => $momCount,
             'momLimit' => $gamePlayer['momLimit'],
-            'canMom' => $gamePlayer['canMom']
+            'canMom' => $this->canMom($gamePlayer['canMom'], $myMom)
         ]);
+    }
+    
+    /**
+     * すでにMOMならMOMを選択できないようにする
+     *
+     * @param  bool $myMom
+     * @param  bool $canMom
+     * @return bool
+     */
+    private function canMom(bool $canMom, bool $myMom)
+    {
+        if (!$canMom) {
+            return false;
+        }
+
+        if ($myMom) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -123,7 +123,7 @@
                             </p>
                 
                             <div :class="!canRate ? 'pointer-events-none opacity-30' : ''">
-                                <input id="ratingRange" type="range" min="0.1" max="10" step="0.1" x-model="ratingInput">
+                                <input id="ratingRange" type="range" min="3.0" max="10" step="0.1" x-model="ratingInput">
                                 
                                 <div class="flex justify-center mt-3">
                                     <div class="flex items-center justify-center w-1/2 border-2 border-gray-200 rounded-lg"
