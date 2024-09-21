@@ -15,7 +15,7 @@ use App\UseCases\User\DomainException;
 
 class RatePlayer
 {
-    public function __construct(private PlayerRateRules $playerRateRules)
+    public function __construct(private PlayerRateRules $rateRule)
     {
         
     }
@@ -28,6 +28,10 @@ class RatePlayer
     public function execute(string $gameId, string $gamePlayerId, float $rating)
     {
         try {
+            if (!$this->rateRule->isInRange($rating)) {
+                throw new DomainException($this->rateRule::OUT_OF_RANGE_MESSAGE);
+            }
+            
             $game = Game::query()
                 ->with([
                     'gameUser:game_id,mom_count',
@@ -50,12 +54,12 @@ class RatePlayer
                 throw new ModelNotFoundException('GamePlayer Not Found');
             }
 
-            if ($this->playerRateRules->isRateExpired($game)) {
-                throw new DomainException($this->playerRateRules::RATE_PERIOD_EXPIRED_MESSAGE);
+            if ($this->rateRule->isRateExpired($game)) {
+                throw new DomainException($this->rateRule::RATE_PERIOD_EXPIRED_MESSAGE);
             }
 
-            if (!$this->playerRateRules->canRate($gamePlayer)) {
-                throw new DomainException($this->playerRateRules::RATE_LIMIT_EXCEEDED_MESSAGE);
+            if (!$this->rateRule->canRate($gamePlayer)) {
+                throw new DomainException($this->rateRule::RATE_LIMIT_EXCEEDED_MESSAGE);
             }
             
             /** @var Rating $myRating */
@@ -80,7 +84,7 @@ class RatePlayer
             
             return [
                 'id'        => $gamePlayer->id,
-                'canRate'   => $this->playerRateRules->canRate($newGamePlayer),
+                'canRate'   => $this->rateRule->canRate($newGamePlayer),
                 'rateCount' => $newGamePlayer->myRating->rate_count,
                 'myRating'  => $newGamePlayer->myRating->rating,
             ];
