@@ -1,5 +1,5 @@
 <div x-data="{
-        open: false,
+        open: true,
         enableScroll() {
             document.body.style.overflow = 'auto';
         },
