@@ -1,35 +1,48 @@
 import html2canvas from 'html2canvas';
 
 window.downloadImage = () => {
-    const contentEl = document.querySelector('#content');
-    
-    html2canvas(contentEl, {
+    html2canvas(document.querySelector('#content'), {
         scale: 2,
         windowWidth: 800,
         width: 800,
         onclone: function(clonedDoc) {
-            clonedDoc.querySelector('#content').classList.remove('hidden')
+            const previewerEl = document.querySelector('#previewer').cloneNode(true);
 
-            const startXIEl = document.getElementById('startXI-players').cloneNode(true);
-            const substitutesEl = document.getElementById('substitute-players').cloneNode(true);
-            const scoreEl = document.getElementById('score').cloneNode(true);
+            previewerEl
+                .querySelectorAll('.rated-player')
+                .forEach(playerEl => {
+                    const playerImageEl = playerEl.querySelector('.player-image');
 
+                    playerImageEl.style.width = '100px';
+                    playerImageEl.style.height = '100px';
+
+                    const ratingEl = playerEl.querySelector('.rating');
+
+                    ratingEl.style.width = '70px';
+                    
+                    const ratingTextEls = playerEl.querySelectorAll('.rating-text');
+
+                    ratingTextEls
+                        .forEach(ratingTextEl => {
+                            ratingTextEl.style.fontSize = '2.0rem';
+                            ratingTextEl.style.lineHeight = '2rem';
+                        });
+
+                    const playerNameTextEl = playerEl.querySelector('.player-name-text');
+
+                    playerNameTextEl.style.fontSize = '1.7rem';
+                    playerNameTextEl.style.lineHeight = '2rem';
+                });
+
+            const scoreEl = previewerEl.querySelector('#score').cloneNode(true);
+            const startXIEl = previewerEl.querySelector('#startXI-players').cloneNode(true);
+            const substitutesEl = previewerEl.querySelector('#substitute-players').cloneNode(true);
+                
             clonedDoc.querySelector('#downloader-score').replaceWith(scoreEl);
             clonedDoc.querySelector('#downloader-startXI').replaceWith(startXIEl);
             clonedDoc.querySelector('#downloader-substitutes').replaceWith(substitutesEl);
-
-            clonedDoc
-                .querySelectorAll('#rated-player')
-                .forEach(player => {
-                    player.classList.add('scale-150');
-                });
-
-            // html2canvasのバグでテキストの位置が下がるので調整する
-            let textElements = clonedDoc.querySelectorAll('p');
-
-            textElements.forEach((text) => {
-                text.style.paddingBottom = '2px';
-            });
+            
+            clonedDoc.querySelector('#content').classList.remove('hidden');
         },
     })
     .then(function(canvas) {

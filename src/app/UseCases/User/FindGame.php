@@ -7,7 +7,7 @@ use Exception;
 use App\Models\Game;
 use App\Models\GamePlayer;
 use App\UseCases\User\GamePlayerValidator;
-
+use Illuminate\Support\Str;
 
 class FindGame
 {
@@ -29,7 +29,7 @@ class FindGame
                     ]
                 ])
                 ->find($gameId);
-
+                
             $game
                 ->gamePlayers
                 ->map(function (GamePlayer $gamePlayer) use ($game) {

@@ -31,7 +31,7 @@
 
             substitutes.classList.toggle('hidden');
         })">
-        
+
         <x-result.rating-image-previewer
             :$teams
             :$score
