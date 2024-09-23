@@ -1,4 +1,4 @@
-<div id="rated-player" class="flex justify-center"
+<div class="flex justify-center rated-player"
     x-data="{
         machineRating: @entangle('player.machineRating'),
         rating: @entangle('player.myRating'),
@@ -30,18 +30,18 @@
             </div>
             
             <!-- Rating -->
-            <div class="absolute bottom-[-15%] left-[55%] min-w-[35px] max-w-[80px] w-full">                
-                <div class="flex items-center justify-center rounded-xl"
+            <div class="rating absolute bottom-[-5%] left-[58%]">                
+                <div class="flex items-center justify-center px-1.5 rounded-xl"
                     :style=" mom
                         ? 'background-color: #0E87E0'
                         : `background-color: ${ratingBgColor(rating)}`
                     ">
 
                     <template x-if="mom">
-                        <p class="text-sm font-black text-gray-50 md:text-xl">★</p>
+                        <p class="text-sm font-black text-gray-50 md:text-xl rating-text">★</p>
                     </template>
                     
-                    <p class="text-sm font-black text-gray-50 md:text-xl"
+                    <p class="text-sm font-black text-gray-50 md:text-xl rating-text"
                         x-text="ratingValue(rating)">
                     </p>
                 </div>
@@ -49,7 +49,7 @@
         </div>
 
         <div id="player-data" class="flex items-center justify-center mt-1 pointer-events-none gap-x-2">    
-            <p id="player-name" x-text="name" class="text-sm font-black text-white md:text-2xl"></p>
+            <p id="player-name" x-text="name" class="text-xs font-black text-white md:text-xl bg-sky-950 player-name-text"></p>
             <p id="player-mom" x-text="mom" class="hidden"></p>
             <p id="player-rating" x-text="rating" class="hidden"></p>
             <p id="machine-rating" x-text="machineRating" class="hidden"></p>
