@@ -1,4 +1,4 @@
-<div class="flex justify-center w-full">
+<div id="previewer" class="flex justify-center w-full">
     <div class="h-full max-w-[600px] w-full p-1">
         <div class="grid w-full grid-cols-2 text-center">
             <div class="w-full col-span-1">

@@ -25,7 +25,7 @@
                     </div>
                     
                     <!-- Rating -->
-                    <div class="absolute bottom-[-15%] left-[55%] min-w-[35px] max-w-[80px] w-full"
+                    <div class="absolute bottom-[-5%] left-[58%]"
                         x-data="{
                             toggleStates: 'my',
                             isMy() { return this.toggleStates === 'my' },
@@ -42,7 +42,7 @@
 
                         <!-- MyRating -->
                         <template x-if="isMy()">
-                            <div class="flex items-center justify-center rounded-xl"
+                            <div class="flex items-center justify-center px-1.5 md:px-3 rounded-xl"
                                 :style=" myMom
                                     ? 'background-color: #0E87E0'
                                     : `background-color: ${ratingBgColor(myRating)}`
@@ -60,7 +60,7 @@
 
                         <!-- UserRating -->
                         <template x-if="isUsers()">
-                            <div class="flex items-center justify-center rounded-xl"
+                            <div class="flex items-center justify-center px-1.5 md:px-3 rounded-xl"
                                 :style=" usersMom
                                     ? 'background-color: #0E87E0'
                                     : `background-color: ${ratingBgColor(usersRating)}`
@@ -78,7 +78,7 @@
 
                         <!-- MachineRating -->
                         <template x-if="isMachine()">
-                            <div class="flex items-center justify-center rounded-xl"
+                            <div class="flex items-center justify-center px-1.5 md:px-3 rounded-xl"
                                 :style="`background-color: ${ratingBgColor(machineRating)}`">
                                 
                                 <p class="text-sm font-black text-gray-50 md:text-xl"
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="flex items-center justify-center mt-1 pointer-events-none gap-x-2">    
-                    <p class="text-sm font-black text-white md:text-xl">
+                    <p class="text-xs font-black text-white bg-sky-950 md:text-xl">
                         {{ $player['name'] }}
                     </p>
                 </div>
