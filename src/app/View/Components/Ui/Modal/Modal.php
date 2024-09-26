@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\View\Components\Util;
+namespace App\View\Components\Ui\Modal;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -21,6 +21,6 @@ class Modal extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.util.modal');
+        return view('components.ui.modal.modal');
     }
 }
