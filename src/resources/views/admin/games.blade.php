@@ -5,5 +5,7 @@
         </h2>
     </x-slot>
 
-    {{-- <livewire:user.games /> --}}
+    @foreach($games as $game)
+        <livewire:admin.game :$game :key="$game['id']" />
+    @endforeach
 </x-admin-layout>
