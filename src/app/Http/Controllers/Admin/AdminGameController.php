@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Presenters\GamesPresenter;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\UseCases\Admin\FetchGames;
 
 class AdminGameController extends Controller
 {
+    public function __construct(
+        private FetchGames $fetchGames,
+        private GamesPresenter $gamesPresenter
+    ) {
+        
+    }
+    
     public function index()
     {
-        return view('admin.games');
+        $games = $this->fetchGames->execute();
+
+        return view('admin.games', ['games' => $this->gamesPresenter->present($games)]);
     }
 }

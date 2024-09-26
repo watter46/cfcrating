@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace App\View\Components\Game;
+namespace App\View\Components\User\Result;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Score extends Component
+class RatingImage extends Component
 {
     /**
      * Create a new component instance.
@@ -14,7 +14,12 @@ class Score extends Component
     public function __construct(
         public array $teams,
         public array $score,
-        public array $league
+        public array $startXI,
+        public array $substitutes,
+        public array $mobileSubstitutes,
+        public bool $isWinner,
+        public string $playerGridCss,
+        public string $id
     ) {
         //
     }
@@ -24,6 +29,6 @@ class Score extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.game.score');
+        return view('components.user.result.rating-image');
     }
 }

@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center justify-center gap-3">
-    <x-game.player-image
+    <x-user.game.player-image
         class="w-20 h-20"
         :path="$player['path']" />
 
@@ -36,7 +36,7 @@
     <div class="flex flex-col items-center p-0.5">
         <p class="text-sm font-black text-gray-400 md:text-base">Goals</p>
         <div class="flex items-center justify-center w-full h-full">
-            <x-game.goals
+            <x-user.game.goals
                 class="w-[13px] h-[13px]"
                 :goals="$player['goals']" />
         </div>
@@ -46,7 +46,7 @@
     <div class="flex flex-col items-center p-0.5">
         <p class="text-sm font-black text-gray-400 md:text-base">Assists</p>
         <div class="flex items-center justify-center w-full h-full">
-            <x-game.assists
+            <x-user.game.assists
                 class="w-[13px] h-[13px]"
                 :assists="$player['assists']" />
         </div>

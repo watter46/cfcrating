@@ -1,28 +1,28 @@
 <x-guest-layout>
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-default.auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input class="block w-full mt-1" id="email" name="email"
+            <x-default.input-label for="email" :value="__('Email')" />
+            <x-default.text-input class="block w-full mt-1" id="email" name="email"
                 type="email" :value="old('email')" required autofocus
                 autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <x-default.input-error class="mt-2" :messages="$errors->get('email')" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-default.input-label for="password" :value="__('Password')" />
 
-            <x-text-input class="block w-full mt-1" id="password"
+            <x-default.text-input class="block w-full mt-1" id="password"
                 name="password" type="password" required
                 autocomplete="current-password" />
 
-            <x-input-error class="mt-2" :messages="$errors->get('password')" />
+            <x-default.input-error class="mt-2" :messages="$errors->get('password')" />
         </div>
 
         <!-- Remember Me -->
@@ -44,9 +44,9 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-default.primary-button class="ms-3">
                 {{ __('Log in') }}
-            </x-primary-button>
+            </x-default.primary-button>
         </div>
     </form>
 

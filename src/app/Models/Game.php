@@ -84,6 +84,18 @@ class Game extends Model
         $query->where('season', 2023);
         // $query->where('season', Season::current());
     }
+
+    /**
+     * 今日までの試合を取得する
+     *
+     * @param  Builder<Game> $query
+     */
+    public function scopeUntilToday(Builder $query,): void
+    {
+        $query
+            ->where('date', '<=', now('UTC'))
+            ->orderBy('date', 'desc');
+    }
     
     /**
      * @param  Builder<Game> $query

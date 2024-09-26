@@ -3,7 +3,7 @@
         <!-- Score -->
         <div class="flex justify-center w-full">
             <div class="w-full md:w-3/4 md:px-10">
-                <x-game.score :$teams :$score :$league />
+                <x-user.game.score :$teams :$score :$league />
             </div>
         </div>
     
@@ -78,7 +78,7 @@
     
                 <div class="flex justify-end w-full space-x-5 lg:justify-start">
                     <!-- Result -->
-                    <x-result.result
+                    <x-user.result.result
                         :$teams
                         :$score
                         :$startXI

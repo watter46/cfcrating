@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace App\View\Components\Util;
+namespace App\View\Components\Ui\Modal;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Modal extends Component
+class ModalButton extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Modal extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.util.modal');
+        return view('components.ui.modal.modal-button');
     }
 }
