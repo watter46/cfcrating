@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\View\Components\Game;
+namespace App\View\Components\User\Game;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -24,6 +24,6 @@ class Score extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.game.score');
+        return view('components.user.game.score');
     }
 }

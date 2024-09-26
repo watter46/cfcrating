@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace App\View\Components\Game;
+namespace App\View\Components\User\Result;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class PlayerStats extends Component
+class RatingImageDownloader extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $player)
+    public function __construct()
     {
         //
     }
@@ -21,6 +21,6 @@ class PlayerStats extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.game.player-stats');
+        return view('components.user.result.rating-image-downloader');
     }
 }
