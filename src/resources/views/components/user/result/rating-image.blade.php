@@ -1,7 +1,7 @@
 <div id="content" class="h-full w-[500px] bg-sky-950 p-5 overflow-hidden">
     <div class="flex flex-1 w-full">
         <div class="grow">
-            <x-result.score
+            <x-user.result.score
                 :$teams
                 :$score
                 :$isWinner />

@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\View\Components\Result;
+namespace App\View\Components\User\Result;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class RatingImagePreviewer extends Component
+
+class Result extends Component
 {
     /**
      * Create a new component instance.
@@ -29,6 +30,6 @@ class RatingImagePreviewer extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.result.rating-image-previewer');
+        return view('components.user.result.result');
     }
 }

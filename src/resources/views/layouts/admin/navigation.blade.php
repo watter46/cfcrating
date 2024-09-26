@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-teal-900 border-b border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,21 +6,22 @@
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('admin.games.index') }}">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
+                        <x-default.application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.index')">
+                    <x-default.nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.index')"
+                        :class="'border-lime-600'">
                         {{ __('Games') }}
-                    </x-nav-link>
+                    </x-default.nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-default.dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
                             <div>{{ Auth::user()->name }}</div>
@@ -38,14 +39,14 @@
                         <form method="POST" action="{{ route('admin.logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('admin.logout')"
+                            <x-default.dropdown-link :href="route('admin.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
-                            </x-dropdown-link>
+                            </x-default.dropdown-link>
                         </form>
                     </x-slot>
-                </x-dropdown>
+                </x-default.dropdown>
             </div>
 
             <!-- Hamburger -->
@@ -63,9 +64,9 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.index')">
+            <x-default.responsive-nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.index')">
                 {{ __('Games') }}
-            </x-responsive-nav-link>
+            </x-default.responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -79,11 +80,11 @@
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('admin.logout')"
+                    <x-default.responsive-nav-link :href="route('admin.logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    </x-default.responsive-nav-link>
                 </form>
             </div>
         </div>

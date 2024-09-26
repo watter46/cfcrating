@@ -1,16 +1,16 @@
 <div x-data="{
-        open: false,
-        enableScroll() {
-            document.body.style.overflow = 'auto';
-        },
-        disabledScroll() {
-            document.body.style.overflow = 'hidden';
-        }
-    }"
-    @open-modal.window="if ($event.detail === '{{ $name }}') open = true"
-    @close-modal.window="open = false"
-    x-effect="open ? disabledScroll() : enableScroll()"
-    x-cloak>
+    open: true,
+    enableScroll() {
+        document.body.style.overflow = 'auto';
+    },
+    disabledScroll() {
+        document.body.style.overflow = 'hidden';
+    }
+}"
+@open-modal.window="if ($event.detail === '{{ $name }}') open = true"
+@close-modal.window="open = false"
+x-effect="open ? disabledScroll() : enableScroll()"
+x-cloak>
 
     <div x-show="open"
         class="fixed inset-0 w-screen z-[99] h-screen overflow-y-auto"

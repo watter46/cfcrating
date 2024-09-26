@@ -10,21 +10,21 @@
     <div class="flex flex-col justify-center">
         <div class="relative flex self-center justify-center w-fit">
             <!-- PlayerImage -->
-            <x-game.player-image
+            <x-user.game.player-image
                 class="cursor-default player-size"
                 :number="$player['number']"
                 :path="$player['path']" />
 
             <!-- Goals -->
             <div class="absolute top-0 left-0 -translate-x-[60%]">
-                <x-game.goals
+                <x-user.game.goals
                     class="w-[13px] h-[13px] md:w-[24px] md:h-[24px]"
                     :goals="$player['goals']" />
             </div>
 
             <!-- Assists -->
             <div class="absolute top-0 right-0 translate-x-[60%]">
-                <x-game.assists
+                <x-user.game.assists
                     class="w-[13px] h-[13px] md:w-[24px] md:h-[24px]"
                     :assists="$player['assists']" />
             </div>
