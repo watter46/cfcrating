@@ -2,7 +2,7 @@
     <div class="h-full max-w-[600px] w-full p-1">
         <div class="grid w-full grid-cols-2 text-center">
             <div class="w-full col-span-1">
-                <x-result.score
+                <x-user.result.score
                     :$teams
                     :$score
                     :$isWinner />

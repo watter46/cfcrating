@@ -1,25 +1,25 @@
 <div>
-    <x-util.button name="player-{{ $player['id'] }}">
+    <x-ui.modal.modal-button name="player-{{ $player['id'] }}">
         <div id="{{ $name }}" class="flex justify-center"
             wire:ignore.self>
 
             <div class="flex flex-col justify-center">
                 <div class="relative flex self-center justify-center transition duration-300 ease-in-out cursor-pointer w-fit hover:scale-125">
                     <!-- PlayerImage -->
-                    <x-game.player-image
+                    <x-user.game.player-image
                         class="player-size"
                         :path="$player['path']" />
 
                     <!-- Goals -->
                     <div class="absolute top-0 left-0 -translate-x-[60%]">
-                        <x-game.goals
+                        <x-user.game.goals
                             class="w-[13px] h-[13px] md:w-[24px] md:h-[24px]"
                             :goals="$player['goals']" />
                     </div>
 
                     <!-- Assists -->
                     <div class="absolute top-0 right-0 translate-x-[60%]">
-                        <x-game.assists
+                        <x-user.game.assists
                             class="w-[13px] h-[13px] md:w-[24px] md:h-[24px]"
                             :assists="$player['assists']" />
                     </div>
@@ -96,12 +96,12 @@
                 </div>
             </div>
         </div>
-    </x-util.button>
+    </x-ui.modal.modal-button>
 
-    <x-util.modal name="player-{{ $player['id'] }}" class="md:w-2/3">
+    <x-ui.modal.modal name="player-{{ $player['id'] }}" class="md:w-2/3">
         <div class="flex flex-col justify-center p-2 bg-cyan-950 md:p-5 rounded-xl">
             <!-- PlayerStats -->
-            <x-game.player-stats :$player />
+            <x-user.game.player-stats :$player />
         
             <!-- Rating -->
             <div class="flex items-center justify-center w-full h-full">
@@ -182,7 +182,7 @@
                 </div>
             </div>
         </div>
-    </x-util.modal>
+    </x-ui.modal.modal>
 
     @vite(['resources/js/rating.js', 'resources/css/rating.css', 'resources/css/player.css'])
 </div>

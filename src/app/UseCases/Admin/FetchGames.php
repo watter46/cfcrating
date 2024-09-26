@@ -2,18 +2,24 @@
 
 namespace App\UseCases\Admin;
 
-use App\Domain\Admin\GameQueryServiceInterface;
+use Exception;
+
+use App\Models\Game;
 
 
 class FetchGames
 {
-    public function __construct(private GameQueryServiceInterface $query)
-    {
-        
-    }
-
     public function execute()
     {
-        return $this->query->fetchGames();
+        try {
+            return Game::query()
+                ->select(['id', 'date', 'score', 'teams', 'league'])
+                ->currentSeason()
+                ->untilToday()
+                ->simplePaginate();
+
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 }
