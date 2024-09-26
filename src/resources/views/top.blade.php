@@ -20,12 +20,13 @@
             <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="https://laravel.com/assets/img/welcome/background.svg" />
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                    <header class="grid items-center grid-cols-2 gap-2 py-10 lg:grid-cols-3">
                         <div class="flex lg:justify-center lg:col-start-2">
                             
                         </div>
+                        
                         @if (Route::has('login'))
-                            <nav class="-mx-3 flex flex-1 justify-end">
+                            <nav class="flex justify-end flex-1 -mx-3">
                                 @auth
                                     <a
                                         href="{{ url('/games') }}"
@@ -33,6 +34,12 @@
                                     >
                                         Games
                                     </a>
+
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+            
+                                        <button type="submit" class="text-gray-400">Log out</button>
+                                    </form>
                                 @else
                                     <a
                                         href="{{ route('login') }}"
@@ -53,6 +60,12 @@
                             </nav>
                         @endif
                     </header>
+
+                    @if (session('error'))
+                        <div class="alert alert-success">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                     <main class="mt-6">
                         <div class="flex items-center justify-center w-full h-full">

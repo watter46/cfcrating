@@ -11,7 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+            '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
+            'user' => \App\Http\Middleware\UserMiddleware::class,
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
