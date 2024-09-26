@@ -1,9 +1,8 @@
-
 <div class="flex w-full pb-10">
     <div class="w-full h-full p-2 md:px-8 lg:px-20">
         <div class="relative flex items-center justify-center w-full h-full">
             <div class="flex items-center w-full h-16">
-                {{ $this->games->links('components.wire-pagination') }}
+                {{ $this->games->links('components.default.wire-pagination') }}
             </div>
 
             {{-- SortTournament --}}
@@ -42,7 +41,7 @@
                 <div class="w-full p-1 overflow-hidden border-b border-gray-500">
                     <div class="w-full h-full cursor-pointer"
                         wire:click="toGame('{{ $game['id'] }}')">
-                        <x-games.score :$game />
+                        <x-user.games.score :$game />
                     </div>
                 </div>
             @endforeach

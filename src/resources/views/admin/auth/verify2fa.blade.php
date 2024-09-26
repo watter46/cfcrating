@@ -1,6 +1,6 @@
 <x-guest-layout>
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-default.auth-session-status class="mb-4" :status="session('status')" />
 
     <div class="grid grid-cols-1 gap-16">
         <div class="mt-4">
@@ -16,7 +16,7 @@
 
             <!-- Validation Errors -->
             @if ($errors->any())
-                <x-input-error :messages="$errors->first()" />
+                <x-default.input-error :messages="$errors->first()" />
             @endif
 
             <div class="flex items-center justify-end mt-4">

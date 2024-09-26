@@ -1,12 +1,12 @@
-<x-util.button name="result" class="p-1 rounded-md hover:bg-gray-400 hover:bg-opacity-20">
+<x-ui.modal.modal-button name="result" class="p-1 rounded-md hover:bg-gray-400 hover:bg-opacity-20">
     <x-svg.photo class="w-8 h-8 cursor-pointer md:w-9 md:h-9" />
 
     <p class="text-xs font-black text-center text-gray-400 md:text-base">
         Result
     </p>
-</x-util.button>
+</x-ui.modal.modal-button>
 
-<x-util.modal name="result" class="w-full md:w-3/4">
+<x-ui.modal.modal name="result" class="w-full md:w-3/4">
     <div x-data="{
             includeSubs: true,
             isCopied: false,
@@ -32,7 +32,7 @@
             substitutes.classList.toggle('hidden');
         })">
 
-        <x-result.rating-image-previewer
+        <x-user.result.rating-image-previewer
             :$teams
             :$score
             :$startXI
@@ -42,7 +42,7 @@
             :$playerGridCss
             :$id />
     
-        <x-result.rating-image-downloader />
+        <x-user.result.rating-image-downloader />
 
         <div class="flex flex-col justify-center w-full mt-5 md:space-x-5 md:flex-row">
             <div class="border-2 border-gray-500 space-y-2 rounded-xl p-3 max-w-[400px] w-full">
@@ -82,4 +82,4 @@
         
         @vite(['resources/js/downloadImage.js','resources/js/copyRatings.js'])
     </div>
-</x-util.modal>
+</x-ui.modal.modal>
