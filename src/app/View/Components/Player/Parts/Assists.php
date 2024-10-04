@@ -1,21 +1,18 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace App\View\Components\User\Game;
+namespace App\View\Components\Player\Parts;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Score extends Component
+class Assists extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public array $teams,
-        public array $score,
-        public array $league
-    ) {
+    public function __construct(public int $assists)
+    {
         //
     }
 
@@ -24,6 +21,6 @@ class Score extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.user.game.score');
+        return view('components.player.parts.assists');
     }
 }
