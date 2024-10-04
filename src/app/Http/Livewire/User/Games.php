@@ -7,8 +7,8 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+use App\Http\Controllers\User\Presenters\GamesPresenter;
 use App\UseCases\Util\TournamentType;
-use App\Http\Controllers\Presenters\GamesPresenter;
 use App\UseCases\User\FetchGames;
 
 
@@ -49,16 +49,6 @@ class Games extends Component
         $games = $this->fetchGames->execute(TournamentType::fromTournamentId($this->tournamentId));
 
         return $this->presenter->presentGames($games);
-    }
-    
-    /**
-     * 選択した試合に移動する
-     *
-     * @return void
-     */
-    public function toGame(string $gameId): void
-    {
-        $this->redirect("/games/$gameId");
     }
 
     public function filterTournament($id): void

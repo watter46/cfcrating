@@ -1,8 +1,10 @@
 <div id="content" class="hidden py-5 overflow-hidden bg-sky-950 w-[800px]">
     <!-- Score -->
     <div class="grid w-full grid-cols-3 text-center">
-        <div class="w-full">
-            <div id="downloader-score"></div>
+        <div class="flex items-center justify-center w-full">
+            <x-game-summary.team-score-card
+                :$game
+                :isNameRequired="false" />
         </div>
         
         <div class="w-full">
