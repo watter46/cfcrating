@@ -12,16 +12,8 @@ class Result extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public array $teams,
-        public array $score,
-        public array $startXI,
-        public array $substitutes,
-        public array $mobileSubstitutes,
-        public bool $isWinner,
-        public string $playerGridCss,
-        public string $id
-    ) {
+    public function __construct(public array $game)
+    {
         //
     }
 
