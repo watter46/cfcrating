@@ -25,24 +25,16 @@
                     });
             }
         }"
-        class="flex flex-col p-3 md:p-5 rounded-xl bg-sky-950"
+        class="flex flex-col p-3 md:p-5"
         x-init="$watch('includeSubs', (include) => {
-            const substitutes = document.getElementById('substitute-players');
+            const substitutes = document.querySelector('#previewer .substitutes');
 
             substitutes.classList.toggle('hidden');
         })">
 
-        <x-user.result.rating-image-previewer
-            :$teams
-            :$score
-            :$startXI
-            :$substitutes
-            :$mobileSubstitutes
-            :$isWinner
-            :$playerGridCss
-            :$id />
+        <x-user.result.rating-image-previewer :$game />
     
-        <x-user.result.rating-image-downloader />
+        <x-user.result.rating-image-downloader :$game />
 
         <div class="flex flex-col justify-center w-full mt-5 md:space-x-5 md:flex-row">
             <div class="border-2 border-gray-500 space-y-2 rounded-xl p-3 max-w-[400px] w-full">
