@@ -6,7 +6,7 @@
     </p>
 </x-ui.modal.modal-button>
 
-<x-ui.modal.modal name="result" class="w-full md:w-3/4">
+<x-ui.modal.modal name="result" class="w-full md:w-5/6">
     <div x-data="{
             includeSubs: true,
             isCopied: false,
