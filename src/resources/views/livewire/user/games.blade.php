@@ -39,10 +39,10 @@
         <div class="w-full mt-2 gap-y-8">
             @foreach($this->games as $game)
                 <div class="w-full p-1 overflow-hidden border-b border-gray-500">
-                    <div class="w-full h-full cursor-pointer"
-                        wire:click="toGame('{{ $game['id'] }}')">
-                        <x-user.games.score :$game />
-                    </div>
+                    <a class="w-full h-full cursor-pointer"
+                        href="{{ route('games.game', ['gameId' => $game['id']]) }}">
+                        <x-game-summary.game-summary :$game  />
+                    </a>
                 </div>
             @endforeach
         </div>
