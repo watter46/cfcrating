@@ -1,19 +1,22 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace App\View\Components\User\Games;
+namespace App\View\Components\Field;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-
-class Score extends Component
+class Field extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $game)
-    {
+    public function __construct(
+        public array $game,
+        public bool $isDisplay,
+        public int $maxWidth,
+        public string $fieldName = ''
+    ) {
         //
     }
 
@@ -22,6 +25,6 @@ class Score extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.user.games.score');
+        return view('components.field.field');
     }
 }

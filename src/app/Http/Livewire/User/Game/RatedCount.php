@@ -34,7 +34,7 @@ class RatedCount extends Component
         return view('livewire.user.game.rated-count');
     }
 
-    #[On('player-updated')]
+    #[On('rated-count-updated')]
     public function fetch(): void
     {
         try {            
