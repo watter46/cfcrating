@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AdminGameController;
 use App\Http\Controllers\Admin\AdminAuthenticatedSessionController;
-use App\Http\Controllers\GameController;
+use App\Http\Controllers\User\GameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserLoginController;
 
@@ -57,7 +57,7 @@ Route::middleware(['auth', 'verified', 'user'])
             ->group(function () {
                 Route::get('/', [GameController::class, 'index'])->name('index');
                 Route::get('/latest', [GameController::class, 'latest'])->name('latest');
-                Route::get('/{gameId}', [GameController::class, 'find'])->name('find');
+                Route::get('/{gameId}', [GameController::class, 'find'])->name('game');
             });
     });
 

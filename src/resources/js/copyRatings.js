@@ -1,37 +1,65 @@
-window.copyRatings = (includeMachineRating) => {
-    const players = document.querySelectorAll('#player-data');
-
-    const playerText = [...players]
-        .map(player => {
-            return {
-                name: player.querySelector('#player-name').textContent,
-                mom: toBoolean(player.querySelector('#player-mom').textContent),
-                rating: toFloat(player.querySelector('#player-rating').textContent),
-                machineRating: toFloat(player.querySelector('#machine-rating').textContent)
-            };
-        })
-        .map(player => formatText(player, includeMachineRating))
-        .join('\n');
-        
+window.copyRatings = (includeSubs) => {
+    const formattedText =
+        `${formatHeader()}\n` +
+        `${formatScore()}\n` +
+        '\n' +
+        `${formatRating(includeSubs)}\n` +
+        `\n` +
+        `${formatFooter()}`;
+    
     return navigator
         .clipboard
-        .writeText(playerText);
+        .writeText(formattedText);
 }
 
-const toBoolean = (booleanStr) => booleanStr.toLowerCase() === "true";
-const toFloat   = (floatStr)   => floatStr !== '' ? parseFloat(floatStr) : 0;
+const formatHeader = () => {
+    return '✨MyRating\u2006@cfcRating✨';
+}
 
-const formatText = (player, includeMachineRating) => {
-    const toText = (player) => {
-        const playerText = 
-            `${player.mom ? `☆\u2006` : ''}`+
-            `${player.name}: ` +
-            `${player.rating ? player.rating+'/10' : '-'}\u2000`;
+const formatScore = () => {
+    const scoreEl = document.querySelector('#score');
 
-        return playerText;
-    }
+    const awayTeamName = scoreEl.dataset.awayTeamName;
+    const homeTeamName = scoreEl.dataset.homeTeamName;
 
-    return includeMachineRating
-        ? toText(player)+`(${player.machineRating ? player.machineRating : '-'})`
-        : toText(player);
+    return `${awayTeamName}\u2000vs\u2000${homeTeamName}(H)`
+}
+
+const formatRating = (includeSubs) => {
+    const playerDataEls = document.querySelectorAll('#player-data');
+
+    const toMom    = (mom) => mom.toLowerCase() === "true" ? '(MOTM✨)' : '';
+    const toRating = (rating) => rating !== 'null' ? parseFloat(rating) : '-';
+    
+    const ratings = [...playerDataEls]
+        .map(player => {
+            const name = player.dataset.name;
+            const mom = player.dataset.mom;
+            const rating = player.dataset.rating;
+
+            return {
+                name: name,
+                mom: toMom(mom),
+                rating: toRating(rating)
+            };
+        });
+    
+    const filtered = includeSubs
+        ? ratings
+        : ratings.filter(player => typeof player.rating === 'number')
+    
+    return filtered
+        .map(player => {
+            const text =
+            `${player.name} ` +
+            `${player.rating}` +
+            `${player.mom}`;
+
+            return text;
+        })
+        .join('\n');
+}
+
+const formatFooter = () => {
+    return '#CFCRating' + '\n' + '#CFC';
 }

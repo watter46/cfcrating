@@ -11,7 +11,7 @@ class Main extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $player, public bool $clickable = true)
+    public function __construct(public array $player, public bool $clickable)
     {
         //
     }

@@ -1,10 +1,11 @@
-<div class="flex items-center justify-center w-full player">
+@php
+    $hover = $clickable ? 'transition duration-300 ease-in-out cursor-pointer hover:scale-125' : '';
+@endphp
+
+<div {{ $attributes->class('flex items-center justify-center w-full player') }}>
     <div class="flex justify-center">
         <div class="flex flex-col justify-center">
-            <div @class([
-                'relative flex self-center justify-center w-fit',
-                'transition duration-300 ease-in-out cursor-pointer hover:scale-125' => $clickable
-            ])
+            <div class="relative flex self-center justify-center w-fit {{ $hover }}"
             @if($clickable) @click="$dispatch('open-modal', 'player-{{ $player['id'] }}')" @endif>
                 <!-- PlayerImage -->
                 <x-player.parts.player-image

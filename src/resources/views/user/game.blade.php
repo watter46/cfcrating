@@ -1,7 +1,10 @@
 <x-app-layout>
     <div x-data x-cloak class="flex flex-col justify-center w-full p-2">
         <!-- Score -->
-        <section class="w-full mb-5 md:px-5">
+        <section id="score" class="w-full mb-5 md:px-5"
+            data-away-team-name="{{ $game['teams']['away']['name'] }}"
+            data-home-team-name="{{ $game['teams']['home']['name'] }}">
+
             <div class="flex justify-end w-full mb-2 sm:mb-3 md:mb-5">
                 <x-game-summary.parts.league :league="$game['league']" />
             </div>
