@@ -1,4 +1,9 @@
-<x-player.parts.main :$player>
+<x-player.parts.main :$player :clickable="true"
+    id="player-data"
+    data-name="{{ $player['name'] }}"
+    data-mom="{{ $player['myMom'] ? 'true' : 'false' }}"
+    data-rating="{{ $player['myRating'] ?? 'null' }}">
+    
     <x-slot:top-left>
         <!-- Goals -->
         <x-player.parts.goals :goals="$player['goals']" />
@@ -8,7 +13,7 @@
         <!-- Assists -->
         <x-player.parts.assists :assists="$player['assists']" />
     </x-slot:top-right>
-
+    
     <x-slot:bottom-right>
         <!-- Rating -->
         <div x-data="{
