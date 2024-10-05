@@ -9,7 +9,7 @@ window.downloadImage = () => {
             const previewerEl = document.querySelector('#previewer').cloneNode(true);
 
             previewerEl
-                .querySelectorAll('.rated-player')
+                .querySelectorAll('.player')
                 .forEach(playerEl => {
                     const playerImageEl = playerEl.querySelector('.player-image');
 
@@ -18,7 +18,20 @@ window.downloadImage = () => {
 
                     const ratingEl = playerEl.querySelector('.rating');
 
-                    ratingEl.style.width = '70px';
+                    ratingEl.style.paddingLeft = '16px';
+                    ratingEl.style.paddingRight = '16px';
+
+                    playerEl.querySelectorAll('.goals')
+                        .forEach(goalEl => {
+                            goalEl.style.width = '30px';
+                            goalEl.style.height = '30px';
+                        });
+
+                    playerEl.querySelectorAll('.assists')
+                        .forEach(assistEl => {
+                            assistEl.style.width = '30px';
+                            assistEl.style.height = '30px';
+                        });
                     
                     const ratingTextEls = playerEl.querySelectorAll('.rating-text');
 
@@ -34,11 +47,9 @@ window.downloadImage = () => {
                     playerNameTextEl.style.lineHeight = '2rem';
                 });
 
-            const scoreEl = previewerEl.querySelector('#score').cloneNode(true);
-            const startXIEl = previewerEl.querySelector('#startXI-players').cloneNode(true);
-            const substitutesEl = previewerEl.querySelector('#substitute-players').cloneNode(true);
-                
-            clonedDoc.querySelector('#downloader-score').replaceWith(scoreEl);
+            const startXIEl = previewerEl.querySelector('.startXI').cloneNode(true);
+            const substitutesEl = previewerEl.querySelector('.substitutes').cloneNode(true);
+
             clonedDoc.querySelector('#downloader-startXI').replaceWith(startXIEl);
             clonedDoc.querySelector('#downloader-substitutes').replaceWith(substitutesEl);
             

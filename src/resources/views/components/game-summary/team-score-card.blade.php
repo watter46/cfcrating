@@ -1,5 +1,5 @@
 <section {{ $attributes->class("flex items-center justify-center mt-3") }}>
-    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-x-1 sm:gap-x-4 md:gap-x-5">
+    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-x-1 xxs:gap-x-2 xs:gap-x-3 sm:gap-x-4 md:gap-x-5">
         <!-- Home Team -->
         <div class="flex justify-end">
             <x-game-summary.parts.team class="text-xl"
