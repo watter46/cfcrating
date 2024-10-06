@@ -13,9 +13,8 @@ class Field extends Component
      */
     public function __construct(
         public array $game,
-        public bool $isDisplay,
         public int $maxWidth,
-        public string $fieldName = ''
+        public string $fieldName
     ) {
         //
     }

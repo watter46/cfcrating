@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App\View\Components\Ui\Table;
+namespace App\View\Components\AdminKeyForm;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -11,7 +11,7 @@ class SaveButton extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public string $eventName)
     {
         //
     }
@@ -21,6 +21,6 @@ class SaveButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.ui.table.save-button');
+        return view('components.admin-key-form.save-button');
     }
 }

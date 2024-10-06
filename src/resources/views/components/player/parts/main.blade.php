@@ -14,17 +14,17 @@
                 
                 <!-- TopLeft -->
                 <div class="absolute top-0 left-0 -translate-x-[60%]">
-                    {{ $topLeft }}
+                    {{ $topLeft ?? '' }}
                 </div>
 
                 <!-- TopRight -->
                 <div class="absolute top-0 right-0 translate-x-[60%]">
-                    {{ $topRight }}
+                    {{ $topRight ?? '' }}
                 </div>
 
                 <!-- bottomRight -->
                 <div class="absolute bottom-[-5%] left-[58%]">
-                    {{ $bottomRight }}
+                    {{ $bottomRight ?? '' }}
                 </div>
             </div>
 

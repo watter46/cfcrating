@@ -5,7 +5,13 @@
         </h2>
     </x-slot>
 
-    @foreach($games as $game)
-        <livewire:admin.game :$game :key="$game['id']" />
-    @endforeach
+    <section class="px-3">
+        @foreach($games as $game)
+            <div class="border-b border-gray-500 cursor-pointer">
+                <a href="{{ route('admin.games.game', ['gameId' => $game['id']]) }}">
+                    <x-game-summary.game-summary :$game />
+                </a>
+            </div>
+        @endforeach
+    </section>
 </x-admin-layout>

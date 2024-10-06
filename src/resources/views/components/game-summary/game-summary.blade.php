@@ -1,4 +1,4 @@
-<section class="w-full my-2">
+<section class="w-full py-2">
     <div class="w-full h-full">
         <div class="flex justify-between w-full mb-1 font-black">
             <!-- Date -->
