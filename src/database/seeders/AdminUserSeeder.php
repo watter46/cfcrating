@@ -19,7 +19,7 @@ class AdminUserSeeder extends Seeder
             'name' => 'Admin1',
             'role' => RoleType::Admin->value,
             'provider' => SocialProviderType::Google->value,
-            'provider_id' => env('ADMIN_PROVIDER_ID'),
+            'provider_id' => config('admin-provider.id'),
             'two_factor_secret' => null,
             'two_factor_enabled' => false,
         ]);

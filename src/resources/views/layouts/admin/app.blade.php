@@ -21,6 +21,7 @@
             @include('layouts.admin.navigation')
 
             <livewire:util.message />
+            <livewire:admin.admin-key-form />
 
             <!-- Page Heading -->
             @isset($header)

@@ -1,17 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace App\View\Components\admin;
+namespace App\View\Components\Player;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class score extends Component
+class Editable extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $game)
+    public function __construct(public array $player)
     {
         //
     }
@@ -21,6 +21,6 @@ class score extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin.score');
+        return view('components.player.editable');
     }
 }

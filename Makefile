@@ -90,7 +90,7 @@ clear:
 	docker compose exec app php artisan cache:clear
 	docker compose exec app php artisan config:clear
 	docker compose exec app php artisan route:clear
-	docker compose exec app php artisan view:cache
+	docker compose exec app php artisan view:clear
 cache:
 	docker compose exec app composer dump-autoload -o
 	@make optimize

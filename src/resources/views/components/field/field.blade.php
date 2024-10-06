@@ -1,7 +1,9 @@
 @php
-    $componentName = $isDisplay
-        ? 'player.display'
-        : 'player.rateable';
+    $componentName = match ($fieldName) {
+        'display'  => 'player.display',
+        'rateable' => 'player.rateable',
+        'editable' => 'player.editable'
+    };
 @endphp
 
 <!-- Field StartXI -->

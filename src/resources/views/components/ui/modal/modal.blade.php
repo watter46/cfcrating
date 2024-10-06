@@ -12,7 +12,7 @@
     x-effect="open ? disabledScroll() : enableScroll()"
     x-cloak
     x-show="open"
-    class="fixed inset-0 w-screen z-[99] h-screen overflow-y-auto"
+    class="fixed inset-0 w-screen z-[80] h-screen overflow-y-auto"
     style="background: rgba(31, 41, 55, 0.9);">
     <div class="grid w-full h-full place-items-center">
         <div {{ $attributes->class('w-full bg-sky-950 rounded-lg mt-1 md:mt-2') }}

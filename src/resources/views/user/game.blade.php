@@ -14,7 +14,7 @@
     
         <section class="flex flex-col w-full h-full justify-evenly lg:flex-row lg:mt-5">
             <!-- Field StartXI -->
-            <x-field.field :$game :isDisplay="false" :maxWidth="600">
+            <x-field.field :$game :maxWidth="600" fieldName="rateable">
                 <x-svg.field id="field" />
             </x-field.field>
 

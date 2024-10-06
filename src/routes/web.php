@@ -78,6 +78,7 @@ Route::prefix('admin')
             ->as('games.')
             ->group(function () {
                 Route::get('/', [AdminGameController::class, 'index'])->name('index');
+                Route::get('/{gameId}', [AdminGameController::class, 'find'])->name('game');
             });
     });
 
