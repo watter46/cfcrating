@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\View\Components\GameSummary\Parts;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+
 
 class Score extends Component
 {
@@ -14,6 +15,7 @@ class Score extends Component
     public function __construct(
         public array $score,
         public ?bool $isWinner,
+        public ?string $size
     ) {
         //
     }
@@ -37,5 +39,20 @@ class Score extends Component
         }
 
         return 'background-color: #6b7280'; // bg-gray-500
+    }
+
+    public function textSize()
+    {
+        if (!$this->size) {
+            return 'text-sm xxs:text-base sm:text-lg md:text-2xl';
+        }
+        
+        return match ($this->size) {
+            'xxs' => 'text-base',
+            'xs'  => 'text-base',
+            'sm'  => 'text-lg',
+            'md'  => 'text-2xl',
+            default => 'text-sm'
+        };
     }
 }
