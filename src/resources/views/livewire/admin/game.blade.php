@@ -42,7 +42,7 @@
 
             <x-slot:value>
                 <!-- Score -->
-                <x-game-summary.team-score-card :$game />
+                <x-game-summary.team-score-card :$game size="xs" />
 
                 <!-- Score Input -->
                 <div x-show="isEditable" x-cloak>
