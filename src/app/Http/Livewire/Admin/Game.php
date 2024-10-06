@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Exception;
 use Illuminate\Support\Carbon;
-use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 use App\Http\Livewire\Util\MessageDispatcher;
+use App\UseCases\Admin\Game\UpdateGame;
 
 
 class Game extends Component
@@ -21,6 +23,8 @@ class Game extends Component
 
     public $date;
     public string $isWinner;
+
+    private UpdateGame $updateGame;
 
     public function rules() 
     {
@@ -50,6 +54,11 @@ class Game extends Component
         ];
     }
 
+    public function boot(UpdateGame $updateGame)
+    {
+        $this->updateGame = $updateGame;
+    }
+
     public function mount()
     {
         $this->fulltime  = $this->game['score']['fulltime'];
@@ -69,12 +78,18 @@ class Game extends Component
         return view('livewire.admin.game');
     }
 
-    public function save()
+    #[On('game-{game.id}')]
+    public function save(string $adminKey)
     {
         try {   
-            $this->validate();
-            dd($this->validate());
-        } catch (ValidationException $e) {
+            if ($this->updateGame->checkOrFail($adminKey)) {
+                $this->updateGame->execute($this->game['id'], $this->validate());   
+
+                $this->dispatchSuccess('Updated!!');
+                $this->dispatch('close-admin-modal');
+            }
+            
+        } catch (Exception $e) {
             $this->dispatchError($e->getMessage());
         }
     }

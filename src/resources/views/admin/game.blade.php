@@ -10,7 +10,7 @@
             <!-- Toggle Game Player -->
             <div class="flex flex-col justify-center w-full my-2"
                 x-data="{
-                    isGame: false
+                    isGame: true
                 }"
                 x-cloak>
                 <div class="grid w-full max-w-xs grid-cols-2 gap-1 p-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
