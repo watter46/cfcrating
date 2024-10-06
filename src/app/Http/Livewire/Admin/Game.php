@@ -9,7 +9,8 @@ use Livewire\Attributes\On;
 
 use App\Http\Livewire\Util\MessageDispatcher;
 use App\UseCases\Admin\Game\UpdateGame;
-
+use App\Http\Livewire\Exception\NoUpdateRequiredException;
+use Illuminate\Support\Arr;
 
 class Game extends Component
 {
@@ -17,24 +18,29 @@ class Game extends Component
     
     public array $game;
 
-    public array $fulltime;
-    public array $penalty;
-    public array $extratime;
-
-    public $date;
+    public array $original;
+    public array $changedProperties;
+    public array $score;
+    public string $date;
     public string $isWinner;
 
     private UpdateGame $updateGame;
 
+        
+    /**
+     * changedDataでプロパティが変更されたか判定するので順番を変えないこと
+     *
+     * @return array
+     */
     public function rules() 
     {
         return [
-            'penalty.home' => 'nullable|integer|min:0',
-            'penalty.away' => 'nullable|integer|min:0',
-            'fulltime.home' => 'required|integer|min:0',
-            'fulltime.away' => 'required|integer|min:0',
-            'extratime.home' => 'nullable|integer|min:0',
-            'extratime.away' => 'nullable|integer|min:0',
+            'score.penalty.away' => 'nullable|integer|min:0',
+            'score.penalty.home' => 'nullable|integer|min:0',
+            'score.fulltime.away' => 'required|integer|min:0',
+            'score.fulltime.home' => 'required|integer|min:0',
+            'score.extratime.away' => 'nullable|integer|min:0',
+            'score.extratime.home' => 'nullable|integer|min:0',
             'date' => 'required|date',
             'isWinner' => 'required|in:true,false,null'
         ];
@@ -43,12 +49,12 @@ class Game extends Component
     public function messages() 
     {
         return [
-            'penalty.home' => 'penalty: least 0',
-            'penalty.away' => 'penalty: least 0',
-            'fulltime.home' => 'fulltime: least 0',
-            'fulltime.away' => 'fulltime: least 0',
-            'extratime.home' => 'extratime least 0',
-            'extratime.away' => 'extratime least 0',
+            'score.penalty.home' => 'penalty: least 0',
+            'score.penalty.away' => 'penalty: least 0',
+            'score.fulltime.home' => 'fulltime: least 0',
+            'score.fulltime.away' => 'fulltime: least 0',
+            'score.extratime.home' => 'extratime least 0',
+            'score.extratime.away' => 'extratime least 0',
             'date' => 'date: invalid date',
             'isWinner' => 'isWinner: true or false or null only'
         ];
@@ -61,16 +67,19 @@ class Game extends Component
 
     public function mount()
     {
-        $this->fulltime  = $this->game['score']['fulltime'];
-        $this->penalty   = $this->game['score']['penalty'];
-        $this->extratime = $this->game['score']['extratime'];
+        $this->original = [
+            'score' => $this->game['score'],
+            'date' => $this->game['date'],
+            'isWinner' => match ($this->game['isWinner']) {
+                    true  => 'true',
+                    false => 'false',
+                    null  => 'null'
+                }
+        ];
 
-        $this->date = Carbon::parse($this->game['date'])->format('Y-m-d');
-        $this->isWinner = match ($this->game['isWinner']) {
-            true  => 'true',
-            false => 'false',
-            null  => 'null'
-        };
+        $this->score = $this->original['score'];
+        $this->date = $this->original['date'];
+        $this->isWinner = $this->original['isWinner'];
     }
 
     public function render()
@@ -78,19 +87,44 @@ class Game extends Component
         return view('livewire.admin.game');
     }
 
+    public function updated(string $property)
+    {
+        if (!in_array($property, $this->changedProperties)) {
+            $this->changedProperties[] = $property;
+        }
+    }
+
     #[On('game-{game.id}')]
     public function save(string $adminKey)
     {
-        try {   
+        try {
             if ($this->updateGame->checkOrFail($adminKey)) {
-                $this->updateGame->execute($this->game['id'], $this->validate());   
+                $this->updateGame->execute($this->game['id'], $this->validateOnlyChanged());   
 
                 $this->dispatchSuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
+
+                $this->changedProperties = [];
             }
             
         } catch (Exception $e) {
             $this->dispatchError($e->getMessage());
         }
+    }
+
+    public function validateOnlyChanged()
+    {
+        $rulesForChangedProperties = array_intersect_key($this->rules(), array_flip($this->changedProperties));
+
+        if (!$rulesForChangedProperties) {
+            return;
+        }
+
+        $validated = $this->validate($rulesForChangedProperties);
+
+        return collect($this->original)
+            ->only(collect($validated)->keys())
+            ->replaceRecursive($validated)
+            ->toArray();
     }
 }

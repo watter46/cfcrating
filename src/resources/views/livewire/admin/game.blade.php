@@ -11,29 +11,6 @@
             </x-slot:value>
         </x-ui.table.table-row>
 
-        <!-- Date -->
-        <x-ui.table.table-row x-data="{ isEditable: false }">
-            <x-slot:column>
-                date(UTC)
-            </x-slot:column>
-
-            <x-slot:value>
-                {{ $game['date'] }}
-
-                <!-- Date input -->
-                <div x-show="isEditable" class="flex items-center justify-center w-full">
-                    <div>
-                        <label for="game-date">Home</label>
-                        <input type="date" id="game-date" wire:model.number="date" class="h-8 bg-gray-600 border rounded-md">
-                    </div>
-                </div>
-            </x-slot:value>
-
-            <x-slot:action>
-                <x-ui.table.edit-button @click="isEditable = !isEditable" />
-            </x-slot:action>
-        </x-ui.table.table-row>
-
         <!-- Score -->
         <x-ui.table.table-row x-data="{ isEditable: false }">
             <x-slot:column>
@@ -42,7 +19,9 @@
 
             <x-slot:value>
                 <!-- Score -->
-                <x-game-summary.team-score-card :$game size="xs" />
+                <div class="flex justify-center w-full">
+                    <x-game-summary.team-score-card :$game size="xs" />
+                </div>
 
                 <!-- Score Input -->
                 <div x-show="isEditable" x-cloak>
@@ -54,11 +33,19 @@
                                 <div class="flex w-10/12 justify-evenly">
                                     <div>
                                         <label for="fulltime-home">Home</label>
-                                        <input type="number" min=0 id="fulltime-home" wire:model.number="fulltime.home" class="w-24 h-8 bg-gray-600 border rounded-md">
+                                        <input id="fulltime-home"
+                                            class="w-24 h-8 bg-gray-600 border rounded-md"
+                                            type="number"
+                                            min=0
+                                            wire:model.number="score.fulltime.home">
                                     </div>
                                     <div>
                                         <label for="fulltime-away">Away</label>
-                                        <input type="number" min=0 id="fulltime-away" wire:model.number="fulltime.away" class="w-24 h-8 bg-gray-600 border rounded-md">
+                                        <input id="fulltime-away"
+                                            class="w-24 h-8 bg-gray-600 border rounded-md"
+                                            type="number"
+                                            min=0
+                                            wire:model.number="score.fulltime.away">
                                     </div>
                                 </div>
 
@@ -80,11 +67,21 @@
                                     <div class="flex w-10/12 justify-evenly">
                                         <div>
                                             <label for="extratime-home">Home</label>
-                                            <input type="number" min=0 id="extratime-home" wire:model.number="extratime.home" class="w-24 h-8 bg-gray-600 border rounded-md" placeholder="-">
+                                            <input id="extratime-home"
+                                                class="w-24 h-8 bg-gray-600 border rounded-md"
+                                                type="number"
+                                                min=0
+                                                wire:model.number="score.extratime.home"
+                                                placeholder="-">
                                         </div>
                                         <div>
                                             <label for="extratime-away">Away</label>
-                                            <input type="number" min=0 id="extratime-away" wire:model.number="extratime.away" class="w-24 h-8 bg-gray-600 border rounded-md" placeholder="-">
+                                            <input id="extratime-away"
+                                                class="w-24 h-8 bg-gray-600 border rounded-md"
+                                                type="number"
+                                                min=0
+                                                wire:model.number="score.extratime.away"
+                                                placeholder="-">
                                         </div>
                                     </div>
                                 </div>
@@ -97,11 +94,21 @@
                                     <div class="flex w-10/12 justify-evenly">
                                         <div>
                                             <label for="penalty-home">Home</label>
-                                            <input type="number" min=0 id="penalty-home" wire:model.number="penalty.home"        class="w-24 h-8 bg-gray-600 border rounded-md" placeholder="-">
+                                            <input id="penalty-home"
+                                                class="w-24 h-8 bg-gray-600 border rounded-md"
+                                                type="number"
+                                                min=0
+                                                wire:model.number="score.penalty.home"
+                                                placeholder="-">
                                         </div>
                                         <div>
                                             <label for="penalty-away">Away</label>
-                                            <input type="number" min=0 id="penalty-away" wire:model.number="penalty.away" class="w-24 h-8 bg-gray-600 border rounded-md" placeholder="-">
+                                            <input id="penalty-away"
+                                                class="w-24 h-8 bg-gray-600 border rounded-md"
+                                                type="number"
+                                                min=0
+                                                wire:model.number="score.penalty.away"
+                                                placeholder="-">
                                         </div>
                                     </div>
                                 </div>
@@ -116,6 +123,29 @@
             </x-slot:action>
         </x-ui.table.table-row>
 
+        <!-- Date -->
+        <x-ui.table.table-row x-data="{ isEditable: false }">
+            <x-slot:column>
+                date(UTC)
+            </x-slot:column>
+
+            <x-slot:value>
+                {{ $game['date'] }}
+
+                <!-- Date input -->
+                <div x-show="isEditable" class="flex items-center justify-center w-full">
+                    <div>
+                        <label for="game-date">Home</label>
+                        <input type="date" id="game-date" wire:model="date" class="h-8 bg-gray-600 border rounded-md">
+                    </div>
+                </div>
+            </x-slot:value>
+
+            <x-slot:action>
+                <x-ui.table.edit-button @click="isEditable = !isEditable" />
+            </x-slot:action>
+        </x-ui.table.table-row>
+        
         <!-- isWinner -->
         <x-ui.table.table-row x-data="{ isEditable: false }">
             <x-slot:column>

@@ -18,23 +18,19 @@ class UpdateGame extends CheckAdminKey
             Validator::validate($data, [
                 'penalty.home' => 'nullable|integer|min:0',
                 'penalty.away' => 'nullable|integer|min:0',
-                'fulltime.home' => 'required|integer|min:0',
-                'fulltime.away' => 'required|integer|min:0',
+                'fulltime.home' => 'nullable|integer|min:0',
+                'fulltime.away' => 'nullable|integer|min:0',
                 'extratime.home' => 'nullable|integer|min:0',
                 'extratime.away' => 'nullable|integer|min:0',
-                'date' => 'required|date',
-                'isWinner' => 'required|in:true,false,null'
+                'date' => 'nullable|date',
+                'isWinner' => 'nullable|in:true,false,null'
             ]);
 
             $game = Game::query()
                 ->select(['id'])
                 ->find($gameId)
-                ->fill([
-                    'score' => collect($data)->only(['penalty', 'fulltime', 'extratime']),
-                    'date' => $data['date'],
-                    'isWinner' => $data['isWinner']
-                ]);
-
+                ->fill($data);
+                
             DB::transaction(function () use ($game) {
                 $game->save();
             });
