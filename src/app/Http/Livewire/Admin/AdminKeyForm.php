@@ -21,7 +21,7 @@ class AdminKeyForm extends Component
     public string $eventName;
 
     #[On('open-admin-modal')]
-    public function receive($eventName)
+    public function receive(string $eventName)
     {
         $this->eventName = $eventName;
     }
@@ -33,7 +33,7 @@ class AdminKeyForm extends Component
 
             $this->dispatch($this->eventName, $this->key);
 
-            $this->reset();
+            $this->reset('key');
             
         } catch (Exception $e) {
             $this->dispatchError($e->getMessage());
