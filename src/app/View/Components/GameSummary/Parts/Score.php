@@ -14,8 +14,7 @@ class Score extends Component
      */
     public function __construct(
         public array $score,
-        public ?bool $isWinner,
-        public ?string $size
+        public ?bool $isWinner
     ) {
         //
     }
@@ -26,33 +25,5 @@ class Score extends Component
     public function render(): View|Closure|string
     {
         return view('components.game-summary.parts.score');
-    }
-
-    public function bgScore(): string
-    {
-        if ($this->isWinner) {
-            return 'background-color: #16a34a'; // bg-Green-600
-        }
-
-        if ($this->isWinner === false) {
-            return 'background-color: #dc2626'; // bg-red-600
-        }
-
-        return 'background-color: #6b7280'; // bg-gray-500
-    }
-
-    public function textSize()
-    {
-        if (!$this->size) {
-            return 'text-sm xxs:text-base sm:text-lg md:text-2xl';
-        }
-        
-        return match ($this->size) {
-            'xxs' => 'text-base',
-            'xs'  => 'text-base',
-            'sm'  => 'text-lg',
-            'md'  => 'text-2xl',
-            default => 'text-sm'
-        };
     }
 }

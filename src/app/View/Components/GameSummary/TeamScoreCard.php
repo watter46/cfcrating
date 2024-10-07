@@ -14,8 +14,7 @@ class TeamScoreCard extends Component
      */
     public function __construct(
         public array $game,
-        public bool $isNameRequired = true,
-        public ?string $size = null
+        public bool $isNameRequired = true
     ) {
         //
     }
@@ -26,20 +25,5 @@ class TeamScoreCard extends Component
     public function render(): View|Closure|string
     {
         return view('components.game-summary.team-score-card');
-    }
-
-    public function gap()
-    {
-        if (!$this->size) {
-            return 'gap-x-1 xxs:gap-x-2 xs:gap-x-3 sm:gap-x-4 md:gap-x-5';
-        }
-
-        return match ($this->size) {
-            'xxs' => 'gap-x-2',
-            'xs'  => 'gap-x-3',
-            'sm'  => 'gap-x-4',
-            'md'  => 'gap-x-5',
-            default => 'gap-x-1'
-        };
     }
 }

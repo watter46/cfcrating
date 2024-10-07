@@ -8,6 +8,8 @@
             <x-game-summary.parts.league :league="$game['league']" />
         </div>
     
-        <x-game-summary.team-score-card :$game /> 
+        <div class="flex justify-center w-full">
+            <x-game-summary.team-score-card :$game /> 
+        </div>
     </div>
 </section>
