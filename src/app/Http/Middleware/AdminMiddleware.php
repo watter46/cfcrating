@@ -13,7 +13,7 @@ class AdminMiddleware
     {
         if (!Auth::check() || !Auth::user()->isAdmin()) {
             return redirect()
-                ->route('top')
+                ->route('oauth.admin.top')
                 ->with('error', 'You do not have access to this section.');
         }
 
