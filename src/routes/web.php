@@ -67,6 +67,7 @@ Route::prefix('admin')
     ->as('admin.')
     ->group(function () {
         // 認証処理
+        Route::get('/setup2fa', [AdminAuthenticatedSessionController::class, 'setup2FA'])->name('setup2fa');
         Route::post('/enable2fa', [AdminAuthenticatedSessionController::class, 'enable2FA'])->name('enable2fa');
         Route::post('/verify2fa', [AdminAuthenticatedSessionController::class, 'verify2FA'])->name('verify2fa');
 
