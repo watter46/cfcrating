@@ -2,12 +2,11 @@
 
 namespace File;
 
-use File\FileHandler;
 
-
-class PlayerImageFile extends FileHandler implements PathInterface
+class PlayerImageFile extends ImageFileHandler implements PathInterface
 {
     private const DIR_PATH  = 'image/player';
+    private const DEFAULT_PATH = 'default_player.png';
 
     private int $playerId;
 
@@ -29,12 +28,17 @@ class PlayerImageFile extends FileHandler implements PathInterface
     {
         $this->playerId = $playerId;
         
-        $this->writeFile($this, collect($image));
+        $this->writeFile($this, $image);
     }
 
     public function path(int $playerId)
     {
         return self::DIR_PATH.'/'.$playerId;
+    }
+
+    public function defaultPath()
+    {
+        return self::DIR_PATH.'/'.self::DEFAULT_PATH;
     }
 
     public function getDirPath(): string

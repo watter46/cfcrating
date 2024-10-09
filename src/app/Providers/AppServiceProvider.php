@@ -9,6 +9,7 @@ use App\UseCases\Admin\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\GameDetailRepositoryInterface;
 use App\Infrastructure\Image\ImageRepository;
 use App\Infrastructure\ApiFootball\InMemoryApiFootballRepository;
+use App\Infrastructure\FlashLive\FlashLiveRepository;
 use App\Infrastructure\FlashLive\InMemoryFlashLiveRepository;
 use App\Infrastructure\Game\Admin\InMemoryGameDetailRepository;
 use App\UseCases\Admin\FlashLiveRepositoryInterface;
@@ -22,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public $bindings = [
         ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
-        FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
+        FlashLiveRepositoryInterface::class => FlashLiveRepository::class,
+        // FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
         GameDetailRepositoryInterface::class => InMemoryGameDetailRepository::class,
         ImageRepositoryInterface::class => ImageRepository::class,
     ];

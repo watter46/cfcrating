@@ -32,12 +32,17 @@ class GamePresenter
                     'name' => Str::afterLast($player->getDotRaw('player.name'), ' ') ,
                     'number' => $player->getDotRaw('player.number'),
                     'position' => $player->getDotRaw('player.position'),
-                    'path' => $this->playerImage->path($player->getDotRaw('player.api_player_id')),
                     'grid' => $player->getDotRaw('grid'),
                     'assists' => $player->getDotRaw('assists'),
                     'goals' => $player->getDotRaw('goals'),
                     'isStarter' => $player->getDotRaw('is_starter'),
-                    'rating' => 7
+                    'rating' => 7,
+                    'img' => [
+                        'exist' => $this->playerImage->exist($player->getDotRaw('player.api_player_id')),
+                        'path' => $this->playerImage->exist($player->getDotRaw('player.api_player_id'))
+                            ? $this->playerImage->path($player->getDotRaw('player.api_player_id'))
+                            : $this->playerImage->defaultPath()
+                    ]
                 ]);
             });
 

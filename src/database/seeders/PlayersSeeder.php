@@ -19,7 +19,7 @@ class PlayersSeeder extends Seeder
         $file = new PlayerModelsFile;
 
         $players = $file
-            ->get(2023)
+            ->get(2024)
             ->map(function (Collection $player) {
                 return Player::factory()
                     ->fromFile($player)

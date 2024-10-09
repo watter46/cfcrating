@@ -31,7 +31,7 @@ class GamesSeeder extends Seeder
                     'league' => json_encode($game['league']),
                 ];
             },
-            $file->get(2023)->toArray()
+            $file->get(2024)->toArray()
         );
         
         Game::upsert($games, 'id');

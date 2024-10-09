@@ -9,6 +9,7 @@ use App\UseCases\Admin\GameDetail\GameDetailList;
 use App\UseCases\Admin\GameDetail\GameDetail;
 
 use App\Domain\Game\GameId;
+use App\Domain\Game\Season;
 use App\Infrastructure\Game\Admin\GameDetailFactory;
 use App\Models\Game as GameModel;
 use App\UseCases\Admin\GameDetail\LeagueImage;
@@ -36,7 +37,7 @@ class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface
     {
         return GameDetailList::create(
             $this->fixturesFile
-                ->get(2023)
+                ->get(Season::current())
                 ->map(function (Collection $rawGameDetail) {
                     return $this->gameDetailFactory->create($rawGameDetail);
                 })

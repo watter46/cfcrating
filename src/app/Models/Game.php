@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Domain\Game\Season;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -81,8 +82,8 @@ class Game extends Model
      */
     public function scopeCurrentSeason(Builder $query): void
     {
-        $query->where('season', 2023);
-        // $query->where('season', Season::current());
+        // $query->where('season', 2023);
+        $query->where('season', Season::current());
     }
 
     /**

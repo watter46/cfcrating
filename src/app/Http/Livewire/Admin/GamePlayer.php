@@ -66,6 +66,6 @@ class GamePlayer extends Component
             
         } catch (Exception $e) {
             $this->dispatchError($e->getMessage());
-        } 
+        }
     }
 }

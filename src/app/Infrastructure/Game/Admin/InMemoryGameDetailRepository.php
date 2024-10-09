@@ -4,6 +4,7 @@ namespace App\Infrastructure\Game\Admin;
 
 use App\UseCases\Admin\GameDetailRepositoryInterface;
 use App\Domain\Game\GameId;
+use App\Domain\Game\Season;
 use App\UseCases\Admin\GameDetail\GameDetailList;
 use App\Models\Game as GameModel;
 use App\Models\GamePlayer;
@@ -71,7 +72,7 @@ class InMemoryGameDetailRepository implements GameDetailRepositoryInterface
     {
         return GameDetailList::create(
             GameModel::query()
-                ->where('season', 2023)
+                ->where('season', Season::current())
                 ->get(['id', 'fixture_id'])
                 ->map(function (GameModel $gameModel) {
                     return $this->gameDetailFactory->reconstruct($gameModel);

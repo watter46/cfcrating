@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Domain\Game\Season;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
+
+use App\Domain\Game\Season;
+use App\Domain\Player\PositionType;
+
 
 class Player extends Model
 {
@@ -22,6 +23,14 @@ class Player extends Model
     
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'name',
+        'number',
+        'position',
+        'flash_id',
+        'flash_image_id'
+    ];
+    
     /**
      * @param  Builder<Player> $query
      * @param  Collection $apiPlayerIds
