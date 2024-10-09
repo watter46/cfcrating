@@ -36,11 +36,17 @@ class FlashPlayer
         );
     }
 
-    public static function fromPlayers(Collection $rawPlayersData)
+    public static function fromPlayers(Collection $rawPlayersData, string $searchedName)
     {
         $player = $rawPlayersData
-            ->fromStd()
-            ->filter(fn ($player) => self::isChelsea($player['NAME']))
+            ->recursiveCollect()
+            ->filter(fn ($player) =>
+                self::isPlayerInChelsea($player['NAME'], $searchedName) ||
+                self::matchName(
+                    self::toNameOnly($player['NAME']),
+                    Name::create($searchedName)
+                )
+            )
             ->pipe(function (Collection $player) {                
                 if ($player->isEmpty()) {
                     return [
@@ -52,13 +58,13 @@ class FlashPlayer
                 }
 
                 return [
-                    'name' => self::toName($player->dataGet('0.NAME', false)),
+                    'name' => self::toNameOnly($player->first()->get('NAME')),
                     'number' => null,
-                    'flash_id' => $player->dataGet('0.ID', false),
-                    'flash_image_id' => self::pathToImageId($player->dataGet('0.IMAGE', false))
+                    'flash_id' => $player->first()->get('ID'),
+                    'flash_image_id' => self::pathToImageId($player->first()->get('IMAGE'))
                 ];
             });
-        
+
         return new self(
             $player['name'],
             $player['number'],
@@ -67,13 +73,38 @@ class FlashPlayer
         );
         
     }
-
-    private static function isChelsea(string $rawName)
+    
+    /**
+     * チェルシーの選手で名前が一致するか判定する
+     *
+     * @param  string $rawName
+     * @param  string $searchedName
+     * @return bool
+     */
+    private static function isPlayerInChelsea(string $rawName, string $searchedName)
     {
-        return Str::between($rawName, '(', ')') === self::TEAM_NAME;
+        $inChelsea = Str::between($rawName, '(', ')') === self::TEAM_NAME;
+
+        if (!$inChelsea) {
+            return false;
+        }
+        
+        return self::matchName(self::toNameOnly($rawName), Name::create($searchedName));
     }
 
-    private static function toName(string $rawName)
+    /**
+     * 選手名が一致するか判定する
+     *
+     * @param  Name $rawName
+     * @param  Name $searchedName
+     * @return bool
+     */
+    private static function matchName(Name $rawName, Name $searchedName)
+    {
+        return $rawName->equalsFullName($searchedName) || $rawName->equalsLastName($searchedName);
+    }
+
+    private static function toNameOnly(string $rawName)
     {
         $team = '('.self::TEAM_NAME.')';
         

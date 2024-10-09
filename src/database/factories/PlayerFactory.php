@@ -32,7 +32,7 @@ class PlayerFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'name'           => $player['name'],
-            'position'       => 'M',
+            'position'       => $player['position'],
             'season'         => $player['season'],
             'number'         => $player['number'],
             'api_player_id'  => $player['api_player_id'],

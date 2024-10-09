@@ -16,8 +16,8 @@
 
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-teal-950">
+    <body class="font-sans antialiased" x-data>
+        <div class="flex flex-col min-h-screen bg-teal-950">
             @include('layouts.admin.navigation')
 
             <livewire:util.message />
@@ -33,7 +33,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="flex flex-col flex-grow">
                 {{ $slot }}
             </main>
         </div>

@@ -4,7 +4,7 @@ namespace File;
 
 use File\FileHandler;
 use File\PathInterface;
-
+use Illuminate\Support\Collection;
 
 class FlashPlayerFile extends FileHandler implements PathInterface
 {
@@ -18,6 +18,13 @@ class FlashPlayerFile extends FileHandler implements PathInterface
         $this->apiPlayerId = $apiPlayerId;
         
         return $this->getFile($this);
+    }
+
+    public function write(int $api_player_id, Collection $flashPlayer)
+    {
+        $this->apiPlayerId = $api_player_id;
+        
+        $this->writeFile($this, $flashPlayer);
     }
 
     public function getDirPath(): string

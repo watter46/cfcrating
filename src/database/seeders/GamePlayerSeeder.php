@@ -22,9 +22,17 @@ class GamePlayerSeeder extends Seeder
      */
     public function run(): void
     {
+        // collect([
+        //     1035480,
+        //     1035548
+        // ])
         collect([
-            1035480,
-            1035548
+            1217967,
+            1217971,
+            1219971,
+            1225636,
+            1230551,
+            1280512
         ])
         ->each(function (int $fixtureId) {
             $this->save($fixtureId);
@@ -72,7 +80,7 @@ class GamePlayerSeeder extends Seeder
             ->pluck('id');
 
         $rand_ratings = [8.4, 4.4, 7.6, 5.6, 10.0, 5.2, 8.8, 6.4, 9.6, 4.8, 6.0,
-            7.2, 9.2, 4.0, 8.0, 6.8];
+            7.2, 9.2, 4.0, 8.0, 6.8, 8.4, 4.4, 7.6, 5.6, 10.0, 5.2];
 
         $ratings = User::pluck('id')
             ->map(function ($userId) use ($gamePlayerIds, $rand_ratings) {

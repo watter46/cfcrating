@@ -31,15 +31,14 @@ class InMemoryFlashLiveRepository implements FlashLiveRepositoryInterface
 
     public function searchPlayer(Collection $player): FlashPlayer
     {
-        return FlashPlayer::fromPlayers($this->flashPlayerFile->get($player['api_player_id']));
+        return FlashPlayer::fromPlayers($this->flashPlayerFile->get($player['api_player_id']), $player['name']);
     }
 
     public function fetchPlayerImage(Collection $player): PlayerImage
     {
         $playerImage = $this->playerImageFile->get($player['api_player_id']);
-        
         dd($playerImage);
         
-        return new PlayerImage($player['api_player_id'], $playerImage);
+        // return new PlayerImage($player['api_player_id'], $playerImage);
     }
 }

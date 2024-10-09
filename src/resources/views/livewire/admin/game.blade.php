@@ -135,7 +135,7 @@
                 <!-- Date input -->
                 <div x-show="isEditable" class="flex items-center justify-center w-full">
                     <div>
-                        <label for="game-date">Home</label>
+                        <label for="game-date"></label>
                         <input type="date" id="game-date" wire:model="date" class="h-8 bg-gray-600 border rounded-md">
                     </div>
                 </div>
@@ -154,7 +154,6 @@
 
             <x-slot:value>
                 <p class="capitalize">{{ $isWinner }}</p>
-            
 
                 <!-- MatchResult  -->
                 <div x-show="isEditable" class="flex items-center justify-center w-full">

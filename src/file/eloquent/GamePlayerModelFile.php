@@ -43,7 +43,7 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
                     'rating'  => $player['rating']
                 ];
             });
-
+            
         $this->write($fixtureId, $data);
     }
 

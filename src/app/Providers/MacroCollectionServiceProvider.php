@@ -57,5 +57,9 @@ class MacroCollectionServiceProvider extends ServiceProvider
             
             return collect(data_set($data, $key, $value));
         });
+
+        Collection::macro('fromStd', function (): Collection {
+            return collect(json_decode($this, true));
+        });
     }
 }

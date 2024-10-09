@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AdminGameController;
 use App\Http\Controllers\Admin\AdminAuthenticatedSessionController;
+use App\Http\Controllers\Admin\AdminPlayerController;
 use App\Http\Controllers\User\GameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserLoginController;
@@ -80,6 +81,13 @@ Route::prefix('admin')
             ->group(function () {
                 Route::get('/', [AdminGameController::class, 'index'])->name('index');
                 Route::get('/{gameId}', [AdminGameController::class, 'find'])->name('game');
+            });
+
+        Route::prefix('players')
+            ->middleware(['2fa'])
+            ->as('players.')
+            ->group(function () {
+                Route::get('/', [AdminPlayerController::class, 'index'])->name('index');
             });
     });
 
