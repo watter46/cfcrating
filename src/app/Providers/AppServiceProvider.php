@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-
+use App\Infrastructure\ApiFootball\ApiFootballRepository;
 use Illuminate\Support\ServiceProvider;
 
 use App\UseCases\Admin\ApiFootballRepositoryInterface;
@@ -22,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
      * DI
      */
     public $bindings = [
-        ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
+        // ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
+        ApiFootballRepositoryInterface::class => ApiFootballRepository::class,
         FlashLiveRepositoryInterface::class => FlashLiveRepository::class,
         // FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
         GameDetailRepositoryInterface::class => InMemoryGameDetailRepository::class,

@@ -8,7 +8,9 @@
             <x-game-summary.parts.league :league="$game['league']" />
         </div>
     
-        <div class="flex justify-center w-full">
+        <div class="relative flex justify-center w-full">
+            <div class="absolute left-0">{{ $slot }}</div>
+            
             <x-game-summary.team-score-card :$game /> 
         </div>
     </div>
