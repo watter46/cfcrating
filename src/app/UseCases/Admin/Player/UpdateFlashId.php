@@ -5,6 +5,7 @@ namespace App\UseCases\Admin\Player;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
+use App\Domain\Player\Name;
 use App\Models\Player;
 use App\UseCases\Admin\CheckAdminKey;
 use App\UseCases\Admin\Exception\ExistingColumnException;
@@ -31,17 +32,22 @@ class UpdateFlashId extends CheckAdminKey
 
             $flashPlayer = $this->repository->searchPlayer(collect($player)->only(['name', 'api_player_id']));
 
-            $updated = $player->fill([
-                'flash_id' => $flashPlayer->getFlashId(),
-                'flash_image_id' => $flashPlayer->getFlashImageId()
-            ]);
+            $updated = Name::create($player->name)->isShorten()
+                ? $player->fill([
+                    'name' => $flashPlayer->getName()->getFullName(),
+                    'flash_id' => $flashPlayer->getFlashId(),
+                    'flash_image_id' => $flashPlayer->getFlashImageId()
+                ])
+                : $player->fill([
+                    'flash_id' => $flashPlayer->getFlashId(),
+                    'flash_image_id' => $flashPlayer->getFlashImageId()
+                ]);
 
             DB::transaction(function () use ($updated) {
                 $updated->save();
             });
 
         } catch (Exception $e) {
-            dd($e);
             throw $e;
         }
     }
