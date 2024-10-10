@@ -3,6 +3,7 @@
 namespace File\Eloquent;
 
 use App\UseCases\Admin\GameDetail\Lineups;
+use Exception;
 use Illuminate\Support\Collection;
 
 use File\FileHandler;
@@ -24,9 +25,20 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
         return $this->getFile($this);
     }
 
+    public function exist(int $fixtureId)
+    {
+        $this->fixtureId = $fixtureId;
+
+        return $this->existFile($this);
+    }
+
     public function makeAndWrite(int $fixtureId)
     {
         $file = new FixtureFile;
+
+        if (!$file->exist($fixtureId)) {
+            throw new Exception("FixtureFile not found: ".$fixtureId);
+        }
 
         $lineups = Lineups::create($file->get($fixtureId)->only(['lineups', 'statistics', 'players']));
         

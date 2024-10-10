@@ -20,6 +20,13 @@ class FixtureFile extends FileHandler implements PathInterface
         return $this->getFile($this);
     }
 
+    public function exist(int $fixtureId)
+    {
+        $this->fixtureId = $fixtureId;
+
+        return $this->existFile($this);
+    }
+
     public function getDirPath(): string
     {
         return self::DIR_PATH;
