@@ -21,6 +21,7 @@ return new class extends Migration
             $table->json('score');
             $table->json('teams');
             $table->json('league');
+            $table->boolean('is_details_fetched')->default(false);
         });
     }
 

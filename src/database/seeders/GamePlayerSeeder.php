@@ -43,13 +43,20 @@ class GamePlayerSeeder extends Seeder
     {
         $file = new GamePlayerModelFile;
 
+        if (!$file->exist($fixtureId)) {
+            return;
+        }
+        
         $gamePlayers = $file->get($fixtureId);
 
-        $gameId = Game::query()
+        $game = Game::query()
             ->whereFixtureId($fixtureId)
             ->get('id')
-            ->first()
-            ->id;
+            ->first();
+
+        $game->update(['is_details_fetched' => true]);
+            
+        $gameId = $game->id;
         
         $gamePlayersByApiPlayerId = Player::query()
             ->whereIn('api_player_id', $gamePlayers->pluck('id'))

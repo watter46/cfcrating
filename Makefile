@@ -66,6 +66,8 @@ fresh:
 	docker compose exec app php artisan migrate:fresh --seed
 fresh-test:
 	docker compose exec app php artisan migrate:fresh --seed --env=testing
+spec:
+	docker compose exec app php artisan db:refresh-specific-tables
 seed:
 	docker compose exec app php artisan db:seed
 dacapo:
