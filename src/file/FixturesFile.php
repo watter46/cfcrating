@@ -4,6 +4,7 @@ namespace File;
 
 use File\FileHandler;
 use File\PathInterface;
+use Illuminate\Support\Collection;
 
 
 class FixturesFile extends FileHandler implements PathInterface
@@ -18,6 +19,13 @@ class FixturesFile extends FileHandler implements PathInterface
         $this->season = $season;
         
         return $this->getFile($this);
+    }
+
+    public function write(int $season, Collection $data)
+    {
+        $this->season = $season;
+
+        $this->writeFile($this, $data);
     }
 
     public function getDirPath(): string
