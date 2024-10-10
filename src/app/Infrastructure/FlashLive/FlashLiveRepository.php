@@ -11,6 +11,7 @@ use App\UseCases\Admin\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\GameDetail\PlayerImage;
 use File\FlashPlayerFile;
 
+
 class FlashLiveRepository implements FlashLiveRepositoryInterface
 {
     public function __construct(private FlashPlayerFile $flashPlayerFile)
@@ -86,14 +87,12 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
 
     public function searchPlayer(Collection $player): FlashPlayer
     {
-        // $json = $this->httpClient('https://flashlive-sports.p.rapidapi.com/v1/search/multi-search', [
-        //     'locale' => config('flash-live-sports.locale'),
-        //     'query'  => $player['name']
-        // ]);
+        $json = $this->httpClient('https://flashlive-sports.p.rapidapi.com/v1/search/multi-search', [
+            'locale' => config('flash-live-sports.locale'),
+            'query'  => $player['name']
+        ]);
 
-        // $data = collect(json_decode($json, true));
-
-        $data = $this->flashPlayerFile->get($player['api_player_id']);
+        $data = collect(json_decode($json, true));
 
         return FlashPlayer::fromPlayers($data, $player['name']);
     }

@@ -14,12 +14,12 @@ class FlashPlayer
     private const TEAM_NAME = 'Chelsea';
 
     public function __construct(
-        private ?Name $name = null,
+        private ?Name   $name = null,
         private ?Number $number = null,
         private ?string $flash_id = null,
         private ?string $flash_image_id = null
     ) {
-
+        //
     }
 
     public static function create(
@@ -40,38 +40,36 @@ class FlashPlayer
     {
         $player = $rawPlayersData
             ->recursiveCollect()
-            ->filter(fn ($player) =>
-                self::isPlayerInChelsea($player['NAME'], $searchedName) ||
-                self::matchName(
-                    self::toNameOnly($player['NAME']),
-                    Name::create($searchedName)
-                )
-            )
-            ->pipe(function (Collection $player) {                
-                if ($player->isEmpty()) {
-                    return [
-                        'name' => null,
-                        'number' => null,
-                        'flash_id' => null,
-                        'flash_image_id' => null
-                    ];
-                }
-
-                return [
-                    'name' => self::toNameOnly($player->first()->get('NAME')),
-                    'number' => null,
-                    'flash_id' => $player->first()->get('ID'),
-                    'flash_image_id' => self::pathToImageId($player->first()->get('IMAGE'))
-                ];
+            ->first(function ($player) use ($searchedName) {
+                return self::isPlayerInChelsea($player['NAME'], $searchedName) ||
+                    self::matchName(
+                        self::toNameOnly($player['NAME']),
+                        Name::create($searchedName)
+                    );
             });
+        
+        if (!$player) {
+            return [
+                'name' => null,
+                'number' => null,
+                'flash_id' => null,
+                'flash_image_id' => null
+            ];
+
+            return new self(
+                null,
+                null,
+                null,
+                null
+            );
+        }
 
         return new self(
-            $player['name'],
-            $player['number'],
-            $player['flash_id'],
-            $player['flash_image_id']
+            self::toNameOnly($player['NAME']),
+            null,
+            $player['ID'],
+            self::pathToImageId($player['IMAGE'])
         );
-        
     }
     
     /**
@@ -101,7 +99,7 @@ class FlashPlayer
      */
     private static function matchName(Name $rawName, Name $searchedName)
     {
-        return $rawName->equalsFullName($searchedName) || $rawName->equalsLastName($searchedName);
+        return $rawName->equalsFullName($searchedName) || $rawName->equalsShortenName($searchedName);
     }
 
     private static function toNameOnly(string $rawName)
