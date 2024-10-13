@@ -85,7 +85,7 @@ class GamePresenter
                 ],
             'isWinner' => $game['teams']
                 ->firstWhere('id', config('api-football.chelsea-id'))
-                ->get('winner'),
+                ->get('isWinner'),
             'startXI' => $startXI->toArray(),
             'substitutes' => $substitutes->toArray(),
         ];

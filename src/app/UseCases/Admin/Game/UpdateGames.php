@@ -5,7 +5,7 @@ namespace App\UseCases\Admin\Game;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-use App\UseCases\Admin\ApiFootballRepositoryInterface;
+use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\CheckAdminKey;
 use App\UseCases\Admin\GameDetailRepositoryInterface;
 use App\UseCases\Admin\GameImageChecker;
@@ -14,9 +14,9 @@ use App\UseCases\Admin\GameImageChecker;
 class UpdateGames extends CheckAdminKey
 {
     public function __construct(
-        private ApiFootballRepositoryInterface $apiFootballRepository,
-        private GameDetailRepositoryInterface $gameDetailRepository,
-        private GameImageChecker $gameImageChecker
+        // private ApiFootballRepositoryInterface $apiFootballRepository,
+        // private GameDetailRepositoryInterface $gameDetailRepository,
+        // private GameImageChecker $gameImageChecker
     ) {
         
     }

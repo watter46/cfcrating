@@ -28,7 +28,8 @@ class Player extends Model
         'number',
         'position',
         'flash_id',
-        'flash_image_id'
+        'flash_image_id',
+        'is_fetched'
     ];
     
     /**
