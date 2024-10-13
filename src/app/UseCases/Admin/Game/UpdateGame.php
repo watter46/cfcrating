@@ -3,37 +3,36 @@
 namespace App\UseCases\Admin\Game;
 
 use Exception;
-use Validator;
 use Illuminate\Support\Facades\DB;
 
+use App\Events\UpdateGameImages;
 use App\Models\Game;
+use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\CheckAdminKey;
+use App\UseCases\Admin\GameImageChecker;
 
 
 class UpdateGame extends CheckAdminKey
 {
-    public function execute(string $gameId, array $data)
+    public function __construct(
+        private ApiFootballRepositoryInterface $apiFootballRepository,
+        private GameRepositoryInterface $repository
+    ) {
+        
+    }
+    
+    public function execute(string $gameId)
     {
         try {
-            Validator::validate($data, [
-                'penalty.home' => 'nullable|integer|min:0',
-                'penalty.away' => 'nullable|integer|min:0',
-                'fulltime.home' => 'nullable|integer|min:0',
-                'fulltime.away' => 'nullable|integer|min:0',
-                'extratime.home' => 'nullable|integer|min:0',
-                'extratime.away' => 'nullable|integer|min:0',
-                'date' => 'nullable|date',
-                'isWinner' => 'nullable|in:true,false,null'
-            ]);
+            $game = Game::select('fixture_id')->findOrFail($gameId);
+            
+            $fixture = $this->apiFootballRepository->fetchFixture($game->fixture_id);
 
-            $game = Game::query()
-                ->select(['id'])
-                ->find($gameId)
-                ->fill($data);
-                
-            DB::transaction(function () use ($game) {
-                $game->save();
+            DB::transaction(function () use ($fixture) {
+                $this->repository->save($fixture);
             });
+
+            UpdateGameImages::dispatch($fixture);
 
         } catch (Exception $e) {
             throw $e;

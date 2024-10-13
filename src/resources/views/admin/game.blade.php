@@ -1,8 +1,12 @@
 <x-admin-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Admin Game') }}
-        </h2>
+        <div class="flex justify-between w-full">
+            <h2 class="text-xl font-semibold leading-tight dark:text-gray-200">
+                {{ __('Admin Game') }}
+            </h2>
+    
+            <livewire:admin.update-game-button :gameId="$game['id']" />
+        </div>
     </x-slot>
 
     <div class="flex justify-center w-full h-full">

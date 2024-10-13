@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Collection;
 
 use App\UseCases\Admin\GameDetail\FlashPlayer;
-use App\UseCases\Admin\FlashLiveRepositoryInterface;
+use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\GameDetail\PlayerImage;
 use File\FlashPlayerFile;
 
@@ -93,6 +93,8 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
         ]);
 
         $data = collect(json_decode($json, true));
+
+        $this->flashPlayerFile->write($player['api_player_id'], $data);
 
         return FlashPlayer::fromPlayers($data, $player['name']);
     }

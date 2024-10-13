@@ -39,17 +39,15 @@ class Game extends Model
     protected $keyType = 'string';
 
     protected $dates = ['date'];
-    
-    protected $casts = [
-        'is_end' => 'bool'
-    ];
 
     protected function casts(): array
     {
         return [
             'score' => AsCollection::class,
             'teams' => AsCollection::class,
-            'league' => AsCollection::class
+            'league' => AsCollection::class,
+            'is_end' => 'boolean',
+            'is_details_fetched' => 'boolean'
         ];
     }
 
@@ -60,6 +58,7 @@ class Game extends Model
         'score',
         'teams',
         'league',
+        'is_details_fetched'
     ];
 
     /**
@@ -82,7 +81,6 @@ class Game extends Model
      */
     public function scopeCurrentSeason(Builder $query): void
     {
-        // $query->where('season', 2023);
         $query->where('season', Season::current());
     }
 

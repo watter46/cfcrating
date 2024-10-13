@@ -4,7 +4,7 @@ namespace File;
 
 use File\FileHandler;
 use File\PathInterface;
-
+use Illuminate\Support\Collection;
 
 class FixtureFile extends FileHandler implements PathInterface
 {
@@ -18,6 +18,13 @@ class FixtureFile extends FileHandler implements PathInterface
         $this->fixtureId = $fixtureId;
         
         return $this->getFile($this);
+    }
+
+    public function write(int $fixtureId, Collection $data)
+    {
+        $this->fixtureId = $fixtureId;
+
+        $this->writeFile($this, $data);
     }
 
     public function exist(int $fixtureId)

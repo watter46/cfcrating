@@ -3,18 +3,18 @@
 namespace App\Http\Livewire\Admin;
 
 use Exception;
-use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
 use App\Http\Livewire\Util\MessageDispatcher;
-use App\UseCases\Admin\Game\UpdateGame;
-use App\Http\Livewire\Exception\NoUpdateRequiredException;
-use Illuminate\Support\Arr;
+use App\Http\Livewire\Admin\SelectiveValidationTrait;
+use App\UseCases\Admin\Game\EditGame;
+
 
 class Game extends Component
 {
     use MessageDispatcher;
+    use SelectiveValidationTrait; 
     
     public array $game;
 
@@ -24,7 +24,7 @@ class Game extends Component
     public string $date;
     public string $isWinner;
 
-    private UpdateGame $updateGame;
+    private EditGame $editGame;
 
         
     /**
@@ -60,9 +60,9 @@ class Game extends Component
         ];
     }
 
-    public function boot(UpdateGame $updateGame)
+    public function boot(EditGame $editGame)
     {
-        $this->updateGame = $updateGame;
+        $this->editGame = $editGame;
     }
 
     public function mount()
@@ -87,19 +87,12 @@ class Game extends Component
         return view('livewire.admin.game');
     }
 
-    public function updated(string $property)
-    {
-        if (!in_array($property, $this->changedProperties)) {
-            $this->changedProperties[] = $property;
-        }
-    }
-
     #[On('game-{game.id}')]
     public function save(string $adminKey)
     {
         try {
-            if ($this->updateGame->checkOrFail($adminKey)) {
-                $this->updateGame->execute($this->game['id'], $this->validateOnlyChanged());   
+            if ($this->editGame->checkOrFail($adminKey)) {
+                $this->editGame->execute($this->game['id'], $this->validateOnlyChanged());   
 
                 $this->dispatchSuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
@@ -110,21 +103,5 @@ class Game extends Component
         } catch (Exception $e) {
             $this->dispatchError($e->getMessage());
         }
-    }
-
-    public function validateOnlyChanged()
-    {
-        $rulesForChangedProperties = array_intersect_key($this->rules(), array_flip($this->changedProperties));
-
-        if (!$rulesForChangedProperties) {
-            return;
-        }
-
-        $validated = $this->validate($rulesForChangedProperties);
-
-        return collect($this->original)
-            ->only(collect($validated)->keys())
-            ->replaceRecursive($validated)
-            ->toArray();
     }
 }
