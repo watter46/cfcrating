@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\UseCases\Admin;
+namespace App\UseCases\Admin\Game;
 
 use Exception;
 
@@ -13,7 +13,7 @@ class FetchGames
     {
         try {
             return Game::query()
-                ->select(['id', 'date', 'score', 'teams', 'league'])
+                ->select(['id', 'date', 'score', 'teams', 'league', 'is_details_fetched'])
                 ->currentSeason()
                 ->untilToday()
                 ->simplePaginate();

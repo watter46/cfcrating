@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Presenters\GamePresenter;
 use App\Http\Controllers\Admin\Presenters\GamesPresenter;
 use App\Http\Controllers\Controller;
-use App\UseCases\Admin\FetchGames;
+use App\UseCases\Admin\Game\FetchGames;
 use App\UseCases\Admin\Game\FindGame;
 
 
