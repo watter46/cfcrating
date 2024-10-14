@@ -3,37 +3,29 @@
 namespace File;
 
 use Exception;
-use File\PathInterface;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+
 
 class ImageFileHandler
 {
-    protected function existFile(PathInterface $path)
+    protected function existFile(ImagePathInterface $path)
     {
-        return File::exists($path->getFullPath());
+        return Storage::disk('public')->exists($path->path());
     }
     
-    protected function getFile(PathInterface $path)
+    protected function getFile(ImagePathInterface $path)
     {
         if (!$this->existFile($path)) {
-            throw new Exception($path->getFullPath().' が存在しません');
+            throw new Exception($path->path().' が存在しません');
         }
-        
-        return File::get($path->getFullPath());
+
+        return Storage::disk('public')->get($path->path());
     }
 
-    protected function writeFile(PathInterface $path, string $image)
+    protected function writeFile(ImagePathInterface $path, string $image)
     {        
-        File::ensureDirectoryExists($path->getDirPath());
-
-        // Storage::disk('public')->put($path->getFullPath(), $image);
+        Storage::disk('public')->makeDirectory($path->getDirPath());
         
-        // $url = Storage::url($path->getFullPath());
-
-        // dd($url);
-        
-        file_put_contents($path->getFullPath(), $image);
-        // File::put($path->getFullPath(), $image);
+        Storage::disk('public')->put($path->path(), $image);
     }
 }
