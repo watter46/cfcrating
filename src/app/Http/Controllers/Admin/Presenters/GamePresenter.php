@@ -40,7 +40,7 @@ class GamePresenter
                     'img' => [
                         'exist' => $this->playerImage->exist($player->getDotRaw('player.api_player_id')),
                         'path' => $this->playerImage->exist($player->getDotRaw('player.api_player_id'))
-                            ? $this->playerImage->path($player->getDotRaw('player.api_player_id'))
+                            ? $this->playerImage->storagePath($player->getDotRaw('player.api_player_id'))
                             : $this->playerImage->defaultPath()
                     ]
                 ]);
@@ -73,13 +73,13 @@ class GamePresenter
             'teams' => $game['teams']
                 ->map(function (Collection $team) {
                     return [
-                        'path' => $this->teamImageFile->path($team['id']),
+                        'path' => $this->teamImageFile->storagePath($team['id']),
                         'name' => $team['name']
                     ];
                 })
                 ->toArray(),
             'league' => [
-                    'path' => $this->leagueImageFile->path($game->getDotRaw('league.id')),
+                    'path' => $this->leagueImageFile->storagePath($game->getDotRaw('league.id')),
                     'name' => $game->getDotRaw('league.name'),
                     'round' => $game->getDotRaw('league.round')
                 ],

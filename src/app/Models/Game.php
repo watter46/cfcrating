@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
 use App\UseCases\Util\TournamentType;
-
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 /**
  * 
@@ -32,6 +32,7 @@ use App\UseCases\Util\TournamentType;
 class Game extends Model
 {
     use HasFactory;
+    use HasUlids;
 
     public $incrementing = false;
     public $timestamps = false;
@@ -61,20 +62,20 @@ class Game extends Model
         'is_details_fetched'
     ];
 
-    /**
-     * ツアーでソートする
-     *
-     * @param  Builder<Game> $query
-     * @param  TournamentType $tournament
-     */
-    public function scopeTournament(Builder $query, TournamentType $tournament)
-    {
-        if ($tournament->isAll()) {
-            return;
-        }
+    // /**
+    //  * ツアーでソートする
+    //  *
+    //  * @param  Builder<Game> $query
+    //  * @param  TournamentType $tournament
+    //  */
+    // public function scopeTournament(Builder $query, TournamentType $tournament)
+    // {
+    //     if ($tournament->isAll()) {
+    //         return;
+    //     }
         
-        $query->where('league_id', $tournament->value);
-    }
+    //     $query->where('league_id', $tournament->value);
+    // }
 
     /**
      * @param  Builder<Game> $query

@@ -58,7 +58,8 @@ class GameDetail
             'is_end' => $this->fixture->getIsEnd(),
             'score' => $this->score->toJson(),
             'teams' => $this->teams->toJson(),
-            'league' => $this->league->toJson()
+            'league' => $this->league->toJson(),
+            'is_details_fetched' => true
         ];
     }
 

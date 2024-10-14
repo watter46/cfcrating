@@ -5,25 +5,22 @@ namespace App\Infrastructure\ApiFootball;
 use Exception;
 use File\FixtureFile;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Collection;
 
-use App\UseCases\Admin\GameDetail\GameDetailList;
-use App\UseCases\Admin\GameDetail\GameDetail;
-
-use App\Domain\Game\GameId;
 use App\Domain\Game\Season;
 use App\Infrastructure\Game\Admin\GameDetailFactory;
-use App\Models\Game as GameModel;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
+use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 use App\UseCases\Admin\GameDetail\LeagueImage;
 use App\UseCases\Admin\GameDetail\TeamImage;
+use File\FixturesFile;
 
 
 class ApiFootballRepository implements ApiFootballRepositoryInterface
 {
     public function __construct(
         private FixtureFile $fixtureFile,
+        private FixturesFile $fixturesFile,
         private GameDetailFactory $gameDetailFactory
     ) {
         
@@ -42,17 +39,11 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
             return $response->throw()->body();
 
         } catch (Exception $e) {
-            dd($e);
             throw $e;
         }
     }
 
-    /**
-     * fetchGames
-     *
-     * @return GameDetailList
-     */
-    public function fetchFixtures(): GameDetailList
+    public function fetchFixtures(): Fixtures
     {
         $json = $this->httpClient('https://api-football-v1.p.rapidapi.com/v3/fixtures', [
             'season' => Season::current(),
@@ -60,33 +51,25 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
         ]);
 
         $data = collect(json_decode($json, true)['response'])
-            ->recursiveCollect()
-            ->map(function (Collection $rawGameDetail) {
-                return $this->gameDetailFactory->create($rawGameDetail);
-            });
+            ->recursiveCollect();
 
-        return GameDetailList::create($data);
+        $this->fixturesFile->write(Season::current(), $data);
+        
+        return Fixtures::create($data);
     }
 
     public function fetchFixture(int $fixtureId): Fixture
     {
-        $fixtureData = $this->fixtureFile->get($fixtureId);
+        $json = $this->httpClient('https://api-football-v1.p.rapidapi.com/v3/fixtures', [
+            'id' => $fixtureId
+        ]);
 
-        return Fixture::create($fixtureData);
+        $data = collect(json_decode($json, true)['response'][0])->recursiveCollect();
+
+        $this->fixtureFile->write($fixtureId, $data);
+
+        return Fixture::create($data);
     }
-    
-    // public function fetchFixture(int $fixtureId): GameDetail
-    // {
-    //     $json = $this->httpClient('https://api-football-v1.p.rapidapi.com/v3/fixtures', [
-    //         'id' => $fixtureId
-    //     ]);
-
-    //     $data = collect(json_decode($json, true)['response'][0])->recursiveCollect();
-
-    //     $this->fixtureFile->write($fixtureId, $data);
-
-    //     return $this->gameDetailFactory->create($data);
-    // }
 
     // /**
     //  * fetchPlayers
@@ -99,18 +82,14 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
 
     public function fetchLeagueImage(int $leagueId): LeagueImage
     {
-        $image = 'league image'.$leagueId;
-
-        dd('repository');
+        $image = $this->httpClient("https://media-4.api-sports.io/football/leagues/$leagueId.png");
         
         return new LeagueImage($leagueId, $image);
     }
 
     public function fetchTeamImage(int $teamId): TeamImage
     {
-        $image = 'team image'.$teamId;
-
-        dd('repository');
+        $image = $this->httpClient("https://media-4.api-sports.io/football/teams/$teamId.png");
 
         return new TeamImage($teamId, $image);
     }

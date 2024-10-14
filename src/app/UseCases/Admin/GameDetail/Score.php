@@ -12,9 +12,9 @@ class Score
         
     }
 
-    public static function create(Collection $raw_score): self
+    public static function create(Collection $rawScore): self
     {        
-        $score = $raw_score->except('halftime');
+        $score = $rawScore->except('halftime');
 
         return new self($score);
     }

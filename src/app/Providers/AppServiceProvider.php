@@ -30,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
         // ApiFootballRepositoryInterface::class => ApiFootballRepository::class,
         // FlashLiveRepositoryInterface::class => FlashLiveRepository::class,
 
-        GameDetailRepositoryInterface::class => InMemoryGameDetailRepository::class,
         GameRepositoryInterface::class => GameRepository::class,
         
         ImageRepositoryInterface::class => ImageRepository::class,

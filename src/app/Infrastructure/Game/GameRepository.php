@@ -8,6 +8,7 @@ use App\Models\Game;
 use App\Models\GamePlayer;
 use App\Models\Player;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
+use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\GameBuilder;
 use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\GamePlayerBuilder;
 use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\PlayerBuilder;
@@ -22,6 +23,22 @@ class GameRepository implements GameRepositoryInterface
         private GamePlayerBuilder $gamePlayerBuilder
     ) {
         
+    }
+
+    public function bulkSave(Fixtures $fixtures): void
+    {
+        try {
+            $games = Game::query()
+                ->select(['id', 'fixture_id', 'is_details_fetched'])
+                ->currentSeason()
+                ->get()
+                ->recursiveCollect();
+
+            Game::upsert($this->gameBuilder->fromFixtures($fixtures, $games), 'id');
+
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
     
     public function save(Fixture $fixture): void
