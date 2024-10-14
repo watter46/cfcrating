@@ -2,10 +2,8 @@
 
 namespace File;
 
-use File\FileHandler;
 
-
-class TeamImageFile extends FileHandler implements PathInterface
+class TeamImageFile extends ImageFileHandler implements ImagePathInterface
 {
     private const DIR_PATH  = 'image/team';
 
@@ -29,21 +27,23 @@ class TeamImageFile extends FileHandler implements PathInterface
     {
         $this->teamId = $teamId;
         
-        $this->writeFile($this, collect($image));
+        $this->writeFile($this, $image);
     }
 
-    public function path(int $teamId)
+    public function storagePath(int $teamId): string
     {
-        return self::DIR_PATH.'/'.$teamId;
+        $this->teamId = $teamId;
+        
+        return self::STORAGE_PATH.'/'.$this->path();
+    }
+
+    public function path(): string
+    {
+        return self::DIR_PATH.'/'.$this->teamId;
     }
 
     public function getDirPath(): string
     {
         return self::DIR_PATH;
-    }
-
-    public function getFullPath(): string
-    {
-        return public_path(self::DIR_PATH.'/'.$this->teamId);
     }
 }

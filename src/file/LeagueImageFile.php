@@ -3,7 +3,7 @@
 namespace File;
 
 
-class LeagueImageFile extends FileHandler implements PathInterface
+class LeagueImageFile extends ImageFileHandler implements ImagePathInterface
 {
     private const DIR_PATH  = 'image/league';
 
@@ -27,21 +27,23 @@ class LeagueImageFile extends FileHandler implements PathInterface
     {
         $this->leagueId = $leagueId;
         
-        $this->writeFile($this, collect($image));
+        $this->writeFile($this, $image);
     }
 
-    public function path(int $leagueId)
+    public function storagePath(int $leagueId): string
     {
-        return self::DIR_PATH.'/'.$leagueId;
+        $this->leagueId = $leagueId;
+        
+        return self::STORAGE_PATH.'/'.$this->path();
+    }
+
+    public function path(): string
+    {
+        return self::DIR_PATH.'/'.$this->leagueId;
     }
 
     public function getDirPath(): string
     {
         return self::DIR_PATH;
-    }
-
-    public function getFullPath(): string
-    {
-        return public_path(self::DIR_PATH.'/'.$this->leagueId);
     }
 }
