@@ -38,19 +38,20 @@ class GamesPresenter
                     'teams' => $game['teams']
                         ->map(function (Collection $team) {
                             return [
-                                'path' => $this->teamImageFile->path($team['id']),
+                                'path' => $this->teamImageFile->storagePath($team['id']),
                                 'name' => $team['name']
                             ];
                         })
                         ->toArray(),
                     'league' => [
-                            'path' => $this->leagueImageFile->path($game->getDotRaw('league.id')),
+                            'path' => $this->leagueImageFile->storagePath($game->getDotRaw('league.id')),
                             'name' => $game->getDotRaw('league.name'),
                             'round' => $game->getDotRaw('league.round')
                         ],
                     'isWinner' => $game['teams']
                         ->firstWhere('id', config('api-football.chelsea-id'))
-                        ->get('winner')
+                        ->get('winner'),
+                    'is_details_fetched' => $game['is_details_fetched']
                 ];
             });
             

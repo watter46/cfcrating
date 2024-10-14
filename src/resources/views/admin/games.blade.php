@@ -12,7 +12,7 @@
 
     <section class="px-3">
         @foreach($games as $game)
-            <div class="mb-1 cursor-pointer rounded-xl">
+            <div class="mb-1 cursor-pointer rounded-xl {{ $game['is_details_fetched'] ? 'bg-sky-800' : ''  }}">
                 <a href="{{ route('admin.games.game', ['gameId' => $game['id']]) }}">
                     <x-game-summary.game-summary :$game />
                 </a>

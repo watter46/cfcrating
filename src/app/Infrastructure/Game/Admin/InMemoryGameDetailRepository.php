@@ -2,11 +2,12 @@
 
 namespace App\Infrastructure\Game\Admin;
 
+use Exception;
+
 use App\UseCases\Admin\GameDetailRepositoryInterface;
-use App\Domain\Game\GameId;
 use App\Domain\Game\Season;
 use App\UseCases\Admin\GameDetail\GameDetailList;
-use App\Models\Game as GameModel;
+use App\Models\Game;
 use App\Models\GamePlayer;
 use App\UseCases\Admin\GameDetail\GameDetail;
 use App\Models\Player;
@@ -24,18 +25,23 @@ class InMemoryGameDetailRepository implements GameDetailRepositoryInterface
         
     }
 
-    public function find(GameId $gameId): GameDetail
+    public function find(string $gameId): GameDetail
     {
-        return $this->gameDetailFactory->reconstruct(
-                GameModel::find($gameId->get())
+        try {
+            return $this->gameDetailFactory->reconstruct(
+                Game::findOrFail($gameId)
             );
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function save(GameDetail $gameDetail)
     {
-        $gameModel = GameModel::query()->find($gameDetail->getGameId()->get());
+        $game = Game::query()->find($gameDetail->getGameId()->get());
         
-        $gameModel->update($gameDetail->toFill());
+        // is_details_fetchedを更新する　
+        $game->update($gameDetail->toFill());
 
         $players = Player::query()
             ->select(['id', 'api_player_id'])
@@ -56,7 +62,7 @@ class InMemoryGameDetailRepository implements GameDetailRepositoryInterface
             $this->gamePlayerMapper
                 ->build(
                     $gameDetail->getLineups(),
-                    collect($gameModel->load('players'))->recursiveCollect(),
+                    collect($game->load('players'))->recursiveCollect(),
                     Player::query()
                         ->select(['id', 'api_player_id'])
                         ->whereInApiPlayerId($gameDetail->getPlayerIds())
@@ -71,17 +77,17 @@ class InMemoryGameDetailRepository implements GameDetailRepositoryInterface
     public function findCurrentSeasonGames(): GameDetailList
     {
         return GameDetailList::create(
-            GameModel::query()
+            Game::query()
                 ->where('season', Season::current())
                 ->get(['id', 'fixture_id'])
-                ->map(function (GameModel $gameModel) {
-                    return $this->gameDetailFactory->reconstruct($gameModel);
+                ->map(function (Game $game) {
+                    return $this->gameDetailFactory->reconstruct($game);
                 })
         );
     }
 
     public function bulkUpdate(GameDetailList $gameDetailList)
     {
-        GameModel::upsert($gameDetailList->toUpsert(), 'id');
+        Game::upsert($gameDetailList->toUpsert(), 'id');
     }
 }

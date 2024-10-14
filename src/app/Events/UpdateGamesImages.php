@@ -8,6 +8,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 use App\UseCases\Admin\GameEvent\InvalidImageChecker;
+use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 
 
 class UpdateGamesImages
@@ -21,8 +22,8 @@ class UpdateGamesImages
      */
     public function __construct(Fixtures $fixtures)
     {
-        $leagueIds = $fixtures->getLeagueIds();
-        $teamIds   = $fixtures->getTeamIds();
+        $leagueIds = $fixtures->getLeagueIds()->unique();
+        $teamIds   = $fixtures->getTeamIds()->flatten()->unique();
 
         $this->checker = new InvalidImageChecker($leagueIds, $teamIds);
     }

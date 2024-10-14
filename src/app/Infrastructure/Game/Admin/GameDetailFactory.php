@@ -18,16 +18,16 @@ use App\Models\Game;
 
 class GameDetailFactory
 {
-    public function create(Collection $raw_game_detail): GameDetail
+    public function create(Collection $rawGameDetail): GameDetail
     {
         return GameDetail::create(
             GameId::create((string) Str::ulid()),
-            FixtureId::create($raw_game_detail->getDotRaw('fixture.id')),
-            Teams::create($raw_game_detail->getDot('teams')),
-            Score::create($raw_game_detail->getDot('score')),
-            League::create($raw_game_detail->getDot('league')),
-            Fixture::create($raw_game_detail->getDot('fixture')),
-            Lineups::create($raw_game_detail->only(['lineups', 'statistics', 'players']))
+            FixtureId::create($rawGameDetail->getDotRaw('fixture.id')),
+            Teams::create($rawGameDetail->getDot('teams')),
+            Score::create($rawGameDetail->getDot('score')),
+            League::create($rawGameDetail->getDot('league')),
+            Fixture::create($rawGameDetail->getDot('fixture')),
+            Lineups::create($rawGameDetail->only(['lineups', 'statistics', 'players']))
         );
     }
 

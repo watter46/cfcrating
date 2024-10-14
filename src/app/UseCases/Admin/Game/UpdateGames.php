@@ -2,21 +2,19 @@
 
 namespace App\UseCases\Admin\Game;
 
+use App\Events\UpdateGamesImages;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\CheckAdminKey;
-use App\UseCases\Admin\GameDetailRepositoryInterface;
-use App\UseCases\Admin\GameImageChecker;
 
 
 class UpdateGames extends CheckAdminKey
 {
     public function __construct(
-        // private ApiFootballRepositoryInterface $apiFootballRepository,
-        // private GameDetailRepositoryInterface $gameDetailRepository,
-        // private GameImageChecker $gameImageChecker
+        private ApiFootballRepositoryInterface $apiFootballRepository,
+        private GameRepositoryInterface $repository
     ) {
         
     }
@@ -24,19 +22,13 @@ class UpdateGames extends CheckAdminKey
     public function execute()
     {
         try {
-            $apiGameDetailList = $this->apiFootballRepository->fetchFixtures();
-
-            $gameDetailList = $this->gameDetailRepository
-                ->findCurrentSeasonGames()
-                ->bulkUpdate($apiGameDetailList);
-                
-            DB::transaction(function () use ($gameDetailList) {
-                $this->gameDetailRepository->bulkUpdate($gameDetailList);
+            $fixtures = $this->apiFootballRepository->fetchFixtures();
+            
+            DB::transaction(function () use ($fixtures) {
+                $this->repository->bulkSave($fixtures);
             });
 
-            $this->gameImageChecker
-                ->fromGames($gameDetailList)
-                ->dispatch();
+            UpdateGamesImages::dispatch($fixtures);
 
         } catch (Exception $e) {
             throw $e;

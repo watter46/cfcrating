@@ -31,7 +31,7 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
     
             return $response->throw()->body();
         } catch (Exception $e) {
-            dd($e);
+            throw $e;
         }
     }
 

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\UpdateGameImages;
+use App\Events\UpdateGamesImages;
 use App\UseCases\Admin\GameEvent\UpdateTeamImages;
 
 
@@ -19,7 +20,7 @@ class UpdateTeamImagesListener
     /**
      * Handle the event.
      */
-    public function handle(UpdateGameImages $event): void
+    public function handle(UpdateGameImages|UpdateGamesImages $event): void
     {
         $invalidTeamIds = $event->checker->invalidTeamIds;
 

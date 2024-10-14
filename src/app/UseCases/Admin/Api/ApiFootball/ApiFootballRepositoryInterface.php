@@ -2,18 +2,20 @@
 
 namespace App\UseCases\Admin\Api\ApiFootball;
 
-use App\UseCases\Admin\GameDetail\GameDetailList;
 use App\UseCases\Admin\GameDetail\LeagueImage;
 use App\UseCases\Admin\GameDetail\TeamImage;
+use App\UseCases\Admin\Api\ApiFootball\Fixture;
+use App\UseCases\Admin\Api\ApiFootball\Fixtures;
+
 
 interface ApiFootballRepositoryInterface
 {
     /**
      * 今シーズンのすべての試合を取得する
      *
-     * @return GameDetailList
+     * @return Fixtures
      */
-    public function fetchFixtures(): GameDetailList;
+    public function fetchFixtures(): Fixtures;
     public function fetchFixture(int $fixtureId): Fixture;
 
     // public function fetchSquads();
