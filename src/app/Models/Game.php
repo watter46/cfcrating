@@ -2,33 +2,20 @@
 
 namespace App\Models;
 
-use App\Domain\Game\Season;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Util\Season;
 use App\UseCases\Util\TournamentType;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
-/**
- * 
- *
- * @property string $id
- * @property int $fixture_id
- * @property int $league_id
- * @property int $season
- * @property Carbon $date
- * @property bool $is_end
- * @property AsCollection $score
- * @property AsCollection $teams
- * @property AsCollection $league
- */
 class Game extends Model
 {
     use HasFactory;
@@ -62,20 +49,20 @@ class Game extends Model
         'is_details_fetched'
     ];
 
-    // /**
-    //  * ツアーでソートする
-    //  *
-    //  * @param  Builder<Game> $query
-    //  * @param  TournamentType $tournament
-    //  */
-    // public function scopeTournament(Builder $query, TournamentType $tournament)
-    // {
-    //     if ($tournament->isAll()) {
-    //         return;
-    //     }
+    /**
+     * ツアーでソートする
+     *
+     * @param  Builder<Game> $query
+     * @param  TournamentType $tournament
+     */
+    public function scopeTournament(Builder $query, TournamentType $tournament)
+    {
+        if ($tournament->isAll()) {
+            return;
+        }
         
-    //     $query->where('league_id', $tournament->value);
-    // }
+        $query->where('league_id', $tournament->value);
+    }
 
     /**
      * @param  Builder<Game> $query

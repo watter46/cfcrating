@@ -8,10 +8,10 @@ use Livewire\Component;
 
 use App\Http\Livewire\Util\MessageDispatcher;
 use App\Rules\Position;
-use App\UseCases\Admin\Player\UpdateFlashId;
+use App\UseCases\Admin\Player\UpdateFlash;
 use App\UseCases\Admin\Player\UpdatePlayer;
 use App\UseCases\Admin\Player\UpdatePlayerImage;
-use Livewire\Attributes\Validate;
+
 
 class Player extends Component
 {
@@ -29,7 +29,7 @@ class Player extends Component
 
     private UpdatePlayer $updatePlayer;
     private UpdatePlayerImage $updatePlayerImage;
-    private UpdateFlashId $updateFlashId;
+    private UpdateFlash $updateFlash;
     
     public function rules() 
     {
@@ -43,11 +43,11 @@ class Player extends Component
     public function boot(
         UpdatePlayer $updatePlayer,
         UpdatePlayerImage $updatePlayerImage,
-        UpdateFlashId $updateFlashId
+        UpdateFlash $updateFlash
     ) {
         $this->updatePlayer = $updatePlayer;
         $this->updatePlayerImage = $updatePlayerImage;
-        $this->updateFlashId = $updateFlashId;
+        $this->updateFlash = $updateFlash;
     }
 
     public function mount()
@@ -99,17 +99,18 @@ class Player extends Component
     }
 
     #[On('update-flashId-{player.id}')]
-    public function updateFlashId(string $adminKey)
+    public function updateFlash(string $adminKey)
     {
         try {
-            if ($this->updateFlashId->checkOrFail($adminKey)) {
-                $this->updateFlashId->execute($this->player['id']);   
+            if ($this->updateFlash->checkOrFail($adminKey)) {
+                $this->updateFlash->execute($this->player['id']);   
 
                 $this->dispatchSuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
             }
             
         } catch (Exception $e) {
+            dd($e);
             $this->dispatchError($e->getMessage());
         }
     }

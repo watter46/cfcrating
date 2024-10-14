@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Presenters;
 
-use App\Domain\Player\PositionType;
 use Illuminate\Database\Eloquent\Collection;
 
+use App\Models\Util\PositionType;
 use App\Models\Player;
 use File\PlayerImageFile;
 
@@ -25,7 +25,7 @@ class PlayersPresenter
                 $player->img = [
                     'exist' => $this->playerImage->exist($player->api_player_id),
                     'path' => $this->playerImage->exist($player->api_player_id)
-                        ? $this->playerImage->path($player->api_player_id)
+                        ? $this->playerImage->storagePath($player->api_player_id)
                         : $this->playerImage->defaultPath(),
                     'number' => $player->number
                 ];

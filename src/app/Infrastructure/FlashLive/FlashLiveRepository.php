@@ -6,9 +6,9 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Collection;
 
-use App\UseCases\Admin\GameDetail\FlashPlayer;
+use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
-use App\UseCases\Admin\GameDetail\PlayerImage;
+use App\UseCases\Admin\Api\FlashLive\PlayerImage;
 use File\FlashPlayerFile;
 
 

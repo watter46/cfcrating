@@ -4,8 +4,8 @@ namespace App\UseCases\Admin\Api\FlashLive;
 
 use Illuminate\Support\Collection;
 
-use App\UseCases\Admin\GameDetail\FlashPlayer;
-use App\UseCases\Admin\GameDetail\PlayerImage;
+use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
+use App\UseCases\Admin\Api\FlashLive\PlayerImage;
 
 
 interface FlashLiveRepositoryInterface

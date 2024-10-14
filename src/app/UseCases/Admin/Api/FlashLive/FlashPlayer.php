@@ -1,12 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace App\UseCases\Admin\GameDetail;
+namespace App\UseCases\Admin\Api\FlashLive;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-use App\Domain\Player\Name;
-use App\Domain\Player\Number;
+use App\Models\Util\Name;
 
 
 class FlashPlayer
@@ -15,7 +14,7 @@ class FlashPlayer
 
     public function __construct(
         private ?Name   $name = null,
-        private ?Number $number = null,
+        private ?int $number = null,
         private ?string $flash_id = null,
         private ?string $flash_image_id = null
     ) {
@@ -24,7 +23,7 @@ class FlashPlayer
 
     public static function create(
         ?Name $name,
-        ?Number $number,
+        ?int $number,
         ?string $flash_id,
         ?string $flash_image_id): self
     {

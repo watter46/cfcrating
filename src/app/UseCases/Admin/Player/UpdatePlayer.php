@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Player;
 use App\Rules\Position;
 use App\UseCases\Admin\CheckAdminKey;
-use App\Domain\Player\PositionType;
+use App\Models\Util\PositionType;
 
 
 class UpdatePlayer extends CheckAdminKey

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\UseCases\Admin\GameDetail;
+namespace App\UseCases\Admin\Api\ApiFootball;
 
-use App\UseCases\Admin\GameDetail\ImageInterface;
+use App\UseCases\Admin\Api\Util\ImageInterface;
 use File\LeagueImageFile;
 
 

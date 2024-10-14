@@ -2,13 +2,12 @@
 
 namespace App\Infrastructure\ApiFootball;
 
-use App\Domain\Game\Season;
-use App\Infrastructure\Game\Admin\GameDetailFactory;
+use App\Models\Util\Season;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\Fixtures;
-use App\UseCases\Admin\GameDetail\LeagueImage;
-use App\UseCases\Admin\GameDetail\TeamImage;
+use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
+use App\UseCases\Admin\Api\ApiFootball\TeamImage;
 use File\FixtureFile;
 use File\FixturesFile;
 
@@ -17,8 +16,7 @@ class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface
 {
     public function __construct(
         private FixturesFile $fixturesFile,
-        private FixtureFile $fixtureFile,
-        private GameDetailFactory $gameDetailFactory
+        private FixtureFile $fixtureFile
     ) {
         
     }

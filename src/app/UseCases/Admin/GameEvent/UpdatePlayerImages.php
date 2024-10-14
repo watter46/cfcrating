@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 use App\Models\Player;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
-use App\UseCases\Admin\ImageRepositoryInterface;
+use App\UseCases\Admin\Api\Util\ImageRepositoryInterface;
 
 
 class UpdatePlayerImages

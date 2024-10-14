@@ -5,7 +5,7 @@ namespace App\UseCases\Admin\GameEvent;
 use Illuminate\Support\Collection;
 
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
-use App\UseCases\Admin\ImageRepositoryInterface;
+use App\UseCases\Admin\Api\Util\ImageRepositoryInterface;
 
 
 class UpdateTeamImages
