@@ -15,7 +15,7 @@ use App\Infrastructure\Game\GameRepository;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\Game\GameRepositoryInterface;
-use App\UseCases\Admin\ImageRepositoryInterface;
+use App\UseCases\Admin\Api\Util\ImageRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider

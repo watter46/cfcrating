@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
-use App\Domain\Game\Season;
-use App\Domain\Player\PositionType;
+use App\Models\Util\Season;
+use App\Models\Util\PositionType;
 
 
 class Player extends Model

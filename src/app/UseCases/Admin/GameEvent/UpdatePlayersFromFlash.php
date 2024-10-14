@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Player;
 use App\Models\Util\Name;
-use App\UseCases\Admin\FlashLiveRepositoryInterface;
+use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 
 
 class UpdatePlayersFromFlash

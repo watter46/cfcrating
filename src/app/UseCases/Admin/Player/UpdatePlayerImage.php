@@ -7,7 +7,7 @@ use Exception;
 use App\Models\Player;
 use App\UseCases\Admin\CheckAdminKey;
 use App\UseCases\Admin\Exception\InvalidColumnException;
-use App\UseCases\Admin\FlashLiveRepositoryInterface;
+use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 
 
 class UpdatePlayerImage extends CheckAdminKey

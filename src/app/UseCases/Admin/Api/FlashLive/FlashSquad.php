@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\UseCases\Admin\GameDetail;
+namespace App\UseCases\Admin\Api\FlashLive;
 
 use App\UseCases\Admin\Fixture\Accessors\PlayerInfo;
 use App\UseCases\Admin\Fixture\Accessors\PlayerName;

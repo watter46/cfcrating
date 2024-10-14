@@ -2,8 +2,8 @@
 
 namespace App\UseCases\Admin\Api\ApiFootball;
 
-use App\UseCases\Admin\GameDetail\LeagueImage;
-use App\UseCases\Admin\GameDetail\TeamImage;
+use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
+use App\UseCases\Admin\Api\ApiFootball\TeamImage;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 

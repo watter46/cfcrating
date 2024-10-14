@@ -5,14 +5,14 @@ namespace App\UseCases\Admin\Player;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-use App\Domain\Player\Name;
 use App\Models\Player;
+use App\Models\Util\Name;
 use App\UseCases\Admin\CheckAdminKey;
 use App\UseCases\Admin\Exception\ExistingColumnException;
-use App\UseCases\Admin\FlashLiveRepositoryInterface;
+use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 
 
-class UpdateFlashId extends CheckAdminKey
+class UpdateFlash extends CheckAdminKey
 {
     public function __construct(private FlashLiveRepositoryInterface $repository)
     {
@@ -30,7 +30,7 @@ class UpdateFlashId extends CheckAdminKey
                 throw new ExistingColumnException('flash_id');
             }
 
-            $flashPlayer = $this->repository->searchPlayer(collect($player)->only(['name', 'api_player_id']));
+            $flashPlayer = $this->repository->searchPlayer(collect($player));
 
             $updated = Name::create($player->name)->isShorten()
                 ? $player->fill([

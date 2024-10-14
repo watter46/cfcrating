@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\UseCases\Admin\GameDetail;
+namespace App\UseCases\Admin\Api\Util;
 
 
 interface ImageInterface

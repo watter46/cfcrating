@@ -6,13 +6,12 @@ use Exception;
 use File\FixtureFile;
 use Illuminate\Support\Facades\Http;
 
-use App\Domain\Game\Season;
-use App\Infrastructure\Game\Admin\GameDetailFactory;
+use App\Models\Util\Season;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\Fixtures;
-use App\UseCases\Admin\GameDetail\LeagueImage;
-use App\UseCases\Admin\GameDetail\TeamImage;
+use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
+use App\UseCases\Admin\Api\ApiFootball\TeamImage;
 use File\FixturesFile;
 
 
@@ -20,8 +19,7 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
 {
     public function __construct(
         private FixtureFile $fixtureFile,
-        private FixturesFile $fixturesFile,
-        private GameDetailFactory $gameDetailFactory
+        private FixturesFile $fixturesFile
     ) {
         
     }
