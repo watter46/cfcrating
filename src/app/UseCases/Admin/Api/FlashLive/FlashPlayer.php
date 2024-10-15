@@ -38,37 +38,38 @@ class FlashPlayer
     public static function fromPlayers(Collection $rawPlayersData, string $searchedName)
     {
         $player = $rawPlayersData
-            ->recursiveCollect()
             ->first(function ($player) use ($searchedName) {
-                return self::isPlayerInChelsea($player['NAME'], $searchedName) ||
+                return self::isPlayerInChelsea($player->get('NAME'), $searchedName) ||
                     self::matchName(
-                        self::toNameOnly($player['NAME']),
+                        self::toNameOnly($player->get('NAME')),
                         Name::create($searchedName)
                     );
             });
+
+            dd($player);
         
-        if (!$player) {
-            return [
-                'name' => null,
-                'number' => null,
-                'flash_id' => null,
-                'flash_image_id' => null
-            ];
+        // if (!$player) {
+        //     return [
+        //         'name' => null,
+        //         'number' => null,
+        //         'flash_id' => null,
+        //         'flash_image_id' => null
+        //     ];
 
-            return new self(
-                null,
-                null,
-                null,
-                null
-            );
-        }
+        //     return new self(
+        //         null,
+        //         null,
+        //         null,
+        //         null
+        //     );
+        // }
 
-        return new self(
-            self::toNameOnly($player['NAME']),
-            null,
-            $player['ID'],
-            self::pathToImageId($player['IMAGE'])
-        );
+        // return new self(
+        //     self::toNameOnly($player['NAME']),
+        //     null,
+        //     $player['ID'],
+        //     self::pathToImageId($player['IMAGE'])
+        // );
     }
     
     /**

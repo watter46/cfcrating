@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\Api\FlashLive\PlayerImage;
-use File\FlashPlayerFile;
+use App\File\Data\FlashPlayerFile;
 
 
 class FlashLiveRepository implements FlashLiveRepositoryInterface
@@ -92,7 +92,7 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
             'query'  => $player['name']
         ]);
 
-        $data = collect(json_decode($json, true));
+        $data = collect(json_decode($json, true))->recursiveCollect();
 
         $this->flashPlayerFile->write($player['api_player_id'], $data);
 

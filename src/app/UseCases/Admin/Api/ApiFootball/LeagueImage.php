@@ -3,7 +3,7 @@
 namespace App\UseCases\Admin\Api\ApiFootball;
 
 use App\UseCases\Admin\Api\Util\ImageInterface;
-use File\LeagueImageFile;
+use App\File\Image\LeagueImageFile;
 
 
 class LeagueImage implements ImageInterface

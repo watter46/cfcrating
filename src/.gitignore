@@ -7,7 +7,7 @@
 /public/vendor
 /storage/*.key
 /vendor
-/template/
+/app/Template/
 .env
 .env.backup
 .env.production

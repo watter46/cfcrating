@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace File;
+namespace App\File;
 
 
 interface PathInterface

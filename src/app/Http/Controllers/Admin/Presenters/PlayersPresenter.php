@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 use App\Models\Util\PositionType;
 use App\Models\Player;
-use File\PlayerImageFile;
+use App\File\Image\PlayerImageFile;
 
 
 class PlayersPresenter

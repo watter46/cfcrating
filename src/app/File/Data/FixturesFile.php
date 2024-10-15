@@ -1,15 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace File\Eloquent;
+namespace App\File\Data;
 
-use File\FileHandler;
-use File\PathInterface;
 use Illuminate\Support\Collection;
 
+use App\File\Data\FileHandler;
+use App\File\PathInterface;
 
-class PlayerModelsFile extends FileHandler implements PathInterface
+
+class FixturesFile extends FileHandler implements PathInterface
 {
-    private const DIR_PATH  = 'template/eloquent/players';
+    private const DIR_PATH  = 'Template/ApiFootball/Fixtures';
     private const EXTENSION = '.json';
 
     private int $season;
@@ -26,17 +27,15 @@ class PlayerModelsFile extends FileHandler implements PathInterface
         $this->season = $season;
 
         $this->writeFile($this, $data);
-        
-        return $this->get($season);
     }
 
     public function getDirPath(): string
     {
-        return base_path(self::DIR_PATH);
+        return app_path(self::DIR_PATH);
     }
 
     public function getFullPath(): string
     {
-        return base_path(self::DIR_PATH.'/'.$this->season.self::EXTENSION);
+        return app_path(self::DIR_PATH.'/'.$this->season.self::EXTENSION);
     }
 }

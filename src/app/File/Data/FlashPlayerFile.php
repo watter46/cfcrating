@@ -1,14 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace File;
+namespace App\File\Data;
 
-use File\FileHandler;
-use File\PathInterface;
 use Illuminate\Support\Collection;
+
+use App\File\Data\FileHandler;
+use App\File\PathInterface;
+
 
 class FlashPlayerFile extends FileHandler implements PathInterface
 {
-    private const DIR_PATH  = 'template/flashLive/player';
+    private const DIR_PATH  = 'Template/FlashLive/Player';
     private const EXTENSION = '.json';
 
     private int $apiPlayerId;
@@ -29,11 +31,11 @@ class FlashPlayerFile extends FileHandler implements PathInterface
 
     public function getDirPath(): string
     {
-        return self::DIR_PATH;
+        return app_path(self::DIR_PATH);
     }
 
     public function getFullPath(): string
     {
-        return base_path(self::DIR_PATH.'/'.$this->apiPlayerId.self::EXTENSION);
+        return app_path(self::DIR_PATH.'/'.$this->apiPlayerId.self::EXTENSION);
     }
 }

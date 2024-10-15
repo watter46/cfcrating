@@ -7,8 +7,9 @@ use Illuminate\Support\Collection;
 use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\Api\FlashLive\PlayerImage;
-use File\FlashPlayerFile;
-use File\PlayerImageFile;
+use App\File\Data\FlashPlayerFile;
+use App\File\Image\PlayerImageFile;
+
 
 class InMemoryFlashLiveRepository implements FlashLiveRepositoryInterface
 {

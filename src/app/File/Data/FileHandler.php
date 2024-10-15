@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace File;
+namespace App\File\Data;
 
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
-use File\PathInterface;
+use App\File\PathInterface;
 
 
 class FileHandler

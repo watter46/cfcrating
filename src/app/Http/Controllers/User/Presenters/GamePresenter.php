@@ -6,9 +6,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-use File\LeagueImageFile;
-use File\PlayerImageFile;
-use File\TeamImageFile;
+use App\File\Image\LeagueImageFile;
+use App\File\Image\PlayerImageFile;
+use App\File\Image\TeamImageFile;
 
 
 class GamePresenter
