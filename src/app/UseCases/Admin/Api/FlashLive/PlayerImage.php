@@ -3,7 +3,7 @@
 namespace App\UseCases\Admin\Api\FlashLive;
 
 use App\UseCases\Admin\Api\Util\ImageInterface;
-use File\PlayerImageFile;
+use App\File\Image\PlayerImageFile;
 
 
 class PlayerImage implements ImageInterface

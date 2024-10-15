@@ -6,8 +6,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-use File\LeagueImageFile;
-use File\TeamImageFile;
+use App\File\Image\LeagueImageFile;
+use App\File\Image\TeamImageFile;
 use App\UseCases\Util\TournamentType;
 
 

@@ -4,9 +4,9 @@ namespace App\UseCases\Admin\GameEvent;
 
 use Illuminate\Support\Collection;
 
-use File\LeagueImageFile;
-use File\PlayerImageFile;
-use File\TeamImageFile;
+use App\File\Image\LeagueImageFile;
+use App\File\Image\PlayerImageFile;
+use App\File\Image\TeamImageFile;
 
 
 class InvalidImageChecker

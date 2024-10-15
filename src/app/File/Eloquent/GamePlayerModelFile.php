@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace File\Eloquent;
+namespace App\File\Eloquent;
 
-use App\UseCases\Admin\GameDetail\Lineups;
 use Exception;
 use Illuminate\Support\Collection;
 
-use File\FileHandler;
-use File\FixtureFile;
-use File\PathInterface;
+use App\UseCases\Admin\Api\ApiFootball\Lineups;
+use App\File\Data\FixtureFile;
+use App\File\Data\FileHandler;
+use App\File\PathInterface;
 
 
 class GamePlayerModelFile extends FileHandler implements PathInterface

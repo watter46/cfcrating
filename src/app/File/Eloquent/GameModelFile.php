@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace File\Eloquent;
+namespace App\File\Eloquent;
 
-use File\FileHandler;
-use File\PathInterface;
 use Illuminate\Support\Collection;
+
+use App\File\Data\FileHandler;
+use App\File\PathInterface;
 
 
 class GameModelFile extends FileHandler implements PathInterface

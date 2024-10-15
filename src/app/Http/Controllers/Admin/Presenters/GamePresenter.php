@@ -7,9 +7,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 
 use App\Http\Controllers\User\Presenters\SubstitutesFormatter;
-use File\LeagueImageFile;
-use File\PlayerImageFile;
-use File\TeamImageFile;
+use App\File\Image\LeagueImageFile;
+use App\File\Image\PlayerImageFile;
+use App\File\Image\TeamImageFile;
 
 
 class GamePresenter

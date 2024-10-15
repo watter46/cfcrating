@@ -3,7 +3,6 @@
 namespace App\Infrastructure\ApiFootball;
 
 use Exception;
-use File\FixtureFile;
 use Illuminate\Support\Facades\Http;
 
 use App\Models\Util\Season;
@@ -12,7 +11,8 @@ use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
 use App\UseCases\Admin\Api\ApiFootball\TeamImage;
-use File\FixturesFile;
+use App\File\Data\FixturesFile;
+use App\File\Data\FixtureFile;
 
 
 class ApiFootballRepository implements ApiFootballRepositoryInterface

@@ -8,8 +8,8 @@ use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
 use App\UseCases\Admin\Api\ApiFootball\TeamImage;
-use File\FixtureFile;
-use File\FixturesFile;
+use App\File\Data\FixturesFile;
+use App\File\Data\FixtureFile;
 
 
 class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface

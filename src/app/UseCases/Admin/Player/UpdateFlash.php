@@ -26,11 +26,13 @@ class UpdateFlash extends CheckAdminKey
                 ->select(['id', 'name', 'api_player_id', 'flash_id'])
                 ->findOrFail($playerId);
 
-            if ($player->flash_id) {
-                throw new ExistingColumnException('flash_id');
-            }
+            // if ($player->flash_id) {
+            //     throw new ExistingColumnException('flash_id');
+            // }
 
             $flashPlayer = $this->repository->searchPlayer(collect($player));
+
+            dd($flashPlayer);
 
             $updated = Name::create($player->name)->isShorten()
                 ? $player->fill([
