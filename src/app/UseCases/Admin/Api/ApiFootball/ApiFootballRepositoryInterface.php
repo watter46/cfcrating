@@ -16,9 +16,28 @@ interface ApiFootballRepositoryInterface
      * @return Fixtures
      */
     public function fetchFixtures(): Fixtures;
-    public function fetchFixture(int $fixtureId): Fixture;
 
-    // public function fetchSquads();
-    public function fetchLeagueImage(int $leagueId): LeagueImage;
+    /**
+     * 指定の試合を取得する
+     *
+     * @param  int $fixtureId
+     * @return Fixture
+     */
+    public function fetchFixture(int $fixtureId): Fixture;
+    
+    /**
+     * 指定のリーグ画像を取得する
+     *
+     * @param  int $leagueId
+     * @return LeagueImage
+     */
+    public function fetchLeagueImage(int $leagueId): LeagueImage;    
+
+    /**
+     * 指定のチームの画像を取得する
+     *
+     * @param  int $teamId
+     * @return TeamImage
+     */
     public function fetchTeamImage(int $teamId): TeamImage;
 }

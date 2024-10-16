@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Player;
 use App\Models\Util\Name;
 use App\UseCases\Admin\CheckAdminKey;
-use App\UseCases\Admin\Exception\ExistingColumnException;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 
 
@@ -26,23 +25,27 @@ class UpdateFlash extends CheckAdminKey
                 ->select(['id', 'name', 'api_player_id', 'flash_id'])
                 ->findOrFail($playerId);
 
-            // if ($player->flash_id) {
-            //     throw new ExistingColumnException('flash_id');
-            // }
+            if ($player->is_fetched) {
+                throw new Exception('The player has already been retrieved.');
+            }
 
             $flashPlayer = $this->repository->searchPlayer(collect($player));
 
-            dd($flashPlayer);
+            if (!$flashPlayer->exist()) {
+                throw new Exception('Flash Player Not Found.');
+            }
 
             $updated = Name::create($player->name)->isShorten()
                 ? $player->fill([
                     'name' => $flashPlayer->getName()->getFullName(),
                     'flash_id' => $flashPlayer->getFlashId(),
-                    'flash_image_id' => $flashPlayer->getFlashImageId()
+                    'flash_image_id' => $flashPlayer->getFlashImageId(),
+                    'is_fetched' => true
                 ])
                 : $player->fill([
                     'flash_id' => $flashPlayer->getFlashId(),
-                    'flash_image_id' => $flashPlayer->getFlashImageId()
+                    'flash_image_id' => $flashPlayer->getFlashImageId(),
+                    'is_fetched' => true
                 ]);
 
             DB::transaction(function () use ($updated) {

@@ -69,15 +69,6 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
         return Fixture::create($data);
     }
 
-    // /**
-    //  * fetchPlayers
-    //  *
-    //  */
-    // public function fetchSquads()
-    // {
-
-    // }
-
     public function fetchLeagueImage(int $leagueId): LeagueImage
     {
         $image = $this->httpClient("https://media-4.api-sports.io/football/leagues/$leagueId.png");
