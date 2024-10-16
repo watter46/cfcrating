@@ -7,13 +7,12 @@ use Illuminate\Support\Str;
 
 use App\Models\Util\Name;
 
+use function PHPUnit\Framework\isNull;
 
 class FlashPlayer
 {
-    private const TEAM_NAME = 'Chelsea';
-
     public function __construct(
-        private ?Name   $name = null,
+        private ?Name $name = null,
         private ?int $number = null,
         private ?string $flash_id = null,
         private ?string $flash_image_id = null
@@ -35,89 +34,9 @@ class FlashPlayer
         );
     }
 
-    public static function fromPlayers(Collection $rawPlayersData, string $searchedName)
+    public function exist(): bool
     {
-        $player = $rawPlayersData
-            ->first(function ($player) use ($searchedName) {
-                return self::isPlayerInChelsea($player->get('NAME'), $searchedName) ||
-                    self::matchName(
-                        self::toNameOnly($player->get('NAME')),
-                        Name::create($searchedName)
-                    );
-            });
-
-            dd($player);
-        
-        // if (!$player) {
-        //     return [
-        //         'name' => null,
-        //         'number' => null,
-        //         'flash_id' => null,
-        //         'flash_image_id' => null
-        //     ];
-
-        //     return new self(
-        //         null,
-        //         null,
-        //         null,
-        //         null
-        //     );
-        // }
-
-        // return new self(
-        //     self::toNameOnly($player['NAME']),
-        //     null,
-        //     $player['ID'],
-        //     self::pathToImageId($player['IMAGE'])
-        // );
-    }
-    
-    /**
-     * チェルシーの選手で名前が一致するか判定する
-     *
-     * @param  string $rawName
-     * @param  string $searchedName
-     * @return bool
-     */
-    private static function isPlayerInChelsea(string $rawName, string $searchedName)
-    {
-        $inChelsea = Str::between($rawName, '(', ')') === self::TEAM_NAME;
-
-        if (!$inChelsea) {
-            return false;
-        }
-        
-        return self::matchName(self::toNameOnly($rawName), Name::create($searchedName));
-    }
-
-    /**
-     * 選手名が一致するか判定する
-     *
-     * @param  Name $rawName
-     * @param  Name $searchedName
-     * @return bool
-     */
-    private static function matchName(Name $rawName, Name $searchedName)
-    {
-        return $rawName->equalsFullName($searchedName) || $rawName->equalsShortenName($searchedName);
-    }
-
-    private static function toNameOnly(string $rawName)
-    {
-        $team = '('.self::TEAM_NAME.')';
-        
-        $name = Str::of($rawName)->remove($team)->squish()->toString();
-
-        return Name::create($name)->swapFirstAndLastName();
-    }
-
-    private static function pathToImageId(?string $rawImagePath)
-    {
-        if (!$rawImagePath) return;
-        
-        $fileName = Str::afterLast($rawImagePath, '/');
-
-        return Str::beforeLast($fileName, '.png');
+        return !is_null($this->flash_id);
     }
 
     public function getName()

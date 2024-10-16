@@ -10,7 +10,7 @@ use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\Api\FlashLive\PlayerImage;
 use App\File\Data\FlashPlayerFile;
-
+use App\UseCases\Admin\Api\FlashLive\FlashPlayerMatcher;
 
 class FlashLiveRepository implements FlashLiveRepositoryInterface
 {
@@ -35,56 +35,6 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
         }
     }
 
-    // public function fetchSquad(): PlayerInfos
-    // {
-    //     if ($this->teamSquadFile->exists()) {
-    //         return PlayerInfos::fromFlashSquad(FlashSquad::create($this->teamSquadFile->get()));
-    //     }
-        
-    //     $json = $this->httpClient('https://flashlive-sports.p.rapidapi.com/v1/teams/squad', [
-    //             'sport_id' => config('flash-live-sports.sport-id'),
-    //             'team_id'  => config('flash-live-sports.chelsea-id'),
-    //             'locale'   => config('flash-live-sports.locale')
-    //         ]);
-            
-    //     $data = collect(json_decode($json)->DATA);
-
-    //     $this->teamSquadFile->write($data);
-        
-    //     return PlayerInfos::fromFlashSquad(FlashSquad::create($data));
-    // }
-
-    // public function fetchPlayer(PlayerInfo $playerInfo): FlashPlayer
-    // {
-    //     // if ($this->isTest()) {
-    //     //     return FlashPlayer::fromPlayer($this->playerFile->get($player->getFlashId()));
-    //     // }
-
-    //     // if ($this->isSeed()) {
-    //     //     if ($this->playerFile->exists($player->getFlashId())) {
-    //     //         return FlashPlayer::fromPlayer($this->playerFile->get($player->getFlashId()));
-    //     //     }
-
-    //     //     dd('not exists');
-    //     // }
-
-    //     // if ($this->playerFile->exists($player->getFlashId())) {
-    //     //     return FlashPlayer::fromPlayer($this->playerFile->get($player->getFlashId()));
-    //     // }
-        
-    //     // $json = $this->httpClient('https://flashlive-sports.p.rapidapi.com/v1/players/data', [
-    //     //         'player_id' => $player->getFlashId(),
-    //     //         'sport_id'  => config('flash-live-sports.sport-id'),
-    //     //         'locale'    => config('flash-live-sports.locale')
-    //     //     ]);
-            
-    //     // $data = collect(json_decode($json)->DATA);
-
-    //     // $this->playerFile->write($player->getFlashId(), $data);
-        
-    //     // return FlashPlayer::fromPlayer($data);
-    // }
-
     public function searchPlayer(Collection $player): FlashPlayer
     {
         $json = $this->httpClient('https://flashlive-sports.p.rapidapi.com/v1/search/multi-search', [
@@ -96,7 +46,9 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
 
         $this->flashPlayerFile->write($player['api_player_id'], $data);
 
-        return FlashPlayer::fromPlayers($data, $player['name']);
+        $matcher = new FlashPlayerMatcher($data, $player['name']);
+
+        return $matcher->match();
     }
     
     /**

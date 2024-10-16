@@ -25,6 +25,26 @@ readonly class Name
         );
     }
 
+    public function equalsFullName(Name $name)
+    {
+        return $this->getFullName() === $name->getFullName();
+    }
+
+    public function equalsShortenName(Name $name)
+    {
+        return $this->getShortenName() === $name->getShortenName();
+    }
+
+    public function equalsLastName(Name $name)
+    {
+        return $this->getLastName() === $name->getLastName();
+    }
+
+    public function swapFirstAndLastName(): self
+    {                                
+        return new self($this->lastName, $this->firstName);
+    }
+
     public function isShorten(): bool
     {
         return preg_match('/^[A-Z]\.$/', $this->getFirstName()) === 1;
@@ -50,25 +70,5 @@ readonly class Name
     private function getLastName(): ?string
     {
         return $this->lastName;
-    }
-
-    public function equalsFullName(Name $name)
-    {
-        return $this->getFullName() === $name->getFullName();
-    }
-
-    public function equalsShortenName(Name $name)
-    {
-        return $this->getShortenName() === $name->getShortenName();
-    }
-
-    public function equalsLastName(Name $name)
-    {
-        return $this->getLastName() === $name->getLastName();
-    }
-
-    public function swapFirstAndLastName(): self
-    {                                
-        return new self($this->lastName, $this->firstName);
     }
 }

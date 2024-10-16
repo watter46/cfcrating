@@ -10,9 +10,6 @@ use App\UseCases\Admin\Api\FlashLive\PlayerImage;
 
 interface FlashLiveRepositoryInterface
 {
-    // public function fetchSquad(): PlayerInfos;
-    // public function fetchPlayer(PlayerInfo $playerInfo): FlashPlayer;    
-
     /**
      * FlashLiveの選手を取得する
      *
