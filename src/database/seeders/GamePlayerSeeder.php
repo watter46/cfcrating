@@ -12,7 +12,7 @@ use App\Models\Player;
 use App\Models\Rating;
 use App\Models\User;
 use App\Models\UsersRating;
-use File\Eloquent\GamePlayerModelFile;
+use App\File\Eloquent\GamePlayerModelFile;
 
 
 class GamePlayerSeeder extends Seeder
@@ -22,21 +22,13 @@ class GamePlayerSeeder extends Seeder
      */
     public function run(): void
     {
-        // collect([
-        //     1035480,
-        //     1035548
-        // ])
-        collect([
-            1217967,
-            1217971,
-            1219971,
-            1225636,
-            1230551,
-            1280512
-        ])
-        ->each(function (int $fixtureId) {
-            $this->save($fixtureId);
-        });
+        $file = new GamePlayerModelFile;
+
+        $file
+            ->getFixtureIds()
+            ->each(function (int $fixtureId) {
+                $this->save($fixtureId);
+            });
     }
 
     private function save(int $fixtureId)
@@ -105,7 +97,7 @@ class GamePlayerSeeder extends Seeder
 
         Rating::upsert($ratings->toArray(), 'id');
 
-        $gameIds = Game::orderBy('date', 'desc')->whereFixtureId($fixtureId)->pluck('id');
+        $gameIds = Game::orderBy('started_at', 'desc')->whereFixtureId($fixtureId)->pluck('id');
 
         $gameUsers = User::pluck('id')
             ->map(function (int $userId) use ($gameIds) {

@@ -1,6 +1,6 @@
-<section class="w-full py-2">
+<section class="w-full py-1">
     <div class="w-full h-full">
-        <div class="flex justify-between w-full mb-1 font-black">
+        <div class="flex justify-between w-full font-black">
             <!-- Date -->
             <p class="pr-2 text-xs text-gray-400 md:text-lg">{{ $game['date'] }}</p>
             

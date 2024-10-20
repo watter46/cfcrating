@@ -10,7 +10,7 @@ use App\File\PathInterface;
 
 class GameModelFile extends FileHandler implements PathInterface
 {
-    private const DIR_PATH  = 'template/eloquent/game';
+    private const DIR_PATH  = 'Template/Eloquent/Game';
     private const EXTENSION = '.json';
 
     private int $fixtureId;
@@ -33,11 +33,11 @@ class GameModelFile extends FileHandler implements PathInterface
 
     public function getDirPath(): string
     {
-        return base_path(self::DIR_PATH);
+        return app_path(self::DIR_PATH);
     }
 
     public function getFullPath(): string
     {
-        return base_path(self::DIR_PATH.'/'.$this->fixtureId.self::EXTENSION);
+        return app_path(self::DIR_PATH.'/'.$this->fixtureId.self::EXTENSION);
     }
 }

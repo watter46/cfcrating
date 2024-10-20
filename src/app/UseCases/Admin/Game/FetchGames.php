@@ -13,7 +13,7 @@ class FetchGames
     {
         try {
             return Game::query()
-                ->select(['id', 'date', 'score', 'teams', 'league', 'is_details_fetched'])
+                ->select(['id', 'started_at', 'score', 'teams', 'league', 'is_details_fetched'])
                 ->currentSeason()
                 ->untilToday()
                 ->simplePaginate();

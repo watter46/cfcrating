@@ -2,15 +2,14 @@
 
 namespace App\File\Eloquent;
 
-use Illuminate\Support\Collection;
-
 use App\File\Data\FileHandler;
 use App\File\PathInterface;
+use App\Models\Player;
 
 
 class PlayerModelsFile extends FileHandler implements PathInterface
 {
-    private const DIR_PATH  = 'template/eloquent/players';
+    private const DIR_PATH  = 'Template/Eloquent/Players';
     private const EXTENSION = '.json';
 
     private int $season;
@@ -22,22 +21,22 @@ class PlayerModelsFile extends FileHandler implements PathInterface
         return $this->getFile($this);
     }
 
-    public function write(int $season, Collection $data)
+    public function write(int $season)
     {
         $this->season = $season;
 
-        $this->writeFile($this, $data);
+        $this->writeFile($this, Player::where('season', $season)->get());
         
         return $this->get($season);
     }
 
     public function getDirPath(): string
     {
-        return base_path(self::DIR_PATH);
+        return app_path(self::DIR_PATH);
     }
 
     public function getFullPath(): string
     {
-        return base_path(self::DIR_PATH.'/'.$this->season.self::EXTENSION);
+        return app_path(self::DIR_PATH.'/'.$this->season.self::EXTENSION);
     }
 }

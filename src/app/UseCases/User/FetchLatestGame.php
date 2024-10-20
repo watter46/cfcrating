@@ -29,7 +29,7 @@ class FetchLatestGame
                 ])
                 ->currentSeason()
                 ->where('is_end', true)
-                ->orderBy('date', 'desc')
+                ->orderBy('started_at', 'desc')
                 ->first();
 
             $game

@@ -6,11 +6,11 @@ use Illuminate\Support\Collection;
 
 use App\File\Data\FileHandler;
 use App\File\PathInterface;
-
+use App\Models\Game;
 
 class GameModelsFile extends FileHandler implements PathInterface
 {
-    private const DIR_PATH  = 'template/eloquent/games';
+    private const DIR_PATH  = 'Template/Eloquent/Games';
     private const EXTENSION = '.json';
 
     private int $season;
@@ -22,22 +22,22 @@ class GameModelsFile extends FileHandler implements PathInterface
         return $this->getFile($this);
     }
 
-    public function write(int $season, Collection $data)
+    public function write(int $season)
     {
         $this->season = $season;
 
-        $this->writeFile($this, $data);
+        $this->writeFile($this, Game::where('season', $season)->get());
         
         return $this->get($season);
     }
 
     public function getDirPath(): string
     {
-        return base_path(self::DIR_PATH);
+        return app_path(self::DIR_PATH);
     }
 
     public function getFullPath(): string
     {
-        return base_path(self::DIR_PATH.'/'.$this->season.self::EXTENSION);
+        return app_path(self::DIR_PATH.'/'.$this->season.self::EXTENSION);
     }
 }

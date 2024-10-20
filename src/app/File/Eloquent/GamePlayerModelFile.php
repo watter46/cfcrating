@@ -4,6 +4,8 @@ namespace App\File\Eloquent;
 
 use Exception;
 use Illuminate\Support\Collection;
+use Symfony\Component\Finder\SplFileInfo;
+use Illuminate\Support\Str;
 
 use App\UseCases\Admin\Api\ApiFootball\Lineups;
 use App\File\Data\FixtureFile;
@@ -13,7 +15,7 @@ use App\File\PathInterface;
 
 class GamePlayerModelFile extends FileHandler implements PathInterface
 {
-    private const DIR_PATH  = 'template/eloquent/gamePlayer';
+    private const DIR_PATH  = 'Template/Eloquent/GamePlayer';
     private const EXTENSION = '.json';
 
     private int $fixtureId;
@@ -25,11 +27,69 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
         return $this->getFile($this);
     }
 
+    public function getFixtureIds()
+    {
+        return collect($this->files($this))
+            ->map(function (SplFileInfo $file) {
+                $fileName = $file->getFilename();
+
+                return Str::of($fileName)->replace('.json', '')->toInteger();
+            });
+    }
+
     public function exist(int $fixtureId)
     {
         $this->fixtureId = $fixtureId;
 
         return $this->existFile($this);
+    }
+
+    public function writeAll(int $season)
+    {
+        $file = new GameModelsFile;
+
+        $file
+            ->get($season)
+            ->pluck('fixture_id')
+            ->filter(function (int $fixtureId) {
+                $file = new FixtureFile;
+
+                if (!$file->exist($fixtureId)) {
+                    return false;
+                }
+
+                $isEnd = $file->get($fixtureId)->getDotRaw('fixture.status.short') === 'FT';
+                
+                return $isEnd;
+            })
+            ->each(function (int $fixtureId) {
+                $file = new FixtureFile;
+
+                if (!$file->exist($fixtureId)) {
+                    return true;
+                }
+
+                $lineups = Lineups::create($file->get($fixtureId)->only(['lineups', 'statistics', 'players']));
+                
+                $data = $lineups->get()
+                    ->map(function (Collection $player) {
+                        $player = $player->only(['id', 'grid', 'assists', 'goal', 'rating']);
+
+                        return [
+                            'id'      => $player['id'],
+                            'grid'    => $player['grid'],
+                            'goals'   => $player['goal'],
+                            'assists' => $player['assists'],
+                            'rating'  => $player['rating']
+                        ];
+                    });
+
+                if ($data->isEmpty()) {
+                    return true;
+                }
+
+                $this->write($fixtureId, $data);
+            });
     }
 
     public function makeAndWrite(int $fixtureId)
@@ -70,11 +130,11 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
 
     public function getDirPath(): string
     {
-        return base_path(self::DIR_PATH);
+        return app_path(self::DIR_PATH);
     }
 
     public function getFullPath(): string
     {
-        return base_path(self::DIR_PATH.'/'.$this->fixtureId.self::EXTENSION);
+        return app_path(self::DIR_PATH.'/'.$this->fixtureId.self::EXTENSION);
     }
 }

@@ -33,7 +33,7 @@ class GamesPresenter
             ->map(function (Collection $game) {
                 return [
                     'id' => $game['id'],
-                    'date' => Carbon::parse($game['date'])->format('Y/m/d'),
+                    'date' => Carbon::parse($game['started_at'])->format('Y/m/d'),
                     'score' => $game['score']->toArray(),
                     'teams' => $game['teams']
                         ->map(function (Collection $team) {

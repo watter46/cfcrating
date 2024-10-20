@@ -11,6 +11,11 @@ use App\File\PathInterface;
 
 class FileHandler
 {
+    protected function files(PathInterface $path)
+    {
+        return File::files($path->getDirPath());
+    }
+    
     protected function existFile(PathInterface $path)
     {
         return File::exists($path->getFullPath());
