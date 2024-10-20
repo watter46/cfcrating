@@ -2,13 +2,15 @@
 
 namespace App\UseCases\Admin\Api\ApiFootball;
 
+use Exception;
 use Illuminate\Support\Collection;
 
 use App\UseCases\Admin\Api\ApiFootball\Teams;
 use App\UseCases\Admin\Api\ApiFootball\Score;
 use App\UseCases\Admin\Api\ApiFootball\League;
 use App\UseCases\Admin\Api\ApiFootball\Info;
-use Exception;
+use App\UseCases\Admin\Exception\FixtureNotEndedException;
+
 
 readonly class Fixture
 {

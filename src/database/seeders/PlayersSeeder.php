@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 
 use App\Models\Player;
-use File\Eloquent\PlayerModelsFile;
+use App\File\Eloquent\PlayerModelsFile;
 
 
 class PlayersSeeder extends Seeder

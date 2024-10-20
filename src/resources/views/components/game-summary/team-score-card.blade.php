@@ -10,7 +10,7 @@
         };
 @endphp
 
-<section {{ $attributes->class("flex items-center justify-center w-fit mt-3") }}>
+<section {{ $attributes->class("flex items-center justify-center w-fit mt-2") }}>
     <div class="grid grid-cols-[1fr_auto_1fr] items-center {{ $gap }}">
         <!-- Home Team -->
         <div class="flex justify-end">

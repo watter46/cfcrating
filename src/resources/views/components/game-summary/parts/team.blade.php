@@ -33,7 +33,7 @@
         <img src="{{ asset($team['path']) }}" class="{{ $imgSize }}">
 
         @if ($isNameRequired)
-            <p class="font-black text-gray-300 break-all text-start {{ $textSize }}">
+            <p class="font-black text-gray-300 text-start truncate  {{ $textSize }}">
                 {{ $team['name'] }}
             </p>
         @endif
@@ -43,7 +43,7 @@
         ->class("flex justify-end items-center")
         ->merge(['class' => $spaceSize]) }}>
         @if ($isNameRequired)
-            <p class="font-black text-gray-300 break-all text-end {{ $textSize }}">
+            <p class="font-black text-gray-300 text-end truncate  {{ $textSize }}">
                 {{ $team['name'] }}
             </p>
         @endif

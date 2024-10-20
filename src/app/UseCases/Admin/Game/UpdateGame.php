@@ -9,8 +9,7 @@ use App\Events\UpdateGameImages;
 use App\Models\Game;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\CheckAdminKey;
-use App\UseCases\Admin\GameImageChecker;
-
+use App\UseCases\Admin\Exception\FixtureNotEndedException;
 
 class UpdateGame extends CheckAdminKey
 {
@@ -28,12 +27,16 @@ class UpdateGame extends CheckAdminKey
             
             $fixture = $this->apiFootballRepository->fetchFixture($game->fixture_id);
 
+            if (!$fixture->getIsEnd()) {
+                throw new FixtureNotEndedException;
+            }
+            
             DB::transaction(function () use ($fixture) {
                 $this->repository->save($fixture);
             });
 
             UpdateGameImages::dispatch($fixture);
-
+            
         } catch (Exception $e) {
             throw $e;
         }

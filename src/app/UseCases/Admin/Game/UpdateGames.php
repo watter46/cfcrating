@@ -2,10 +2,10 @@
 
 namespace App\UseCases\Admin\Game;
 
-use App\Events\UpdateGamesImages;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
+use App\Events\UpdateGamesImages;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\CheckAdminKey;
 
@@ -23,7 +23,7 @@ class UpdateGames extends CheckAdminKey
     {
         try {
             $fixtures = $this->apiFootballRepository->fetchFixtures();
-            
+
             DB::transaction(function () use ($fixtures) {
                 $this->repository->bulkSave($fixtures);
             });

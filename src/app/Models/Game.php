@@ -26,7 +26,7 @@ class Game extends Model
     
     protected $keyType = 'string';
 
-    protected $dates = ['date'];
+    protected $dates = ['started_at', 'finished_at'];
 
     protected function casts(): array
     {
@@ -41,12 +41,13 @@ class Game extends Model
 
     protected $fillable = [
         'season',
-        'date',
         'is_end',
         'score',
         'teams',
         'league',
-        'is_details_fetched'
+        'is_details_fetched',
+        'started_at',
+        'finished_at',
     ];
 
     /**
@@ -80,8 +81,8 @@ class Game extends Model
     public function scopeUntilToday(Builder $query,): void
     {
         $query
-            ->where('date', '<=', now('UTC'))
-            ->orderBy('date', 'desc');
+            ->where('started_at', '<=', now('UTC'))
+            ->orderBy('started_at', 'desc');
     }
     
     /**
@@ -91,6 +92,30 @@ class Game extends Model
     public function scopeFixtureId(Builder $query, int $fixtureId): void
     {
         $query->where('fixture_id', $fixtureId);
+    }
+    
+    /**
+     * 次の試合
+     *
+     * @param  Builder<Game> $query
+     * @return void
+     */
+    public function scopeNext(Builder $query)
+    {
+        $query
+            ->where('started_at', '>', now('UTC'))
+            ->orderBy('started_at');
+    }
+
+    /**
+     * 次の試合
+     *
+     * @param  Builder<Game> $query
+     * @return void
+     */
+    public function scopeWithinThreeDays(Builder $query)
+    {
+        $query->whereBetween('finished_at', Carbon::now()->subDays(3));
     }
 
     public function players(): BelongsToMany
