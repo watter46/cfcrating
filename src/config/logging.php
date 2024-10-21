@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\Custom;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -54,7 +55,8 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            'channels' => explode(',', env('LOG_STACK', 'single')),
+            // 'channels' => explode(',', env('LOG_STACK', 'single')),
+            'channels' => ['single', 'job'],
             'ignore_exceptions' => false,
         ],
 
@@ -127,6 +129,11 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'job' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/job.log'),
+            'level' => 'emergency',
+        ],
     ],
 
 ];
