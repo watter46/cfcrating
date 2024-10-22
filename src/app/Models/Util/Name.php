@@ -18,7 +18,7 @@ readonly class Name
         
         $first = Str::of($transliterated)->explode(' ')->first();
         $last  = Str::of($transliterated)->explode(' ')->last();
-        
+
         return new self(
             $first,
             $first !== $last ? $last : null
@@ -41,7 +41,11 @@ readonly class Name
     }
 
     public function swapFirstAndLastName(): self
-    {                                
+    {    
+        if (!$this->lastName) {
+            return $this;
+        }
+        
         return new self($this->lastName, $this->firstName);
     }
 
@@ -52,11 +56,19 @@ readonly class Name
 
     public function getFullName(): string
     {
+        if (!$this->lastName) {
+            return $this->getFirstName();
+        }
+        
         return $this->getFirstName().' '.$this->getLastName();
     }
 
     public function getShortenName(): string
     {
+        if (!$this->lastName) {
+            return $this->getFirstName();
+        }
+        
         $shortenFirstName = Str::substr($this->getFirstName(), 0, 1);
 
         return $shortenFirstName.'. '.$this->getLastName();

@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\ApiFootball;
 
+use Exception;
+
 use App\Models\Util\Season;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
@@ -10,6 +12,7 @@ use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
 use App\UseCases\Admin\Api\ApiFootball\TeamImage;
 use App\File\Data\FixturesFile;
 use App\File\Data\FixtureFile;
+use App\UseCases\Admin\Exception\FixtureNotEndedException;
 
 
 class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface
@@ -30,9 +33,14 @@ class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface
     
     public function fetchFixture(int $fixtureId): Fixture
     {
-        $data = $this->fixtureFile->get($fixtureId);
+        try {
+            $data = $this->fixtureFile->get($fixtureId);
 
-        return Fixture::create($data);
+            return Fixture::create($data);
+
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function fetchLeagueImage(int $leagueId): LeagueImage
