@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 use App\Models\Util\Name;
-
+use Exception;
 
 class FlashPlayerMatcher
 {
@@ -44,11 +44,11 @@ class FlashPlayerMatcher
 
         if ($nameMatchPlayer) {
             $player = $this->extractTeam($nameMatchPlayer->get('NAME'));
-            
+
             return new FlashPlayer(
                 name: $this->replaceNameIfDifferent($player),
-                flash_id: $teamMatchPlayer->get('ID'),
-                flash_image_id: $this->pathToImageId($teamMatchPlayer->get("IMAGE"))
+                flash_id: $nameMatchPlayer->get('ID'),
+                flash_image_id: $this->pathToImageId($nameMatchPlayer->get("IMAGE"))
             );
         }
 
@@ -57,9 +57,9 @@ class FlashPlayerMatcher
 
     private function extractTeam(string $name)
     {
-        $team = ' ('.self::TEAM_NAME.')';
-        
-        return Name::create(Str::of($name)->replace($team, '')->toString());
+        $extractedName = Str::of($name)->before(' (')->toString();
+
+        return Name::create($extractedName);
     }
 
     private function isNameMatching(Name $name)

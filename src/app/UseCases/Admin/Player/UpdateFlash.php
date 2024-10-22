@@ -28,7 +28,7 @@ class UpdateFlash extends CheckAdminKey
             if ($player->is_fetched) {
                 throw new Exception('The player has already been retrieved.');
             }
-
+            
             $flashPlayer = $this->repository->searchPlayer(collect($player));
 
             if (!$flashPlayer->exist()) {
