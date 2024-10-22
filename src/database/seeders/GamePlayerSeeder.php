@@ -12,7 +12,7 @@ use App\Models\Player;
 use App\Models\Rating;
 use App\Models\User;
 use App\Models\UsersRating;
-use File\Eloquent\GamePlayerModelFile;
+use App\File\Eloquent\GamePlayerModelFile;
 
 
 class GamePlayerSeeder extends Seeder
@@ -22,26 +22,33 @@ class GamePlayerSeeder extends Seeder
      */
     public function run(): void
     {
-        collect([
-            1035480,
-            1035548
-        ])
-        ->each(function (int $fixtureId) {
-            $this->save($fixtureId);
-        });
+        $file = new GamePlayerModelFile;
+
+        $file
+            ->getFixtureIds()
+            ->each(function (int $fixtureId) {
+                $this->save($fixtureId);
+            });
     }
 
     private function save(int $fixtureId)
     {
         $file = new GamePlayerModelFile;
 
+        if (!$file->exist($fixtureId)) {
+            return;
+        }
+        
         $gamePlayers = $file->get($fixtureId);
 
-        $gameId = Game::query()
+        $game = Game::query()
             ->whereFixtureId($fixtureId)
             ->get('id')
-            ->first()
-            ->id;
+            ->first();
+
+        $game->update(['is_details_fetched' => true]);
+            
+        $gameId = $game->id;
         
         $gamePlayersByApiPlayerId = Player::query()
             ->whereIn('api_player_id', $gamePlayers->pluck('id'))
@@ -72,7 +79,7 @@ class GamePlayerSeeder extends Seeder
             ->pluck('id');
 
         $rand_ratings = [8.4, 4.4, 7.6, 5.6, 10.0, 5.2, 8.8, 6.4, 9.6, 4.8, 6.0,
-            7.2, 9.2, 4.0, 8.0, 6.8];
+            7.2, 9.2, 4.0, 8.0, 6.8, 8.4, 4.4, 7.6, 5.6, 10.0, 5.2];
 
         $ratings = User::pluck('id')
             ->map(function ($userId) use ($gamePlayerIds, $rand_ratings) {
@@ -90,7 +97,7 @@ class GamePlayerSeeder extends Seeder
 
         Rating::upsert($ratings->toArray(), 'id');
 
-        $gameIds = Game::orderBy('date', 'desc')->whereFixtureId($fixtureId)->pluck('id');
+        $gameIds = Game::orderBy('started_at', 'desc')->whereFixtureId($fixtureId)->pluck('id');
 
         $gameUsers = User::pluck('id')
             ->map(function (int $userId) use ($gameIds) {

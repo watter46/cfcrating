@@ -66,6 +66,8 @@ fresh:
 	docker compose exec app php artisan migrate:fresh --seed
 fresh-test:
 	docker compose exec app php artisan migrate:fresh --seed --env=testing
+spec:
+	docker compose exec app php artisan db:refresh-specific-tables
 seed:
 	docker compose exec app php artisan db:seed
 dacapo:
@@ -90,7 +92,7 @@ clear:
 	docker compose exec app php artisan cache:clear
 	docker compose exec app php artisan config:clear
 	docker compose exec app php artisan route:clear
-	docker compose exec app php artisan view:cache
+	docker compose exec app php artisan view:clear
 cache:
 	docker compose exec app composer dump-autoload -o
 	@make optimize
@@ -119,6 +121,11 @@ work:
 run:
 	docker compose exec app php artisan schedule:run
 queue:
+	docker compose exec app php artisan queue:work
+listen:
 	docker compose exec app php artisan queue:listen
 stan:
 	docker compose exec app ./vendor/bin/phpstan analyse
+jobs:
+	docker compose exec app php artisan db:refresh-job-tables
+	@make work

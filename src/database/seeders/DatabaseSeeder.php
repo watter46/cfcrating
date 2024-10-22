@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             GamesSeeder::class,
             PlayersSeeder::class,
             GamePlayerSeeder::class,
-            GameSeeder::class
+            // GameSeeder::class
         ]);
     }
 }

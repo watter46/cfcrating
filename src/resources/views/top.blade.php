@@ -22,7 +22,11 @@
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     <header class="grid items-center grid-cols-2 gap-2 py-10 lg:grid-cols-3">
                         <div class="flex lg:justify-center lg:col-start-2">
-                            
+                            @if(session('error'))
+                                <div>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                         </div>
                         
                         @if (Route::has('login'))

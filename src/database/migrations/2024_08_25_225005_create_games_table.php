@@ -16,11 +16,13 @@ return new class extends Migration
             $table->mediumInteger('fixture_id')->unsigned();
             $table->mediumInteger('league_id')->unsigned();
             $table->smallInteger('season')->length(4)->unsigned();
-            $table->timestamp('date');
             $table->boolean('is_end');
             $table->json('score');
             $table->json('teams');
             $table->json('league');
+            $table->boolean('is_details_fetched')->default(false);
+            $table->timestamp('started_at');
+            $table->timestamp('finished_at')->nullable();
         });
     }
 

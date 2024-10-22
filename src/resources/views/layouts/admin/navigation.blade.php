@@ -11,10 +11,19 @@
                 </div>
 
                 <!-- Navigation Links -->
+                <!-- Games -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-default.nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.index')"
                         :class="'border-lime-600'">
                         {{ __('Games') }}
+                    </x-default.nav-link>
+                </div>
+
+                <!-- Players -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-default.nav-link :href="route('admin.players.index')" :active="request()->routeIs('admin.players.index')"
+                        :class="'border-lime-600'">
+                        {{ __('Players') }}
                     </x-default.nav-link>
                 </div>
             </div>
@@ -64,8 +73,14 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            <!-- Game -->
             <x-default.responsive-nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.index')">
                 {{ __('Games') }}
+            </x-default.responsive-nav-link>
+
+            <!-- Player -->
+            <x-default.responsive-nav-link :href="route('admin.players.index')" :active="request()->routeIs('admin.players.index')">
+                {{ __('Players') }}
             </x-default.responsive-nav-link>
         </div>
 

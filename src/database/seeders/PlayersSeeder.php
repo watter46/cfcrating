@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 
 use App\Models\Player;
-use File\Eloquent\PlayerModelsFile;
+use App\File\Eloquent\PlayerModelsFile;
 
 
 class PlayersSeeder extends Seeder
@@ -19,7 +19,7 @@ class PlayersSeeder extends Seeder
         $file = new PlayerModelsFile;
 
         $players = $file
-            ->get(2023)
+            ->get(2024)
             ->map(function (Collection $player) {
                 return Player::factory()
                     ->fromFile($player)

@@ -6,8 +6,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 use App\Models\Game;
-use File\Eloquent\GameModelsFile;
-
+use App\File\Eloquent\GameModelsFile;
+use Illuminate\Support\Carbon;
 
 class GamesSeeder extends Seeder
 {
@@ -24,14 +24,15 @@ class GamesSeeder extends Seeder
                     'fixture_id' => $game['fixture_id'],
                     'league_id' => $game['league_id'],
                     'season' => $game['season'],
-                    'date' => $game['date'],
                     'is_end' => $game['is_end'],
                     'score' => json_encode($game['score']),
                     'teams' => json_encode($game['teams']),
                     'league' => json_encode($game['league']),
+                    'started_at' => $game['date'],
+                    'finished_at' => Carbon::parse($game['date'])->addMinutes(110)
                 ];
             },
-            $file->get(2023)->toArray()
+            $file->get(2024)->toArray()
         );
         
         Game::upsert($games, 'id');
