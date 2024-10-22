@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Util\Season;
+use App\UseCases\Admin\Game\GameRule;
 use App\UseCases\Util\TournamentType;
 
 class Game extends Model
@@ -113,9 +114,13 @@ class Game extends Model
      * @param  Builder<Game> $query
      * @return void
      */
-    public function scopeWithinThreeDays(Builder $query)
+    public function scopeWithinRatingPeriod(Builder $query)
     {
-        $query->whereBetween('finished_at', Carbon::now()->subDays(3));
+        $query->whereBetween(
+            'finished_at', [
+            Carbon::now('UTC')->subDays(GameRule::RATING_PERIOD_DAYS),
+            Carbon::now('UTC')
+        ]);
     }
 
     public function players(): BelongsToMany

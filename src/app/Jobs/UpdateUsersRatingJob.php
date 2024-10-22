@@ -54,7 +54,7 @@ class UpdateUsersRatingJob implements ShouldQueue
     public function failed(?Throwable $exception): void
     {
         if ($this->retryCount >= GameRule::MAX_RETRY_COUNT) {
-            return; 
+            return;
         }
         
         self::dispatch($this->retryCount + 1)
