@@ -4194,7 +4194,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function lock($name, $seconds = 0, $owner = null)
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->lock($name, $seconds, $owner);
         }
                     /**
@@ -4206,7 +4206,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function restoreLock($name, $owner)
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->restoreLock($name, $owner);
         }
                     /**
@@ -4216,70 +4216,61 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function flush()
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->flush();
         }
                     /**
-         * Remove all expired tag set entries.
+         * Get the full path for the given cache key.
          *
-         * @return void 
+         * @param string $key
+         * @return string 
          * @static 
-         */        public static function flushStaleTags()
+         */        public static function path($key)
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
-                        $instance->flushStaleTags();
+                        /** @var \Illuminate\Cache\FileStore $instance */
+                        return $instance->path($key);
         }
                     /**
-         * Get the Redis connection instance.
+         * Get the Filesystem instance.
          *
-         * @return \Illuminate\Redis\Connections\Connection 
+         * @return \Illuminate\Filesystem\Filesystem 
          * @static 
-         */        public static function connection()
+         */        public static function getFilesystem()
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
-                        return $instance->connection();
+                        /** @var \Illuminate\Cache\FileStore $instance */
+                        return $instance->getFilesystem();
         }
                     /**
-         * Get the Redis connection instance that should be used to manage locks.
+         * Get the working directory of the cache.
          *
-         * @return \Illuminate\Redis\Connections\Connection 
+         * @return string 
          * @static 
-         */        public static function lockConnection()
+         */        public static function getDirectory()
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
-                        return $instance->lockConnection();
+                        /** @var \Illuminate\Cache\FileStore $instance */
+                        return $instance->getDirectory();
         }
                     /**
-         * Specify the name of the connection that should be used to store data.
+         * Set the working directory of the cache.
          *
-         * @param string $connection
-         * @return void 
+         * @param string $directory
+         * @return \Illuminate\Cache\FileStore 
          * @static 
-         */        public static function setConnection($connection)
+         */        public static function setDirectory($directory)
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
-                        $instance->setConnection($connection);
+                        /** @var \Illuminate\Cache\FileStore $instance */
+                        return $instance->setDirectory($directory);
         }
                     /**
-         * Specify the name of the connection that should be used to manage locks.
+         * Set the cache directory where locks should be stored.
          *
-         * @param string $connection
-         * @return \Illuminate\Cache\RedisStore 
+         * @param string|null $lockDirectory
+         * @return \Illuminate\Cache\FileStore 
          * @static 
-         */        public static function setLockConnection($connection)
+         */        public static function setLockDirectory($lockDirectory)
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
-                        return $instance->setLockConnection($connection);
-        }
-                    /**
-         * Get the Redis database instance.
-         *
-         * @return \Illuminate\Contracts\Redis\Factory 
-         * @static 
-         */        public static function getRedis()
-        {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
-                        return $instance->getRedis();
+                        /** @var \Illuminate\Cache\FileStore $instance */
+                        return $instance->setLockDirectory($lockDirectory);
         }
                     /**
          * Get the cache key prefix.
@@ -4288,19 +4279,8 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function getPrefix()
         {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
+                        /** @var \Illuminate\Cache\FileStore $instance */
                         return $instance->getPrefix();
-        }
-                    /**
-         * Set the cache key prefix.
-         *
-         * @param string $prefix
-         * @return void 
-         * @static 
-         */        public static function setPrefix($prefix)
-        {
-                        /** @var \Illuminate\Cache\RedisStore $instance */
-                        $instance->setPrefix($prefix);
         }
             }
             /**
@@ -10503,40 +10483,42 @@ namespace Illuminate\Support\Facades {
                         return $instance->setConnectionName($name);
         }
                     /**
-         * Migrate the delayed jobs that are ready to the regular queue.
+         * Release a reserved job back onto the queue after (n) seconds.
          *
-         * @param string $from
-         * @param string $to
-         * @return array 
+         * @param string $queue
+         * @param \Illuminate\Queue\Jobs\DatabaseJobRecord $job
+         * @param int $delay
+         * @return mixed 
          * @static 
-         */        public static function migrateExpiredJobs($from, $to)
+         */        public static function release($queue, $job, $delay)
         {
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
-                        return $instance->migrateExpiredJobs($from, $to);
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->release($queue, $job, $delay);
         }
                     /**
          * Delete a reserved job from the queue.
          *
          * @param string $queue
-         * @param \Illuminate\Queue\Jobs\RedisJob $job
+         * @param string $id
          * @return void 
+         * @throws \Throwable
          * @static 
-         */        public static function deleteReserved($queue, $job)
+         */        public static function deleteReserved($queue, $id)
         {
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
-                        $instance->deleteReserved($queue, $job);
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        $instance->deleteReserved($queue, $id);
         }
                     /**
          * Delete a reserved job from the reserved queue and release it.
          *
          * @param string $queue
-         * @param \Illuminate\Queue\Jobs\RedisJob $job
+         * @param \Illuminate\Queue\Jobs\DatabaseJob $job
          * @param int $delay
          * @return void 
          * @static 
          */        public static function deleteAndRelease($queue, $job, $delay)
         {
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         $instance->deleteAndRelease($queue, $job, $delay);
         }
                     /**
@@ -10547,7 +10529,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function clear($queue)
         {
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->clear($queue);
         }
                     /**
@@ -10558,28 +10540,18 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function getQueue($queue)
         {
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getQueue($queue);
         }
                     /**
-         * Get the connection for the queue.
+         * Get the underlying database instance.
          *
-         * @return \Illuminate\Redis\Connections\Connection 
+         * @return \Illuminate\Database\Connection 
          * @static 
-         */        public static function getConnection()
+         */        public static function getDatabase()
         {
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
-                        return $instance->getConnection();
-        }
-                    /**
-         * Get the underlying Redis instance.
-         *
-         * @return \Illuminate\Contracts\Redis\Factory 
-         * @static 
-         */        public static function getRedis()
-        {
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
-                        return $instance->getRedis();
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->getDatabase();
         }
                     /**
          * Get the maximum number of attempts for an object-based queue handler.
@@ -10589,7 +10561,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function getJobTries($job)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getJobTries($job);
         }
                     /**
@@ -10600,7 +10572,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function getJobBackoff($job)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getJobBackoff($job);
         }
                     /**
@@ -10611,7 +10583,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function getJobExpiration($job)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getJobExpiration($job);
         }
                     /**
@@ -10622,7 +10594,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function createPayloadUsing($callback)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        \Illuminate\Queue\RedisQueue::createPayloadUsing($callback);
+                        \Illuminate\Queue\DatabaseQueue::createPayloadUsing($callback);
         }
                     /**
          * Get the container instance being used by the connection.
@@ -10631,7 +10603,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function getContainer()
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getContainer();
         }
                     /**
@@ -10642,7 +10614,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function setContainer($container)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\RedisQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         $instance->setContainer($container);
         }
             }
@@ -18260,6 +18232,129 @@ namespace Illuminate\Support\Facades {
             }
     }
 
+namespace Laravel\Socialite\Facades {
+            /**
+     * 
+     *
+     * @method array getScopes()
+     * @method \Laravel\Socialite\Contracts\Provider scopes(array|string $scopes)
+     * @method \Laravel\Socialite\Contracts\Provider setScopes(array|string $scopes)
+     * @method \Laravel\Socialite\Contracts\Provider redirectUrl(string $url)
+     * @see \Laravel\Socialite\SocialiteManager
+     */        class Socialite {
+                    /**
+         * Get a driver instance.
+         *
+         * @param string $driver
+         * @return mixed 
+         * @static 
+         */        public static function with($driver)
+        {
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->with($driver);
+        }
+                    /**
+         * Build an OAuth 2 provider instance.
+         *
+         * @param string $provider
+         * @param array $config
+         * @return \Laravel\Socialite\Two\AbstractProvider 
+         * @static 
+         */        public static function buildProvider($provider, $config)
+        {
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->buildProvider($provider, $config);
+        }
+                    /**
+         * Format the server configuration.
+         *
+         * @param array $config
+         * @return array 
+         * @static 
+         */        public static function formatConfig($config)
+        {
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->formatConfig($config);
+        }
+                    /**
+         * Forget all of the resolved driver instances.
+         *
+         * @return \Laravel\Socialite\SocialiteManager 
+         * @static 
+         */        public static function forgetDrivers()
+        {
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->forgetDrivers();
+        }
+                    /**
+         * Set the container instance used by the manager.
+         *
+         * @param \Illuminate\Contracts\Container\Container $container
+         * @return \Laravel\Socialite\SocialiteManager 
+         * @static 
+         */        public static function setContainer($container)
+        {
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->setContainer($container);
+        }
+                    /**
+         * Get the default driver name.
+         *
+         * @return string 
+         * @throws \InvalidArgumentException
+         * @static 
+         */        public static function getDefaultDriver()
+        {
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->getDefaultDriver();
+        }
+                    /**
+         * Get a driver instance.
+         *
+         * @param string|null $driver
+         * @return mixed 
+         * @throws \InvalidArgumentException
+         * @static 
+         */        public static function driver($driver = null)
+        {            //Method inherited from \Illuminate\Support\Manager         
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->driver($driver);
+        }
+                    /**
+         * Register a custom driver creator Closure.
+         *
+         * @param string $driver
+         * @param \Closure $callback
+         * @return \Laravel\Socialite\SocialiteManager 
+         * @static 
+         */        public static function extend($driver, $callback)
+        {            //Method inherited from \Illuminate\Support\Manager         
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->extend($driver, $callback);
+        }
+                    /**
+         * Get all of the created "drivers".
+         *
+         * @return array 
+         * @static 
+         */        public static function getDrivers()
+        {            //Method inherited from \Illuminate\Support\Manager         
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->getDrivers();
+        }
+                    /**
+         * Get the container instance used by the manager.
+         *
+         * @return \Illuminate\Contracts\Container\Container 
+         * @static 
+         */        public static function getContainer()
+        {            //Method inherited from \Illuminate\Support\Manager         
+                        /** @var \Laravel\Socialite\SocialiteManager $instance */
+                        return $instance->getContainer();
+        }
+            }
+    }
+
 namespace Livewire {
             /**
      * 
@@ -18638,6 +18733,511 @@ namespace Livewire {
             }
     }
 
+namespace PragmaRX\Google2FALaravel {
+            /**
+     * 
+     *
+     */        class Facade {
+                    /**
+         * Set the QRCode Backend.
+         *
+         * @param string $qrCodeBackend
+         * @return self 
+         * @static 
+         */        public static function setQrCodeBackend($qrCodeBackend)
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setQrCodeBackend($qrCodeBackend);
+        }
+                    /**
+         * Authenticator boot.
+         *
+         * @param $request
+         * @return \Google2FA 
+         * @static 
+         */        public static function boot($request)
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->boot($request);
+        }
+                    /**
+         * The QRCode Backend.
+         *
+         * @return mixed 
+         * @static 
+         */        public static function getQRCodeBackend()
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getQRCodeBackend();
+        }
+                    /**
+         * Check if the 2FA is activated for the user.
+         *
+         * @return bool 
+         * @static 
+         */        public static function isActivated()
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->isActivated();
+        }
+                    /**
+         * Set current auth as valid.
+         *
+         * @static 
+         */        public static function login()
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->login();
+        }
+                    /**
+         * OTP logout.
+         *
+         * @static 
+         */        public static function logout()
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->logout();
+        }
+                    /**
+         * Verify the OTP.
+         *
+         * @param $secret
+         * @param $one_time_password
+         * @return mixed 
+         * @static 
+         */        public static function verifyGoogle2FA($secret, $one_time_password)
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->verifyGoogle2FA($secret, $one_time_password);
+        }
+                    /**
+         * Generates a QR code data url to display inline.
+         *
+         * @param string $company
+         * @param string $holder
+         * @param string $secret
+         * @param int $size
+         * @param string $encoding Default to UTF-8
+         * @return string 
+         * @static 
+         */        public static function getQRCodeInline($company, $holder, $secret, $size = 200, $encoding = 'utf-8')
+        {            //Method inherited from \PragmaRX\Google2FAQRCode\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getQRCodeInline($company, $holder, $secret, $size, $encoding);
+        }
+                    /**
+         * Service setter
+         *
+         * @return \PragmaRX\Google2FAQRCode\QRCode\QRCodeServiceContract 
+         * @static 
+         */        public static function getQrCodeService()
+        {            //Method inherited from \PragmaRX\Google2FAQRCode\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getQrCodeService();
+        }
+                    /**
+         * Service setter
+         *
+         * @return self 
+         * @static 
+         */        public static function setQrCodeService($service)
+        {            //Method inherited from \PragmaRX\Google2FAQRCode\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setQrCodeService($service);
+        }
+                    /**
+         * Create the QR Code service instance
+         *
+         * @return \PragmaRX\Google2FAQRCode\QRCode\QRCodeServiceContract 
+         * @static 
+         */        public static function qrCodeServiceFactory($imageBackEnd = null)
+        {            //Method inherited from \PragmaRX\Google2FAQRCode\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->qrCodeServiceFactory($imageBackEnd);
+        }
+                    /**
+         * Find a valid One Time Password.
+         *
+         * @param string $secret
+         * @param string $key
+         * @param int|null $window
+         * @param int $startingTimestamp
+         * @param int $timestamp
+         * @param int|null $oldTimestamp
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return bool|int 
+         * @static 
+         */        public static function findValidOTP($secret, $key, $window, $startingTimestamp, $timestamp, $oldTimestamp = null)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->findValidOTP($secret, $key, $window, $startingTimestamp, $timestamp, $oldTimestamp);
+        }
+                    /**
+         * Generate a digit secret key in base32 format.
+         *
+         * @param int $length
+         * @param string $prefix
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @return string 
+         * @static 
+         */        public static function generateSecretKey($length = 16, $prefix = '')
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->generateSecretKey($length, $prefix);
+        }
+                    /**
+         * Get the current one time password for a key.
+         *
+         * @param string $secret
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return string 
+         * @static 
+         */        public static function getCurrentOtp($secret)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getCurrentOtp($secret);
+        }
+                    /**
+         * Get the HMAC algorithm.
+         *
+         * @return string 
+         * @static 
+         */        public static function getAlgorithm()
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getAlgorithm();
+        }
+                    /**
+         * Get key regeneration.
+         *
+         * @return int 
+         * @static 
+         */        public static function getKeyRegeneration()
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getKeyRegeneration();
+        }
+                    /**
+         * Get OTP length.
+         *
+         * @return int 
+         * @static 
+         */        public static function getOneTimePasswordLength()
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getOneTimePasswordLength();
+        }
+                    /**
+         * Get secret.
+         *
+         * @param string|null $secret
+         * @return string 
+         * @static 
+         */        public static function getSecret($secret = null)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getSecret($secret);
+        }
+                    /**
+         * Returns the current Unix Timestamp divided by the $keyRegeneration
+         * period.
+         *
+         * @return int 
+         * @static 
+         */        public static function getTimestamp()
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getTimestamp();
+        }
+                    /**
+         * Get the OTP window.
+         *
+         * @param null|int $window
+         * @return int 
+         * @static 
+         */        public static function getWindow($window = null)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getWindow($window);
+        }
+                    /**
+         * Takes the secret key and the timestamp and returns the one time
+         * password.
+         *
+         * @param string $secret Secret key in binary form.
+         * @param int $counter Timestamp as returned by getTimestamp.
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return string 
+         * @static 
+         */        public static function oathTotp($secret, $counter)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->oathTotp($secret, $counter);
+        }
+                    /**
+         * Extracts the OTP from the SHA1 hash.
+         *
+         * @param string $hash
+         * @return string 
+         * @static 
+         */        public static function oathTruncate($hash)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->oathTruncate($hash);
+        }
+                    /**
+         * Remove invalid chars from a base 32 string.
+         *
+         * @param string $string
+         * @return string|null 
+         * @static 
+         */        public static function removeInvalidChars($string)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->removeInvalidChars($string);
+        }
+                    /**
+         * Setter for the enforce Google Authenticator compatibility property.
+         *
+         * @param mixed $enforceGoogleAuthenticatorCompatibility
+         * @return \PragmaRX\Google2FALaravel\Google2FA 
+         * @static 
+         */        public static function setEnforceGoogleAuthenticatorCompatibility($enforceGoogleAuthenticatorCompatibility)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setEnforceGoogleAuthenticatorCompatibility($enforceGoogleAuthenticatorCompatibility);
+        }
+                    /**
+         * Set the HMAC hashing algorithm.
+         *
+         * @param mixed $algorithm
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidAlgorithmException
+         * @return \PragmaRX\Google2FA\Google2FA 
+         * @static 
+         */        public static function setAlgorithm($algorithm)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setAlgorithm($algorithm);
+        }
+                    /**
+         * Set key regeneration.
+         *
+         * @param mixed $keyRegeneration
+         * @static 
+         */        public static function setKeyRegeneration($keyRegeneration)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setKeyRegeneration($keyRegeneration);
+        }
+                    /**
+         * Set OTP length.
+         *
+         * @param mixed $oneTimePasswordLength
+         * @static 
+         */        public static function setOneTimePasswordLength($oneTimePasswordLength)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setOneTimePasswordLength($oneTimePasswordLength);
+        }
+                    /**
+         * Set secret.
+         *
+         * @param mixed $secret
+         * @static 
+         */        public static function setSecret($secret)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setSecret($secret);
+        }
+                    /**
+         * Set the OTP window.
+         *
+         * @param mixed $window
+         * @static 
+         */        public static function setWindow($window)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setWindow($window);
+        }
+                    /**
+         * Verifies a user inputted key against the current timestamp. Checks $window
+         * keys either side of the timestamp.
+         *
+         * @param string $key User specified key
+         * @param string $secret
+         * @param null|int $window
+         * @param null|int $timestamp
+         * @param null|int $oldTimestamp
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return bool|int 
+         * @static 
+         */        public static function verify($key, $secret, $window = null, $timestamp = null, $oldTimestamp = null)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->verify($key, $secret, $window, $timestamp, $oldTimestamp);
+        }
+                    /**
+         * Verifies a user inputted key against the current timestamp. Checks $window
+         * keys either side of the timestamp.
+         *
+         * @param string $secret
+         * @param string $key User specified key
+         * @param int|null $window
+         * @param null|int $timestamp
+         * @param null|int $oldTimestamp
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return bool|int 
+         * @static 
+         */        public static function verifyKey($secret, $key, $window = null, $timestamp = null, $oldTimestamp = null)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->verifyKey($secret, $key, $window, $timestamp, $oldTimestamp);
+        }
+                    /**
+         * Verifies a user inputted key against the current timestamp. Checks $window
+         * keys either side of the timestamp, but ensures that the given key is newer than
+         * the given oldTimestamp. Useful if you need to ensure that a single key cannot
+         * be used twice.
+         *
+         * @param string $secret
+         * @param string $key User specified key
+         * @param int|null $oldTimestamp The timestamp from the last verified key
+         * @param int|null $window
+         * @param int|null $timestamp
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return bool|int 
+         * @static 
+         */        public static function verifyKeyNewer($secret, $key, $oldTimestamp, $window = null, $timestamp = null)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->verifyKeyNewer($secret, $key, $oldTimestamp, $window, $timestamp);
+        }
+                    /**
+         * Creates a QR code url.
+         *
+         * @param string $company
+         * @param string $holder
+         * @param string $secret
+         * @return string 
+         * @static 
+         */        public static function getQRCodeUrl($company, $holder, $secret)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getQRCodeUrl($company, $holder, $secret);
+        }
+                    /**
+         * Generate a digit secret key in base32 format.
+         *
+         * @param int $length
+         * @param string $prefix
+         * @throws \Exception
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return string 
+         * @static 
+         */        public static function generateBase32RandomKey($length = 16, $prefix = '')
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->generateBase32RandomKey($length, $prefix);
+        }
+                    /**
+         * Decodes a base32 string into a binary string.
+         *
+         * @param string $b32
+         * @throws \PragmaRX\Google2FA\Exceptions\InvalidCharactersException
+         * @throws \PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException
+         * @throws \PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException
+         * @return string 
+         * @static 
+         */        public static function base32Decode($b32)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->base32Decode($b32);
+        }
+                    /**
+         * Encode a string to Base32.
+         *
+         * @param string $string
+         * @return string 
+         * @static 
+         */        public static function toBase32($string)
+        {            //Method inherited from \PragmaRX\Google2FA\Google2FA         
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->toBase32($string);
+        }
+                    /**
+         * Get a config value.
+         *
+         * @param $string
+         * @throws \Exception
+         * @return mixed 
+         * @static 
+         */        public static function config($string, $default = null)
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->config($string, $default);
+        }
+                    /**
+         * Get the request property.
+         *
+         * @return mixed 
+         * @static 
+         */        public static function getRequest()
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->getRequest();
+        }
+                    /**
+         * Set the request property.
+         *
+         * @param mixed $request
+         * @return \PragmaRX\Google2FALaravel\Google2FA 
+         * @static 
+         */        public static function setRequest($request)
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setRequest($request);
+        }
+                    /**
+         * Get a session var value.
+         *
+         * @param null $var
+         * @return mixed 
+         * @static 
+         */        public static function sessionGet($var = null, $default = null)
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->sessionGet($var, $default);
+        }
+                    /**
+         * 
+         *
+         * @param mixed $stateless
+         * @return \PragmaRX\Google2FALaravel\Authenticator 
+         * @static 
+         */        public static function setStateless($stateless = true)
+        {
+                        /** @var \PragmaRX\Google2FALaravel\Google2FA $instance */
+                        return $instance->setStateless($stateless);
+        }
+            }
+    }
+
 namespace Illuminate\Support {
             /**
      * 
@@ -18688,6 +19288,16 @@ namespace Illuminate\Support {
          */        public static function setDot($key, $value)
         {
                         return \Illuminate\Support\Collection::setDot($key, $value);
+        }
+                    /**
+         * 
+         *
+         * @see \App\Providers\MacroCollectionServiceProvider::boot()
+         * @return \Illuminate\Support\Collection 
+         * @static 
+         */        public static function fromStd()
+        {
+                        return \Illuminate\Support\Collection::fromStd();
         }
             }
     }
@@ -22552,7 +23162,9 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
+            class Socialite extends \Laravel\Socialite\Facades\Socialite {}
             class Livewire extends \Livewire\Livewire {}
+            class Google2FA extends \PragmaRX\Google2FALaravel\Facade {}
     }
 
 

@@ -2,63 +2,45 @@
 
 namespace App\Infrastructure\ApiFootball;
 
-use Illuminate\Support\Collection;
+use Exception;
 
-use App\UseCases\Admin\ApiFootballRepositoryInterface;
-use App\UseCases\Admin\GameDetail\GameDetailList;
-use App\UseCases\Admin\GameDetail\GameDetail;
-
-use App\Domain\Game\GameId;
-use App\Infrastructure\Game\Admin\GameDetailFactory;
-use App\Models\Game as GameModel;
-use App\UseCases\Admin\GameDetail\LeagueImage;
-use App\UseCases\Admin\GameDetail\TeamImage;
-use File\FixtureFile;
-use File\FixturesFile;
+use App\Models\Util\Season;
+use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
+use App\UseCases\Admin\Api\ApiFootball\Fixture;
+use App\UseCases\Admin\Api\ApiFootball\Fixtures;
+use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
+use App\UseCases\Admin\Api\ApiFootball\TeamImage;
+use App\File\Data\FixturesFile;
+use App\File\Data\FixtureFile;
+use App\UseCases\Admin\Exception\FixtureNotEndedException;
 
 
 class InMemoryApiFootballRepository implements ApiFootballRepositoryInterface
 {
     public function __construct(
         private FixturesFile $fixturesFile,
-        private FixtureFile $fixtureFile,
-        private GameDetailFactory $gameDetailFactory
+        private FixtureFile $fixtureFile
     ) {
         
     }
+
+    public function fetchFixtures(): Fixtures
+    {
+        return Fixtures::create(
+            $this->fixturesFile->get(Season::current())
+        );
+    }
     
-    /**
-     * fetchGames
-     *
-     * @return GameDetailList
-     */
-    public function fetchFixtures(): GameDetailList
+    public function fetchFixture(int $fixtureId): Fixture
     {
-        return GameDetailList::create(
-            $this->fixturesFile
-                ->get(2023)
-                ->map(function (Collection $rawGameDetail) {
-                    return $this->gameDetailFactory->create($rawGameDetail);
-                })
-        );
-    }
+        try {
+            $data = $this->fixtureFile->get($fixtureId);
 
-    public function fetchFixture(GameId $gameId): GameDetail
-    {
-        $fixture_id = GameModel::find($gameId->get())->fixture_id;
+            return Fixture::create($data);
 
-        return $this->gameDetailFactory->create(
-            $this->fixtureFile->get($fixture_id)
-        );
-    }
-
-    /**
-     * fetchPlayers
-     *
-     */
-    public function fetchSquads()
-    {
-
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function fetchLeagueImage(int $leagueId): LeagueImage

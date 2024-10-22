@@ -20,7 +20,13 @@ class AdminAuthenticatedSessionController extends Controller
     
     public function handleProviderCallback()
     {
-        $socialiteUser = Socialite::driver(SocialProviderType::GoogleAdmin->value)->user();
+        try {
+            $socialiteUser = Socialite::driver(SocialProviderType::GoogleAdmin->value)->user();
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('oauth.admin.top')
+                ->with('error', 'Google login was canceled or failed.');
+        }
 
         $user = User::where('provider_id', $socialiteUser->id)->first();
 
@@ -33,14 +39,14 @@ class AdminAuthenticatedSessionController extends Controller
         Auth::login($user, true);
 
         if (!$user->two_factor_enabled) {
-            return $this->setup2FA();
+            return redirect()->route('admin.setup2fa');
         }
 
         session(['2fa_user_id' => $user->id]);
         return view('admin.auth.verify2fa');
     }
 
-    private function setup2FA()
+    public function setup2FA()
     {
         $user = Auth::user();
 
@@ -75,7 +81,7 @@ class AdminAuthenticatedSessionController extends Controller
             return redirect()->route('admin.games.index');
         }
 
-        return back()->withErrors(['one_time_password' => 'Invalid verification code']);
+        return redirect()->route('admin.setup2fa');
     }
 
     public function verify2FA(Request $request)
@@ -94,7 +100,7 @@ class AdminAuthenticatedSessionController extends Controller
             return redirect()->route('admin.games.index');
         }
 
-        return back()->withErrors(['one_time_password' => 'Invalid verification code']);
+        return redirect()->route('admin.setup2fa');
     }
 
     public function logout(Request $request)

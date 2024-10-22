@@ -8,57 +8,47 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Util\Season;
+use App\UseCases\Admin\Game\GameRule;
 use App\UseCases\Util\TournamentType;
 
-
-/**
- * 
- *
- * @property string $id
- * @property int $fixture_id
- * @property int $league_id
- * @property int $season
- * @property Carbon $date
- * @property bool $is_end
- * @property AsCollection $score
- * @property AsCollection $teams
- * @property AsCollection $league
- */
 class Game extends Model
 {
     use HasFactory;
+    use HasUlids;
 
     public $incrementing = false;
     public $timestamps = false;
     
     protected $keyType = 'string';
 
-    protected $dates = ['date'];
-    
-    protected $casts = [
-        'is_end' => 'bool'
-    ];
+    protected $dates = ['started_at', 'finished_at'];
 
     protected function casts(): array
     {
         return [
             'score' => AsCollection::class,
             'teams' => AsCollection::class,
-            'league' => AsCollection::class
+            'league' => AsCollection::class,
+            'is_end' => 'boolean',
+            'is_details_fetched' => 'boolean'
         ];
     }
 
     protected $fillable = [
         'season',
-        'date',
         'is_end',
         'score',
         'teams',
         'league',
+        'is_details_fetched',
+        'started_at',
+        'finished_at',
     ];
 
     /**
@@ -81,8 +71,7 @@ class Game extends Model
      */
     public function scopeCurrentSeason(Builder $query): void
     {
-        $query->where('season', 2023);
-        // $query->where('season', Season::current());
+        $query->where('season', Season::current());
     }
 
     /**
@@ -93,8 +82,8 @@ class Game extends Model
     public function scopeUntilToday(Builder $query,): void
     {
         $query
-            ->where('date', '<=', now('UTC'))
-            ->orderBy('date', 'desc');
+            ->where('started_at', '<=', now('UTC'))
+            ->orderBy('started_at', 'desc');
     }
     
     /**
@@ -104,6 +93,34 @@ class Game extends Model
     public function scopeFixtureId(Builder $query, int $fixtureId): void
     {
         $query->where('fixture_id', $fixtureId);
+    }
+    
+    /**
+     * 次の試合
+     *
+     * @param  Builder<Game> $query
+     * @return void
+     */
+    public function scopeNext(Builder $query)
+    {
+        $query
+            ->where('started_at', '>', now('UTC'))
+            ->orderBy('started_at');
+    }
+
+    /**
+     * 次の試合
+     *
+     * @param  Builder<Game> $query
+     * @return void
+     */
+    public function scopeWithinRatingPeriod(Builder $query)
+    {
+        $query->whereBetween(
+            'finished_at', [
+            Carbon::now('UTC')->subDays(GameRule::RATING_PERIOD_DAYS),
+            Carbon::now('UTC')
+        ]);
     }
 
     public function players(): BelongsToMany

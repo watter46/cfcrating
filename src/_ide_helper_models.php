@@ -15,27 +15,12 @@ namespace App\Models{
 /**
  * 
  *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property mixed $password
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @method static \Illuminate\Database\Eloquent\Builder|Admin newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin query()
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUpdatedAt($value)
  */
 	class Admin extends \Eloquent {}
 }
@@ -48,11 +33,13 @@ namespace App\Models{
  * @property int $fixture_id
  * @property int $league_id
  * @property int $season
- * @property Carbon $date
  * @property bool $is_end
- * @property AsCollection $score
- * @property AsCollection $teams
- * @property AsCollection $league
+ * @property \Illuminate\Support\Collection $score
+ * @property \Illuminate\Support\Collection $teams
+ * @property \Illuminate\Support\Collection $league
+ * @property bool $is_details_fetched
+ * @property string $started_at
+ * @property string|null $finished_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\GamePlayer> $gamePlayers
  * @property-read int|null $game_players_count
  * @property-read \App\Models\GameUser $gameUser
@@ -66,17 +53,22 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Game fixtureId(int $fixtureId)
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game next()
  * @method static \Illuminate\Database\Eloquent\Builder|Game query()
  * @method static \Illuminate\Database\Eloquent\Builder|Game tournament(\App\UseCases\Util\TournamentType $tournament)
- * @method static \Illuminate\Database\Eloquent\Builder|Game whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game untilToday()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereFinishedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereFixtureId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereIsDetailsFetched($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereIsEnd($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereLeague($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereLeagueId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereScore($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereSeason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereStartedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereTeams($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game withInThreeDays()
  */
 	class Game extends \Eloquent {}
 }
@@ -199,10 +191,15 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string $email
+ * @property string|null $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property mixed $password
+ * @property string $role
+ * @property mixed|null $password
  * @property string|null $remember_token
+ * @property string|null $provider
+ * @property string|null $provider_id
+ * @property string|null $two_factor_secret
+ * @property int $two_factor_enabled
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -217,7 +214,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProviderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
 	class User extends \Eloquent {}
@@ -228,9 +230,9 @@ namespace App\Models{
  * 
  *
  * @property string $id
+ * @property string $game_player_id
  * @property float|null $rating
  * @property bool $is_mom
- * @property string $game_player_id
  * @method static \Illuminate\Database\Eloquent\Builder|UsersRating newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UsersRating newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UsersRating query()

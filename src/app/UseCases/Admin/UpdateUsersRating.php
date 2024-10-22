@@ -22,7 +22,7 @@ class UpdateUsersRating
      */
     public function execute(string $gameId)
     {
-        try {
+        try {            
             $data = $this->usersRating->upsert($gameId);
             
             DB::transaction(function () use ($data) {                

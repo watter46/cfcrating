@@ -6,25 +6,27 @@
     <div class="flex justify-center">
         <div class="flex flex-col justify-center">
             <div class="relative flex self-center justify-center w-fit {{ $hover }}"
-            @if($clickable) @click="$dispatch('open-modal', 'player-{{ $player['id'] }}')" @endif>
+            @if($clickable) @click="$dispatch('open-modal-player-{{ $player['id'] }}')" @endif>
                 <!-- PlayerImage -->
                 <x-player.parts.player-image
                     class="player-size"
-                    :path="$player['path']" />
+                    :path="$player['img']['path']"
+                    :number="$player['number']"
+                    :exist="$player['img']['exist']" />
                 
                 <!-- TopLeft -->
                 <div class="absolute top-0 left-0 -translate-x-[60%]">
-                    {{ $topLeft }}
+                    {{ $topLeft ?? '' }}
                 </div>
 
                 <!-- TopRight -->
                 <div class="absolute top-0 right-0 translate-x-[60%]">
-                    {{ $topRight }}
+                    {{ $topRight ?? '' }}
                 </div>
 
                 <!-- bottomRight -->
                 <div class="absolute bottom-[-5%] left-[58%]">
-                    {{ $bottomRight }}
+                    {{ $bottomRight ?? '' }}
                 </div>
             </div>
 
@@ -38,9 +40,7 @@
 </div>
 
 @if ($clickable)
-    <x-ui.modal.modal name="player-{{ $player['id'] }}" class="md:w-2/3">
-        {{ $modal }}
-    </x-ui.modal.modal>
+    {{ $modal }}
 @endif
 
 @vite(['resources/css/player.css'])

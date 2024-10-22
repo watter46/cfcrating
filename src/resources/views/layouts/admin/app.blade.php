@@ -16,11 +16,12 @@
 
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-teal-950">
+    <body class="font-sans antialiased" x-data x-cloak>
+        <div class="flex flex-col min-h-screen bg-teal-950">
             @include('layouts.admin.navigation')
 
             <livewire:util.message />
+            <livewire:admin.admin-key-form />
 
             <!-- Page Heading -->
             @isset($header)
@@ -32,7 +33,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="flex flex-col flex-grow">
                 {{ $slot }}
             </main>
         </div>

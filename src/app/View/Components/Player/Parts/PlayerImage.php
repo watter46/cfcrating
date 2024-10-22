@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\View\Components\Player\Parts;
 
@@ -11,7 +11,7 @@ class PlayerImage extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $path)
+    public function __construct(public string $path, public ?int $number, public bool $exist)
     {
         //
     }
