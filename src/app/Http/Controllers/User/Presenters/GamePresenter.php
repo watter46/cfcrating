@@ -60,29 +60,27 @@ class GamePresenter
 
         return [
             'id' => $game['id'],
-            'date' => Carbon::parse($game['date'])->format('Y/m/d'),
+            'date' => Carbon::parse($game['started_at'])->format('Y/m/d'),
             'score' => $game['score']->toArray(),
             'teams' => $game['teams']
                 ->map(function (Collection $team) {
                     return [
-                        'path' => $this->teamImageFile->path($team['id']),
+                        'path' => $this->teamImageFile->storagePath($team['id']),
                         'name' => $team['name']
                     ];
                 })
                 ->toArray(),
             'league' => [
-                    'path' => $this->leagueImageFile->path($game->getDotRaw('league.id')),
+                    'path' => $this->leagueImageFile->storagePath($game->getDotRaw('league.id')),
                     'name' => $game->getDotRaw('league.name'),
                     'round' => $game->getDotRaw('league.round')
                 ],
             'isWinner' => $game['teams']
                 ->firstWhere('id', config('api-football.chelsea-id'))
-                ->get('winner'),
+                ->get('isWinner'),
             'isRated' => $game->getDotRaw('game_user.is_rated'),
             'startXI' => $startXI->toArray(),
             'substitutes' => $mobileSubstitutes->toArray(),
-            // 'mobileSubstitutes' => $mobileSubstitutes->toArray(),
-            // 'playerGridCss' => $players->count() === 1 ? 'w-full' : 'w-1/'.$players->count(),
         ];
     }
 
@@ -98,7 +96,8 @@ class GamePresenter
             'name' => Str::afterLast($gamePlayer->getDotRaw('player.name'), ' '),
             'number' => $gamePlayer->getDotRaw('player.number'),
             'position' => $gamePlayer->getDotRaw('player.position'),
-            'path' => $this->playerImageFile->path($gamePlayer->getDotRaw('player.api_player_id')),
+            'path' => $this->playerImageFile->storagePath($gamePlayer->getDotRaw('player.api_player_id')),
+            'pathExist' => $this->playerImageFile->exist($gamePlayer->getDotRaw('player.api_player_id')),
             'grid' => $gamePlayer['grid'],
             'isStarter' => $gamePlayer['is_starter'],
             'assists' => $gamePlayer['assists'],
