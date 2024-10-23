@@ -37,12 +37,10 @@ class GamePresenter
                     'goals' => $player->getDotRaw('goals'),
                     'isStarter' => $player->getDotRaw('is_starter'),
                     'rating' => 7,
-                    'img' => [
-                        'exist' => $this->playerImage->exist($player->getDotRaw('player.api_player_id')),
-                        'path' => $this->playerImage->exist($player->getDotRaw('player.api_player_id'))
-                            ? $this->playerImage->storagePath($player->getDotRaw('player.api_player_id'))
-                            : $this->playerImage->defaultPath()
-                    ]
+                    'path' => $this->playerImage->exist($player->getDotRaw('player.api_player_id'))
+                        ? $this->playerImage->storagePath($player->getDotRaw('player.api_player_id'))
+                        : $this->playerImage->defaultPath(),
+                    'pathExist' => $this->playerImage->exist($player->getDotRaw('player.api_player_id'))
                 ]);
             });
 

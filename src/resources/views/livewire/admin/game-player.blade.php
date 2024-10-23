@@ -2,8 +2,8 @@
     <div class="flex flex-col items-center justify-center gap-3">
         <x-player.parts.player-image
             class="w-20 h-20"
-            :path="$player['img']['path']"
-            :exist="$player['img']['exist']"
+            :path="$player['path']"
+            :exist="$player['pathExist']"
             :number="$player['number']" />
 
         <div class="flex justify-center w-full gap-x-3">                    

@@ -50,7 +50,7 @@ class GamesPresenter
                         ],
                     'isWinner' => $game['teams']
                         ->firstWhere('id', config('api-football.chelsea-id'))
-                        ->get('winner'),
+                        ->get('isWinner'),
                     'is_details_fetched' => $game['is_details_fetched']
                 ];
             });

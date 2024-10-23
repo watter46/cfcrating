@@ -3,8 +3,8 @@
         <x-ui.modal.modal-button name="player-image-{{ $player['id'] }}">
             <x-player.parts.player-image
                 class="w-24 h-24"
-                :path="$player['img']['path']"
-                :exist="$player['img']['exist']"
+                :path="$player['path']"
+                :exist="$player['pathExist']"
                 :number="$player['number']" />
         </x-ui.modal.modal-button>
         
@@ -20,8 +20,8 @@
                             <div class="flex flex-col items-center justify-center w-full space-y-5">
                                 <x-player.parts.player-image
                                     class="w-32 h-32"
-                                    :path="$player['img']['path']"
-                                    :exist="$player['img']['exist']"
+                                    :path="$player['path']"
+                                    :exist="$player['pathExist']"
                                     :number="$player['number']" />
                                     
                                 <p class="text-xl font-black text-center text-gray-400">{{ $player['name'] }}</p>

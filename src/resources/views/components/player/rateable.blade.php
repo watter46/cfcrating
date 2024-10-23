@@ -48,12 +48,14 @@
     </x-slot:bottom-right>
         
     <x-slot:modal>
-        <div class="flex flex-col justify-center p-2 bg-cyan-950 md:p-5 rounded-xl">
-            <!-- PlayerStats -->
-            <x-player.parts.player-stats :$player />
+        <x-ui.modal.modal name="player-{{ $player['id'] }}" class="w-full md:w-5/6 min-h-3/4 bg-sky-900">
+            <div class="flex flex-col justify-center p-2 bg-cyan-950 md:p-5 rounded-xl">
+                <!-- PlayerStats -->
+                <x-player.parts.player-stats :$player />
 
-            <!-- Rating -->
-            <livewire:user.rating.rating-editor :$player />
-        </div>
+                <!-- Rating -->
+                <livewire:user.rating.rating-editor :$player />
+            </div>
+        </x-ui.modal.modal>
     </x-slot:modal>
 </x-player.parts.main>

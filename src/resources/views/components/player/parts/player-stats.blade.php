@@ -1,7 +1,9 @@
 <div class="flex flex-col items-center justify-center gap-3">
     <x-player.parts.player-image
         class="w-20 h-20"
-        :path="$player['path']" />
+        :path="$player['path']"
+        :number="$player['number']"
+        :exist="$player['pathExist']" />
 
     <div class="flex justify-center w-full gap-x-3">                    
         <p class="text-base font-bold text-center text-gray-100 md:text-2xl whitespace-nowrap">

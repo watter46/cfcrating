@@ -73,12 +73,12 @@ class Player extends Component
             if ($this->updatePlayer->checkOrFail($adminKey)) {
                 $this->updatePlayer->execute($this->player['id'], $this->validateOnlyChanged());   
 
-                $this->dispatchSuccess('Updated!!');
+                $this->notifySuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
             }
             
         } catch (Exception $e) {
-            $this->dispatchError($e->getMessage());
+            $this->notifyError($e->getMessage());
         } 
     }
     
@@ -89,12 +89,12 @@ class Player extends Component
             if ($this->updatePlayerImage->checkOrFail($adminKey)) {
                 $this->updatePlayerImage->execute($this->player['id']);   
 
-                $this->dispatchSuccess('Updated!!');
+                $this->notifySuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
             }
             
         } catch (Exception $e) {
-            $this->dispatchError($e->getMessage());
+            $this->notifyError($e->getMessage());
         }
     }
 
@@ -105,13 +105,13 @@ class Player extends Component
             if ($this->updateFlash->checkOrFail($adminKey)) {
                 $this->updateFlash->execute($this->player['id']);   
 
-                $this->dispatchSuccess('Updated!!');
+                $this->notifySuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
             }
             
         } catch (Exception $e) {
             dd($e);
-            $this->dispatchError($e->getMessage());
+            $this->notifyError($e->getMessage());
         }
     }
 }

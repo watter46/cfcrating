@@ -22,14 +22,11 @@ class PlayersPresenter
     {
         return $players
             ->map(function (Player $player) {
-                $player->img = [
-                    'exist' => $this->playerImage->exist($player->api_player_id),
-                    'path' => $this->playerImage->exist($player->api_player_id)
-                        ? $this->playerImage->storagePath($player->api_player_id)
-                        : $this->playerImage->defaultPath(),
-                    'number' => $player->number
-                ];
+                $player['path'] = $this->playerImage->exist($player->api_player_id)
+                    ? $this->playerImage->storagePath($player->api_player_id)
+                    : $this->playerImage->defaultPath();
 
+                $player['pathExist'] = $this->playerImage->exist($player->api_player_id);
                 $player['positionGroup'] = PositionType::from($player['position'])->text();
                 $player['position']      = PositionType::from($player['position'])->name;
                 

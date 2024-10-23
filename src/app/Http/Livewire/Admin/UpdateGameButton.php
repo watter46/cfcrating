@@ -35,12 +35,12 @@ class UpdateGameButton extends Component
             if ($this->updateGame->checkOrFail($adminKey)) {
                 $this->updateGame->execute($this->gameId);   
 
-                $this->dispatchSuccess('Updated!!');
+                $this->notifySuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
             }
             
         } catch (Exception $e) {
-            $this->dispatchError($e->getMessage());
+            $this->notifyError($e->getMessage());
         }
     }
 }

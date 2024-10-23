@@ -60,12 +60,12 @@ class GamePlayer extends Component
             if ($this->updateGamePlayer->checkOrFail($adminKey)) {
                 $this->updateGamePlayer->execute($this->player['id'], $this->validate());   
 
-                $this->dispatchSuccess('Updated!!');
+                $this->notifySuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
             }
             
         } catch (Exception $e) {
-            $this->dispatchError($e->getMessage());
+            $this->notifyError($e->getMessage());
         }
     }
 }

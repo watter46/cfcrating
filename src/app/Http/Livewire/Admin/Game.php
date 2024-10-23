@@ -94,14 +94,14 @@ class Game extends Component
             if ($this->editGame->checkOrFail($adminKey)) {
                 $this->editGame->execute($this->game['id'], $this->validateOnlyChanged());   
 
-                $this->dispatchSuccess('Updated!!');
+                $this->notifySuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
 
                 $this->changedProperties = [];
             }
             
         } catch (Exception $e) {
-            $this->dispatchError($e->getMessage());
+            $this->notifyError($e->getMessage());
         }
     }
 }
