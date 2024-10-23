@@ -9,7 +9,7 @@
                 <x-game-summary.parts.league :league="$game['league']" />
             </div>
             
-            <x-game-summary.team-score-card :$game />
+            <x-game-summary.team-score-card :$game class="w-full" />
         </section>
     
         <section class="flex flex-col w-full h-full justify-evenly lg:flex-row lg:mt-5">
