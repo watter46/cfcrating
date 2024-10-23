@@ -10,9 +10,9 @@
                 <!-- PlayerImage -->
                 <x-player.parts.player-image
                     class="player-size"
-                    :path="$player['img']['path']"
+                    :path="$player['path']"
                     :number="$player['number']"
-                    :exist="$player['img']['exist']" />
+                    :exist="$player['pathExist']" />
                 
                 <!-- TopLeft -->
                 <div class="absolute top-0 left-0 -translate-x-[60%]">
