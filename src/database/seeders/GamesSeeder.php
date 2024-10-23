@@ -28,8 +28,8 @@ class GamesSeeder extends Seeder
                     'score' => json_encode($game['score']),
                     'teams' => json_encode($game['teams']),
                     'league' => json_encode($game['league']),
-                    'started_at' => $game['date'],
-                    'finished_at' => Carbon::parse($game['date'])->addMinutes(110)
+                    'started_at' => $game['started_at'],
+                    'finished_at' => Carbon::parse($game['started_at'])->addMinutes(110)
                 ];
             },
             $file->get(2024)->toArray()

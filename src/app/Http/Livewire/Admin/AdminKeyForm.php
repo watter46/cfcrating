@@ -36,7 +36,7 @@ class AdminKeyForm extends Component
             $this->reset('key');
             
         } catch (Exception $e) {
-            $this->dispatchError($e->getMessage());
+            $this->notifyError($e->getMessage());
         }
     }
 
