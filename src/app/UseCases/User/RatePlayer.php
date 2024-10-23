@@ -40,7 +40,7 @@ class RatePlayer
                         ->with('myRating')
                         ->where('id', $gamePlayerId)
                 ])
-                ->select(['id', 'date'])
+                ->select(['id', 'started_at'])
                 ->find($gameId);
 
             if (!$game) {
@@ -53,7 +53,7 @@ class RatePlayer
             if (!$gamePlayer) {
                 throw new ModelNotFoundException('GamePlayer Not Found');
             }
-
+            
             if ($this->rateRule->isRateExpired($game)) {
                 throw new DomainException($this->rateRule::RATE_PERIOD_EXPIRED_MESSAGE);
             }

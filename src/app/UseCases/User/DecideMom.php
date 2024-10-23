@@ -27,7 +27,7 @@ class DecideMom
         try {
             $game = Game::query()
                 ->with('gameUser')
-                ->select(['id', 'date'])
+                ->select(['id', 'finished_at'])
                 ->find($gameId);
 
             if (!$game) {
