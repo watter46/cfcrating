@@ -13,11 +13,15 @@
         @csrf
         @method('put')
 
-        <div>
-            <x-default.input-label for="update_password_current_password" :value="__('Current Password')" />
-            <x-default.text-input id="update_password_current_password" name="current_password" type="password" class="block w-full mt-1" autocomplete="current-password" />
-            <x-default.input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-        </div>
+        @if($user->hasPassword())
+            <div>
+                <x-default.input-label for="update_password_current_password" :value="__('Current Password')" />
+                <x-default.text-input id="update_password_current_password" name="current_password" type="password" class="block w-full mt-1" autocomplete="current-password" />
+                <x-default.input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+            </div>
+        @endif
+
+        <x-default.input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
 
         <div>
             <x-default.input-label for="update_password_password" :value="__('New Password')" />
