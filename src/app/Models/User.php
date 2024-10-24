@@ -35,6 +35,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'id',
+        'email_verified_at',
+        'provider',
+        'provider_id',
+        'role',
+        'two_factor_secret',
+        'two_factor_enabled',
         'password',
         'remember_token',
     ];
@@ -55,5 +62,10 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return RoleType::from($this->role)->isAdmin();
+    }
+
+    public function hasPassword(): bool
+    {
+        return !empty($this->password);
     }
 }

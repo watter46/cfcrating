@@ -41,7 +41,11 @@
                 <div class="w-full p-1 overflow-hidden border-b border-gray-500">
                     <a class="w-full h-full cursor-pointer"
                         href="{{ route('games.game', ['gameId' => $game['id']]) }}">
-                        <x-game-summary.game-summary :$game  />
+                        <x-game-summary.game-summary :$game>
+                            @if($game['isRated'])
+                                <x-svg.rated-icon class="w-4 h-4" />    
+                            @endif
+                        </x-game-summary.game-summary>
                     </a>
                 </div>
             @endforeach

@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\AdminGameController;
 use App\Http\Controllers\Admin\AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminPlayerController;
 use App\Http\Controllers\User\GameController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserLoginController;
 
 Route::get('/', function () {
@@ -43,13 +43,14 @@ Route::prefix('oauth')
     });
 
 // ユーザー
-Route::middleware(['auth', 'verified', 'user'])
+Route::middleware(['auth', 'user'])
     ->group(function () {
         Route::prefix('profile')
             ->name('profile.')
             ->group(function () {
                 Route::get('/', [ProfileController::class, 'edit'])->name('edit');
                 Route::patch('/', [ProfileController::class, 'update'])->name('update');
+                Route::post('/', [ProfileController::class, 'disconnect'])->name('disconnect');
                 Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
             });
 
