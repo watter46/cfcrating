@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\User\Rating;
 
-use App\Http\Livewire\Util\MessageType;
 use Livewire\Attributes\On;
 
 
@@ -17,8 +16,6 @@ trait RatingDispatcher
         
         $this->updateRatingState($player);
         $this->dispatch('rated-count-updated');
-        $this->dispatchSuccess(self::RATED_MESSAGE);
-        $this->dispatch('close-modal');
     }
     
     public function updateRatingState(array $player)
@@ -33,8 +30,6 @@ trait RatingDispatcher
         $this->dispatch('mom-updated', $player['id']);
         $this->dispatch('mom-state-updated', $player);
         $this->updateMomState($player);
-        $this->dispatchSuccess(self::Decided_MOM_MESSAGE);
-        $this->dispatch('close-modal');
     }
 
     #[On('mom-state-updated')]
@@ -57,15 +52,5 @@ trait RatingDispatcher
             $this->player['myMom'] = true;
             $this->player['canMom'] = false;
         }
-    }
-
-    private function dispatchSuccess(string $message)
-    {
-        $this->dispatch('notify', message: MessageType::Success->toArray($message));
-    }
-
-    public function dispatchError(string $message)
-    {
-        $this->dispatch('notify', message: MessageType::Error->toArray($message));
     }
 }

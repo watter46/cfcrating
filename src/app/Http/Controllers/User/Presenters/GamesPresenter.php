@@ -34,24 +34,24 @@ class GamesPresenter
             ->map(function (Collection $game) {
                 return [
                     'id' => $game['id'],
-                    'date' => Carbon::parse($game['date'])->format('Y/m/d'),
+                    'date' => Carbon::parse($game['started_at'])->format('Y/m/d'),
                     'score' => $game['score']->toArray(),
                     'teams' => $game['teams']
                         ->map(function (Collection $team) {
                             return [
-                                'path' => $this->teamImageFile->path($team['id']),
+                                'path' => $this->teamImageFile->storagePath($team['id']),
                                 'name' => $team['name']
                             ];
                         })
                         ->toArray(),
                     'league' => [
-                            'path' => $this->leagueImageFile->path($game->getDotRaw('league.id')),
+                            'path' => $this->leagueImageFile->storagePath($game->getDotRaw('league.id')),
                             'name' => $game->getDotRaw('league.name'),
                             'round' => $game->getDotRaw('league.round')
                         ],
                     'isWinner' => $game['teams']
                         ->firstWhere('id', config('api-football.chelsea-id'))
-                        ->get('winner'),
+                        ->get('isWinner'),
                     'isRated' => $game->getDotRaw('game_user.is_rated')
                 ];
             });

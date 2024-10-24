@@ -2,11 +2,11 @@
 
 @php
     $imgSize = match ($size) {
-        'xxs' => 'w-7 h-7',
-        'xs'  => 'w-8 h-8',
-        'sm'  => 'w-10 h-10',
-        'md'  => 'w-14 h-14',
-        default => 'w-6 h-6 xxs:w-7 xxs:h-7 xs:w-8 xs:h-8 sm:w-10 sm:h-10 md:w-14 md:h-14'
+        'xxs' => 'h-7',
+        'xs'  => 'h-8',
+        'sm'  => 'h-10',
+        'md'  => 'h-14',
+        default => 'h-6 xxs:h-7 sxs:h-8 sm:h-10 md:h-14'
     };
 
     $textSize = match ($size) {
@@ -30,7 +30,7 @@
     <div {{ $attributes
         ->class("flex justify-start items-center")
         ->merge(['class' => $spaceSize]) }}>
-        <img src="{{ asset($team['path']) }}" class="{{ $imgSize }}">
+        <img src="{{ asset($team['path']) }}" class="{{ $imgSize }} aspect-auto">
 
         @if ($isNameRequired)
             <p class="font-black text-gray-300 text-start truncate  {{ $textSize }}">
@@ -48,6 +48,6 @@
             </p>
         @endif
 
-        <img src="{{ asset($team['path']) }}" class="{{ $imgSize }}">
+        <img src="{{ asset($team['path']) }}" class="{{ $imgSize }} aspect-auto">
     </div>
 @endif
