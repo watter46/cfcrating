@@ -20,12 +20,12 @@ RUN apt-get update \
   && apt-get clean \
   && pecl install redis \
   && docker-php-ext-enable redis \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
   && docker-php-ext-install \
     intl \
     pdo_mysql \
     zip bcmath \
-    -j$(nproc) gd \
-  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    gd \
   && rm -rf /var/lib/apt/lists/*
 
 
