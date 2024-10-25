@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public $bindings = [
         // 外部API
-        ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
-        FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
-        // ApiFootballRepositoryInterface::class => ApiFootballRepository::class,
-        // FlashLiveRepositoryInterface::class => FlashLiveRepository::class,
+        // ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
+        // FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
+        ApiFootballRepositoryInterface::class => ApiFootballRepository::class,
+        FlashLiveRepositoryInterface::class => FlashLiveRepository::class,
 
         GameRepositoryInterface::class => GameRepository::class,
         
