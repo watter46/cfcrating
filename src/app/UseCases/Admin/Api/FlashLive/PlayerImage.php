@@ -2,6 +2,8 @@
 
 namespace App\UseCases\Admin\Api\FlashLive;
 
+use Intervention\Image\ImageManager;
+
 use App\UseCases\Admin\Api\Util\ImageInterface;
 use App\File\Image\PlayerImageFile;
 
@@ -10,7 +12,7 @@ class PlayerImage implements ImageInterface
 {
     public function __construct(private int $apiPlayerId, private string $image)
     {
-        
+        //
     }
 
     public function getId(): int
@@ -25,7 +27,7 @@ class PlayerImage implements ImageInterface
 
     public function save(): void
     {
-        $file = new PlayerImageFile;
+        $file = new PlayerImageFile(app(ImageManager::class));
 
         $file->write($this->apiPlayerId, $this->image);
     }
