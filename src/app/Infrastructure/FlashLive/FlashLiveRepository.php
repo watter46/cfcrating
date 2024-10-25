@@ -23,6 +23,7 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
     {
         try {
             $response = Http::withHeaders([
+                'Cache-Control' => 'no-cache',
                 'X-RapidAPI-Host' => config('flash-live-sports.api-host'),
                 'X-RapidAPI-Key'  => config('flash-live-sports.api-key')
             ])
