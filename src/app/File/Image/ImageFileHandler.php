@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageFileHandler
 {
+    protected function files(ImagePathInterface $path)
+    {
+        return Storage::disk('public')->files($path->getDirPath());
+    }
+    
     protected function existFile(ImagePathInterface $path)
     {
         return Storage::disk('public')->exists($path->path());

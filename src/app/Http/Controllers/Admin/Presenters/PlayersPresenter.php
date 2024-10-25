@@ -11,11 +11,9 @@ use App\File\Image\PlayerImageFile;
 
 class PlayersPresenter
 {
-    private PlayerImageFile $playerImage;
-    
-    public function __construct()
+    public function __construct(private PlayerImageFile $playerImage)
     {
-        $this->playerImage = new PlayerImageFile;
+
     }
     
     public function present(Collection $players)
