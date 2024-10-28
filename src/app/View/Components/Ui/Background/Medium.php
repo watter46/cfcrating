@@ -1,17 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace App\View\Components\Player\Parts;
+namespace App\View\Components\Ui\Background;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class PlayerImage extends Component
+class Medium extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $path, public ?int $number, public bool $exist, public ?string $frameName = null)
+    public function __construct()
     {
         //
     }
@@ -21,6 +21,6 @@ class PlayerImage extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.player.parts.player-image');
+        return view('components.ui.background.medium');
     }
 }
