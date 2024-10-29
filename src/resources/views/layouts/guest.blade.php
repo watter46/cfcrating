@@ -16,10 +16,59 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-gray-900">
-        <div class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-gray-900">
-            <div class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md dark:bg-gray-800 sm:rounded-lg">
-                {{ $slot }}
+    <body class="w-screen min-h-screen font-sans antialiased font-black text-white">
+        <!-- Background -->
+        <x-ui.background.large />
+        
+        <div class="relative flex w-full px-4 py-4 border-b border-white sm:px-6 lg:px-8">
+            <!-- Logo -->
+            <div class="flex items-center shrink-0">
+                <a href="{{ route('games.index') }}">
+                    <x-svg.cr-icon class="w-12 h-12" />
+                </a>
+            </div>
+            
+            @if (Route::has('login'))
+                <nav class="flex justify-end flex-1 -mx-3">
+                    @auth
+                        <a
+                            href="{{ url('/games') }}"
+                            class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white"
+                        >
+                            Games
+                        </a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <button type="submit" class="text-gray-400">Log out</button>
+                        </form>
+                    @else
+                        <a
+                            href="{{ route('login') }}"
+                            class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white"
+                        >
+                            Log in
+                        </a>
+
+                        @if (Route::has('register'))
+                            <a
+                                href="{{ route('register') }}"
+                                class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white"
+                            >
+                                Register
+                            </a>
+                        @endif
+                    @endauth
+                </nav>
+            @endif
+        </div>
+
+        <div class="flex flex-col items-center w-full h-full pt-6 sm:justify-center sm:pt-0">
+            <div class="w-full h-full mt-6">
+                <div class="flex justify-center w-full p-8">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
     </body>
