@@ -16,16 +16,14 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="w-screen min-h-screen font-sans antialiased font-black text-white">
+    <body class="w-full min-h-screen font-sans antialiased font-black text-white">
         <!-- Background -->
         <x-ui.background.large />
         
-        <div class="relative flex w-full px-4 py-4 border-b border-white sm:px-6 lg:px-8">
+        <div class="relative flex w-full px-4 py-4 sm:px-6 lg:px-8">
             <!-- Logo -->
             <div class="flex items-center shrink-0">
-                <a href="{{ route('games.index') }}">
-                    <x-svg.cr-icon class="w-12 h-12" />
-                </a>
+                <x-util.app-logo href="{{ route('top') }}" />
             </div>
             
             @if (Route::has('login'))
@@ -33,7 +31,7 @@
                     @auth
                         <a
                             href="{{ url('/games') }}"
-                            class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white"
+                            class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white sm:text-lg"
                         >
                             Games
                         </a>
@@ -46,7 +44,7 @@
                     @else
                         <a
                             href="{{ route('login') }}"
-                            class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white"
+                            class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white sm:text-lg"
                         >
                             Log in
                         </a>
@@ -54,7 +52,7 @@
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
-                                class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white"
+                                class="px-3 py-2 text-white transition rounded-md ring-1 ring-transparent hover:text-white/80 focus:outline-none focus-visible:ring-white sm:text-lg"
                             >
                                 Register
                             </a>
@@ -64,12 +62,8 @@
             @endif
         </div>
 
-        <div class="flex flex-col items-center w-full h-full pt-6 sm:justify-center sm:pt-0">
-            <div class="w-full h-full mt-6">
-                <div class="flex justify-center w-full p-8">
-                    {{ $slot }}
-                </div>
-            </div>
+        <div class="flex flex-col w-full h-full sm:justify-center">
+            {{ $slot }}
         </div>
     </body>
 </html>
