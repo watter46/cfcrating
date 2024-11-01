@@ -1,0 +1,12 @@
+@keyframes marquee_left {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-marquee-left {
+    animation: marquee_left 20s linear infinite;
+}
