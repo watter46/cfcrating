@@ -23,7 +23,7 @@
         <x-ui.background.large />
         
         <div class="min-h-screen">
-            @include('layouts.navigation')
+            @include('layouts.user.navigation')
 
             <livewire:util.message />
 

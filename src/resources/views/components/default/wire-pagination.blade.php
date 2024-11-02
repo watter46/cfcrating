@@ -6,7 +6,7 @@
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <button
-                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-full cursor-default hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-400 bg-gray-700 border-gray-600 rounded-full cursor-default hover:bg-gray-600 hover:text-gray-300"
                         rel="prev">
                         <svg class="w-4 h-4" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -18,7 +18,7 @@
                     </button>
                 @else
                     <button
-                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-full cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-400 bg-gray-700 border-gray-600 rounded-full hover:bg-gray-600 hover:text-gray-300"
                         wire:click="previousPage" wire:loading.attr="disabled"
                         rel="prev">
                         <svg class="w-4 h-4" aria-hidden="true"
@@ -36,7 +36,7 @@
                 {{-- Next Page Link --}}
                 @if ($paginator->hasMorePages())
                     <button
-                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-full cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-400 bg-gray-700 border-gray-600 rounded-full hover:bg-gray-600 hover:text-gray-300"
                         wire:click="nextPage" wire:loading.attr="disabled"
                         rel="next">
                         <svg class="w-3 h-3" aria-hidden="true"
@@ -49,7 +49,7 @@
                     </button>
                 @else
                     <button
-                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-full cursor-default hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="flex items-center justify-center w-10 h-10 leading-tight text-gray-400 bg-gray-700 border-gray-600 rounded-full hover:bg-gray-600 hover:text-gray-300"
                         rel="next">
                         <svg class="w-3 h-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none"

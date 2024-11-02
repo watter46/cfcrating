@@ -20,7 +20,7 @@
     <div class="flex items-center justify-center w-full mt-3">
         <div class="relative flex flex-col items-center justify-center w-full">
             <!-- Field -->
-            <x-svg.rating-image-field />
+            <x-svg.rating-image-field class="w-full" />
             
             <!-- StartXI -->
             <div id="downloader-startXI"></div>

@@ -7,7 +7,7 @@
 @endphp
 
 <!-- Field StartXI -->
-<div class="flex flex-col lg:w-2/3 px-1 mx-auto justify-center w-full max-w-[{{ $maxWidth }}px]">
+<div class="relative flex flex-col lg:w-2/3 px-1 mx-auto justify-center w-full max-w-[{{ $maxWidth }}px]">
     <div class="relative flex flex-col items-center justify-center w-full">
         <!-- Field -->
         {{ $slot }}
