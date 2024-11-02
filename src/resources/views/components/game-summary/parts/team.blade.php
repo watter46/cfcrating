@@ -1,6 +1,14 @@
 @props(['size' => null])
 
 @php
+    $bgSize = match ($size) {
+        'xxs' => 'size-7',
+        'xs'  => 'size-8',
+        'sm'  => 'size-10',
+        'md'  => 'size-14',
+        default => 'size-6 xxs:size-7 sxs:size-8 sm:size-10 md:size-14'
+    };
+
     $imgSize = match ($size) {
         'xxs' => 'h-7',
         'xs'  => 'h-8',
@@ -28,26 +36,30 @@
 
 @if($isImgLeft)
     <div {{ $attributes
-        ->class("flex justify-start items-center")
+        ->class("flex justify-start items-center w-full")
         ->merge(['class' => $spaceSize]) }}>
-        <img src="{{ asset($team['path']) }}" class="{{ $imgSize }} aspect-auto">
+        <div class="{{ $bgSize }} text-center justify-items-center grid content-center">
+            <img src="{{ asset($team['path']) }}" class="{{ $imgSize }}">
+        </div>
 
         @if ($isNameRequired)
-            <p class="font-black text-gray-300 text-start truncate  {{ $textSize }}">
+            <p class="font-black text-gray-300 text-start text-wrap {{ $textSize }}">
                 {{ $team['name'] }}
             </p>
         @endif
     </div>
 @else
     <div {{ $attributes
-        ->class("flex justify-end items-center")
+        ->class("flex justify-end items-center w-full")
         ->merge(['class' => $spaceSize]) }}>
         @if ($isNameRequired)
-            <p class="font-black text-gray-300 text-end truncate  {{ $textSize }}">
+            <p class="font-black text-gray-300 text-end text-wrap {{ $textSize }}">
                 {{ $team['name'] }}
             </p>
         @endif
 
-        <img src="{{ asset($team['path']) }}" class="{{ $imgSize }} aspect-auto">
+        <div class="{{ $bgSize }} text-center grid justify-items-center content-center">
+            <img src="{{ asset($team['path']) }}" class="{{ $imgSize }}">
+        </div>
     </div>
 @endif

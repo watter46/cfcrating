@@ -9,10 +9,11 @@
             @if($clickable) @click="$dispatch('open-modal-player-{{ $player['id'] }}')" @endif>
                 <!-- PlayerImage -->
                 <x-player.parts.player-image
-                    class="player-size"
+                    class="scale-125 player-size"
                     :path="$player['path']"
                     :number="$player['number']"
-                    :exist="$player['pathExist']" />
+                    :exist="$player['pathExist']"
+                    :frameName="'frame'" />
                 
                 <!-- TopLeft -->
                 <div class="absolute top-0 left-0 -translate-x-[60%]">
@@ -31,7 +32,7 @@
             </div>
 
             <div class="flex items-center justify-center mt-1 pointer-events-none gap-x-2">    
-                <p class="text-xs font-black text-white player-name-text bg-sky-950 md:text-xl">
+                <p class="text-xs font-black text-white player-name-text md:text-xl">
                     {{ $player['name'] }}
                 </p>
             </div>

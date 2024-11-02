@@ -45,7 +45,7 @@
                         Rating Period
                     </h2>
                     
-                    <p class="text-sm sm:text-lg">Rate the players within <span class="text-lg font-black text-yellow-500">3days</span> after the match ends.</p>
+                    <p class="text-sm sm:text-lg">Rate the players within <span class="text-lg font-black text-yellow-500">5days</span> after the match ends.</p>
                     <p class="text-sm sm:text-lg">Matches with a checkmark are available for rating.</p>
                 </article>
             </div>
