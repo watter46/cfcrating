@@ -1,7 +1,7 @@
 @php
     $componentName = match ($frameName) {
         'frame'  => 'svg.player-frame',
-        'frame2' => 'svg.player-frame2',
+        'momFrame' => 'svg.mom-player-frame',
         default  => null
     };
 @endphp

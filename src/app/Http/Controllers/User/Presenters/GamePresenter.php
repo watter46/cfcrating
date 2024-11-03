@@ -96,7 +96,9 @@ class GamePresenter
             'name' => Str::afterLast($gamePlayer->getDotRaw('player.name'), ' '),
             'number' => $gamePlayer->getDotRaw('player.number'),
             'position' => $gamePlayer->getDotRaw('player.position'),
-            'path' => $this->playerImageFile->storagePath($gamePlayer->getDotRaw('player.api_player_id')),
+            'path' => $this->playerImageFile->exist($gamePlayer->getDotRaw('player.api_player_id'))
+                ? $this->playerImageFile->storagePath($gamePlayer->getDotRaw('player.api_player_id'))
+                : $this->playerImageFile->defaultPath(),
             'pathExist' => $this->playerImageFile->exist($gamePlayer->getDotRaw('player.api_player_id')),
             'grid' => $gamePlayer['grid'],
             'isStarter' => $gamePlayer['is_starter'],

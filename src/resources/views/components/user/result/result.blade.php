@@ -1,5 +1,7 @@
-<x-ui.modal.modal-button name="result" class="p-1 rounded-md hover:bg-gray-400 hover:bg-opacity-20">
-    <x-svg.photo class="w-8 h-8 cursor-pointer md:w-9 md:h-9" />
+<x-ui.modal.modal-button name="result">
+    <div class="p-2 bg-gray-800 border border-gray-600 rounded-full hover:animate-none hover:bg-gray-700 animate-bounce">
+        <x-svg.download class="w-8 h-8 cursor-pointer stroke-gray-400 sm:w-9 sm:h-9" />
+    </div>
 
     <p class="text-xs font-black text-center text-gray-400 md:text-base">
         Result

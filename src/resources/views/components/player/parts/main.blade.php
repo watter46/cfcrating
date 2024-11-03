@@ -13,8 +13,8 @@
                     :path="$player['path']"
                     :number="$player['number']"
                     :exist="$player['pathExist']"
-                    :frameName="'frame'" />
-                
+                    frameName="{{ $player['myMom'] ? 'momFrame' : 'frame' }}" />
+                    
                 <!-- TopLeft -->
                 <div class="absolute top-0 left-0 -translate-x-[60%]">
                     {{ $topLeft ?? '' }}
