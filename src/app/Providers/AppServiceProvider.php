@@ -16,7 +16,7 @@ use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\Game\GameRepositoryInterface;
 use App\UseCases\Admin\Api\Util\ImageRepositoryInterface;
-
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public $bindings = [
         // 外部API
-        // ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
-        // FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
-        ApiFootballRepositoryInterface::class => ApiFootballRepository::class,
-        FlashLiveRepositoryInterface::class => FlashLiveRepository::class,
+        ApiFootballRepositoryInterface::class => InMemoryApiFootballRepository::class,
+        FlashLiveRepositoryInterface::class => InMemoryFlashLiveRepository::class,
+        // ApiFootballRepositoryInterface::class => ApiFootballRepository::class,
+        // FlashLiveRepositoryInterface::class => FlashLiveRepository::class,
 
         GameRepositoryInterface::class => GameRepository::class,
         

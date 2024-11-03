@@ -61,7 +61,7 @@ class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
 
     public function defaultPath()
     {
-        return self::DIR_PATH.'/'.self::DEFAULT_PATH;
+        return self::STORAGE_PATH.'/'.self::DIR_PATH.'/'.self::DEFAULT_PATH;
     }
 
     public function getDirPath(): string

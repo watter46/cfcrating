@@ -1,4 +1,4 @@
-@props(['size' => null])
+@props(['size' => null, 'spaceX' => 'space-x-1', 'px' => 'px-2', 'py' => 'py-1'])
 
 @php
     $bgScore = match ($isWinner) {
@@ -17,7 +17,7 @@
 @endphp
 
 <div {{ $attributes
-    ->class("flex tabular-nums justify-center items-center md:px-2 md:py-1 space-x-1 sm:space-x-2 text-gray-300 px-2 rounded-md $bgScore")
+    ->class("flex tabular-nums justify-center items-center text-gray-300 rounded-md $py $px $bgScore $spaceX")
     ->merge(['class' => $textSize]) }}>
     <p>{{ $score['fulltime']['home'] }}</p>
     <p>-</p>

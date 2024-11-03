@@ -5,17 +5,13 @@
             data-away-team-name="{{ $game['teams']['away']['name'] }}"
             data-home-team-name="{{ $game['teams']['home']['name'] }}">
 
-            <div class="flex justify-end w-full mb-2 sm:mb-3 md:mb-5">
-                <x-game-summary.parts.league :league="$game['league']" />
-            </div>
-            
-            <x-game-summary.team-score-card :$game class="w-full" />
+            <x-game-summary.team-score-vertical :$game class="w-full" />
         </section>
     
         <section class="flex flex-col w-full h-full justify-evenly lg:flex-row lg:mt-5">
             <!-- Field StartXI -->
             <x-field.field :$game :maxWidth="600" fieldName="rateable">
-                <x-svg.field id="field" />
+                <img src="{{ asset('storage/background/field.svg') }}" />
             </x-field.field>
 
             <!-- Options -->
