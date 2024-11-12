@@ -53,8 +53,8 @@
 
         <!-- description: rateings & mom -->
         <div class="flex flex-col items-center w-full p-2 mt-5 sm:mt-10 gap-y-2 sm:flex-row">
-            <div class="sm:order-2 flex sm:w-1/2 items-center justify-center w-full h-[300px] border border-orange-500">
-                <p>discription: rate</p>
+            <div class="flex items-center justify-center w-full sm:order-2 sm:w-1/2">
+                <img src="{{ asset('storage/background/ratable.jpg') }}" class="">
             </div>
             
             <article class="w-full px-2 mt-5 text-center sm:m-0 sm:order-1 sm:w-1/2">
@@ -69,8 +69,8 @@
 
         <!-- description: copy download -->
         <div class="flex flex-col items-center w-full p-2 mt-5 sm:mt-10 gap-y-2 sm:flex-row">
-            <div class="flex sm:w-1/2 items-center justify-center w-full h-[300px] border border-orange-500">
-                <p>discription: rate</p>
+            <div class="flex items-center justify-center w-full sm:w-1/2">
+                <img src="{{ asset('storage/background/output.jpg') }}" class="h-56">
             </div>
             
             <article class="w-full px-2 mt-5 text-center sm:m-0 sm:w-1/2">
