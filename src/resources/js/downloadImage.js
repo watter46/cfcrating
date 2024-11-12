@@ -1,10 +1,11 @@
 import html2canvas from 'html2canvas';
 
 window.downloadImage = () => {
-    html2canvas(document.querySelector('#content'), {
-        scale: 2,
+    return html2canvas(document.querySelector('#content'), {
+        scale: 3,
         windowWidth: 800,
         width: 800,
+        logging: false,
         onclone: function(clonedDoc) {
             const previewerEl = document.querySelector('#previewer').cloneNode(true);
 
@@ -58,8 +59,8 @@ window.downloadImage = () => {
     })
     .then(function(canvas) {
         let link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png', 1.0);
-        link.download = 'cfcRating.png';
+        link.href = canvas.toDataURL('image/jpeg', 0.7);
+        link.download = 'cfcRating.jpeg';
         link.click();
     });
 }
