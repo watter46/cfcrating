@@ -2,7 +2,8 @@
     id="player-data"
     data-name="{{ $player['name'] }}"
     data-mom="{{ $player['myMom'] ? 'true' : 'false' }}"
-    data-rating="{{ $player['myRating'] ?? 'null' }}">
+    data-rating="{{ $player['myRating'] ?? 'null' }}"
+    data-is-starter="{{ $player['isStarter'] }}">
     
     <x-slot:top-left>
         <!-- Goals -->
@@ -48,8 +49,8 @@
     </x-slot:bottom-right>
         
     <x-slot:modal>
-        <x-ui.modal.modal name="player-{{ $player['id'] }}" class="w-full md:w-5/6 min-h-3/4 bg-sky-900">
-            <div class="flex flex-col justify-center p-2 bg-cyan-950 md:p-5 rounded-xl">
+        <x-ui.modal.modal name="player-{{ $player['id'] }}" class="w-full md:w-5/6">
+            <div class="flex flex-col justify-center p-2 md:p-5 rounded-xl">
                 <!-- PlayerStats -->
                 <x-player.parts.player-stats :$player />
 
