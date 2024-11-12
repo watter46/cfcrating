@@ -1,3 +1,5 @@
+@props(['highlightName' => true])
+
 @php
     $hover = $clickable ? 'transition duration-300 ease-in-out cursor-pointer hover:scale-125' : '';
 @endphp
@@ -8,12 +10,22 @@
             <div class="relative flex self-center justify-center w-fit {{ $hover }}"
             @if($clickable) @click="$dispatch('open-modal-player-{{ $player['id'] }}')" @endif>
                 <!-- PlayerImage -->
+                {{-- <x-player.parts.normal-frame class="size-24">
+                    <x-player.parts.player-image
+                        class="size-20"
+                        :path="$player['path']"
+                        :number="$player['number']"
+                        :exist="$player['pathExist']" />
+                </x-player.parts.normal-frame> --}}
+                
                 <x-player.parts.player-image
                     class="scale-125 player-size"
                     :path="$player['path']"
                     :number="$player['number']"
                     :exist="$player['pathExist']"
-                    frameName="{{ $player['myMom'] ? 'momFrame' : 'frame' }}" />
+                    frameName="{{ $player['myMom'] ? 'momFrame' : 'frame' }}"
+                    {{-- frameName="frame" --}}
+                    />
                     
                 <!-- TopLeft -->
                 <div class="absolute top-0 left-0 -translate-x-[60%]">
@@ -32,7 +44,8 @@
             </div>
 
             <div class="flex items-center justify-center mt-1 pointer-events-none gap-x-2">    
-                <p class="text-xs font-black text-white player-name-text md:text-xl">
+                <p class="text-xs font-black text-white player-name-text md:text-xl"
+                    :class="{{ $highlightName }} ? 'bg-[#01142E]' : '' ">
                     {{ $player['name'] }}
                 </p>
             </div>

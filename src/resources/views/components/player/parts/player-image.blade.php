@@ -16,3 +16,20 @@
         <p class="absolute text-lg font-black text-white">{{ $number }}</p>
     @endif
 </div>
+
+{{-- @php
+    $componentName = match ($frameName) {
+        'frame'  => 'svg.player-frame',
+        'momFrame' => 'svg.mom-player-frame',
+        default  => null
+    };
+@endphp --}}
+
+{{-- <div {{ $attributes->merge(['class' => 'flex items-center justify-center rounded-full player-image']) }}>
+    @if($exist)
+        <img src="{{ asset($path) }}" class="rounded-full">
+    @else
+        <img src="{{ asset($path) }}" class="rounded-full">
+        <p class="text-lg font-black text-white">{{ $number }}</p>
+    @endif
+</div> --}}
