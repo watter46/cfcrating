@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('admin.games.index') }}">
-                        <x-svg.cr-icon class="w-12 h-12" />
+                        <x-util.app-logo href="{{ route('games.index') }}" class="w-12 h-12" />
                     </a>
                 </div>
 
