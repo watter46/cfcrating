@@ -1,4 +1,4 @@
-window.copyRatings = (includeSubs) => {
+window.copy = (includeSubs) => {
     const formattedText =
         `${formatHeader()}\n` +
         `${formatScore()}\n` +
@@ -6,7 +6,7 @@ window.copyRatings = (includeSubs) => {
         `${formatRating(includeSubs)}\n` +
         `\n` +
         `${formatFooter()}`;
-    
+
     return navigator
         .clipboard
         .writeText(formattedText);
@@ -30,23 +30,26 @@ const formatRating = (includeSubs) => {
 
     const toMom    = (mom) => mom.toLowerCase() === "true" ? '(MOTM✨)' : '';
     const toRating = (rating) => rating !== 'null' ? parseFloat(rating) : '-';
+    const toIsStarter = (isStarter) => parseInt(isStarter) === 1 ? true : false; 
     
     const ratings = [...playerDataEls]
         .map(player => {
             const name = player.dataset.name;
             const mom = player.dataset.mom;
             const rating = player.dataset.rating;
+            const isStarter = player.dataset.isStarter;
 
             return {
                 name: name,
                 mom: toMom(mom),
-                rating: toRating(rating)
+                rating: toRating(rating),
+                isStarter: toIsStarter(isStarter)
             };
         });
     
     const filtered = includeSubs
         ? ratings
-        : ratings.filter(player => typeof player.rating === 'number')
+        : ratings.filter(player => player.isStarter)
     
     return filtered
         .map(player => {

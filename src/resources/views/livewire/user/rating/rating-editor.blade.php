@@ -12,10 +12,8 @@
         
         <div class="px-3 py-2 md:px-10">
             <div class="flex flex-col h-full">
-                <p class="mb-3 text-xl font-bold text-center text-gray-400 md:text-2xl whitespace-nowrap">
-                    Your Rating
-                </p>
-    
+                <x-svg.my-rating class="w-full mb-3 text-center" />
+                
                 <div :class="!canRate ? 'pointer-events-none opacity-30' : ''">
                     <input id="ratingRange" type="range" min="3.0" max="10" step="0.1" x-model="ratingInput">
                     

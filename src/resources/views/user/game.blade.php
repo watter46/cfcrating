@@ -22,7 +22,7 @@
                 <!-- ToggleUserMacine -->
                 <livewire:user.game.rating-toggle-button />
     
-                <div class="flex justify-end w-full md:space-x-5 lg:justify-start">
+                <div class="flex justify-end w-full lg:justify-start">
                     <!-- Result -->
                     <x-user.result.result :$game />
                 </div>

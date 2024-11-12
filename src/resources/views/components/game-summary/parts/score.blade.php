@@ -19,7 +19,5 @@
 <div {{ $attributes
     ->class("flex tabular-nums justify-center items-center text-gray-300 rounded-md $py $px $bgScore $spaceX")
     ->merge(['class' => $textSize]) }}>
-    <p>{{ $score['fulltime']['home'] }}</p>
-    <p>-</p>
-    <p>{{ $score['fulltime']['away'] }}</p>
+    <p>{{ $score['fulltime']['home'] }} - {{ $score['fulltime']['away'] }}</p>
 </div>

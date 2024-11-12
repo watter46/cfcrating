@@ -6,15 +6,15 @@
         'xs'  => 'size-8',
         'sm'  => 'size-10',
         'md'  => 'size-14',
-        default => 'size-6 xxs:size-7 sxs:size-8 sm:size-10 md:size-14'
+        default => 'size-6 xxs:size-7 sm:size-10 md:size-14'
     };
 
     $imgSize = match ($size) {
-        'xxs' => 'h-7',
-        'xs'  => 'h-8',
-        'sm'  => 'h-10',
-        'md'  => 'h-14',
-        default => 'h-6 xxs:h-7 sxs:h-8 sm:h-10 md:h-14'
+        'xxs' => 'size-7',
+        'xs'  => 'size-8',
+        'sm'  => 'size-10',
+        'md'  => 'size-14',
+        default => 'size-6 xxs:size-7 sm:size-10 md:size-14'
     };
 
     $textSize = match ($size) {
@@ -22,7 +22,7 @@
             'xs'  => 'text-lg',
             'sm'  => 'text-xl',
             'md'  => 'text-3xl',
-            default => 'text-sm xxs:text-base xs:text-lg sm:text-xl md:text-3xl'
+            default => 'text-sm xxs:text-base xs:text-lg sm:text-xl'
         };
 
     $spaceSize = match ($size) {
@@ -58,8 +58,8 @@
             </p>
         @endif
 
-        <div class="{{ $bgSize }} text-center grid justify-items-center content-center">
-            <img src="{{ asset($team['path']) }}" class="{{ $imgSize }}">
+        <div class="{{ $bgSize }} text-center w-full grid justify-items-center content-center">
+            <img src="{{ asset($team['path']) }}" class=" {{ $imgSize }}">
         </div>
     </div>
 @endif
