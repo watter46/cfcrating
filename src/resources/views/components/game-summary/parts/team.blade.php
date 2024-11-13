@@ -10,11 +10,11 @@
     };
 
     $imgSize = match ($size) {
-        'xxs' => 'size-7',
-        'xs'  => 'size-8',
-        'sm'  => 'size-10',
-        'md'  => 'size-14',
-        default => 'size-6 xxs:size-7 sm:size-10 md:size-14'
+        'xxs' => 'h-7',
+        'xs'  => 'h-8',
+        'sm'  => 'h-10',
+        'md'  => 'h-14',
+        default => 'h-6 xxs:h-7 sm:h-10 md:h-14'
     };
 
     $textSize = match ($size) {
