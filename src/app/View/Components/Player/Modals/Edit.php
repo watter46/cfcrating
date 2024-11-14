@@ -1,17 +1,17 @@
 <?php
 
-namespace App\View\Components\Player\Parts;
+namespace App\View\Components\Player\Modals;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Main extends Component
+class Edit extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $player, public bool $clickable)
+    public function __construct(public array $player)
     {
         //
     }
@@ -21,6 +21,6 @@ class Main extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.player.parts.main');
+        return view('components.player.modals.edit');
     }
 }

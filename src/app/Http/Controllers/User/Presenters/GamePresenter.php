@@ -93,6 +93,7 @@ class GamePresenter
 
         return collect([
             'id' => $gamePlayer['id'],
+            'fullName' => $gamePlayer->getDotRaw('player.name'),
             'name' => Str::afterLast($gamePlayer->getDotRaw('player.name'), ' '),
             'number' => $gamePlayer->getDotRaw('player.number'),
             'position' => $gamePlayer->getDotRaw('player.position'),

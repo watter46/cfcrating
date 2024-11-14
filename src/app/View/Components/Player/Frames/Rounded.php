@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Player\Parts;
+namespace App\View\Components\Player\Frames;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class RoundedFrame extends Component
+class Rounded extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class RoundedFrame extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.player.parts.rounded-frame');
+        return view('components.player.frames.rounded');
     }
 }
