@@ -1,4 +1,4 @@
-<x-player.parts.main :$player :clickable="true">
+<x-player.player :$player :clickable="true">
     <x-slot:bottom-right>
         @if ($player['number'])
             <div class="flex items-center justify-center bg-gray-500 rounded-full w-7 h-7">
@@ -12,4 +12,4 @@
             <livewire:admin.player :$player />
         </x-ui.modal.modal>
     </x-slot:modal>
-</x-player.parts.main>
+</x-player.player>

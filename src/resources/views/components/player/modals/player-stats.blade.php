@@ -1,19 +1,12 @@
-<div class="flex flex-col items-center justify-center gap-3 border">
-    <x-player.parts.rounded-frame class="size-24">
-        {{-- <x-player.parts.player-image
-            class="size-20"
-            :path="$player['path']"
-            :number="$player['number']"
-            :exist="$player['pathExist']" /> --}}
-    </x-player.parts.rounded-frame>
+<div class="flex items-center justify-center w-full">
+    <div class="flex flex-col items-center justify-center w-fit">
+        <x-player.player :$player :clickable="false" size="size-[100px]">
+            <x-slot:frame>
+                <x-player.frames.rounded />
+            </x-slot:frame>
+        </x-player.player>
 
-    <div class="flex justify-center w-full gap-x-3">                    
-        <p class="text-base font-bold text-center text-gray-100 md:text-2xl whitespace-nowrap">
-            {{ $player['number'] }}
-        </p> 
-        <p class="text-base font-bold text-center text-gray-100 md:text-2xl whitespace-nowrap">
-            {{ $player['name'] }}
-        </p>
+        <x-player.parts.name :name="$player['fullName']" textSize="text-2xl" />
     </div>
 </div>
 

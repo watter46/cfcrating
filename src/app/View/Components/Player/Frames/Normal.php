@@ -1,18 +1,17 @@
 <?php
 
-namespace App\View\Components\Player\Parts;
+namespace App\View\Components\Player\Frames;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-
-class PlayerStats extends Component
+class Normal extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $player)
+    public function __construct()
     {
         //
     }
@@ -22,6 +21,6 @@ class PlayerStats extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.player.parts.player-stats');
+        return view('components.player.frames.normal');
     }
 }
