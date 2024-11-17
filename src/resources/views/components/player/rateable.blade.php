@@ -14,11 +14,7 @@
         data-is-starter="{{ $player['isStarter'] }}">
 
         <x-slot:frame>
-            @if($player['myMom'])
-            <x-player.frames.mom />
-            @else
-                <x-player.frames.normal />
-            @endif
+            <x-player.frames.dynamic-frame :playerId="$player['id']" :mom="$player['myMom']" />
         </x-slot:frame>
         
         <x-slot:top-left>
@@ -58,8 +54,7 @@
 
                 <!-- MachineRating -->
                 <template x-if="isMachine()">
-                    <x-player.parts.rating
-                        :rating="$player['machineRating']" />
+                    <x-player.parts.rating :rating="$player['machineRating']" />
                 </template>
             </div>
         </x-slot:bottom-right>

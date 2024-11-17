@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Field;
+namespace App\View\Components\Lineups;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Field extends Component
+class Lineups extends Component
 {
     /**
      * Create a new component instance.
@@ -24,6 +24,6 @@ class Field extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.field.field');
+        return view('components.lineups.lineups');
     }
 }

@@ -1,8 +1,8 @@
-<div {{ $attributes->merge(['class' => 'flex items-center justify-center rounded-full player-image']) }}>
+<div {{ $attributes->merge(['class' => 'relative flex items-center justify-center rounded-full player-image']) }}>
     @if($exist)
         <img src="{{ asset($path) }}" class="rounded-full">
     @else
-        <img src="{{ asset($path) }}" class="rounded-full">
-        <p class="text-lg font-black text-white">{{ $number }}</p>
+        <img src="{{ asset($path) }}" class="absolute rounded-full">
+        <p class="absolute text-lg font-black text-white">{{ $number }}</p>
     @endif
 </div>

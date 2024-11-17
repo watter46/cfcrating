@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center justify-center player">
-    <x-player.player :$player :clickable="false">
+    <x-player.player :$player :clickable="false" size="sizes-[100px]">
         <x-slot:frame>
             <x-player.frames.dynamic-frame :playerId="$player['id']" :mom="$player['myMom']" />
         </x-slot:frame>
@@ -16,12 +16,12 @@
 
         <x-slot:bottom-right>
             <!-- Rating -->
-            <livewire:user.rating.rating-display
+            <x-player.parts.download-rating
                 :playerId="$player['id']"
                 :mom="$player['myMom']"
                 :rating="$player['myRating']" />
         </x-slot:bottom-right>
     </x-player.player>
 
-    <x-player.parts.name :name="$player['name']" />
+    <x-player.parts.name :name="$player['name']" textSize="text-2xl" />
 </div>

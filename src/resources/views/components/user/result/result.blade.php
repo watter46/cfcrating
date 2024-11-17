@@ -1,5 +1,5 @@
 <x-ui.modal.modal-button name="result">
-    <div class="p-2 bg-gray-800 border border-gray-600 rounded-full hover:animate-none hover:bg-gray-700 animate-bounce">
+    <div class="p-2 bg-gray-800 border border-gray-600 rounded-full hover:animate-none hover:bg-gray-700">
         <x-svg.download class="w-8 h-8 cursor-pointer stroke-gray-400 sm:w-9 sm:h-9" />
     </div>
 
@@ -21,8 +21,6 @@
 
         <x-user.result.rating-image-previewer :$game />
     
-        <x-user.result.rating-image-downloader :$game />
-
         <div class="flex justify-center w-auto mt-5 h-fit">
             <div class="flex flex-col justify-center w-full md:w-fit">
                 <!-- Options -->
@@ -59,6 +57,8 @@
             </div>
         </div>
     </div>
+
+    <x-user.result.rating-image-downloader :$game />
 </x-ui.modal.modal>
 
 @vite(['resources/js/downloadImage.js', 'resources/js/copyRatings.js'])
