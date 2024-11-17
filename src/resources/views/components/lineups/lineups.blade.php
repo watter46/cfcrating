@@ -17,10 +17,11 @@
             <div id="box" class="flex items-end justify-center w-full h-full">
                 <div class="flex flex-col w-full h-full">
                     @foreach($game['startXI'] as $line => $players)
-                        <div id="line-{{ $line + 1 }}"
-                            class="flex items-center w-full h-full justify-evenly">
+                        <div class="flex items-center w-full h-full">
                             @foreach($players as $player)
-                                <x-dynamic-component :component="$componentName" :$player />
+                                <div class="flex-1">
+                                    <x-dynamic-component :component="$componentName" :$player />
+                                </div>
                             @endforeach
                         </div>
                     @endforeach
