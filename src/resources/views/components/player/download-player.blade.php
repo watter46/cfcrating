@@ -6,12 +6,16 @@
         
         <x-slot:top-left>
             <!-- Goals -->
-            <x-player.parts.goals :goals="$player['goals']" />
+            <x-player.parts.goals
+                svgSize="size-[24px]"
+                :goals="$player['goals']" />
         </x-slot:top-left>
 
         <x-slot:top-right>
             <!-- Assists -->
-            <x-player.parts.assists :assists="$player['assists']" />
+            <x-player.parts.assists
+                svgSize="size-[24px]"
+                :assists="$player['assists']" />
         </x-slot:top-right>
 
         <x-slot:bottom-right>
