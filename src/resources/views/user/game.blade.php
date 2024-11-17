@@ -24,7 +24,7 @@
     
                 <div class="flex justify-end w-full lg:justify-start">
                     <!-- Result -->
-                    <x-user.result.result :$game />
+                    <x-result.result :$game />
                 </div>
             </div>
         </section>
