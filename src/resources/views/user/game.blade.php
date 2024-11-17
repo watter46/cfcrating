@@ -5,18 +5,14 @@
             data-away-team-name="{{ $game['teams']['away']['name'] }}"
             data-home-team-name="{{ $game['teams']['home']['name'] }}">
 
-            <div class="flex justify-end w-full mb-2 sm:mb-3 md:mb-5">
-                <x-game-summary.parts.league :league="$game['league']" />
-            </div>
-            
-            <x-game-summary.team-score-card :$game class="w-full" />
+            <x-game-summary.team-score-vertical :$game class="w-full" />
         </section>
     
         <section class="flex flex-col w-full h-full justify-evenly lg:flex-row lg:mt-5">
-            <!-- Field StartXI -->
-            <x-field.field :$game :maxWidth="600" fieldName="rateable">
-                <x-svg.field id="field" />
-            </x-field.field>
+            <!-- Lineups -->
+            <x-lineups.lineups :$game :maxWidth="600" fieldName="rateable">
+                <img src="{{ asset('storage/background/field.svg') }}" />
+            </x-lineups.lineups>
 
             <!-- Options -->
             <div class="px-2 mt-3 lg:w-1/3 mx-auto max-w-[600px] w-full h-fit lg:mt-0 grid gap-y-3 lg:gap-y-5">
@@ -26,13 +22,13 @@
                 <!-- ToggleUserMacine -->
                 <livewire:user.game.rating-toggle-button />
     
-                <div class="flex justify-end w-full md:space-x-5 lg:justify-start">
+                <div class="flex justify-end w-full lg:justify-start">
                     <!-- Result -->
-                    <x-user.result.result :$game />
+                    <x-result.result :$game />
                 </div>
             </div>
         </section>
     </div>
-    
+
     @vite(['resources/css/field.css', 'resources/js/field.js'])
 </x-app-layout>

@@ -5,14 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminGameController;
 use App\Http\Controllers\Admin\AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminPlayerController;
+use App\Http\Controllers\Top\TopController;
 use App\Http\Controllers\User\GameController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserLoginController;
 
-Route::get('/', function () {
-    return view('top');
-})
-->name('top');
+Route::get('/', [TopController::class, 'index'])->name('top');
 
 // 認証前
 Route::prefix('oauth')

@@ -6,12 +6,13 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+
 class Rating extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public ?float $rating, public ?bool $mom = null)
+    public function __construct(public ?float $rating = null, public ?bool $mom = null)
     {
         //
     }
