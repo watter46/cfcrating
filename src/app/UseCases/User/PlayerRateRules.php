@@ -2,10 +2,12 @@
 
 namespace App\UseCases\User;
 
+use Illuminate\Support\Carbon;
+
 use App\Models\Game;
 use App\Models\GamePlayer;
 use App\Models\GameUser;
-use Illuminate\Support\Carbon;
+
 
 class PlayerRateRules
 {
@@ -33,7 +35,7 @@ class PlayerRateRules
     public function isRateExpired(Game $game): bool
     {
         $specifiedDate = Carbon::parse($game->finished_at);
-                
+        
         return $specifiedDate->diffInHours(now('UTC')) >= self::RATE_PERIOD_HOURS;
     }
 

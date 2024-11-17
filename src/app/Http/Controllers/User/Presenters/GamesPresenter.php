@@ -52,7 +52,8 @@ class GamesPresenter
                     'isWinner' => $game['teams']
                         ->firstWhere('id', config('api-football.chelsea-id'))
                         ->get('isWinner'),
-                    'isRated' => $game->getDotRaw('game_user.is_rated')
+                    'isRated' => $game->getDotRaw('game_user.is_rated'),
+                    'canRate' => $game['canRate']
                 ];
             });
         

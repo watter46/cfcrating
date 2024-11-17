@@ -16,7 +16,7 @@ use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\Game\GameRepositoryInterface;
 use App\UseCases\Admin\Api\Util\ImageRepositoryInterface;
-
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {

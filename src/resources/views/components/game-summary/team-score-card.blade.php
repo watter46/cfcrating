@@ -11,7 +11,7 @@
 @endphp
 
 <section {{ $attributes->class("flex items-center justify-center w-fit mt-2") }}>
-    <div class="grid grid-cols-[1fr_auto_1fr] items-center {{ $gap }}">
+    <div class="grid grid-cols-[1fr_auto_1fr] content-center {{ $gap }} mt-1">
         <!-- Home Team -->
         <div class="flex justify-end">
             <x-game-summary.parts.team class="text-xl"
@@ -22,7 +22,7 @@
         </div>
         
         <!-- Score -->
-        <div class="text-center">
+        <div class="grid content-center text-center">
             <x-game-summary.parts.score
                 :score="$game['score']"
                 :isWinner="$game['isWinner']"
