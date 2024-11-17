@@ -3,7 +3,7 @@
         <x-game-summary.team-score-card :$game class="w-full" />
     </div>
     
-    <x-field.field :$game :maxWidth="600" fieldName="display">
+    <x-lineups.lineups :$game :maxWidth="600" fieldName="display">
         <img id="result" src="{{ asset('storage/background/field.svg') }}" />
-    </x-field.field>
+    </x-lineups.lineups>
 </div>

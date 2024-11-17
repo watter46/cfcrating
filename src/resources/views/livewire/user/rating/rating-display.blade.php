@@ -1,3 +1,1 @@
-<x-player.parts.rating
-    :$mom
-    :$rating />
+<x-player.parts.rating :$playerId :$mom :$rating />

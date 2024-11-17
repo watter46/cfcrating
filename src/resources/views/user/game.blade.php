@@ -9,10 +9,10 @@
         </section>
     
         <section class="flex flex-col w-full h-full justify-evenly lg:flex-row lg:mt-5">
-            <!-- Field StartXI -->
-            <x-field.field :$game :maxWidth="600" fieldName="rateable">
+            <!-- Lineups -->
+            <x-lineups.lineups :$game :maxWidth="600" fieldName="rateable">
                 <img src="{{ asset('storage/background/field.svg') }}" />
-            </x-field.field>
+            </x-lineups.lineups>
 
             <!-- Options -->
             <div class="px-2 mt-3 lg:w-1/3 mx-auto max-w-[600px] w-full h-fit lg:mt-0 grid gap-y-3 lg:gap-y-5">
@@ -29,6 +29,6 @@
             </div>
         </section>
     </div>
-    
+
     @vite(['resources/css/field.css', 'resources/js/field.js'])
 </x-app-layout>

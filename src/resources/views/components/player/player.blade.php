@@ -4,7 +4,7 @@
     $hover = $clickable ? 'transition duration-300 ease-in-out cursor-pointer hover:scale-125' : '';
 @endphp
 
-<div {{ $attributes->class("flex items-center justify-center player $size") }}>
+<div {{ $attributes->class("flex items-center justify-center $size") }}>
     <div class="flex justify-center">
         <div class="relative flex flex-col justify-center">
             <div class="relative flex self-center justify-center {{ $hover }} z-20"

@@ -1,18 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace App\View\Components\Player\Parts;
+namespace App\View\Components\Player\Frames;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-
-class Rating extends Component
+class DynamicFrame extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public ?float $rating = null, public ?bool $mom = null)
+    public function __construct(public string $playerId, public bool $mom = false)
     {
         //
     }
@@ -22,6 +21,6 @@ class Rating extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.player.parts.rating');
+        return view('components.player.frames.dynamic-frame');
     }
 }

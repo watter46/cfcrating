@@ -9,6 +9,7 @@ class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
 {
     private const DIR_PATH = 'image/player';
     private const DEFAULT_PATH = 'default_player.png';
+    private const EXTENSION = '.png';
 
     private int $playerId;
 
@@ -56,7 +57,7 @@ class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
 
     public function path(): string
     {
-        return self::DIR_PATH.'/'.$this->playerId;
+        return self::DIR_PATH.'/'.$this->playerId.self::EXTENSION;
     }
 
     public function defaultPath()

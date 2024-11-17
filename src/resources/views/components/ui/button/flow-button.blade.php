@@ -46,7 +46,7 @@
                         resolve(result);
     
                     } catch (error) {
-                        
+
                         reject(error);
                     }
                 }, 1000);

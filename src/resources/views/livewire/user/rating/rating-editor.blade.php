@@ -19,7 +19,7 @@
                     
                     <div class="flex justify-center mt-3">
                         <div class="flex items-center justify-center w-1/2 border-2 border-gray-200 rounded-lg"
-                            :style="`background-color: ${ratingBgColor(ratingInput)}`">
+                            :style="`background-color: ${ratingRangeBgColor(ratingInput)}`">
                             <p class="py-1 text-xl font-black text-gray-200" x-text="ratingValue(ratingInput)"></p>
                         </div>
                     </div>
