@@ -19,7 +19,7 @@
             substitutes.classList.toggle('hidden');
         })">
 
-        <x-user.result.rating-image-previewer :$game />
+        <x-result.image-previewer :$game />
     
         <div class="flex justify-center w-auto mt-5 h-fit">
             <div class="flex flex-col justify-center w-full md:w-fit">
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <x-user.result.rating-image-downloader :$game />
+    <x-result.image-downloader :$game />
 </x-ui.modal.modal>
 
 @vite(['resources/js/downloadImage.js', 'resources/js/copyRatings.js'])
