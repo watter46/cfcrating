@@ -29,7 +29,8 @@ class GamePresenter
             ->map(function (Collection $player) {
                 return collect([
                     'id' => $player->getDotRaw('id'),
-                    'name' => Str::afterLast($player->getDotRaw('player.name'), ' ') ,
+                    'fullName' => $player->getDotRaw('player.name'),
+                    'name' => Str::afterLast($player->getDotRaw('player.name'), ' '),
                     'number' => $player->getDotRaw('player.number'),
                     'position' => $player->getDotRaw('player.position'),
                     'grid' => $player->getDotRaw('grid'),

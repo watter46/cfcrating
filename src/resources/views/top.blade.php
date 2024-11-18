@@ -81,22 +81,6 @@
                 <p class="text-sm sm:text-lg">Share your ratings with friends or keep them as a record of each match!</p>
             </article>
         </div>
-
-        <!-- icon -->
-        <div class="flex items-center justify-center w-full">
-            <div class="flex items-center justify-center scale-100 w-[100px] h-[100px]">
-                <x-svg.player-frame class="relative w-fit h-fit" />
-                <img src="{{ asset('storage/image/player/152982') }}" class="absolute w-5/6 rounded-full">
-        
-                <div class="absolute bottom-[-5%] left-[60%]">
-                    <img src="{{ asset('storage/background/pointer.svg') }}">
-                </div>
-                
-                <div class="absolute top-[30%] text-lg right-[-20%] translate-x-[60%] transform rotate-[3deg]">
-                    <p class="text-[#fff] font-black text-nowrap">Your Rating??</p>
-                </div>
-            </div>
-        </div>
     </div>
 
     @vite(['resources/css/top.css'])

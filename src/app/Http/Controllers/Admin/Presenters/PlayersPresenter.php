@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Presenters;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 
 use App\Models\Util\PositionType;
 use App\Models\Player;
@@ -24,6 +25,8 @@ class PlayersPresenter
                     ? $this->playerImage->storagePath($player->api_player_id)
                     : $this->playerImage->defaultPath();
 
+                $player['fullName'] = $player->name;
+                $player['name'] = Str::afterLast($player->fullName, ' ');
                 $player['pathExist'] = $this->playerImage->exist($player->api_player_id);
                 $player['positionGroup'] = PositionType::from($player['position'])->text();
                 $player['position']      = PositionType::from($player['position'])->name;
