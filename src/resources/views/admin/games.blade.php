@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="header">
         <div class="flex justify-between w-full">
-            <h2 class="text-xl font-semibold leading-tight dark:text-gray-200">
+            <h2 class="text-xl font-semibold leading-tight text-gray-200">
                 {{ __('Admin Games') }}
             </h2>
     

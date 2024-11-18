@@ -3,7 +3,7 @@
     <ul class="flex w-full gap-6">
         <li class="grow">
             <input type="radio" id="my" name="my" value="my" class="hidden peer" wire:model.live="toggleStates">
-            <label for="my" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <label for="my" class="inline-flex items-center justify-between w-full p-2 text-gray-400 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer hover:text-gray-300 peer-checked:text-blue-500 peer-checked:border-blue-600 hover:bg-gray-700">
                 <div class="block">
                     <div class="w-full text-xs md:text-lg">My</div>
                 </div>
@@ -14,7 +14,7 @@
         <li class="grow">
             <input type="radio" id="users" name="users" value="users" class="hidden peer"
             wire:model.live="toggleStates">
-            <label for="users" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <label for="users" class="inline-flex items-center justify-between w-full p-2 text-gray-400 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer hover:text-gray-300 peer-checked:text-blue-500 peer-checked:border-blue-600 hover:bg-gray-700">
                 <div class="block">
                     <div class="w-full text-xs md:text-lg">Users</div>
                 </div>
@@ -25,7 +25,7 @@
         <li class="grow">
             <input type="radio" id="machine" name="machine" value="machine" class="hidden peer"
             wire:model.live="toggleStates" />
-            <label for="machine" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+            <label for="machine" class="inline-flex items-center justify-between w-full p-2 text-gray-400 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer hover:text-gray-300 peer-checked:text-blue-500 peer-checked:border-blue-600 hover:bg-gray-700">                           
                 <div class="block">
                     <div class="w-full text-xs md:text-lg">Machine</div>
                 </div>

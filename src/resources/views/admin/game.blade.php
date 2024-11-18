@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="header">
         <div class="flex justify-between w-full">
-            <h2 class="text-xl font-semibold leading-tight dark:text-gray-200">
+            <h2 class="text-xl font-semibold leading-tight text-gray-200">
                 {{ __('Admin Game') }}
             </h2>
     
@@ -17,7 +17,7 @@
                     isGame: true
                 }"
                 x-cloak>
-                <div class="grid w-full max-w-xs grid-cols-2 gap-1 p-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
+                <div class="grid w-full max-w-xs grid-cols-2 gap-1 p-1 mx-auto my-2 bg-gray-600 rounded-lg" role="group">
                     <button type="button" class="px-5 py-1.5 text-xs font-medium rounded-lg"
                         :class="isGame ? 'bg-gray-300 text-gray-900' : 'bg-gray-700 text-white'"
                         @click="isGame = true">
