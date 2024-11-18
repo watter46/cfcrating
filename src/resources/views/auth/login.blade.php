@@ -37,16 +37,16 @@
             <div class="block mt-4">
                 <label class="inline-flex items-center" for="remember_me">
                     <input
-                        class="text-indigo-600 border-gray-300 rounded shadow-sm dark:bg-gray-900 dark:border-gray-700 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                        class="text-indigo-600 bg-gray-900 border-gray-700 rounded shadow-sm focus:ring-indigo-600 focus:ring-offset-gray-800"
                         id="remember_me" name="remember" type="checkbox">
                     <span
-                        class="text-sm text-gray-600 ms-2 dark:text-gray-400">{{ __('Remember me') }}</span>
+                        class="text-sm text-gray-400 ms-2">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    <a class="text-sm text-gray-400 underline rounded-md hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800"
                         href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
@@ -60,9 +60,9 @@
 
         <!-- Separator between social media sign in and email/password sign in -->
         <div
-            class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300 dark:before:border-neutral-500 dark:after:border-neutral-500">
+            class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t after:mt-0.5 after:flex-1 after:border-t before:border-neutral-500 after:border-neutral-500">
             <p
-                class="mx-4 mb-0 font-semibold text-center dark:text-white">
+                class="mx-4 mb-0 font-semibold text-center text-white">
                 or
             </p>
         </div>
