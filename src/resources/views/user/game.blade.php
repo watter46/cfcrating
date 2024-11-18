@@ -10,7 +10,7 @@
     
         <section class="flex flex-col w-full h-full justify-evenly lg:flex-row lg:mt-5">
             <!-- Lineups -->
-            <x-lineups.lineups :$game :maxWidth="600" fieldName="rateable">
+            <x-lineups.lineups :$game :maxWidth="600" playerComponent="player.rateable">
                 <img src="{{ asset('storage/background/field.svg') }}" />
             </x-lineups.lineups>
 
