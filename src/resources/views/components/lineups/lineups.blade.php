@@ -1,12 +1,3 @@
-@php
-    $componentName = match ($fieldName) {
-        'display'  => 'player.display',
-        'rateable' => 'player.rateable',
-        'editable' => 'player.editable'
-    };
-@endphp
-
-<!-- Field StartXI -->
 <div class="relative flex flex-col lg:w-2/3 px-1 space-y-10 mx-auto justify-center w-full max-w-[{{ $maxWidth }}px]">
     <div class="relative flex flex-col items-center justify-center w-full">
         <!-- Field -->
@@ -17,10 +8,10 @@
             <div id="box" class="flex items-end justify-center w-full h-full">
                 <div class="flex flex-col w-full h-full">
                     @foreach($game['startXI'] as $line => $players)
-                        <div class="flex items-center w-full h-full">
+                        <div class="flex items-center justify-center w-full h-full">
                             @foreach($players as $player)
-                                <div class="flex-1">
-                                    <x-dynamic-component :component="$componentName" :$player />
+                                <div class="flex items-center justify-center flex-1">
+                                    <x-dynamic-component :component="$playerComponent" :$player />
                                 </div>
                             @endforeach
                         </div>
@@ -37,7 +28,7 @@
                 @if($loop->odd)
                     @foreach($substitute as $player)
                         <div class="flex justify-center w-full col-span-2">
-                            <x-dynamic-component :component="$componentName" :$player />
+                            <x-dynamic-component :component="$playerComponent" :$player />
                         </div>
                     @endforeach
                 @endif
@@ -46,7 +37,7 @@
                     @foreach($substitute as $player)
                         <div class="col-span-2 flex justify-center w-full
                             @if($loop->first) col-start-2 @endif">
-                            <x-dynamic-component :component="$componentName" :$player />
+                            <x-dynamic-component :component="$playerComponent" :$player />
                         </div>
                     @endforeach
                 @endif
