@@ -3,7 +3,9 @@
 namespace App\File\Image;
 
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+
 
 class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
 {
@@ -13,9 +15,11 @@ class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
 
     private int $playerId;
 
-    public function __construct(private ImageManager $manager)
+    private ImageManager $manager;
+    
+    public function __construct()
     {
-        
+        $this->manager = new ImageManager(new Driver());
     }
 
     public function playerImageIds()
