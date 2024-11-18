@@ -14,7 +14,7 @@ class Lineups extends Component
     public function __construct(
         public array $game,
         public int $maxWidth,
-        public string $fieldName
+        public string $playerComponent
     ) {
         //
     }

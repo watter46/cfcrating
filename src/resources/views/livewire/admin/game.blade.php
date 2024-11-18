@@ -20,7 +20,7 @@
             <x-slot:value>
                 <!-- Score -->
                 <div class="flex justify-center w-full">
-                    <x-game-summary.team-score-card :$game size="xs" />
+                    <x-game-summary.team-score-vertical :$game size="xs" />
                 </div>
 
                 <!-- Score Input -->

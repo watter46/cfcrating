@@ -56,7 +56,7 @@ class Player extends Component
             ->only(['name', 'position', 'number'])
             ->toArray();
 
-        $this->name     = $this->player['name'];
+        $this->name     = $this->player['fullName'];
         $this->position = $this->player['position'];
         $this->number   = $this->player['number'];
     }

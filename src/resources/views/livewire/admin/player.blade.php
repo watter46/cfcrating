@@ -8,8 +8,8 @@
                 :number="$player['number']" />
         </x-ui.modal.modal-button>
         
-        <x-ui.modal.modal name="player-image-{{ $player['id'] }}" class="w-4/6 bg-sky-900 h-2/4">
-            <x-ui.card.card class="h-full m-3 bg-sky-950">
+        <x-ui.modal.modal name="player-image-{{ $player['id'] }}" class="w-4/6 h-2/4 bg-sky-950">
+            <x-ui.card.card class="h-full m-3">
                 <x-slot:header>
                     Update PlayerImage
                 </x-slot:header>
@@ -39,7 +39,7 @@
         </x-ui.modal.modal>
 
         <div class="flex items-center w-1/2 px-5">
-            <p class="text-3xl font-black text-gray-300">{{ $player['name'] }}</p>
+            <x-player.parts.name :name="$player['fullName']" textSize="text-3xl" :highlightName="false" />
         </div>
     </div>
 
@@ -61,7 +61,7 @@
             <x-ui.table.table-row x-data="{ isEdit: false }">
                 <x-slot:column>Name</x-slot:column>
                 <x-slot:value>
-                    <p x-show="!isEdit">{{ $player['name'] }}</p>
+                    <p x-show="!isEdit">{{ $player['fullName'] }}</p>
                     <input x-show="isEdit" class="h-6 bg-gray-600 rounded-md" wire:model="name" />
                 </x-slot:value>
                 <x-slot:action>

@@ -41,9 +41,9 @@
                     <div class="flex flex-col justify-center w-full h-full lg:mt-5">
                         <p class="px-5 py-3 text-2xl font-black text-gray-300">GamePlayer Table</p>
                         
-                        <x-field.field :$game :maxWidth="600" fieldName="editable">
-                            <x-svg.field id="admin-field" />
-                        </x-field.field>
+                        <x-lineups.lineups :$game :maxWidth="600" playerComponent="player.editable">
+                            <img src="{{ asset('storage/background/field.svg') }}" />
+                        </x-lineups.lineups>
                     </div>
                 </div>
             </div>

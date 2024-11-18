@@ -13,10 +13,13 @@
 
                     <div class="grid w-full grid-cols-5 gap-5 p-2">
                         @foreach($positionGroup as $player)
-                            <div class="w-full flex px-2 justify-center flex-col h-[200px] bg-teal-950 rounded-2xl">
-                                <x-player.clickable :$player />
-                            
+                            <div class="flex flex-col justify-center w-full p-5 bg-teal-950 rounded-2xl">
                                 <x-player.parts.position :position="$player['position']" />
+                                
+                                <div class="flex flex-col items-center justify-center w-full space-y-3">
+                                    <x-player.clickable :$player />
+                                    <x-player.parts.name :name="$player['name']" :highlightName="false" />
+                                </div>
                             </div>
                         @endforeach
                     </div>

@@ -7,13 +7,15 @@
     
             <livewire:admin.update-games-button />
         </div>
-        
     </x-slot>
 
-    <section class="px-3">
+    <!-- Score -->
+    <section class="w-full mt-2 gap-y-8">
         @foreach($games as $game)
-            <div class="mb-1 cursor-pointer rounded-xl px-2 {{ $game['is_details_fetched'] ? 'bg-sky-800' : ''  }}">
-                <a href="{{ route('admin.games.game', ['gameId' => $game['id']]) }}">
+            <div class="w-full p-1 overflow-hidden border-b border-gray-500/50
+                {{ $game['is_details_fetched'] ? 'bg-sky-800' : ''  }}">
+                <a class="w-full h-full cursor-pointer"
+                    href="{{ route('admin.games.game', ['gameId' => $game['id']]) }}">
                     <x-game-summary.game-summary :$game />
                 </a>
             </div>

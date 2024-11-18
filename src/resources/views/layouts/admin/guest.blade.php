@@ -16,11 +16,19 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-gray-900">
-        <div class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-gray-900">
-            <div class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md dark:bg-gray-800 sm:rounded-lg">
-                {{ $slot }}
+    <body class="w-full h-full min-h-screen font-sans antialiased font-black text-white">
+        <!-- Background -->
+        <x-ui.background.large />
+
+        <div class="relative flex w-full px-4 py-4 sm:px-6 lg:px-8">
+            <!-- Logo -->
+            <div class="flex items-center shrink-0">
+                <x-util.app-logo href="{{ route('oauth.admin.top') }}" />
             </div>
+        </div>
+
+        <div class="flex flex-col w-full h-full sm:justify-center">
+            {{ $slot }}
         </div>
     </body>
 </html>
