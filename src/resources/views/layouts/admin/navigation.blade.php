@@ -5,24 +5,22 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{ route('admin.games.index') }}">
-                        <x-util.app-logo href="{{ route('games.index') }}" class="w-12 h-12" />
-                    </a>
+                    <x-util.app-logo href="{{ route('admin.games.index') }}" />
                 </div>
 
                 <!-- Navigation Links -->
                 <!-- Games -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-default.nav-link :href="route('admin.games.index')" :active="request()->routeIs('admin.games.index')"
-                        :class="'border-lime-600'">
+                    <x-default.nav-link :href="route('admin.games.index')"
+                        :active="request()->routeIs('admin.games.index')">
                         {{ __('Games') }}
                     </x-default.nav-link>
                 </div>
 
                 <!-- Players -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-default.nav-link :href="route('admin.players.index')" :active="request()->routeIs('admin.players.index')"
-                        :class="'border-lime-600'">
+                    <x-default.nav-link :href="route('admin.players.index')"
+                        :active="request()->routeIs('admin.players.index')">
                         {{ __('Players') }}
                     </x-default.nav-link>
                 </div>
