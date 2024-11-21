@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Top;
 use App\Http\Controllers\Controller;
 use App\UseCases\Top\FetchGames;
 
+
 class TopController extends Controller
 {
     public function __construct(private FetchGames $fetchGames, private GamesPresenter $presenter)
