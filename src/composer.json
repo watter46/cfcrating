@@ -53,9 +53,12 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
-        "unit": [
+        "unit-clear": [
             "@php artisan config:clear",
-            "@php artisan test --parallel --processes=1 tests/Unit/UseCase/"
+            "@php artisan test --parallel --processes=2 tests/Unit/User/UseCases/"
+        ],
+        "unit": [
+            "@php artisan test --parallel --processes=2 tests/Unit/User/UseCases/"
         ]
     },
     "extra": {
