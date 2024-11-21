@@ -13,6 +13,13 @@ User
         - ユーザーが評価していればisRateがtrueを返す
         - ユーザーが評価していなければisRateがfalseを返す
 
-    - FetchLatestGameTest
-        - 最新の試合を取得できる (vs Arsenal)
+    - FetchLatestGameTest (vs Arsenal) 01JD18AVT9AYM6PQMVHFCM4SRB
+        - 最新の試合を取得できる
+        - ユーザーが評価していればisRateがtrueを返す
+        - ユーザーが評価していなければisRateがfalseを返す
+
+    - FindGameTest (vs Manchester United) 01JD18AVT9AYM6PQMVHFCM4SRA
+        - 指定の試合を取得できる
+        - ユーザーが評価していればisRateがtrueを返す
+        - ユーザーが評価していなければisRateがfalseを返す
 Admin
