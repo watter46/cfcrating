@@ -23,4 +23,11 @@ class GameUser extends Model
         'is_rated' => false,
         'mom_count' => 0
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_rated' => 'boolean'
+        ];
+    }
 }
