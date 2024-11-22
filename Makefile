@@ -80,7 +80,7 @@ tinker:
 test:
 	docker compose exec app composer test
 unit:
-	docker compose exec app composer unit
+	docker compose exec app php artisan test --parallel --processes=2 tests/Unit/$(path)
 test-clear:
 	docker compose exec app php artisan config:clear
 	docker compose exec app php artisan key:generate --env=testing

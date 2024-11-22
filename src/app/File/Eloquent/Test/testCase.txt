@@ -11,7 +11,7 @@ User
         - プレミアリーグでソートすると6件のみ取得できる
         - FAカップでソートすると0件のみ取得できる
         - ユーザーが評価していればisRateがtrueを返す
-        - ユーザーが評価していなければisRateがfalseを返す
+        - ユーザーが評価していない場合はisRateがfalseを返す
 
     - FetchLatestGameTest (vs Arsenal) 01JD18AVT9AYM6PQMVHFCM4SRB
         - 最新の試合を取得できる
@@ -21,5 +21,18 @@ User
     - FindGameTest (vs Manchester United) 01JD18AVT9AYM6PQMVHFCM4SRA
         - 指定の試合を取得できる
         - ユーザーが評価していればisRateがtrueを返す
-        - ユーザーが評価していなければisRateがfalseを返す
+        - ユーザーが評価していない場合はisRateがfalseを返す
+
+    - RatePlayerTest
+        - 指定の選手を評価できる
+        - 評価カウントの上限になった場合はcanRateがfalseを返す
+        - レーティングが範囲外のとき評価できない
+        - 評価可能期間外の場合は評価ができない
+        - 評価カウントが無い場合は評価できない
+
+    - DecideMomTest
+        - 指定の選手をMOMに決定する
+        - MOMカウントの上限になった場合はcanMomがfalseを返す
+        - 評価可能期間外の場合はMOMを決定できない
+        - MOMカウントが無い場合は決定できない
 Admin

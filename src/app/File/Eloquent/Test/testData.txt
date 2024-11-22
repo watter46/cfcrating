@@ -51,3 +51,13 @@ Gameテストデータ 5件
 Gameテストデータ 1件
 
 1208040 2024-08-25 Wolves 01JD18AVT8PHWC5YRH6EERNW2N
+
+
+GamePlayerデータ (vs Wolves)
+
+    GamePlayerId
+        01jd18avzkyr2bj21ardp1hnkx
+
+    選手データ
+    id                         name           position number api_player_id flash_id flash_image_id
+    01jd18avwedq7701wevkwzk1nt Marc Cucurella D        3      47380         QTynbZd3 6Nc3h6e5-KMTavdXs
