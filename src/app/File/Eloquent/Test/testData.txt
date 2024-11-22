@@ -9,9 +9,9 @@ Gameテストデータ 20件
 1299319 2024-10-24 ECL Panathinaikos
 1208107 2024-10-27 EFL Newcastle
 1310475 2024-10-29 PL  Newcastle   
-1208117 2024-11-04 PL  Manchester United
+1208117 2024-11-04 PL  Manchester United 01JD18AVT9AYM6PQMVHFCM4SRA
 1299338 2024-11-07 ECL FC Noah
-1208125 2024-11-10 PL  Arsenal
+1208125 2024-11-10 PL  Arsenal 01JD18AVT9AYM6PQMVHFCM4SRB
 
 === not finished ===
 
@@ -50,4 +50,14 @@ Gameテストデータ 5件
 
 Gameテストデータ 1件
 
-1208040 2024-08-25 Wolves
+1208040 2024-08-25 Wolves 01JD18AVT8PHWC5YRH6EERNW2N
+
+
+GamePlayerデータ (vs Wolves)
+
+    GamePlayerId
+        01jd18avzkyr2bj21ardp1hnkx
+
+    選手データ
+    id                         name           position number api_player_id flash_id flash_image_id
+    01jd18avwedq7701wevkwzk1nt Marc Cucurella D        3      47380         QTynbZd3 6Nc3h6e5-KMTavdXs
