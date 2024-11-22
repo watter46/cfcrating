@@ -9,6 +9,10 @@
         </div>
     </x-slot>
 
+    <div class="flex items-center justify-around w-full h-16">
+        {{ $games->links() }}
+    </div>
+
     <!-- Score -->
     <section class="w-full mt-2 gap-y-8">
         @foreach($games as $game)
