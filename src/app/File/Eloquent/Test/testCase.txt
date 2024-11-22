@@ -35,4 +35,9 @@ User
         - MOMカウントの上限になった場合はcanMomがfalseを返す
         - 評価可能期間外の場合はMOMを決定できない
         - MOMカウントが無い場合は決定できない
+
+    - CalculateRatingPercentageTest
+        - 評価されていないとき0%になる
+        - 半分評価されているとき50％になる
+        - 全て評価されているとき100％になる
 Admin
