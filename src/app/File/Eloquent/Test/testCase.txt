@@ -41,17 +41,28 @@ User
         - 半分評価されているとき50％になる
         - 全て評価されているとき100％になる
 Admin
-    - FetchGamesTest
-        - 最新の試合15件を取得できる
-        - 試合当日で試合開始時刻後は取得できる
-        - 試合当日で試合開始時刻前の場合は取得できない
+    Game
+        - FetchGamesTest
+            - 最新の試合15件を取得できる
+            - 試合当日で試合開始時刻後は取得できる
+            - 試合当日で試合開始時刻前の場合は取得できない
 
-    - FindGameTest (vs Manchester United) 01JD18AVT9AYM6PQMVHFCM4SRA
-        - 指定の試合を取得できる
+        - FindGameTest (vs Manchester United) 01JD18AVT9AYM6PQMVHFCM4SRA
+            - 指定の試合を取得できる
 
-    - EditGameTest
-        - スコアを変更できる
-        - 延長線のスコアを変更できる
-        - PKのスコアを変更できる
-        - 試合の日時を変更できる
-        - 試合の勝敗を変更できる
+        - EditGameTest
+            - スコアを変更できる
+            - 延長線のスコアを変更できる
+            - PKのスコアを変更できる
+            - 試合の日時を変更できる
+            - 試合の勝敗を変更できる
+
+    Player
+        - FetchPlayersTest
+            - 今シーズンの選手全て取得できる
+            
+        - UpdateFlashTest
+        - UpdatePlayerTest
+        - UpdatePlayerImageTest
+
+    API

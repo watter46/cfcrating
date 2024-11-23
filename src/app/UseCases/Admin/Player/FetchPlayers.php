@@ -6,7 +6,7 @@ use App\Models\Player;
 
 
 class FetchPlayers
-{  
+{
     public function execute()
     {
         return Player::currentSeason()->get();
