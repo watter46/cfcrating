@@ -21,8 +21,8 @@ class Game extends Component
     public array $original;
     public array $changedProperties;
     public array $score;
-    public string $date;
-    public string $isWinner;
+    public string $started_at;
+    public string $is_winner;
 
     private EditGame $editGame;
 
@@ -41,8 +41,8 @@ class Game extends Component
             'score.fulltime.home' => 'required|integer|min:0',
             'score.extratime.away' => 'nullable|integer|min:0',
             'score.extratime.home' => 'nullable|integer|min:0',
-            'date' => 'required|date',
-            'isWinner' => 'required|in:true,false,null'
+            'started_at' => 'required|date',
+            'is_winner' => 'required|in:true,false,null'
         ];
     }
     
@@ -55,8 +55,8 @@ class Game extends Component
             'score.fulltime.away' => 'fulltime: least 0',
             'score.extratime.home' => 'extratime least 0',
             'score.extratime.away' => 'extratime least 0',
-            'date' => 'date: invalid date',
-            'isWinner' => 'isWinner: true or false or null only'
+            'started_at' => 'started_at: invalid started_at',
+            'is_winner' => 'is_winner: true or false or null only'
         ];
     }
 
@@ -69,8 +69,8 @@ class Game extends Component
     {
         $this->original = [
             'score' => $this->game['score'],
-            'date' => $this->game['date'],
-            'isWinner' => match ($this->game['isWinner']) {
+            'started_at' => $this->game['started_at'],
+            'is_winner' => match ($this->game['isWinner']) {
                     true  => 'true',
                     false => 'false',
                     null  => 'null'
@@ -78,8 +78,8 @@ class Game extends Component
         ];
 
         $this->score = $this->original['score'];
-        $this->date = $this->original['date'];
-        $this->isWinner = $this->original['isWinner'];
+        $this->started_at = $this->original['started_at'];
+        $this->is_winner = $this->original['is_winner'];
     }
 
     public function render()
