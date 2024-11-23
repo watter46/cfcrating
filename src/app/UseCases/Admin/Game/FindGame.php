@@ -23,7 +23,6 @@ class FindGame
             )->recursiveCollect();
 
         } catch (Exception $e) {
-            dd($e);
             throw $e;
         }
     }
