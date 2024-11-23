@@ -126,17 +126,17 @@
         <!-- Date -->
         <x-ui.table.table-row x-data="{ isEditable: false }">
             <x-slot:column>
-                date(UTC)
+                started_at(UTC)
             </x-slot:column>
 
             <x-slot:value>
-                {{ $game['date'] }}
+                {{ $game['started_at'] }}
 
                 <!-- Date input -->
                 <div x-show="isEditable" class="flex items-center justify-center w-full">
                     <div>
-                        <label for="game-date"></label>
-                        <input type="date" id="game-date" wire:model="date" class="h-8 bg-gray-600 border rounded-md">
+                        <label for="game-started_at"></label>
+                        <input type="text" id="game-started_at" wire:model="started_at" class="h-8 bg-gray-600 border rounded-md">
                     </div>
                 </div>
             </x-slot:value>
@@ -149,17 +149,17 @@
         <!-- isWinner -->
         <x-ui.table.table-row x-data="{ isEditable: false }">
             <x-slot:column>
-                isWinner
+                is_winner
             </x-slot:column>
 
             <x-slot:value>
-                <p class="capitalize">{{ $isWinner }}</p>
+                <p class="capitalize">{{ $is_winner }}</p>
 
                 <!-- MatchResult  -->
                 <div x-show="isEditable" class="flex items-center justify-center w-full">
                     <div>
                         <label for="is-winner">MatchResult</label>
-                        <select id="is-winner" name="is-winner" wire:model="isWinner"
+                        <select id="is-winner" name="is-winner" wire:model="is_winner"
                             class="h-10 bg-gray-600 border rounded-md">
                             <option value="true">True (Win)</option>
                             <option value="false">False (Lose)</option>
