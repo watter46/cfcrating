@@ -1,11 +1,12 @@
 <?php
 
-namespace Tests\Unit\Admin\UseCases;
+namespace Tests\Unit\Admin\UseCases\Game;
 
 use App\Models\Game;
 use App\UseCases\Admin\Game\EditGame;
 use Database\Seeders\Test\UserTwentyGamesSeeder;
 use Tests\Unit\Admin\AdminTestCase;
+
 
 class EditGameTest extends AdminTestCase
 {

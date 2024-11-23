@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Admin\UseCases;
+namespace Tests\Unit\Admin\UseCases\Game;
 
 use App\UseCases\Admin\Game\FindGame;
 use Database\Seeders\Test\UserTwentyGamesSeeder;
