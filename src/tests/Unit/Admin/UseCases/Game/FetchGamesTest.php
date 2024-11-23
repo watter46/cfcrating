@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Admin\UseCases;
+namespace Tests\Unit\Admin\UseCases\Game;
 
 use Database\Seeders\Test\UserTwentyGamesSeeder;
 use Illuminate\Support\Carbon;
