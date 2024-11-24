@@ -31,6 +31,10 @@ class Player extends Model
         'flash_image_id',
         'is_fetched'
     ];
+
+    protected $casts = [
+        'is_fetched' => 'boolean'
+    ];
     
     /**
      * @param  Builder<Player> $query

@@ -22,9 +22,9 @@ class UpdateFlash extends CheckAdminKey
     {
         try {
             $player = Player::query()
-                ->select(['id', 'name', 'api_player_id', 'flash_id'])
+                ->select(['id', 'name', 'api_player_id', 'flash_id', 'is_fetched'])
                 ->findOrFail($playerId);
-
+                
             if ($player->is_fetched) {
                 throw new Exception('The player has already been retrieved.');
             }
