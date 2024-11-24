@@ -62,12 +62,14 @@ Admin
             - 今シーズンの選手全て取得できる
             
         - UpdateFlashTest
+            - flashIdがnullの選手をFlashLiveから取得してflashIdとflashImageIdを更新できる
+            - 名前が省略形ならフルネームで保存できる
+            - FlashLiveからデータを取得したことがある場合は例外を投げる
+
         - UpdatePlayerTest
             - 名前を更新できる
             - ポジションを更新できる
             - 不正なポジションの場合エラーを出す
             - 背番号を更新できる
             
-        - UpdatePlayerImageTest
-
     API
