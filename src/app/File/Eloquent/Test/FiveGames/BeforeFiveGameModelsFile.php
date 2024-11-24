@@ -7,17 +7,17 @@ use App\File\PathInterface;
 use App\Models\Game;
 
 
-class FiveGameModelsFile extends FileHandler implements PathInterface
+class BeforeFiveGameModelsFile extends FileHandler implements PathInterface
 {
     private const DIR_PATH  = 'Template/Test/FiveGames';
     private const EXTENSION = '.json';
     private const JSON_KEYS = ['score', 'teams', 'league'];
     public const FIXTURE_ID_LIST = [
-        1208107,
-        1310475,
-        1208117,
-        1299338,
-        1208125
+        1208074,
+        1299304,
+        1208085,
+        1208094,
+        1299319
     ];
 
     public function get()
@@ -48,6 +48,6 @@ class FiveGameModelsFile extends FileHandler implements PathInterface
 
     public function getFullPath(): string
     {
-        return app_path(self::DIR_PATH.'/'.'games'.self::EXTENSION);
+        return app_path(self::DIR_PATH.'/'.'before-games'.self::EXTENSION);
     }
 }
