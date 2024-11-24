@@ -58,7 +58,7 @@ class GameBuilder
     {
         return [
             'season' => $fixture->getSeason(),
-            'date' => $fixture->getDate(),
+            'started_at' => $fixture->getDate(),
             'is_end' => $fixture->getIsEnd(),
             'score' => $fixture->getScore(),
             'teams' => $fixture->getTeams(),
