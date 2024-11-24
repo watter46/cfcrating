@@ -63,6 +63,11 @@ Admin
             
         - UpdateFlashTest
         - UpdatePlayerTest
+            - 名前を更新できる
+            - ポジションを更新できる
+            - 不正なポジションの場合エラーを出す
+            - 背番号を更新できる
+            
         - UpdatePlayerImageTest
 
     API
