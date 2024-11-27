@@ -30,6 +30,11 @@ class GamePlayer extends Pivot
         'is_starter' => 'boolean'
     ];
 
+    protected $fillable = [
+        'goals',
+        'assists'
+    ];
+
     /**
      * ツアーでソートする
      *
