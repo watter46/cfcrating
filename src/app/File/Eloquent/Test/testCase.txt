@@ -68,6 +68,10 @@ Admin
             - 未保存のチーム画像を取得して保存できる
             - 未保存の選手画像を取得して保存できる
 
+        - updateGamePlayerTest
+            - Goal数を更新できる
+            - Assist数を更新できる
+
     Event
         - UpdateLeagueImagesTest
             - 不足分のリーグ画像を保存できる
