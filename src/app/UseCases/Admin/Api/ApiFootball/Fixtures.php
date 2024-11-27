@@ -33,7 +33,7 @@ class Fixtures
                     'fixture_id' => $fixture->fixtureId(),
                     'league_id' => $fixture->getLeagueId(),
                     'season' => $fixture->getSeason(),
-                    'date' => $fixture->getDate(),
+                    'started_at' => $fixture->getDate(),
                     'is_end' => $fixture->getIsEnd(),
                     'score' => $fixture->getScore(),
                     'teams' => $fixture->getTeams(),

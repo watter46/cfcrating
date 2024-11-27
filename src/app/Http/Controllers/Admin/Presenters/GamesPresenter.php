@@ -48,9 +48,7 @@ class GamesPresenter
                             'name' => $game->getDotRaw('league.name'),
                             'round' => $game->getDotRaw('league.round')
                         ],
-                    'isWinner' => $game['teams']
-                        ->firstWhere('id', config('api-football.chelsea-id'))
-                        ->get('isWinner'),
+                    'isWinner' => $game['is_winner'],
                     'is_details_fetched' => $game['is_details_fetched']
                 ];
             });

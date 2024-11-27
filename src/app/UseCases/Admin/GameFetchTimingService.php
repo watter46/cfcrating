@@ -20,7 +20,7 @@ class GameFetchTimingService
      */
     public function shouldFetch(string $gameId): bool
     {
-        $game = Game::select(['is_end', 'date'])->find($gameId);
+        $game = Game::select(['is_end', 'started_at'])->find($gameId);
 
         if (!$game->is_end) {
             return false;
@@ -35,7 +35,7 @@ class GameFetchTimingService
     
     private function minutesSinceEnd(Game $game): float
     {
-        $startDate = Carbon::parse($game->date);
+        $startDate = Carbon::parse($game->started_at);
 
         return $startDate->diffInMinutes(now('UTC'));
     }

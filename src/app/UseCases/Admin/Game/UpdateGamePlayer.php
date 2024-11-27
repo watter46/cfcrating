@@ -19,9 +19,9 @@ class UpdateGamePlayer extends CheckAdminKey
                 'goals' => 'required|integer|min:0|max:10',
                 'assists' => 'required|integer|min:0|max:10',
             ]);
-    
+
             $gamePlayer = GamePlayer::query()
-                ->select(['id'])
+                ->select(['id', 'goals', 'assists'])
                 ->find($gamePlayerId)
                 ->fill($data);
 

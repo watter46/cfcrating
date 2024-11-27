@@ -17,6 +17,7 @@ return new class extends Migration
             $table->mediumInteger('league_id')->unsigned();
             $table->smallInteger('season')->length(4)->unsigned();
             $table->boolean('is_end');
+            $table->boolean('is_winner')->nullable();
             $table->json('score');
             $table->json('teams');
             $table->json('league');

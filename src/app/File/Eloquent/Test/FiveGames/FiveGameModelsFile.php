@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
  
- namespace App\File\Eloquent\Test\FiveGames;
+namespace App\File\Eloquent\Test\FiveGames;
 
 use App\File\Data\FileHandler;
 use App\File\PathInterface;

@@ -27,6 +27,17 @@ trait SelectiveValidationTrait
         return collect($this->original)
             ->only(collect($validated)->keys())
             ->replaceRecursive($validated)
+            ->mapWithKeys(function ($value, $key) {
+                if ($key !== 'is_winner') {
+                    return [$key => $value];
+                }
+                
+                return ['is_winner' => match ($value) {
+                    'true' => true,
+                    'false' => false,
+                    'null' => null
+                }];
+            })
             ->toArray();
     }
 }
