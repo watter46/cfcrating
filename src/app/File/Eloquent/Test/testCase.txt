@@ -62,6 +62,22 @@ Admin
             - 未保存のリーグ画像を取得して保存できる
             - 未保存のチーム画像を取得して保存できる
 
+        - updateGameTest
+            - ApiFootballから取得したfixtureをDBに保存してUpdateGameImagesイベントを発火する
+            - 未保存のリーグ画像を取得して保存できる
+            - 未保存のチーム画像を取得して保存できる
+            - 未保存の選手画像を取得して保存できる
+
+    Event
+        - UpdateLeagueImagesTest
+            - 不足分のリーグ画像を保存できる
+            
+        - UpdateTeamImagesTest
+            - 不足分のチーム画像を保存できる
+
+        - UpdatePlayerImagesTest
+            - 不足分の選手画像を保存できる
+
     Player
         - FetchPlayersTest
             - 今シーズンの選手全て取得できる

@@ -39,13 +39,25 @@ class AdminTestCase extends BaseTestCase
             ))
             ->create();
 
-        /** @var Authenticatable $user */
-        $user = User::find(1);
+        /** @var Authenticatable $admin */
+        $admin = User::find(1);
 
-        $this->actingAs($user);
+        $this->actingAs($admin);
                 
         if (!$this->seeder) return;
 
-        $this->artisan('db:seed', ['--class' => $this->seeder]);
+        $this->executeSeed($this->seeder);
+    }
+
+    public function executeSeed($seeder)
+    {
+        if (is_string($seeder)) {
+            $this->artisan('db:seed', ['--class' => $seeder]);
+            return;
+        }
+
+        foreach ($seeder as $seed) {
+            $this->artisan('db:seed', ['--class' => $seed]);
+        }
     }
 }

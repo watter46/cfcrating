@@ -4,8 +4,6 @@ namespace App\Infrastructure\ApiFootball;
 
 use App\File\Data\FixtureFile;
 use App\File\Data\Test\ApiFootball\FixturesFile;
-use App\File\Image\LeagueImageFile;
-use App\File\Image\TeamImageFile;
 use App\Models\Util\Season;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
@@ -39,18 +37,18 @@ class TestApiFootballRepository implements ApiFootballRepositoryInterface
 
     public function fetchLeagueImage(int $leagueId): LeagueImage
     {
-        $file = new LeagueImageFile;
+        $realFilePath = storage_path("app/public/image/league/$leagueId");
 
-        $image = $file->get($leagueId);
+        $image = file_get_contents($realFilePath);
         
         return new LeagueImage($leagueId, $image);
     }
 
     public function fetchTeamImage(int $teamId): TeamImage
     {
-        $file = new TeamImageFile;
+        $realFilePath = storage_path("app/public/image/team/$teamId");
         
-        $image = $file->get($teamId);
+        $image = file_get_contents($realFilePath);
 
         return new TeamImage($teamId, $image);
     }

@@ -27,7 +27,7 @@ class PlayerImage implements ImageInterface
 
     public function save(): void
     {
-        $file = new PlayerImageFile(app(ImageManager::class));
+        $file = new PlayerImageFile;
 
         $file->write($this->apiPlayerId, $this->image);
     }
