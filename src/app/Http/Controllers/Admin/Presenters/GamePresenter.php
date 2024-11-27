@@ -67,7 +67,7 @@ class GamePresenter
 
         return [
             'id' => $game['id'],
-            'date' => Carbon::parse($game['started_at'])->format('Y/m/d'),
+            'started_at' => Carbon::parse($game['started_at'])->toDateTimeString(),
             'score' => $game['score']->toArray(),
             'teams' => $game['teams']
                 ->map(function (Collection $team) {
@@ -82,9 +82,7 @@ class GamePresenter
                     'name' => $game->getDotRaw('league.name'),
                     'round' => $game->getDotRaw('league.round')
                 ],
-            'isWinner' => $game['teams']
-                ->firstWhere('id', config('api-football.chelsea-id'))
-                ->get('isWinner'),
+            'isWinner' => $game['is_winner'],
             'startXI' => $startXI->toArray(),
             'substitutes' => $substitutes->toArray(),
         ];

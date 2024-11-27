@@ -36,7 +36,8 @@ class Game extends Model
             'teams' => AsCollection::class,
             'league' => AsCollection::class,
             'is_end' => 'boolean',
-            'is_details_fetched' => 'boolean'
+            'is_details_fetched' => 'boolean',
+            'is_winner' => 'boolean'
         ];
     }
 
@@ -49,6 +50,7 @@ class Game extends Model
         'is_details_fetched',
         'started_at',
         'finished_at',
+        'is_winner'
     ];
 
     /**

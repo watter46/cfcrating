@@ -22,15 +22,15 @@ class EditGame extends CheckAdminKey
                 'fulltime.away' => 'nullable|integer|min:0',
                 'extratime.home' => 'nullable|integer|min:0',
                 'extratime.away' => 'nullable|integer|min:0',
-                'date' => 'nullable|date',
-                'isWinner' => 'nullable|in:true,false,null'
+                'started_at' => 'nullable|date',
+                'is_winner' => 'nullable|boolean'
             ]);
 
             $game = Game::query()
                 ->select(['id'])
                 ->find($gameId)
                 ->fill($data);
-                
+
             DB::transaction(function () use ($game) {
                 $game->save();
             });

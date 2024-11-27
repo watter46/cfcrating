@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use App\File\Image\LeagueImageFile;
 use App\File\Image\PlayerImageFile;
 use App\File\Image\TeamImageFile;
-
+use Illuminate\Support\Facades\Storage;
 
 class InvalidImageChecker
 {
@@ -39,7 +39,7 @@ class InvalidImageChecker
         $this->leagueImageFile = new LeagueImageFile;
         $this->teamImageFile   = new TeamImageFile;
         $this->playerImageFile = new PlayerImageFile;
-
+        
         $this->invalidLeagueIds = $this->filterLeagueImages($leagueIds);
         $this->invalidTeamIds   = $this->filterTeamImages($teamIds);
         $this->invalidPlayerIds = $this->filterPlayerImages($playerIds);

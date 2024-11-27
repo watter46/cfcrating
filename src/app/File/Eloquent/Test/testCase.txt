@@ -41,3 +41,58 @@ User
         - 半分評価されているとき50％になる
         - 全て評価されているとき100％になる
 Admin
+    Game
+        - FetchGamesTest
+            - 最新の試合15件を取得できる
+            - 試合当日で試合開始時刻後は取得できる
+            - 試合当日で試合開始時刻前の場合は取得できない
+
+        - FindGameTest (vs Manchester United) 01JD18AVT9AYM6PQMVHFCM4SRA
+            - 指定の試合を取得できる
+
+        - EditGameTest
+            - スコアを変更できる
+            - 延長線のスコアを変更できる
+            - PKのスコアを変更できる
+            - 試合の日時を変更できる
+            - 試合の勝敗を変更できる
+
+        - updateGamesTest
+            - ApiFootballから取得したfixturesをDBに保存できる
+            - 未保存のリーグ画像を取得して保存できる
+            - 未保存のチーム画像を取得して保存できる
+
+        - updateGameTest
+            - ApiFootballから取得したfixtureをDBに保存してUpdateGameImagesイベントを発火する
+            - 未保存のリーグ画像を取得して保存できる
+            - 未保存のチーム画像を取得して保存できる
+            - 未保存の選手画像を取得して保存できる
+
+        - updateGamePlayerTest
+            - Goal数を更新できる
+            - Assist数を更新できる
+
+    Event
+        - UpdateLeagueImagesTest
+            - 不足分のリーグ画像を保存できる
+            
+        - UpdateTeamImagesTest
+            - 不足分のチーム画像を保存できる
+
+        - UpdatePlayerImagesTest
+            - 不足分の選手画像を保存できる
+
+    Player
+        - FetchPlayersTest
+            - 今シーズンの選手全て取得できる
+            
+        - UpdateFlashTest
+            - flashIdがnullの選手をFlashLiveから取得してflashIdとflashImageIdを更新できる
+            - 名前が省略形ならフルネームで保存できる
+            - FlashLiveからデータを取得したことがある場合は例外を投げる
+
+        - UpdatePlayerTest
+            - 名前を更新できる
+            - ポジションを更新できる
+            - 不正なポジションの場合エラーを出す
+            - 背番号を更新できる
