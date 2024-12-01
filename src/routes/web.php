@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminPlayerController;
 use App\Http\Controllers\Top\TopController;
 use App\Http\Controllers\User\GameController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\TierController;
 use App\Http\Controllers\User\UserLoginController;
 
 Route::get('/', [TopController::class, 'index'])->name('top');
@@ -58,6 +59,12 @@ Route::middleware(['auth', 'user'])
                 Route::get('/', [GameController::class, 'index'])->name('index');
                 Route::get('/latest', [GameController::class, 'latest'])->name('latest');
                 Route::get('/{gameId}', [GameController::class, 'find'])->name('game');
+            });
+
+        Route::prefix('tier')
+            ->as('tier.')
+            ->group(function () {
+                Route::get('/', [TierController::class, 'index'])->name('index');
             });
     });
 
