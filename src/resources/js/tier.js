@@ -20,7 +20,6 @@ window.initTierList = (count, maxCount) => {
         remainingCount() { return this.maxCount - this.count },
         add() {
             if (this.remainingCount() <= 0) {
-                console.log('error');
                 return;
             }
             
@@ -121,6 +120,7 @@ window.initDraggableItem = (el) => {
         dragClass: 'dragging',
         ghostClass: 'dragging',
         forceFallback: true,
+        emptyInsertThreshold: 30,
         scrollSensitivity: 50,
         group: 'item'
     };
@@ -130,7 +130,7 @@ window.initDraggableItem = (el) => {
 
 window.downloadTierImage = () => {
     const wrapper = document.querySelector('#tier');
-
+    
     setTimeout(() => {
         htmlToImage.toJpeg(wrapper, {
             quality: 0.85,
