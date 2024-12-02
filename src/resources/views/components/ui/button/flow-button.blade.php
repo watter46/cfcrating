@@ -35,6 +35,7 @@
         duringProcess() {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
+                    
                     if (typeof window[method] !== 'function') {
                         reject();
                         return;
