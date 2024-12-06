@@ -26,6 +26,12 @@
                         {{ __('Tier') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-default.nav-link :href="route('startingXI.index')" :active="request()->routeIs('startingXI.index')">
+                        {{ __('StartingXI') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -91,6 +97,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-default.responsive-nav-link :href="route('tier.index')" :active="request()->routeIs('tier.index')">
                 {{ __('Tier') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-default.responsive-nav-link :href="route('startingXI.index')" :active="request()->routeIs('startingXI.index')">
+                {{ __('StartingXI') }}
             </x-responsive-nav-link>
         </div>
 
