@@ -10,6 +10,7 @@ use App\Http\Controllers\User\GameController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\TierController;
 use App\Http\Controllers\User\UserLoginController;
+use App\Http\Controllers\User\StartingXIController;
 
 Route::get('/', [TopController::class, 'index'])->name('top');
 
@@ -65,6 +66,12 @@ Route::middleware(['auth', 'user'])
             ->as('tier.')
             ->group(function () {
                 Route::get('/', [TierController::class, 'index'])->name('index');
+            });
+
+        Route::prefix('startingXI')
+            ->as('startingXI.')
+            ->group(function () {
+                Route::get('/', [StartingXIController::class, 'index'])->name('index');
             });
     });
 
