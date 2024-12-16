@@ -1,3 +1,5 @@
+@props(['textSize' => 'text-xl'])
+
 @php
     $textColor = function (string $position) {
         return match ($position) {
@@ -9,6 +11,6 @@
     };
 @endphp
 
-<p {{ $attributes->class('text-xl font-black')->merge(['class' => $textColor($position)]) }}>
+<p {{ $attributes->class("font-black $textSize")->merge(['class' => $textColor($position)]) }}>
     {{ $position }}
 </p>
