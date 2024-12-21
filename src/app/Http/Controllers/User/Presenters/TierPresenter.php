@@ -27,19 +27,11 @@ class TierPresenter
 
                 $player['name'] = Str::afterLast($player->name, ' ');
                 $player['pathExist'] = $this->playerImage->exist($player->api_player_id);
-                $player['positionGroup'] = PositionType::from($player['position'])->text();
-                $player['position']      = PositionType::from($player['position'])->name;
+                $player['position']  = PositionType::from($player['position'])->name;
                 
                 return $player;
             })
             ->recursiveCollect()
-            ->groupBy('positionGroup')
-            ->map(function (Collection $group) {
-                return $group->sortBy(function ($player) {
-                    return $player['number'] ?? PHP_INT_MAX; // 背番号:nullを最大値として扱う
-                });
-            })
-            ->reverse()
             ->toArray();
     }
 }

@@ -18,7 +18,7 @@
 
         @livewireStyles
     </head>
-    <body class="m-0 font-sans antialiased pb-7 sm:pb-14">
+    <body class="m-0 font-sans antialiased">
         <!-- Background -->
         <x-ui.background.large />
         
