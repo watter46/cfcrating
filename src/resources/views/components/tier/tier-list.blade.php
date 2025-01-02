@@ -1,4 +1,4 @@
-<div x-data="initTierList({{ count($tiers) }}, {{ $maxCount }})" class="px-1">
+<div class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()">
     <!-- Download -->
     <section id="tier-download" class="">
         
@@ -26,19 +26,139 @@
         
         <!-- Tier List -->
         <ul id="tier-list" x-init="initDraggableList($el)">
-            <!-- newItem -->
-            <x-tier.new-tier-item />
-            
-            @foreach($tiers as $index => $tier)
-                <x-tier.tier-item :$tier :$index />
-            @endforeach
+            <template x-for="(row, index) in rows" :key="row.id">
+                <li class="flex items-stretch h-full overflow-hidden text-white border-t-2 border-gray-800 max-w-screen min-h-28 tier-list">
+
+                    <!-- TierTitle -->
+                    <div class="min-w-20 sm:min-w-28 my-handle tier_title">
+                        <p class="inline-flex items-center justify-center w-full h-full text-base text-center break-all tier_title_text" x-text="row.title"
+                            :id="`row-title-${row.id}`"
+                            :style="`background-color: ${row.bg}`">
+                        </p>
+                    </div>
+
+                    <!-- itemList -->
+                    <div class="flex items-stretch w-full">
+                        <!-- DragArea -->
+                        <div id="tier-item" class="grid w-full grid-cols-3 sm:grid-cols-10"
+                            x-init="initDraggableItem($el)"></div>
+
+                        <!-- Setting -->
+                        <div class="flex items-center text-white bg-gray-600 cursor-pointer"
+                            @click="$dispatch('open-modal-tier-setting', row)">
+                            <x-svg.setting class="size-6 sm:size-8 fill-white" />
+                        </div>
+                    </div>
+                </li>
+            </template>
+
+            <!-- SettingModal -->
+            <x-ui.modal.modal name="tier-setting">
+                <div class="w-full h-full p-2 mt-3 space-y-10"
+                    x-data="settingModalData()"
+                    @open-modal-tier-setting.window="setTierData(event.detail)">
+                    
+                    <!-- BackgroundColor -->
+                    <div class="space-y-2">
+                        <p class="text-xl font-black text-white">Color</p>
+
+                        <div class="grid grid-cols-6 gap-2">
+                            <template x-for="color in colors">
+                                <span class="rounded-full size-8"
+                                    :class="isCurrentColor(color) && 'border border-white'"
+                                    :style="`background-color: ${color}`"
+                                    @click="selectColor(color)">
+                                </span>
+                            </template>
+                        </div>
+                    </div>
+                    
+                    <!-- Title Textarea -->
+                    <div class="space-y-2">
+                        <label for="tier-title">
+                            <p class="text-xl font-black text-white">Title</p>
+                        </label>
+                        <textarea id="tier-title"
+                            class="w-full font-black text-white break-all bg-transparent rounded-md resize-none"
+                            maxlength="30"
+                            required
+                            x-show="title"
+                            x-model="title">
+                        </textarea>
+                    </div>
+
+                    <div class="flex flex-col justify-center w-full space-y-8 sm:space-y-0 sm:flex-row sm:justify-around">
+                        <button class="w-full px-3 py-1 bg-blue-600 rounded-md sm:w-40 hover:bg-blue-500"
+                            @click="edit()">
+                            <div class="flex items-center justify-center space-x-2">
+                                <p class="text-lg font-black text-white">Edit</p>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full px-3 py-1 bg-red-600 rounded-md sm:w-40 hover:bg-red-500"
+                            @click="remove()">
+                            <div class="flex items-center justify-center space-x-2">
+                                <p class="text-lg font-black text-white">Remove</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </x-ui.modal.modal>
         </ul>
     </section>
+
+    <!-- AddTierModal -->
+    <x-ui.modal.modal name="add-tier">
+        <div class="w-full h-full p-2 mt-3 space-y-10 sm:px-10" x-data="addTierModalData()">
+            <p class="text-2xl font-black text-gray-400">NewTier</p>
+            
+            <!-- BackgroundColor -->
+            <div class="space-y-2">
+                <p class="text-xl font-black text-gray-400">Color</p>
+
+                <div class="grid grid-cols-6 gap-2">
+                    <template x-for="color in colors">
+                        <span class="rounded-full cursor-pointer size-8"
+                            :class="isCurrentColor(color) && 'border border-white'"
+                            :style="`background-color: ${color}`"
+                            @click="selectColor(color)">
+                        </span>
+                    </template>
+                </div>
+            </div>
+            
+            <!-- Title Textarea -->
+            <div class="space-y-2">
+                <label for="tier-title">
+                    <p class="text-xl font-black text-gray-400">Title</p>
+                </label>
+                <textarea id="tier-title"
+                    class="w-full font-black text-white break-all bg-transparent rounded-md resize-none"
+                    maxlength="30"
+                    required
+                    x-model="newTitle">
+                </textarea>
+            </div>
+
+            <div class="flex justify-center w-full">
+                <button class="relative w-40 px-3 py-1 bg-gray-600 rounded-md hover:bg-gray-500" @click="add()"
+                    :class="isZero() && 'opacity-60 pointer-events-none'">
+                    <span class="absolute inline-flex items-center justify-center px-1.5 text-sm font-black text-white bg-red-700 rounded-full -left-2 -top-2" x-text="remainingCount">
+                    </span>
+
+                    <div class="relative flex items-center justify-center space-x-2">
+                        <x-svg.plus class="absolute left-0 size-6 fill-white" />
+                        <p class="text-lg font-black text-white">Add</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </x-ui.modal.modal>
 
     <!-- Option -->
     <div class="flex justify-end w-full mt-3 space-x-7">
         <div class="flex flex-col justify-center">
-            <button class="relative self-center size-10" @click="add">
+            <button class="relative self-center size-10" @click="$dispatch('open-modal-add-tier')">
                 <span class="absolute inline-flex items-center justify-center px-1.5 text-sm font-black text-white bg-red-700 rounded-full -left-2 -top-2" x-text="remainingCount">
                 </span>
                 
@@ -52,13 +172,11 @@
     <div class="flex justify-center w-full mt-3">
         <div class="flex flex-col justify-center w-full max-w-lg space-y-3">
             <!-- TitleInput -->
-            <section x-data="initTierTitle()" class="w-full max-w-lg">
+            <section class="w-full max-w-lg">
                 <label for="starting-xi-title" class="block text-sm font-black text-white sm:text-lg">Title</label>
                 <input id="starting-xi-title" class="w-full text-sm font-black text-white break-all bg-transparent rounded-md resize-none sm:text-lg"
                     maxlength="20"
-                    x-ref="inputField"
-                    x-model="title"
-                    x-init="nonEditable($el)" />
+                    x-model="title" />
             </section>
             
             <!-- Download -->
@@ -73,4 +191,8 @@
     </div>
 </div>
 
-@vite(['resources/js/tier/title.js', 'resources/js/tier/draggable.js'])
+@vite([
+    'resources/js/tier/draggable.js',
+    'resources/js/tier/tierList.js',
+    'resources/js/tier/setting.js'
+])
