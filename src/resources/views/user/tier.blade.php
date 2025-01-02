@@ -4,12 +4,12 @@
             <!-- TierList -->
             <x-tier.tier-list />
 
-            <div x-data="initTierPlayers(@js($players))" class="sticky bottom-0 z-20 w-full mt-3 lg:mt-10">
+            <div x-data="initTierPlayers(@js($players))" class="sticky lg:max-h-[40vh] bottom-0 w-full mt-3 lg:mt-10">
                 <div class="w-full bg-black">
                     <p class="hidden p-2 text-2xl font-black text-gray-300 lg:block">Players</p>
                     
                     <!-- Select Player -->
-                    <div class="overflow-x-scroll lg:overflow-auto w-full max-h-[30vh] h-full">
+                    <div class="w-full h-full overflow-x-scroll lg:overflow-auto">
                         <div class="sticky left-0 grid h-12 place-items-center lg:hidden">
                             <div class="flex items-center">
                                 <x-svg.left-arrow class="size-6 stroke-white" />

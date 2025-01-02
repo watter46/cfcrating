@@ -9,8 +9,8 @@ use Illuminate\View\Component;
 
 class TierList extends Component
 {
-    private const TIER_LABEL_LIST = ['S', 'A', 'B', 'C', 'D'];
     private const MAX_LIST_COUNT = 10;
+    private const DEFAULT_COUNT = 5;
     
     /**
      * Create a new component instance.
@@ -26,8 +26,8 @@ class TierList extends Component
     public function render(): View|Closure|string
     {
         return view('components.tier.tier-list', [
-            'tiers' => self::TIER_LABEL_LIST,
-            'maxCount' => self::MAX_LIST_COUNT
+            'maxCount' => self::MAX_LIST_COUNT,
+            'defaultCount' => self::DEFAULT_COUNT
         ]);
     }
 }
