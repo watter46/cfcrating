@@ -38,7 +38,7 @@
                     <!-- itemList -->
                     <div class="flex items-stretch w-full">
                         <!-- DragArea -->
-                        <div id="tier-item" class="flex flex-wrap w-full gap-1 tier-item-list"
+                        <div class="flex flex-wrap w-full gap-1 tier-item-list"
                             x-init="initDraggableItem($el)"></div>
 
                         <!-- Setting -->
@@ -73,10 +73,10 @@
                     
                     <!-- Title Textarea -->
                     <div class="space-y-2">
-                        <label for="tier-title">
+                        <label for="edit-tier-title">
                             <p class="text-xl font-black text-white">Title</p>
                         </label>
-                        <textarea id="tier-title"
+                        <textarea id="edit-tier-title"
                             class="w-full font-black text-white break-all bg-transparent rounded-md resize-none"
                             maxlength="30"
                             required
@@ -127,10 +127,10 @@
             
             <!-- Title Textarea -->
             <div class="space-y-2">
-                <label for="tier-title">
+                <label for="add-tier-title">
                     <p class="text-xl font-black text-gray-400">Title</p>
                 </label>
-                <textarea id="tier-title"
+                <textarea id="add-tier-title"
                     class="w-full font-black text-white break-all bg-transparent rounded-md resize-none"
                     maxlength="30"
                     required
