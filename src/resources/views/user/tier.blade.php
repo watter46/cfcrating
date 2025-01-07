@@ -22,7 +22,7 @@
                             x-init="initDraggablePlayers($el)">
                             <template x-for="player in players" :key="player.id">
                                 <!-- Player -->
-                                <div class="relative flex flex-col justify-center pb-4 rounded-md md:pb-6 player-item"
+                                <div class="relative flex flex-col justify-center pb-4 rounded-md w-fit md:pb-6 player-item"
                                     :data-id="player.id">
                                     <!-- PlayerImage -->
                                     <div class="relative flex items-center justify-center rounded-full size-16 md:size-20">
@@ -33,8 +33,8 @@
                                             x-text="player.number"></p>
 
                                         <!-- Position -->
-                                        <div class="absolute top-0 left-0 -translate-x-[60%] tier_player-position">
-                                            <p class="text-sm font-black md:text-lg"
+                                        <div class="absolute top-0 left-[20%] -translate-x-[60%] tier_player-position">
+                                            <p class="text-xs font-black md:text-base"
                                                 x-text="player.position"
                                                 x-init="positionColor($el, player.position)">
                                             </p>
