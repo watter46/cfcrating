@@ -1,4 +1,4 @@
-<button x-ref="btn" {{ $attributes->class('relative z-0 h-10 overflow-hidden bg-black rounded-md btn btn-flat md:w-80 w-full') }}
+<button x-ref="btn" {{ $attributes->class('relative z-0 h-10 overflow-hidden bg-black rounded-md btn btn-flat w-full') }}
     style="--before-color: {{ $color }}">
     <span x-data="initFlowButton({{ $before }}, {{ $after }}, {{ $method }}, @js($args))"
     @click="handle">
