@@ -33,7 +33,7 @@
                                             x-text="player.number"></p>
 
                                         <!-- Position -->
-                                        <div class="absolute top-0 left-[20%] -translate-x-[60%] tier_player-position">
+                                        <div class="absolute top-0 left-[20%] -translate-x-[60%] bg-gray-700 px-1 rounded-md tier_player-position">
                                             <p class="text-xs font-black md:text-base"
                                                 x-text="player.position"
                                                 x-init="positionColor($el, player.position)">

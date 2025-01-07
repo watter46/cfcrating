@@ -29,18 +29,11 @@ window.downloadTierImage = () => {
     const downloadWrapperEl = document.getElementById('tier-download');
     downloadWrapperEl.append(clone);
 
-    clone.style.width = '1024px';
-
-    clone
-        .querySelectorAll('#tier-item')
-        .forEach(tierItemEl => {
-            tierItemEl.classList.remove('grid-cols-3', 'sm:grid-cols-10');
-            tierItemEl.classList.add('grid-cols-10');
-        });
+    clone.style.width = '1000px';
 
     setTimeout(() => {
         htmlToImage.toJpeg(document.querySelector('#tier-download'), {
-            quality: 0.85,
+            quality: 0.95,
             skipFonts: true,
             preferredFontFormat: 'woff2',
             width: clone.scrollWidth,
