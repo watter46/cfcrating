@@ -1,22 +1,43 @@
 import * as htmlToImage from 'html-to-image';
 
 window.downloadTierImage = () => {
-    const wrapper = document.querySelector('#tier');
+    const tier = document.getElementById('tier-content');
+    const clone = tier.cloneNode(true);
     
-    const clone = wrapper.cloneNode(true);
+    clone
+        .querySelectorAll('#setting-modal')
+        .forEach(tierSetting => {
+            tierSetting.remove()
+        });
 
-    const downloadWrapperEl = document.querySelector('#tier-download');
-        downloadWrapperEl.appendChild(clone);
+    clone
+        .querySelectorAll('.tier-setting')
+        .forEach(tierSetting => {
+            tierSetting.remove()
+        });
 
-        clone.style.width = '1024px';
+    clone.querySelectorAll('*').forEach(node => {
+        const attrs = [...node.attributes];
 
-        clone
-            .querySelectorAll('#tier-item')
-            .forEach(tierItemEl => {
-                tierItemEl.classList.remove('grid-cols-3', 'sm:grid-cols-10');
-                tierItemEl.classList.add('grid-cols-10');
-            });
-        
+        attrs.forEach(attr => {
+            if (attr.name.startsWith(':') || attr.name.startsWith('@') || attr.name.startsWith('x-')) {
+                node.removeAttribute(attr.name);
+            }
+        });
+    });
+
+    const downloadWrapperEl = document.getElementById('tier-download');
+    downloadWrapperEl.append(clone);
+
+    clone.style.width = '1024px';
+
+    clone
+        .querySelectorAll('#tier-item')
+        .forEach(tierItemEl => {
+            tierItemEl.classList.remove('grid-cols-3', 'sm:grid-cols-10');
+            tierItemEl.classList.add('grid-cols-10');
+        });
+
     setTimeout(() => {
         htmlToImage.toJpeg(document.querySelector('#tier-download'), {
             quality: 0.85,

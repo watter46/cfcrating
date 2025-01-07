@@ -2,11 +2,11 @@ import { notify } from "../notify";
 
 window.tierListData = (maxCount) => {
     const rows = [
-        { id: 1, title: 'S', bg: '#285F88' },
-        { id: 2, title: 'A', bg: '#374DF5' },
-        { id: 3, title: 'B', bg: '#009E9E' },
-        { id: 4, title: 'C', bg: '#5CB400' },
-        { id: 5, title: 'D', bg: '#F4BB00' },
+        { id: 1, title: 'S', bg: '#374DF5' },
+        { id: 2, title: 'A', bg: '#009E9E' },
+        { id: 3, title: 'B', bg: '#5CB400' },
+        { id: 4, title: 'C', bg: '#F4BB00' },
+        { id: 5, title: 'D', bg: '#EB1C23' },
     ];
 
     return {
@@ -44,17 +44,29 @@ window.tierListData = (maxCount) => {
                     notify('Tier list limit is 10 items.');
                     return;
                 }
+
+                // 今の並び順をAlpine側で同期する
+                const order = [...document.querySelectorAll('.tier-list')]
+                    .map(tier => Number(tier.dataset.id));
                 
-                this.rows = this.rows
-                    .concat({ id: null, title: title, bg: color })
-                    .map((row, index) => {
-                        row.id = index + 1;
+                this.$refs.list._x_prevKeys = order;
 
-                        return row;
-                    });
+                const createNewOrder = () => {
+                    if (order.length !== 0) {
+                        const nextId = Math.max(...this.rows.map(row => row.id)) + 1;
 
+                        return order
+                            .map(id => this.rows.find(row => row.id === id))
+                            .concat({ id: nextId, title: title, bg: color });
+                    }
+                    
+                    return [{ id: 1, title: title, bg: color }];
+                }
+                    
+                this.rows = createNewOrder();
+                
                 window.dispatchEvent(new CustomEvent('close-modal-add-tier'));
-            });
+            }); 
 
             window.addEventListener('edit-tier', (event) => {
                 const id = event.detail.id;

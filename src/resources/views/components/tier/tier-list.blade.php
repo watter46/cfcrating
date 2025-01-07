@@ -1,10 +1,8 @@
-<div class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()">
-    <!-- Download -->
-    <section id="tier-download" class="">
-        
-    </section>
-    
-    <section id="tier" class="relative">
+<!-- Download -->
+<section id="tier-download" class="fixed inset-0 z-[-100]"></section>
+
+<div id="tier" class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()">
+    <section id="tier-content" class="relative">
         <x-ui.background.medium />
 
         <!-- Tier Header -->
@@ -26,12 +24,12 @@
         
         <!-- Tier List -->
         <ul id="tier-list" x-init="initDraggableList($el)">
-            <template x-for="(row, index) in rows" :key="row.id">
-                <li class="flex items-stretch h-full overflow-hidden text-white border-t-2 border-gray-800 max-w-screen min-h-28 tier-list">
+            <template x-for="row in rows" :key="row.id" x-ref="list">
+                <li :data-id="row.id" class="flex items-stretch h-full overflow-hidden text-white border-t-2 border-gray-800 max-w-screen min-h-28 tier-list">
 
                     <!-- TierTitle -->
                     <div class="min-w-20 sm:min-w-28 my-handle tier_title">
-                        <p class="inline-flex items-center justify-center w-full h-full text-base text-center break-all tier_title_text" x-text="row.title"
+                        <p class="inline-flex items-center justify-center w-full h-full text-base text-center text-white break-all tier_title_text" x-text="row.title"
                             :id="`row-title-${row.id}`"
                             :style="`background-color: ${row.bg}`">
                         </p>
@@ -44,7 +42,7 @@
                             x-init="initDraggableItem($el)"></div>
 
                         <!-- Setting -->
-                        <div class="flex items-center text-white bg-gray-600 cursor-pointer"
+                        <div class="flex items-center text-white bg-gray-600 cursor-pointer tier-setting"
                             @click="$dispatch('open-modal-tier-setting', row)">
                             <x-svg.setting class="size-6 sm:size-8 fill-white" />
                         </div>
@@ -53,7 +51,7 @@
             </template>
 
             <!-- SettingModal -->
-            <x-ui.modal.modal name="tier-setting">
+            <x-ui.modal.modal id="setting-modal" name="tier-setting">
                 <div class="w-full h-full p-2 mt-3 space-y-10"
                     x-data="settingModalData()"
                     @open-modal-tier-setting.window="setTierData(event.detail)">
@@ -108,7 +106,7 @@
     </section>
 
     <!-- AddTierModal -->
-    <x-ui.modal.modal name="add-tier">
+    <x-ui.modal.modal id="add-tier-modal" name="add-tier">
         <div class="w-full h-full p-2 mt-3 space-y-10 sm:px-10" x-data="addTierModalData()">
             <p class="text-2xl font-black text-gray-400">NewTier</p>
             
@@ -156,7 +154,7 @@
     </x-ui.modal.modal>
 
     <!-- Option -->
-    <div class="flex justify-end w-full mt-3 space-x-7">
+    <div id="tier-option" class="flex justify-end w-full mt-3 space-x-7">
         <div class="flex flex-col justify-center">
             <button class="relative self-center size-10" @click="$dispatch('open-modal-add-tier')">
                 <span class="absolute inline-flex items-center justify-center px-1.5 text-sm font-black text-white bg-red-700 rounded-full -left-2 -top-2" x-text="remainingCount">
@@ -169,7 +167,7 @@
         </div>
     </div>
 
-    <div class="flex justify-center w-full mt-3">
+    <div id="tier-buttons" class="flex justify-center w-full mt-3">
         <div class="flex flex-col justify-center w-full max-w-lg space-y-3">
             <!-- TitleInput -->
             <section class="w-full max-w-lg">
