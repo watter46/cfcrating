@@ -1,125 +1,118 @@
 <x-app-layout>
-    <div x-data x-cloak class="flex justify-center w-full">
-        <div class="flex flex-col justify-center w-full p-2 lg:w-5/6">
-            
+    <div class="flex justify-center w-full">
+        <div class="flex flex-col justify-center w-full lg:w-11/12">  
+            <!-- TierList -->
             <x-tier.tier-list />
-            
-            <!-- Option -->
-            <section class="mt-5">
-                <div class="p-3 rounded-xl">
-                    <p class="text-xl text-gray-400">Player</p>
 
-                    <div class="flex items-center mt-3 space-x-5">
-                        <!-- Toggle Name -->
-                        <div class="flex flex-col justify-center space-y-2 w-fit">
-                            <x-ui.button.toggle-button
-                                x-data="{ isOn: true }"
-                                x-init="$watch('isOn', isOn => {
-                                    document
-                                        .querySelectorAll('.tier_player-name')
-                                        .forEach(player => player.classList.toggle('hidden'));
-                                })"
-                                class="self-center" />
-
-                            <p class="w-full text-sm font-black text-center text-gray-400">Name</p>
+            <div x-data="initTierPlayers(@js($players))" class="sticky lg:max-h-[40vh] bottom-0 w-full mt-3 lg:mt-10">
+                <div class="w-full bg-black">
+                    <p class="hidden p-2 text-2xl font-black text-gray-300 lg:block">Players</p>
+                    
+                    <!-- Select Player -->
+                    <div class="w-full h-full overflow-x-scroll lg:overflow-auto">
+                        <div class="sticky left-0 grid h-12 place-items-center lg:hidden">
+                            <div class="flex items-center">
+                                <x-svg.left-arrow class="size-6 stroke-white" />
+                                <p class="mx-2 text-lg text-white">Swipe</p>
+                                <x-svg.right-arrow class="size-6 stroke-white" />
+                            </div>
                         </div>
+                        
+                        <div class="flex items-center w-full min-w-full px-5 py-2 space-x-3 space-y-2 justify-evenly lg:grid lg:grid-cols-12"
+                            x-init="initDraggablePlayers($el)">
+                            <template x-for="player in players" :key="player.id">
+                                <!-- Player -->
+                                <div class="relative flex flex-col justify-center pb-4 rounded-md w-fit md:pb-6 player-item"
+                                    :data-id="player.id">
+                                    <!-- PlayerImage -->
+                                    <div class="relative flex items-center justify-center rounded-full size-16 md:size-20">
+                                        <img class="rounded-full" :src="player.path">
+                                        
+                                        <p class="absolute text-lg font-black text-white"
+                                            x-show="!player.pathExist"
+                                            x-text="player.number"></p>
 
-                        <!-- Toggle Number -->
-                        <div class="flex flex-col justify-center space-y-2 w-fit">
-                            <x-ui.button.toggle-button
-                                x-data="{ isOn: true }"
-                                x-init="$watch('isOn', isOn => {
-                                    document
-                                        .querySelectorAll('.tier_player-number')
-                                        .forEach(player => player.classList.toggle('hidden'));
-                                })"
-                                class="self-center" />
+                                        <!-- Position -->
+                                        <div class="absolute top-0 left-[20%] -translate-x-[60%] bg-gray-700 px-1 rounded-md tier_player-position">
+                                            <p class="text-xs font-black md:text-base"
+                                                x-text="player.position"
+                                                x-init="positionColor($el, player.position)">
+                                            </p>
+                                        </div>
 
-                            <p class="w-full text-sm font-black text-center text-gray-400">Number</p>
+                                        <!-- Number -->
+                                        <div class="absolute bottom-[-5%] left-[60%] rounded-full bg-gray-700 size-5 md:size-7 flex justify-center items-center tier_player-number"
+                                            x-show="player.number">
+                                            <p class="text-sm font-black text-white md:text-base"
+                                                x-text="player.number">
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- PlayerName -->
+                                    <p class="absolute bottom-0 w-full text-xs font-black text-center text-white truncate sm:text-sm tier_player-name"
+                                        x-text="player.name">
+                                    </p>
+                                </div>
+                            </template>
                         </div>
+                    </div>
 
-                        <!-- Toggle Position -->
-                        <div class="flex flex-col justify-center space-y-2 w-fit">
-                            <x-ui.button.toggle-button
-                                x-data="{ isOn: true }"
-                                x-init="$watch('isOn', isOn => {
-                                    document
-                                        .querySelectorAll('.tier_player-position')
-                                        .forEach(player => player.classList.toggle('hidden'));
-                                })"
-                                class="self-center" />
+                    <!-- Option -->
+                    <div class="p-3 rounded-xl" x-cloak>
+                        <div class="flex items-center mt-3 space-x-5">
+                            <!-- Toggle Name -->
+                            <div class="flex flex-col justify-center space-y-2 w-fit">
+                                <x-ui.button.toggle-button
+                                    x-data="{ isOn: true }"
+                                    x-init="$watch('isOn', isOn => {
+                                        document
+                                            .querySelectorAll('.tier_player-name')
+                                            .forEach(player => player.classList.toggle('hidden'));
+                                    })"
+                                    class="self-center" />
 
-                            <p class="w-full text-sm font-black text-center text-gray-400">Position</p>
-                        </div>
+                                <p class="w-full text-sm font-black text-center text-gray-400">Name</p>
+                            </div>
 
-                        <!-- Toggle Frame -->
-                        <div class="flex flex-col justify-center space-y-2 w-fit">
-                            <x-ui.button.toggle-button
-                                x-data="{ isOn: true }"
-                                x-init="$watch('isOn', isOn => $dispatch('change-frame', isOn))"
-                                class="self-center" />
+                            <!-- Toggle Number -->
+                            <div class="flex flex-col justify-center space-y-2 w-fit">
+                                <x-ui.button.toggle-button
+                                    x-data="{ isOn: true }"
+                                    x-init="$watch('isOn', isOn => {
+                                        document
+                                            .querySelectorAll('.tier_player-number')
+                                            .forEach(player => player.classList.toggle('hidden'));
+                                    })"
+                                    class="self-center" />
 
-                            <p class="w-full text-sm font-black text-center text-gray-400">Frame</p>
+                                <p class="w-full text-sm font-black text-center text-gray-400">Number</p>
+                            </div>
+
+                            <!-- Toggle Position -->
+                            <div class="flex flex-col justify-center space-y-2 w-fit">
+                                <x-ui.button.toggle-button
+                                    x-data="{ isOn: true }"
+                                    x-init="$watch('isOn', isOn => {
+                                        document
+                                            .querySelectorAll('.tier_player-position')
+                                            .forEach(player => player.classList.toggle('hidden'));
+                                    })"
+                                    class="self-center" />
+
+                                <p class="w-full text-sm font-black text-center text-gray-400">Position</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            
-            <!-- Select Player -->
-            <div class="w-full mt-3 space-y-2">
-                @foreach($positionGroups as $position => $positionGroup)
-                    <div class="w-full rounded-xl">
-                        <div class="grid w-full grid-cols-12 min-h-28" x-init="initDraggableItem($el)">
-                            @foreach($positionGroup as $player)
-                                <div class="flex flex-col justify-center w-full p-2 rounded-2xl">
-                                    <div class="flex flex-col items-center justify-center w-full space-y-3">
-                                        <x-player.player :$player size="size-16">
-                                            <x-slot:frame>
-                                                <div x-data="{ isNormal: true }"
-                                                    x-init="window.addEventListener('change-frame', (e) => {
-                                                        isNormal = event.detail;
-                                                      });">
-                                                    <template x-if="isNormal">
-                                                        <x-player.frames.normal />
-                                                    </template>
-
-                                                    <template x-if="!isNormal">
-                                                        <x-player.frames.rounded />
-                                                    </template>
-                                                </div>
-                                            </x-slot:frame>
-                                            
-                                            <x-slot:top-left>
-                                                <x-player.parts.position
-                                                    :position="$player['position']"
-                                                    textSize="text-sm"
-                                                    class="tier_player-position" />
-                                            </x-slot:top-left>
-                                            
-                                            <x-slot:bottom-right>
-                                                @if($player['number'])
-                                                    <p class="text-center text-white bg-gray-600 rounded-full size-6 tier_player-number">
-                                                        {{ $player['number'] }}
-                                                    </p>
-                                                @endif
-                                            </x-slot:bottom-right>
-                                        </x-player.player>
-                                        
-                                        <div class="tier_player-name">
-                                            <x-player.parts.name
-                                                :name="$player['name']"
-                                                :highlightName="false"
-                                                textSize="text-xs" />
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
             </div>
         </div>
     </div>
 </x-app-layout>
 
-@vite(['resources/js/app.js', 'resources/js/tier.js', 'resources/css/tier.css'])
+@vite([
+    'resources/js/tier/tier.js',
+    'resources/js/tier/draggable.js',
+    'resources/js/tier/players.js',
+    'resources/css/tier.css'
+])

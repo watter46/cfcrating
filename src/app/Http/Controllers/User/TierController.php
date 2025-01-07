@@ -18,8 +18,14 @@ class TierController extends Controller
 
     public function index()
     {
-        $players = $this->fetchPlayers->execute();
+        $players = $this->fetchPlayers->execute([
+            'id',
+            'name',
+            'position',
+            'number',
+            'api_player_id'
+        ]);
         
-        return view('user.tier', ['positionGroups' => $this->presenter->present($players)]);
+        return view('user.tier', ['players' => $this->presenter->present($players)]);
     }
 }
