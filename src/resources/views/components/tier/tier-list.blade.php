@@ -38,7 +38,7 @@
                     <!-- itemList -->
                     <div class="flex items-stretch w-full">
                         <!-- DragArea -->
-                        <div id="tier-item" class="flex flex-wrap w-full gap-1"
+                        <div id="tier-item" class="flex flex-wrap w-full gap-1 tier-item-list"
                             x-init="initDraggableItem($el)"></div>
 
                         <!-- Setting -->

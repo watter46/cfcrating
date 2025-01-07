@@ -91,8 +91,20 @@ window.tierListData = (maxCount) => {
             window.addEventListener('remove-tier', (event) => {
                 const id = event.detail.id;
 
-                this.rows = this.rows.filter(row => row.id !== id);
+                const playerItems = [...document.querySelectorAll('.tier-list')]
+                    .find(tier => Number(tier.dataset.id) === id)
+                    .querySelector('.tier-item-list')
+                    .querySelectorAll('.player-item');
 
+                if (playerItems.length > 0) {
+                    notify('Players are still in this tier.');
+
+                    window.dispatchEvent(new CustomEvent('close-modal-tier-setting'));
+                    return;
+                }
+
+                this.rows = this.rows.filter(row => row.id !== id);
+                
                 window.dispatchEvent(new CustomEvent('close-modal-tier-setting'));
             });
         }
