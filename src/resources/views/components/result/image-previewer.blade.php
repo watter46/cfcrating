@@ -1,4 +1,4 @@
-<div id="previewer" class="flex flex-col justify-center w-full">
+<div id="previewer" {{ $attributes->class('flex flex-col justify-center w-full') }}>
     <div class="w-full mb-3">
         <x-game-summary.team-score-card :$game class="w-full" />
     </div>

@@ -18,7 +18,7 @@
             <div class="absolute inset-0 opacity-75 bg-gray-950"></div>
         </div>
         
-        <div x-show="open" class="absolute inset-0 grid w-full zoom-in sm:my-20 place-items-center"
+        <div x-show="open" class="absolute inset-0 w-full h-full zoom-in sm:my-10 place-items-center"
             x-transition:leave="ease-in duration-100"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-10 scale-95">
