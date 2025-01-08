@@ -18,8 +18,8 @@ class StartingXIController extends Controller
 
     public function index()
     {
-        $players = $this->fetchPlayers->execute();
-        
+        $players = $this->fetchPlayers->execute(['id', 'name', 'position', 'number', 'api_player_id']);
+
         return view('user.startingXI', ['players' => $this->presenter->present($players)]);
     }
 }

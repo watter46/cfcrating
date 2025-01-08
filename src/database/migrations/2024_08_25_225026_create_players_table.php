@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->tinyText('name');
+            $table->tinyText('name_plain');
             $table->tinyText('position');
             $table->smallInteger('season')->length(4)->unsigned();
             $table->tinyInteger('number')->nullable()->unsigned();

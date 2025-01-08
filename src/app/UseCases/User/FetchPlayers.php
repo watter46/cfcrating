@@ -7,8 +7,14 @@ use App\Models\Player;
 
 class FetchPlayers
 {
-    public function execute()
+    public function execute($columns = [])
     {
-        return Player::currentSeason()->get();
+        $query = Player::currentSeason();
+
+        if (!empty($columns)) {
+            $query->select($columns);
+        }
+    
+        return $query->get();
     }
 }

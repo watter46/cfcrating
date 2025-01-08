@@ -8,7 +8,7 @@
     </p>
 </x-ui.modal.modal-button>
 
-<x-ui.modal.modal name="result" class="w-full h-full pb-5 md:w-11/12">
+<x-ui.modal.modal name="result">
     <div x-data="{
             includeSubs: true,
         }"
@@ -19,10 +19,10 @@
             substitutes.classList.toggle('hidden');
         })">
 
-        <x-result.image-previewer :$game />
+        <x-result.image-previewer :$game class="lg:w-3/4" />
     
-        <div class="flex justify-center w-auto mt-5 h-fit">
-            <div class="flex flex-col justify-center w-full md:w-fit">
+        <div class="flex justify-center mt-5 lg:w-1/4 lg:mt-0 h-fit">
+            <div class="flex flex-col justify-center w-full">
                 <!-- Options -->
                 <div class="flex w-full h-full items-center space-y-0.5 mb-10">
                     <label class="inline-flex items-center cursor-pointer">
@@ -35,22 +35,20 @@
                 <!-- Output -->
                 <div class="flex flex-col justify-center w-full space-y-3">
                     <!-- Download -->
-                    <x-ui.button.flow-button color="#16a34a"
-                        x-data="{
-                            before: 'Download Image',
-                            after: 'Downloaded!!',
-                            method: 'downloadImage'
-                        }">
+                    <x-ui.button.flow-button
+                        before="'Download Image'"
+                        after="'Downloaded!!'"
+                        method="'downloadImage'"
+                        color="#16a34a">
                         <x-svg.download class="w-5 h-5 stroke-gray-200" />
                     </x-ui.button.flow-button>
         
                     <!-- Copy -->
-                    <x-ui.button.flow-button color="#ca8a04"
-                        x-data="{
-                            before: 'Copy',
-                            after: 'Copied!!',
-                            method: 'copy'
-                        }">
+                    <x-ui.button.flow-button
+                        before="'Copy'"
+                        after="'Copied!!'"
+                        method="'copy'"
+                        color="#ca8a04">
                         <x-svg.copy class="w-5 h-5 fill-gray-200" />
                     </x-ui.button.flow-button>
                 </div>

@@ -66,7 +66,6 @@
 
     <!-- PlayersModal -->
     <x-ui.modal.modal
-        class="w-full h-full pb-5 md:w-11/12"
         name="startingxi"
         x-data="{ name: 'startingxi', positionId: null }"
         @open-modal-startingxi.window="positionId = event.detail">
@@ -116,7 +115,7 @@
     </x-ui.modal.modal>
 
     <div class="flex justify-center w-full lg:max-w-sm">
-        <div class="flex flex-col justify-center w-full mt-3 space-y-3 v">
+        <div class="flex flex-col justify-center w-full mt-3 space-y-3">
             <section class="flex items-center justify-end">
                 <!-- Formation-->
                 <div class="flex flex-col items-center w-full">
