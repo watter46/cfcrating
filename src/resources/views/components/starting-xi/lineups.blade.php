@@ -16,7 +16,7 @@
         </div>
         
         <!-- StartingXiField -->
-        <div class="relative flex flex-col items-center justify-center w-full">
+        <div id="starting-xi-field" class="relative flex flex-col items-center justify-center w-full">
             <!-- FieldImage -->
             {{ $slot }}
 
