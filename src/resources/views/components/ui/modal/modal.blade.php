@@ -1,5 +1,5 @@
 <section {{ $attributes }}>
-    <div class="fixed inset-0 z-50 flex flex-col items-stretch w-screen h-full min-h-screen overflow-y-auto"
+    <div class="fixed inset-0 z-50 w-screen h-full min-h-screen overflow-y-auto"
         x-data="initModal('{{ $name }}')"
         x-effect="open ? disabledScroll() : enableScroll()"
         x-cloak
@@ -18,12 +18,9 @@
             <div class="absolute inset-0 opacity-75 bg-gray-950"></div>
         </div>
         
-        <div x-show="open" class="absolute inset-0 w-full h-full zoom-in sm:my-10 place-items-center"
-            x-transition:leave="ease-in duration-100"
-            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-            x-transition:leave-end="opacity-0 translate-y-10 scale-95">
-            <div class="relative flex flex-col rounded-lg bg-[#05172F] w-full min-h-[90%] pb-5 md:w-11/12"
-                x-init="outside($el)">
+        <div x-show="open" class="flex justify-center w-full h-fit zoom-in sm:py-10">
+            <div class="rounded-lg bg-[#05172F] w-full h-full min-h-[90%] pb-5 md:w-11/12"
+                @click.outside="$dispatch('close-modal-{{ $name }}')">
                 
                 <!-- CloseButton -->
                 <div class="flex justify-end w-full pt-2 pr-2">
