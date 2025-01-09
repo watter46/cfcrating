@@ -15,9 +15,6 @@ window.initModal = (name) => {
         },
         closed() {
             window.addEventListener(`close-modal-${this.name}`, () => this.open = false);
-        },
-        outside(el) {
-            el.addEventListener('blur', () => this.open = false);
         }
     }
 }
