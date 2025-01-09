@@ -1,3 +1,14 @@
 .env
 .vscode/
 doc
+/src/app/Template/
+src/.phpunit.cache
+src/node_modules
+src/public/build
+src/public/hot
+src/public/storage
+src/public/image
+src/public/vendor
+src/storage/*.key
+src/vendor
+src/.env

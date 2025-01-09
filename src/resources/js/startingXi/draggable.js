@@ -6,6 +6,12 @@ window.initDraggable = (el) => {
     let isDragging = false;
 
     interact(el).draggable({
+        modifiers: [
+            interact.modifiers.restrictRect({
+                restriction: document.querySelector('#starting-xi-field'),
+                endOnly: false
+            })
+        ],
         listeners: {
             start(event) {
                 isDragging = true;
