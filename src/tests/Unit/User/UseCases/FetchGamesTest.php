@@ -2,9 +2,7 @@
 
 namespace Tests\Unit\User\UseCases;
 
-use App\Models\Game;
 use App\Models\GameUser;
-use App\Models\User;
 use App\UseCases\User\FetchGames;
 use App\UseCases\Util\TournamentType;
 use Database\Seeders\Test\UserTwentyGamesSeeder;
@@ -20,7 +18,7 @@ class FetchGamesTest extends UserTestCase
         $fetchGames = app(FetchGames::class);
 
         $games = $fetchGames->execute(TournamentType::ALL);
-        
+
         $this->assertSame(10, $games->count());
     }
 
