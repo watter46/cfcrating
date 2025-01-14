@@ -14,13 +14,13 @@ class FetchPlayersTest extends AdminTestCase
     public function test_今シーズンの選手全て取得できる(): void
     {
         // すべての選手の数
-        $this->assertDatabaseCount('players', 37);
+        $this->assertDatabaseCount('players', 42);
 
         $fetchPlayers = app(FetchPlayers::class);
 
         $players = $fetchPlayers->execute();
 
         // 2024シーズンの選手の数
-        $this->assertSame(32, $players->count());
+        $this->assertSame(37, $players->count());
     }
 }

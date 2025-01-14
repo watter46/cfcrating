@@ -51,6 +51,7 @@ class PlayerBuilder
                 return [
                     'api_player_id' => $player['id'],
                     'name'          => $player['name']->getFullName(),
+                    'name_plain'    => $player['name']->getFullNamePlain(),
                     'number'        => $player['number'],
                     'position'      => $player['position']->value,
                     'season'        => Season::current(),
