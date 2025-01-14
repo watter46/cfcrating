@@ -24,7 +24,7 @@ class FlashPlayerMatcher
         $teamMatchPlayer = $this->rawPlayers
             ->first(function (Collection $player) {
                 return $this->isChelseaTeam($player->get('NAME')) &&
-                    $this->isNameMatching($this->extractTeam($player->get('NAME')));
+                    $this->searchName->equal($this->extractTeam($player->get('NAME')));
             });
 
         if ($teamMatchPlayer) {
@@ -39,7 +39,7 @@ class FlashPlayerMatcher
 
         $nameMatchPlayer = $this->rawPlayers
             ->first(function (Collection $player) {
-                return $this->isNameMatching($this->extractTeam($player->get('NAME')));
+                return $this->searchName->equal($this->extractTeam($player->get('NAME')));
             });
 
         if ($nameMatchPlayer) {
@@ -60,21 +60,6 @@ class FlashPlayerMatcher
         $extractedName = Str::of($name)->before(' (')->toString();
 
         return Name::create($extractedName);
-    }
-
-    private function isNameMatching(Name $name)
-    {
-        $equal = $this->searchName->equalsFullName($name) ||
-            $this->searchName->equalsShortenName($name);
-
-        if ($equal) {
-            return true;
-        }
-
-        $swapName = $name->swapFirstAndLastName();
-
-        return $this->searchName->equalsFullName($swapName) ||
-            $this->searchName->equalsShortenName($swapName);
     }
 
     private function isChelseaTeam(string $name)
@@ -100,7 +85,7 @@ class FlashPlayerMatcher
             return $name;
         };
 
-        return $name->swapFirstAndLastName();
+        return $name->swap();
     }
 
     private function pathToImageId(?string $rawImagePath)
