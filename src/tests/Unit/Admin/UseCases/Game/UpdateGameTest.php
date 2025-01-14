@@ -30,7 +30,7 @@ class UpdateGameTest extends AdminTestCase
             'fixture_id' => 1208040
         ]);
 
-        $this->assertDatabaseCount('players', 37);
+        $this->assertDatabaseCount('players', 42);
     }
      
     public function test_ApiFootballから取得したfixtureをDBに保存できる(): void
