@@ -38,7 +38,7 @@ class Lineups
             ->map(function (Collection $player) {
                 return [
                     'id'      => $player->getDotRaw('player.id'),
-                    'name'    => Name::create($player->getDotRaw('player.name'))->getFullName(),
+                    'name'    => Name::create($player->getDotRaw('player.name')),
                     'number'  => $player->getDotRaw('statistics.0.games.number'),
                     'goal'    => $player->getDotRaw('statistics.0.goals.total'), 
                     'assists' => $player->getDotRaw('statistics.0.goals.assists'), 
@@ -65,7 +65,7 @@ class Lineups
 
                 return collect([
                     'id'        => $data['id'],
-                    'name'      => Name::create($data['name']),
+                    'name'      => $data['name'],
                     'number'    => $data['number'],
                     'position'  => PositionType::from($data['pos']),
                     'grid'      => $data['grid'],

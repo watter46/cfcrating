@@ -30,7 +30,7 @@ class UpdateFlash extends CheckAdminKey
             }
             
             $flashPlayer = $this->repository->searchPlayer(collect($player));
-
+            
             if (!$flashPlayer->exist()) {
                 throw new Exception('Flash Player Not Found.');
             }
