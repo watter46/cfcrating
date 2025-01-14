@@ -7,51 +7,76 @@ use Illuminate\Support\Str;
 
 readonly class Name
 {
-    public function __construct(private string $firstName, private ?string $lastName = null)
+    public function __construct(
+        private string $firstName,
+        private string $firstNamePlain,
+        private ?string $lastName = null,
+        private ?string $lastNamePlain = null)
     {
         //
     }
 
     public static function create(string $name): self
     {
-        $transliterated = Str::ascii($name);
+        $first = Str::of($name)->explode(' ')->first();
+        $last  = Str::of($name)->explode(' ')->last();
         
-        $first = Str::of($transliterated)->explode(' ')->first();
-        $last  = Str::of($transliterated)->explode(' ')->last();
+        $firstPlain = Str::ascii($first);
+        $lastPlain  = $first !== $last ? Str::ascii($last) : null;
 
         return new self(
             $first,
-            $first !== $last ? $last : null
+            $firstPlain,
+            $last,
+            $lastPlain
         );
     }
 
     public function equalsFullName(Name $name)
     {
-        return $this->getFullName() === $name->getFullName();
+        return $this->getFullNamePlain() === $name->getFullNamePlain();
     }
 
     public function equalsShortenName(Name $name)
     {
-        return $this->getShortenName() === $name->getShortenName();
+        return $this->getShortenNamePlain() === $name->getShortenNamePlain();
     }
 
     public function equalsLastName(Name $name)
     {
-        return $this->getLastName() === $name->getLastName();
+        return $this->getLastNamePlain() === $name->getLastNamePlain();
     }
 
-    public function swapFirstAndLastName(): self
+    public function swap(): self
     {    
         if (!$this->lastName) {
             return $this;
         }
         
-        return new self($this->lastName, $this->firstName);
+        return new self(
+            $this->lastName,
+            $this->lastNamePlain,
+            $this->firstName,
+            $this->firstNamePlain
+        );
     }
 
     public function isShorten(): bool
     {
         return preg_match('/^[A-Z]\.$/', $this->getFirstName()) === 1;
+    }
+
+    public function equal(Name $name)
+    {
+        $equal = $this->equalsFullName($name) || $this->equalsShortenName($name);
+
+        if ($equal) {
+            return true;
+        }
+
+        $swapName = $name->swap();
+
+        return $this->equalsFullName($swapName) || $this->equalsShortenName($swapName);
     }
 
     public function getFullName(): string
@@ -74,6 +99,26 @@ readonly class Name
         return $shortenFirstName.'. '.$this->getLastName();
     }
 
+    public function getFullNamePlain(): string
+    {
+        if (!$this->lastNamePlain) {
+            return $this->getFirstNamePlain();
+        }
+        
+        return $this->getFirstNamePlain().' '.$this->getLastNamePlain();
+    }
+
+    public function getShortenNamePlain(): string
+    {
+        if (!$this->lastNamePlain) {
+            return $this->getFirstNamePlain();
+        }
+        
+        $shortenFirstNamePlain = Str::substr($this->getFirstNamePlain(), 0, 1);
+
+        return $shortenFirstNamePlain.'. '.$this->getLastNamePlain();
+    }
+
     private function getFirstName(): string
     {
         return $this->firstName;
@@ -82,5 +127,15 @@ readonly class Name
     private function getLastName(): ?string
     {
         return $this->lastName;
+    }
+
+    private function getFirstNamePlain(): string
+    {
+        return $this->firstNamePlain;
+    }
+
+    private function getLastNamePlain(): ?string
+    {
+        return $this->lastNamePlain;
     }
 }
