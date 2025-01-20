@@ -106,8 +106,8 @@ class Game extends Model
     public function scopeNext(Builder $query)
     {
         $query
-            ->where('started_at', '>', now('UTC'))
-            ->orderBy('started_at');
+            ->where('finished_at', '>', now('UTC'))
+            ->orderBy('finished_at');
     }
 
     /**
