@@ -119,6 +119,8 @@ dev:
 work:
 	docker compose exec app php artisan schedule:work
 run:
+	docker compose exec app php artisan db:refresh-job-tables
+	@make update-job-games
 	docker compose exec app php artisan schedule:run
 queue:
 	docker compose exec app php artisan queue:work
@@ -126,6 +128,11 @@ listen:
 	docker compose exec app php artisan queue:listen
 stan:
 	docker compose exec app ./vendor/bin/phpstan analyse
-jobs:
+refresh-jobs:
 	docker compose exec app php artisan db:refresh-job-tables
+jobs:
+	@make refresh-jobs
+	@make update-job-games
 	@make work
+update-job-games:
+	docker compose exec app php artisan db:update-job-games
