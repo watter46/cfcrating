@@ -46,9 +46,7 @@ class RefreshSpecificTables extends Command
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Seeder実行処理
-        $this->call('db:seed', ['--class' => 'GamesSeeder']);
-        $this->call('db:seed', ['--class' => 'PlayersSeeder']);
-        $this->call('db:seed', ['--class' => 'GamePlayerSeeder']);
+        $this->call('db:seed', ['--class' => 'InsertSeeder']);
 
         $this->info('Specific tables have been refreshed and seeders executed successfully.');
 

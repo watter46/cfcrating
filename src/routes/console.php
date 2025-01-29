@@ -20,5 +20,4 @@ Schedule::job(new UpdateGamesJob)
 /** ユーザーの平均レーティングを更新する */
 Schedule::job(new UpdateUsersRatingJob)
     ->when(fn() => UpdateUsersRatingJob::shouldScheduleJob())
-    ->dailyAt('04:00')
-    ->timezone('UTC');
+    ->everyFifteenMinutes();
