@@ -9,7 +9,7 @@ use App\Jobs\UpdateUsersRatingJob;
 /** 試合後にFixtureデータをAPIから取得してDBを更新 */
 Schedule::job(new UpdateGameJob)
     ->when(fn() => UpdateGameJob::shouldScheduleJob())
-    ->everyThirtySeconds();
+    ->everyTenMinutes();
     
 /** FixturesデータをAPIから取得してDBを更新する */
 Schedule::job(new UpdateGamesJob)
@@ -20,5 +20,4 @@ Schedule::job(new UpdateGamesJob)
 /** ユーザーの平均レーティングを更新する */
 Schedule::job(new UpdateUsersRatingJob)
     ->when(fn() => UpdateUsersRatingJob::shouldScheduleJob())
-    ->dailyAt('04:00')
-    ->timezone('UTC');
+    ->everyFifteenMinutes();

@@ -11,7 +11,6 @@ use Throwable;
 
 use App\Models\Game;
 use App\UseCases\Admin\Exception\FixtureNotEndedException;
-use App\UseCases\Admin\Game\GameRule;
 use App\UseCases\Admin\Game\UpdateGame;
 
 
@@ -62,12 +61,12 @@ class UpdateGameJob implements ShouldQueue, ShouldBeUnique
                 return false;
             }
 
-            $isEnd = Game::query()
-                ->select(['id', 'is_end'])
+            $isDetailsFetched = Game::query()
+                ->select(['id', 'is_details_fetched'])
                 ->find($game['id'])
-                ->is_end;
+                ->is_details_fetched;
 
-            if (!$isEnd) {
+            if (!$isDetailsFetched) {
                 return true;
             }
 
