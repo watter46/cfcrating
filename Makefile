@@ -136,3 +136,5 @@ jobs:
 	@make work
 update-job-games:
 	docker compose exec app php artisan db:update-job-games
+refresh-spec:
+	docker compose exec app php artisan db:refresh-specific-tables

@@ -9,8 +9,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Models\User;
-
-
+use Illuminate\Support\Facades\DB;
 
 class AdminTestCase extends BaseTestCase
 {
@@ -51,6 +50,8 @@ class AdminTestCase extends BaseTestCase
 
     public function executeSeed($seeder)
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         if (is_string($seeder)) {
             $this->artisan('db:seed', ['--class' => $seeder]);
             return;
@@ -59,5 +60,7 @@ class AdminTestCase extends BaseTestCase
         foreach ($seeder as $seed) {
             $this->artisan('db:seed', ['--class' => $seed]);
         }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
