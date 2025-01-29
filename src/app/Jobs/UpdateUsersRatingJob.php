@@ -5,10 +5,8 @@ namespace App\Jobs;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Throwable;
 
-use App\Models\Game;
-use App\UseCases\Admin\Game\GameRule;
+use App\UseCases\Admin\Game\AverageRatingUpdateRules;
 use App\UseCases\Admin\UpdateUsersRating;
 
 
@@ -35,13 +33,10 @@ class UpdateUsersRatingJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $gameIds = Game::query()
-            ->currentSeason()
-            ->WithinRatingPeriod()
-            ->pluck('id');
-        
         try {
-            $gameIds
+            $rule = new AverageRatingUpdateRules;
+            
+            $rule->gameIdsToUpdate()
                 ->each(function (string $gameId) {
                     $this->updateUsersRating->execute($gameId);
                 });
@@ -51,22 +46,11 @@ class UpdateUsersRatingJob implements ShouldQueue
         }
     }
 
-    public function failed(?Throwable $exception): void
-    {
-        if ($this->retryCount >= GameRule::MAX_RETRY_COUNT) {
-            return;
-        }
-        
-        self::dispatch($this->retryCount + 1)
-            ->delay(now('UTC')->addMinutes(GameRule::RETRY_DELAY_MINUTES));
-    }
-
     public static function shouldScheduleJob()
     {
-        return Game::query()
-            ->currentSeason()
-            ->WithinRatingPeriod()
-            ->exists();
+        $rule = new AverageRatingUpdateRules;
+        
+        return $rule->shouldUpdate();
     }
 
     public function uniqueId(): string

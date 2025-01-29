@@ -24,13 +24,13 @@ class UpdateGameJobTest extends AdminTestCase
         $this->assertDatabaseHas('games', [
             'id' => '01JD18AVTFDMJXM4DJMP4PY57M',
             'started_at' => '2024-11-11 00:00:00',
-            'finished_at' => '2024-11-11 00:02:00',
+            'finished_at' => '2024-11-11 02:00:00',
         ]);
 
         $this->assertDatabaseHas('games', [
             'id' => '01JD18AVT9AYM6PQMVHFCM4SRA',
             'started_at' => '2024-11-12 00:00:00',
-            'finished_at' => '2024-11-12 00:02:00',
+            'finished_at' => '2024-11-12 02:00:00',
         ]);
     }
 
@@ -54,7 +54,7 @@ class UpdateGameJobTest extends AdminTestCase
         Cache::put('fixture:is_end', [
             'id' => '01JD18AVTFDMJXM4DJMP4PY57M',
             'started_at' => '2024-11-11 00:00:00',
-            'finished_at' => '2024-11-11 00:02:00',
+            'finished_at' => '2024-11-11 02:00:00',
         ]);
 
         $shouldJob = UpdateGameJob::shouldScheduleJob();
@@ -69,7 +69,7 @@ class UpdateGameJobTest extends AdminTestCase
         Cache::put('fixture:is_end', [
             'id' => '01JD18AVTFDMJXM4DJMP4PY57M',
             'started_at' => '2024-11-11 00:00:00',
-            'finished_at' => '2024-11-11 00:02:00',
+            'finished_at' => '2024-11-11 02:00:00',
         ]);
 
         $shouldJob = UpdateGameJob::shouldScheduleJob();
@@ -79,12 +79,12 @@ class UpdateGameJobTest extends AdminTestCase
 
     public function test_試合後かつまだデータを更新していないときtrueを返す(): void
     {
-        Carbon::setTestNow('2024-11-11 00:02:00');
+        Carbon::setTestNow('2024-11-11 02:00:00');
 
         Cache::put('fixture:is_end', [
             'id' => '01JD18AVTFDMJXM4DJMP4PY57M',
             'started_at' => '2024-11-11 00:00:00',
-            'finished_at' => '2024-11-11 00:02:00',
+            'finished_at' => '2024-11-11 02:00:00',
         ]);
 
         $shouldJob = UpdateGameJob::shouldScheduleJob();
@@ -94,14 +94,14 @@ class UpdateGameJobTest extends AdminTestCase
 
     public function test_試合後のときtrueを返して次の試合をキャッシュする(): void
     {
-        Game::find('01JD18AVTFDMJXM4DJMP4PY57M')->update(['is_end' => true]);
+        Game::find('01JD18AVTFDMJXM4DJMP4PY57M')->update(['is_details_fetched' => true]);
         
-        Carbon::setTestNow('2024-11-11 00:02:00');
+        Carbon::setTestNow('2024-11-11 02:00:00');
 
         Cache::put('fixture:is_end', [
             'id' => '01JD18AVTFDMJXM4DJMP4PY57M',
             'started_at' => '2024-11-11 00:00:00',
-            'finished_at' => '2024-11-11 00:02:00',
+            'finished_at' => '2024-11-11 02:00:00',
         ]);
 
         $shouldJob = UpdateGameJob::shouldScheduleJob();
