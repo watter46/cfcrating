@@ -47,7 +47,7 @@ class UpdateGameJob implements ShouldQueue, ShouldBeUnique
     {
         
     }
-    
+
     /**
      * キューにスタックするか判定する
      *
@@ -55,18 +55,48 @@ class UpdateGameJob implements ShouldQueue, ShouldBeUnique
      */
     public static function shouldScheduleJob()
     {
-        $game = Cache::rememberForever("fixture:is_end", function () {
-            return Game::query()
-                ->select(['id', 'started_at'])
+        if (Cache::has('fixture:is_end')) {
+            $game = Cache::get('fixture:is_end');
+            
+            if (Carbon::parse($game['finished_at'])->isFuture()) {
+                return false;
+            }
+
+            $isEnd = Game::query()
+                ->select(['id', 'is_end'])
+                ->find($game['id'])
+                ->is_end;
+
+            if (!$isEnd) {
+                return true;
+            }
+
+            $nextGame = Game::query()
+                ->select(['id', 'finished_at'])
                 ->currentSeason()
                 ->next()
                 ->first()
-                ->toArray();
-        });
+                ?->toArray();
 
-        return Carbon::parse($game['started_at'])
-            ->addMinutes(GameRule::DURATION_MINUTES)
-            ->isPast();
+            if (is_null($nextGame)) return false;
+
+            Cache::put('fixture:is_end', $nextGame);
+
+            return false;
+        }
+        
+        $nextGame = Game::query()
+            ->select(['id', 'finished_at'])
+            ->currentSeason()
+            ->next()
+            ->first()
+            ?->toArray();
+
+        if (is_null($nextGame)) return false;
+        
+        Cache::put('fixture:is_end', $nextGame);
+
+        return false;
     }
 
     /**

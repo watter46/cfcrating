@@ -14,8 +14,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Util\Season;
-use App\UseCases\Admin\Game\GameRule;
+use App\UseCases\Admin\Game\AverageRatingUpdateRules;
 use App\UseCases\Util\TournamentType;
+
 
 class Game extends Model
 {
@@ -23,11 +24,13 @@ class Game extends Model
     use HasUlids;
 
     public $incrementing = false;
-    public $timestamps = false;
     
     protected $keyType = 'string';
 
-    protected $dates = ['started_at', 'finished_at'];
+    protected $dates = ['started_at', 'finished_at', 'updated_at'];
+
+    const CREATED_AT = null;
+    const UPDATED_AT = 'updated_at';
 
     protected function casts(): array
     {
@@ -50,7 +53,8 @@ class Game extends Model
         'is_details_fetched',
         'started_at',
         'finished_at',
-        'is_winner'
+        'is_winner',
+        'updated_at'
     ];
 
     /**
@@ -111,16 +115,17 @@ class Game extends Model
     }
 
     /**
-     * 次の試合
+     * 数日前から今までの試合を取得する
      *
      * @param  Builder<Game> $query
+     * @param  int $days
      * @return void
      */
-    public function scopeWithinRatingPeriod(Builder $query)
+    public function scopeWithinDays(Builder $query, int $days = AverageRatingUpdateRules::RATING_PERIOD_DAYS)
     {
         $query->whereBetween(
             'finished_at', [
-            Carbon::now('UTC')->subDays(GameRule::RATING_PERIOD_DAYS),
+            Carbon::now('UTC')->subDays($days),
             Carbon::now('UTC')
         ]);
     }
@@ -158,5 +163,10 @@ class Game extends Model
             ->withDefault(function (GameUser $gameUser) {
                 $gameUser->user_id = Auth::id();
             });
+    }
+
+    public function gameUsers(): HasMany
+    {
+        return $this->hasMany(GameUser::class);
     }
 }

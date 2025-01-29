@@ -24,7 +24,7 @@ class UpdateGame extends CheckAdminKey
     {
         try {
             $game = Game::select('fixture_id')->findOrFail($gameId);
-            
+
             $fixture = $this->apiFootballRepository->fetchFixture($game->fixture_id);
             
             if (!$fixture->getIsEnd()) {
