@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('is_details_fetched')->default(false);
             $table->timestamp('started_at');
             $table->timestamp('finished_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

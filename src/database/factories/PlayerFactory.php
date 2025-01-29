@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Util\Name;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
@@ -32,6 +33,7 @@ class PlayerFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'name'           => $player['name'],
+            'name_plain'     => Name::create($player['name'])->getFullNamePlain(),
             'position'       => $player['position'],
             'season'         => $player['season'],
             'number'         => $player['number'],

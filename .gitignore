@@ -12,3 +12,4 @@ src/public/vendor
 src/storage/*.key
 src/vendor
 src/.env
+src/.env.testing

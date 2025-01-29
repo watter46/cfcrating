@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Test\AverageRatingsSeeder;
 use Illuminate\Database\Seeder;
 
 
