@@ -16,7 +16,7 @@ class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
     private int $playerId;
 
     private ImageManager $manager;
-    
+
     public function __construct()
     {
         $this->manager = new ImageManager(new Driver());
@@ -40,13 +40,15 @@ class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
     {
         $this->playerId = $playerId;
 
-        return $this->getFile($this); 
+        return $this->getFile($this);
     }
 
     public function write(int $playerId, string $image)
     {
+        $this->ensureDirectoryExists($this);
+
         $image = $this->manager->read($image);
-        
+
         $image
             ->toPng()
             ->save($this->storagePath($playerId));
@@ -55,7 +57,7 @@ class PlayerImageFile extends ImageFileHandler implements ImagePathInterface
     public function storagePath(int $playerId): string
     {
         $this->playerId = $playerId;
-        
+
         return self::STORAGE_PATH.'/'.$this->path();
     }
 

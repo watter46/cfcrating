@@ -4,7 +4,6 @@ namespace App\UseCases\Admin\Player;
 
 use App\Models\Player;
 
-
 class FetchPlayers
 {
     public function execute()

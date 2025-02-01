@@ -12,7 +12,7 @@ class FetchGames
 {
     public function __construct(private PlayerRateRules $rule)
     {
-        
+
     }
 
     public function execute(TournamentType $tournament, $page = 1)
@@ -26,12 +26,12 @@ class FetchGames
                 ->where('is_end', true)
                 ->orderBy('started_at', 'desc')
                 ->simplePaginate();
-                
+
             $mapped = $games
                 ->getCollection()
                 ->map(function (Game $game) {
                     $game->canRate = !$this->rule->isRateExpired($game);
-                    
+
                     return $game;
                 });
 
