@@ -2,11 +2,11 @@
 
 namespace App\File\Eloquent\Insert;
 
-use Illuminate\Support\Collection;
-
 use App\File\Data\FileHandler;
+use App\File\Eloquent\GameModelsFile as EqGameModelsFile;
 use App\File\PathInterface;
 use App\Models\Game;
+use App\Models\Util\Season;
 
 class GameModelsFile extends FileHandler implements PathInterface
 {
@@ -39,6 +39,15 @@ class GameModelsFile extends FileHandler implements PathInterface
 
                 return $game;
             });
+
+        $this->writeFile($this, $data);
+    }
+
+    public function make(?int $season = null)
+    {
+        $file = new EqGameModelsFile;
+
+        $data = $file->get($season ?? Season::current());
 
         $this->writeFile($this, $data);
     }

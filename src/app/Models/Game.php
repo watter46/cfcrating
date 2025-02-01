@@ -24,7 +24,8 @@ class Game extends Model
     use HasUlids;
 
     public $incrementing = false;
-    
+    public $timestamps = false;
+
     protected $keyType = 'string';
 
     protected $dates = ['started_at', 'finished_at', 'updated_at'];
@@ -68,7 +69,7 @@ class Game extends Model
         if ($tournament->isAll()) {
             return;
         }
-        
+
         $query->where('league_id', $tournament->value);
     }
 
@@ -91,7 +92,7 @@ class Game extends Model
             ->where('started_at', '<=', now('UTC'))
             ->orderBy('started_at', 'desc');
     }
-    
+
     /**
      * @param  Builder<Game> $query
      * @param  int $fixtureId
@@ -100,7 +101,7 @@ class Game extends Model
     {
         $query->where('fixture_id', $fixtureId);
     }
-    
+
     /**
      * 次の試合
      *

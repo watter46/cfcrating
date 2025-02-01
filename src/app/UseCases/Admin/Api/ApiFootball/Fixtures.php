@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 
 class Fixtures
-{    
+{
     /**
      * __construct
      *
@@ -15,9 +15,9 @@ class Fixtures
      */
     public function __construct(private Collection $fixtures)
     {
-        
+
     }
-    
+
     public static function create(Collection $data)
     {
         return new self(
@@ -40,6 +40,12 @@ class Fixtures
                     'league' => $fixture->getLeague(),
                 ]);
             });
+    }
+
+    public function filterIsEnd()
+    {
+        return $this->fixtures
+            ->filter(fn(Fixture $fixture) => $fixture->getIsEnd());
     }
 
     public function getLeagueIds()

@@ -16,9 +16,9 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
 {
     public function __construct(private FlashPlayerFile $flashPlayerFile)
     {
-        
+
     }
-    
+
     private function httpClient(string $url, ?array $queryParams = null): string
     {
         try {
@@ -29,7 +29,7 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
             ])
             ->retry(1, 500)
             ->get($url, $queryParams);
-    
+
             return $response->throw()->body();
         } catch (Exception $e) {
             throw $e;
@@ -51,7 +51,7 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
 
         return $matcher->match();
     }
-    
+
     /**
      * 選手の画像を取得する
      *
@@ -63,7 +63,7 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
         $playerImage = $this->httpClient('https://flashlive-sports.p.rapidapi.com/v1/images/data', [
             'image_id'=> $player['flash_image_id']
         ]);
-        
+
         return new PlayerImage($player['api_player_id'], $playerImage);
     }
 }

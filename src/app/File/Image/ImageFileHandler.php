@@ -12,12 +12,21 @@ class ImageFileHandler
     {
         return Storage::disk('public')->files($path->getDirPath());
     }
-    
+
+    protected function ensureDirectoryExists(ImagePathInterface $path)
+    {
+        if (Storage::disk('public')->exists($path->getDirPath())) {
+            return;
+        }
+
+        Storage::disk('public')->makeDirectory($path->getDirPath());
+    }
+
     protected function existFile(ImagePathInterface $path)
     {
         return Storage::disk('public')->exists($path->path());
     }
-    
+
     protected function getFile(ImagePathInterface $path)
     {
         if (!$this->existFile($path)) {
@@ -28,9 +37,9 @@ class ImageFileHandler
     }
 
     protected function writeFile(ImagePathInterface $path, string $image)
-    {        
+    {
         Storage::disk('public')->makeDirectory($path->getDirPath());
-        
+
         Storage::disk('public')->put($path->path(), $image);
     }
 }
