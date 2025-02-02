@@ -2,23 +2,17 @@
 
 namespace App\Infrastructure\FlashLive;
 
-use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Collection;
-
+use Exception;
+use App\UseCases\Admin\Api\FlashLive\PlayerImage;
+use App\UseCases\Admin\Api\FlashLive\FlashPlayerMatcher;
 use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
 use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
-use App\UseCases\Admin\Api\FlashLive\PlayerImage;
-use App\File\Data\FlashPlayerFile;
-use App\UseCases\Admin\Api\FlashLive\FlashPlayerMatcher;
 
-class FlashLiveRepository implements FlashLiveRepositoryInterface
+
+class ProductionFlashLiveRepository implements FlashLiveRepositoryInterface
 {
-    public function __construct(private FlashPlayerFile $flashPlayerFile)
-    {
-
-    }
-
     private function httpClient(string $url, ?array $queryParams = null): string
     {
         try {
@@ -44,8 +38,6 @@ class FlashLiveRepository implements FlashLiveRepositoryInterface
         ]);
 
         $data = collect(json_decode($json, true))->recursiveCollect();
-
-        $this->flashPlayerFile->write($player['api_player_id'], $data);
 
         $matcher = new FlashPlayerMatcher($data, $player['name']);
 

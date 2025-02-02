@@ -3,16 +3,15 @@
 namespace App\Infrastructure\Game;
 
 use Exception;
-
-use App\Models\Game;
-use App\Models\GamePlayer;
-use App\Models\Player;
-use App\UseCases\Admin\Api\ApiFootball\Fixture;
-use App\UseCases\Admin\Api\ApiFootball\Fixtures;
-use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\GameBuilder;
-use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\GamePlayerBuilder;
-use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\PlayerBuilder;
 use App\UseCases\Admin\Game\GameRepositoryInterface;
+use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\PlayerBuilder;
+use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\GamePlayerBuilder;
+use App\UseCases\Admin\Api\ApiFootball\ModelBuilder\GameBuilder;
+use App\UseCases\Admin\Api\ApiFootball\Fixtures;
+use App\UseCases\Admin\Api\ApiFootball\Fixture;
+use App\Models\Player;
+use App\Models\GamePlayer;
+use App\Models\Game;
 
 
 class GameRepository implements GameRepositoryInterface
@@ -22,7 +21,7 @@ class GameRepository implements GameRepositoryInterface
         private PlayerBuilder $playerBuilder,
         private GamePlayerBuilder $gamePlayerBuilder
     ) {
-        
+
     }
 
     public function bulkSave(Fixtures $fixtures): void
@@ -40,7 +39,7 @@ class GameRepository implements GameRepositoryInterface
             throw $e;
         }
     }
-    
+
     public function save(Fixture $fixture): void
     {
         try {
@@ -48,7 +47,7 @@ class GameRepository implements GameRepositoryInterface
                 ->select('id')
                 ->whereFixtureId($fixture->fixtureId())
                 ->firstOrFail();
-            
+
             $game->update($this->gameBuilder->fromFixture($fixture));
 
             $playersToUpdate = $this->playerBuilder->build($fixture, $this->fetchPlayers($fixture));
@@ -56,7 +55,7 @@ class GameRepository implements GameRepositoryInterface
             if ($playersToUpdate) {
                 Player::upsert($playersToUpdate, 'id');
             }
-            
+
             GamePlayer::upsert(
                 $this->gamePlayerBuilder->build(
                     $fixture,
