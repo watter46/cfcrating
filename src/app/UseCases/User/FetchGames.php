@@ -20,10 +20,11 @@ class FetchGames
         try {
             $games = Game::query()
                 ->with('gameUser')
-                ->select(['id', 'started_at', 'finished_at', 'score', 'teams', 'league'])
+                ->select(['id', 'started_at', 'finished_at', 'is_details_fetched', 'score', 'teams', 'league'])
                 ->tournament($tournament)
                 ->currentSeason()
-                ->where('is_end', true)
+                ->untilToday()
+                ->where('is_details_fetched', true)
                 ->orderBy('started_at', 'desc')
                 ->simplePaginate();
 

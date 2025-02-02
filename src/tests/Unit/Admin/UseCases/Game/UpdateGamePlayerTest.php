@@ -11,14 +11,14 @@ use Tests\Unit\Admin\AdminTestCase;
 class UpdateGamePlayerTest extends AdminTestCase
 {
     protected $seeder = UserOneGameSeeder::class;
-    
+
     public function test_Goal数を更新できる(): void
     {
         /** 1208040 2024-08-25 Wolves 01JD18AVT8PHWC5YRH6EERNW2N */
-        /** 01jd18avzkyr2bj21ardp1hnkx Marc Cucurella */
+        /** 01jjyq12j4391yv97qvt0sh49q Marc Cucurella */
 
         $this->assertDatabaseHas('game_player', [
-            'id' => '01jd18avzkyr2bj21ardp1hnkx',
+            'id' => '01jjyq12j4391yv97qvt0sh49q',
             'is_starter' => true,
             'grid' => '2:1',
             'assists' => 0,
@@ -27,12 +27,12 @@ class UpdateGamePlayerTest extends AdminTestCase
             'game_id' => '01JD18AVT8PHWC5YRH6EERNW2N',
             'player_id' => '01jd18avwedq7701wevkwzk1nt'
         ]);
-        
+
         $updateGamePlayer = app(UpdateGamePlayer::class);
-        $updateGamePlayer->execute('01jd18avzkyr2bj21ardp1hnkx', ['goals' => 3, 'assists' => 0]);
+        $updateGamePlayer->execute('01jjyq12j4391yv97qvt0sh49q', ['goals' => 3, 'assists' => 0]);
 
         $this->assertDatabaseHas('game_player', [
-            'id' => '01jd18avzkyr2bj21ardp1hnkx',
+            'id' => '01jjyq12j4391yv97qvt0sh49q',
             'is_starter' => true,
             'grid' => '2:1',
             'assists' => 0,
@@ -46,10 +46,10 @@ class UpdateGamePlayerTest extends AdminTestCase
     public function test_Assist数を更新できる(): void
     {
         /** 1208040 2024-08-25 Wolves 01JD18AVT8PHWC5YRH6EERNW2N */
-        /** 01jd18avzkyr2bj21ardp1hnkx Marc Cucurella */
+        /** 01jjyq12j4391yv97qvt0sh49q Marc Cucurella */
 
         $this->assertDatabaseHas('game_player', [
-            'id' => '01jd18avzkyr2bj21ardp1hnkx',
+            'id' => '01jjyq12j4391yv97qvt0sh49q',
             'is_starter' => true,
             'grid' => '2:1',
             'assists' => 0,
@@ -58,12 +58,12 @@ class UpdateGamePlayerTest extends AdminTestCase
             'game_id' => '01JD18AVT8PHWC5YRH6EERNW2N',
             'player_id' => '01jd18avwedq7701wevkwzk1nt'
         ]);
-        
+
         $updateGamePlayer = app(UpdateGamePlayer::class);
-        $updateGamePlayer->execute('01jd18avzkyr2bj21ardp1hnkx', ['goals' => 0, 'assists' => 3]);
+        $updateGamePlayer->execute('01jjyq12j4391yv97qvt0sh49q', ['goals' => 0, 'assists' => 3]);
 
         $this->assertDatabaseHas('game_player', [
-            'id' => '01jd18avzkyr2bj21ardp1hnkx',
+            'id' => '01jjyq12j4391yv97qvt0sh49q',
             'is_starter' => true,
             'grid' => '2:1',
             'assists' => 3,

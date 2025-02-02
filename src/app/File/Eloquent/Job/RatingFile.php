@@ -13,10 +13,10 @@ class RatingFile extends FileHandler implements PathInterface
     private const EXTENSION = '.json';
 
     /**
-     * 1310475 2024-10-29 Newcastle   
+     * 1310475 2024-10-29 Newcastle
      * 1208117 2024-11-04 Manchester United
-     */     
-    
+     */
+
     public function get()
     {
         return $this->getFile($this)->toArray();
@@ -25,7 +25,7 @@ class RatingFile extends FileHandler implements PathInterface
     public function write()
     {
         $game = Game::select('id')->fixtureId(1310475)->first();
-        
+
         $gamePlayerIds = $game->load('gamePlayers')->gamePlayers->take(5)->pluck('id');
 
         $ratings = collect([
@@ -38,9 +38,9 @@ class RatingFile extends FileHandler implements PathInterface
             [5.9, 7.8, 6.1, 8.5, 4.9],
             [8.8, 6.4, 7.5, 5.0, 9.3],
             [5.4, 7.9, 6.6, 8.2, 9.7],
-            [6.0, 8.6, 7.0, 5.5, 9.4] 
+            [6.0, 8.6, 7.0, 5.5, 9.4]
         ]);
-        
+
         $gameUser = new GameUserFile;
 
         $data = collect($gameUser->get())
