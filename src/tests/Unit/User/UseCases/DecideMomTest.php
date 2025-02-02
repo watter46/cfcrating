@@ -19,15 +19,15 @@ class DecideMomTest extends UserTestCase
             'user_id' => 1,
             'game_id' => '01JD18AVT8PHWC5YRH6EERNW2N'
         ]);
-        
+
         // 現在時間を試合翌日にする
         Carbon::setTestNow('2024-08-25');
-        
+
         $decideMom = app(DecideMom::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $response = $decideMom->execute($gameId, $gamePlayerId);
 
         $this->assertSame($gamePlayerId, $response['id']);
@@ -38,7 +38,7 @@ class DecideMomTest extends UserTestCase
             'user_id' => 1,
             'game_id' => '01JD18AVT8PHWC5YRH6EERNW2N',
             'mom_count' => 1,
-            'mom_game_player_id' => '01jd18avzkyr2bj21ardp1hnkx'
+            'mom_game_player_id' => '01jjyq12j4391yv97qvt0sh49r'
         ]);
     }
 
@@ -49,15 +49,15 @@ class DecideMomTest extends UserTestCase
             'user_id' => 1,
             'game_id' => '01JD18AVT8PHWC5YRH6EERNW2N'
         ]);
-        
+
         // 現在時間を試合翌日にする
         Carbon::setTestNow('2024-08-25');
-        
+
         $decideMom = app(DecideMom::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $response = $decideMom->execute($gameId, $gamePlayerId);
 
         $this->assertSame($gamePlayerId, $response['id']);
@@ -68,7 +68,7 @@ class DecideMomTest extends UserTestCase
             'user_id' => 1,
             'game_id' => '01JD18AVT8PHWC5YRH6EERNW2N',
             'mom_count' => 5,
-            'mom_game_player_id' => '01jd18avzkyr2bj21ardp1hnkx'
+            'mom_game_player_id' => '01jjyq12j4391yv97qvt0sh49r'
         ]);
     }
 
@@ -76,16 +76,16 @@ class DecideMomTest extends UserTestCase
     {
         // 現在時間を期間外にする
         Carbon::setTestNow('2024-11-11');
-        
+
         $decideMom = app(DecideMom::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $this->expectException(DomainException::class);
 
         $this->expectExceptionMessage('Rate period has expired.');
-        
+
         $decideMom->execute($gameId, $gamePlayerId);
     }
 
@@ -93,24 +93,24 @@ class DecideMomTest extends UserTestCase
     {
         // 現在時間を試合翌日にする
         Carbon::setTestNow('2024-08-25');
-        
+
         // mom_countを最大(5)にする
         GameUser::forceCreate([
             'mom_count' => 5,
-            'mom_game_player_id' => '01jd18avzkyr2bj21ardp1hnkx',
+            'mom_game_player_id' => '01jjyq12j4391yv97qvt0sh49r',
             'user_id' => 1,
             'game_id' => '01JD18AVT8PHWC5YRH6EERNW2N'
         ]);
-        
+
         $decideMom = app(DecideMom::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $this->expectException(DomainException::class);
 
         $this->expectExceptionMessage('MOM limit exceeded.');
-        
+
         $decideMom->execute($gameId, $gamePlayerId);
     }
 }

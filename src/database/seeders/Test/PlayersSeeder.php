@@ -3,7 +3,6 @@
 namespace Database\Seeders\Test;
 
 use App\File\Eloquent\Insert\PlayerModelsFile;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +14,7 @@ class PlayersSeeder extends Seeder
     public function run(): void
     {
         $players = new PlayerModelsFile;
-        
+
         DB::table('players')->insert($players->get()->toArray());
     }
 }

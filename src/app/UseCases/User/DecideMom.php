@@ -15,9 +15,9 @@ class DecideMom
 {
     public function __construct(private PlayerRateRules $playerRateRules)
     {
-        
+
     }
-    
+
     /**
      * @param  string $gameId
      * @param  string $gamePlayerId
@@ -48,7 +48,7 @@ class DecideMom
             if (!$gamePlayer) {
                 throw new ModelNotFoundException('Player Not Found');
             }
-            
+
             /** @var GameUser $gameUser */
             $gameUser = $game->gameUser;
 

@@ -22,7 +22,7 @@
         <env name="DB_CONNECTION" value="mysql_testing" force="true"/>
         <env name="DB_HOST" value="db-testing" force="true"/>
         <env name="DB_PORT" value="3306" force="true"/>
-        <env name="DB_DATABASE" value="rating-test" force="true"/>
+        <env name="DB_DATABASE" value="cfcrating-test" force="true"/>
         <env name="DB_USERNAME" value="root" force="true"/>
         <env name="DB_PASSWORD" value="password" force="true"/>
         <env name="QUEUE_CONNECTION" value="database"/>

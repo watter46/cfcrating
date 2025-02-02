@@ -6,7 +6,6 @@ use App\File\Data\FileHandler;
 use App\File\PathInterface;
 use App\Models\GamePlayer;
 
-
 class GamePlayerModelsFile extends FileHandler implements PathInterface
 {
     private const DIR_PATH  = 'Template/Eloquent/Insert';

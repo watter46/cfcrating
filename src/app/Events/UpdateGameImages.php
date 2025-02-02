@@ -16,7 +16,7 @@ class UpdateGameImages
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public InvalidImageChecker $checker;
-    
+
     /**
      * Create a new event instance.
      */

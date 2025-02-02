@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 use App\File\Data\FileHandler;
 use App\File\PathInterface;
 
-
 class FixtureFile extends FileHandler implements PathInterface
 {
     private const DIR_PATH  = 'Template/ApiFootball/Fixture';
@@ -18,7 +17,7 @@ class FixtureFile extends FileHandler implements PathInterface
     public function get(int $fixtureId)
     {
         $this->fixtureId = $fixtureId;
-        
+
         return $this->getFile($this);
     }
 

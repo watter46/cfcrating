@@ -19,7 +19,7 @@ class AverageRatingsSeeder extends Seeder
 
         // Userを追加
         User::factory(9)->create();
-        
+
         // Gameを追加
         $file = new GameModelsFile;
 
@@ -36,7 +36,7 @@ class AverageRatingsSeeder extends Seeder
         DB::table('game_user')->insert($gameUser->get());
 
         $rating = new RatingFile;
-        
+
         // Ratingを追加
         DB::table('ratings')->insert($rating->get());
 

@@ -18,12 +18,12 @@ class RatePlayerTest extends UserTestCase
     {
         // 現在時間を試合翌日にする
         Carbon::setTestNow('2024-08-25');
-        
+
         $ratePlayer = app(RatePlayer::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $response = $ratePlayer->execute($gameId, $gamePlayerId, 10.0);
 
         $this->assertSame($gamePlayerId, $response['id']);
@@ -41,13 +41,13 @@ class RatePlayerTest extends UserTestCase
             'rating' => 10,
             'rate_count' => 2,
             'user_id' => 1,
-            'game_player_id' => '01jd18avzkyr2bj21ardp1hnkx'
+            'game_player_id' => '01jjyq12j4391yv97qvt0sh49r'
         ]);
-        
+
         $ratePlayer = app(RatePlayer::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
 
         $response = $ratePlayer->execute($gameId, $gamePlayerId, 10.0);
 
@@ -61,22 +61,22 @@ class RatePlayerTest extends UserTestCase
     {
         // 現在時間を試合翌日にする
         Carbon::setTestNow('2024-08-25');
-        
+
         $ratePlayer = app(RatePlayer::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $this->expectException(DomainException::class);
 
         $this->expectExceptionMessage('rating must be between 3.0 and 10.0');
-        
+
         $ratePlayer->execute($gameId, $gamePlayerId, 50);
 
         $this->expectException(DomainException::class);
 
         $this->expectExceptionMessage('rating must be between 3.0 and 10.0');
-        
+
         $ratePlayer->execute($gameId, $gamePlayerId, -50);
     }
 
@@ -84,16 +84,16 @@ class RatePlayerTest extends UserTestCase
     {
         // 現在時間を期間外にする
         Carbon::setTestNow('2024-11-11');
-        
+
         $ratePlayer = app(RatePlayer::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $this->expectException(DomainException::class);
 
         $this->expectExceptionMessage('Rate period has expired.');
-        
+
         $ratePlayer->execute($gameId, $gamePlayerId, 10.0);
     }
 
@@ -101,24 +101,24 @@ class RatePlayerTest extends UserTestCase
     {
         // 現在時間を試合翌日にする
         Carbon::setTestNow('2024-08-25');
-        
+
         // rate_countを最大(3)にする
         Rating::forceCreate([
             'rating' => 10,
             'rate_count' => 3,
             'user_id' => 1,
-            'game_player_id' => '01jd18avzkyr2bj21ardp1hnkx'
+            'game_player_id' => '01jjyq12j4391yv97qvt0sh49r'
         ]);
-        
+
         $ratePlayer = app(RatePlayer::class);
 
         $gameId = '01JD18AVT8PHWC5YRH6EERNW2N';
-        $gamePlayerId = '01jd18avzkyr2bj21ardp1hnkx';
-        
+        $gamePlayerId = '01jjyq12j4391yv97qvt0sh49r';
+
         $this->expectException(DomainException::class);
 
         $this->expectExceptionMessage('Rate limit exceeded.');
-        
+
         $ratePlayer->execute($gameId, $gamePlayerId, 10.0);
     }
 }

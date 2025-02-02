@@ -18,8 +18,15 @@ class FixturesFile extends FileHandler implements PathInterface
     public function get(int $season)
     {
         $this->season = $season;
-        
+
         return $this->getFile($this);
+    }
+
+    public function getFixtureIds(int $season)
+    {
+        $this->season = $season;
+
+        return $this->getFile($this)->pluck('fixture.id');
     }
 
     public function write(int $season, Collection $data)

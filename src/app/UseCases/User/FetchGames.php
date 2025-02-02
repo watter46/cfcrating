@@ -12,7 +12,7 @@ class FetchGames
 {
     public function __construct(private PlayerRateRules $rule)
     {
-        
+
     }
 
     public function execute(TournamentType $tournament, $page = 1)
@@ -20,18 +20,19 @@ class FetchGames
         try {
             $games = Game::query()
                 ->with('gameUser')
-                ->select(['id', 'started_at', 'finished_at', 'score', 'teams', 'league'])
+                ->select(['id', 'started_at', 'finished_at', 'is_details_fetched', 'score', 'teams', 'league'])
                 ->tournament($tournament)
                 ->currentSeason()
-                ->where('is_end', true)
+                ->untilToday()
+                ->where('is_details_fetched', true)
                 ->orderBy('started_at', 'desc')
                 ->simplePaginate();
-                
+
             $mapped = $games
                 ->getCollection()
                 ->map(function (Game $game) {
                     $game->canRate = !$this->rule->isRateExpired($game);
-                    
+
                     return $game;
                 });
 
