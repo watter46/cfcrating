@@ -1,18 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Infrastructure\FlashLive;
 
 use Illuminate\Support\Collection;
-
-use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
-use App\UseCases\Admin\Api\FlashLive\FlashPlayerMatcher;
-use App\File\Data\FlashPlayerFile;
-use App\File\Image\PlayerImageFile;
-use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
 use App\UseCases\Admin\Api\FlashLive\PlayerImage;
+use App\UseCases\Admin\Api\FlashLive\FlashPlayerMatcher;
+use App\UseCases\Admin\Api\FlashLive\FlashPlayer;
+use App\UseCases\Admin\Api\FlashLive\FlashLiveRepositoryInterface;
+use App\File\Image\PlayerImageFile;
+use App\File\Data\FlashPlayerFile;
 
 
-class TestFlashLiveRepository implements FlashLiveRepositoryInterface
+class MockFlashLiveRepository implements FlashLiveRepositoryInterface
 {
     public function __construct(
         private FlashPlayerFile $flashPlayerFile,
@@ -34,11 +33,11 @@ class TestFlashLiveRepository implements FlashLiveRepositoryInterface
     public function fetchPlayerImage(Collection $player): PlayerImage
     {
         $playerId = $player['api_player_id'];
-        
+
         $realFilePath = storage_path("app/public/image/player/$playerId.png");
-        
+
         $playerImage = file_get_contents($realFilePath);
-        
+
         return new PlayerImage($player['api_player_id'], $playerImage);
     }
 }

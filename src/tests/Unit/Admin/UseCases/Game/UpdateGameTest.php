@@ -2,16 +2,16 @@
 
 namespace Tests\Unit\Admin\UseCases\Game;
 
-use App\Events\UpdateGameImages;
-use App\File\Data\FixtureFile;
-use App\File\Data\Test\ApiFootball\FixturesFile;
-use App\Infrastructure\ApiFootball\TestApiFootballRepository;
-use App\UseCases\Admin\Game\GameRepositoryInterface;
-use App\UseCases\Admin\Game\UpdateGame;
-use Database\Seeders\Test\GameSeeder;
-use Database\Seeders\Test\PlayersSeeder;
-use Illuminate\Support\Facades\Event;
 use Tests\Unit\Admin\AdminTestCase;
+use Illuminate\Support\Facades\Event;
+use Database\Seeders\Test\PlayersSeeder;
+use Database\Seeders\Test\GameSeeder;
+use App\UseCases\Admin\Game\UpdateGame;
+use App\UseCases\Admin\Game\GameRepositoryInterface;
+use App\Infrastructure\ApiFootball\MockApiFootballRepository;
+use App\File\Data\Test\ApiFootball\FixturesFile;
+use App\File\Data\FixtureFile;
+use App\Events\UpdateGameImages;
 
 
 class UpdateGameTest extends AdminTestCase
@@ -37,7 +37,7 @@ class UpdateGameTest extends AdminTestCase
     {
         Event::fake();
 
-        $repository = new TestApiFootballRepository(new FixturesFile, new FixtureFile);
+        $repository = new MockApiFootballRepository(new FixturesFile, new FixtureFile);
 
         $updateGames = new UpdateGame($repository, app(GameRepositoryInterface::class));
         $updateGames->execute('01JD18AVT8PHWC5YRH6EERNW2N');
