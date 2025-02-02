@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\File\Eloquent\Job\GameModelsFile;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 

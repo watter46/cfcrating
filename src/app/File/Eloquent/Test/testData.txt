@@ -8,14 +8,14 @@ Gameテストデータ 20件
 1208094 2024-10-20 PL  Liverpool
 1299319 2024-10-24 ECL Panathinaikos
 1208107 2024-10-27 EFL Newcastle
-1310475 2024-10-29 PL  Newcastle   
+1310475 2024-10-29 PL  Newcastle
 1208117 2024-11-04 PL  Manchester United 01JD18AVT9AYM6PQMVHFCM4SRA
 1299338 2024-11-07 ECL FC Noah
 1208125 2024-11-10 PL  Arsenal 01JD18AVT9AYM6PQMVHFCM4SRB
 
 === not finished ===
 
-1208139 2024-11-23 Leicester 
+1208139 2024-11-23 Leicester
 1299349 2024-11-28 FC Heidenheim
 1208145 2024-12-01 Aston Villa
 1208162 2024-12-04 Southampton
@@ -44,7 +44,7 @@ fixture_id started_at vs
 Gameテストデータ 5件
 
 1208107 2024-10-27 Newcastle
-1310475 2024-10-29 Newcastle   
+1310475 2024-10-29 Newcastle
 1208117 2024-11-04 Manchester United
 1299338 2024-11-07 FC Noah
 1208125 2024-11-10 Arsenal
@@ -57,10 +57,10 @@ Gameテストデータ 1件
 GamePlayerデータ (vs Wolves)
 
     GamePlayerId
-        01jd18avzkyr2bj21ardp1hnkx
+        01jjyq12j4391yv97qvt0sh49r
 
     選手データ
-    id                         name           position number api_player_id flash_id flash_image_id
-    01jd18avwedq7701wevkwzk1nt Marc Cucurella D        3      47380         QTynbZd3 6Nc3h6e5-KMTavdXs
+    id                         name           position number api_player_id flash_id flash_image_id    | game_player_id
+    01jd18avwedq7701wevkwzk1nt Marc Cucurella D        3      47380         QTynbZd3 6Nc3h6e5-KMTavdXs   01jjyq12j4391yv97qvt0sh49q
 
     01jd18avwgpx3m9msaw5djmf0j Jadon Sancho   F        19     18            n5mG9yn6 lhETALHG-jFu5NFr0

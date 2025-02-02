@@ -25,16 +25,16 @@ class CalculateRatingPercentageTest extends UserTestCase
     public function test_評価されていないとき50％になる(): void
     {
         Rating::insert([
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnks'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkt'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkv'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkw'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkx'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnky'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkz'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm0'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j3sf17rsh4k2cweatz'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49m'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49n'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49p'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49q'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49r'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49s'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49t'],
         ]);
-        
+
         $calculateRatingPercentage = app(CalculateRatingPercentage::class);
 
         $percentage = $calculateRatingPercentage->execute('01JD18AVT8PHWC5YRH6EERNW2N');
@@ -45,22 +45,22 @@ class CalculateRatingPercentageTest extends UserTestCase
     public function test_評価されていないとき100％になる(): void
     {
         Rating::insert([
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnks'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkt'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkv'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkw'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkx'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnky'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnkz'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm0'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm1'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm2'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm3'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm4'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm5'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm6'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm7'],
-            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jd18avzkyr2bj21ardp1hnm8']
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j3sf17rsh4k2cweatz'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49m'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49n'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49p'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49q'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49r'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49s'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49t'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49v'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49w'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49x'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49y'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh49z'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh4a0'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh4a1'],
+            ['id' => (string) Str::ulid(), 'rating' => 6.0, 'rate_count' => 1, 'user_id' => 1 , 'game_player_id' => '01jjyq12j4391yv97qvt0sh4a2']
         ]);
 
         $calculateRatingPercentage = app(CalculateRatingPercentage::class);

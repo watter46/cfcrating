@@ -11,14 +11,14 @@ use Tests\Unit\Admin\AdminTestCase;
 class EditGameTest extends AdminTestCase
 {
     protected $seeder = UserTwentyGamesSeeder::class;
-    
+
     public function test_スコアを変更できる(): void
     {
         $score = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->score;
-        
+
         $this->assertSame(1, $score['fulltime']['home']);
         $this->assertSame(1, $score['fulltime']['away']);
-        
+
         $editGame = app(EditGame::class);
 
         $data = [
@@ -28,7 +28,7 @@ class EditGameTest extends AdminTestCase
                 'extratime' => ['home' => null, 'away' => null],
             ]
         ];
-        
+
         $editGame->execute('01JD18AVT9AYM6PQMVHFCM4SRA', $data);
 
         $edited = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->score;
@@ -40,10 +40,10 @@ class EditGameTest extends AdminTestCase
     public function test_延長線のスコアを変更できる(): void
     {
         $score = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->score;
-        
+
         $this->assertNull($score['extratime']['home']);
         $this->assertNull($score['extratime']['away']);
-        
+
         $editGame = app(EditGame::class);
 
         $data = [
@@ -53,7 +53,7 @@ class EditGameTest extends AdminTestCase
                 'extratime' => ['home' => 0, 'away' => 1],
             ]
         ];
-        
+
         $editGame->execute('01JD18AVT9AYM6PQMVHFCM4SRA', $data);
 
         $edited = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->score;
@@ -65,10 +65,10 @@ class EditGameTest extends AdminTestCase
     public function test_PKのスコアを変更できる(): void
     {
         $score = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->score;
-        
+
         $this->assertNull($score['penalty']['home']);
         $this->assertNull($score['penalty']['away']);
-        
+
         $editGame = app(EditGame::class);
 
         $data = [
@@ -78,7 +78,7 @@ class EditGameTest extends AdminTestCase
                 'extratime' => ['home' => 0, 'away' => 0],
             ]
         ];
-        
+
         $editGame->execute('01JD18AVT9AYM6PQMVHFCM4SRA', $data);
 
         $edited = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->score;
@@ -91,31 +91,33 @@ class EditGameTest extends AdminTestCase
 
     public function test_試合の日時を変更できる(): void
     {
-        $started_at = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->started_at;
-        
-        $this->assertSame('2024-11-04 18:10:00', $started_at);
-        
+        $this->assertDatabaseHas('games', [
+            'id' => '01JD18AVT9AYM6PQMVHFCM4SRA',
+            'started_at' => '2024-11-03 16:30:00'
+        ]);
+
         $editGame = app(EditGame::class);
 
         $data = ['started_at' => "2024-11-05 20:00:00"];
-        
+
         $editGame->execute('01JD18AVT9AYM6PQMVHFCM4SRA', $data);
 
-        $edited = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->started_at;
-
-        $this->assertSame('2024-11-05 20:00:00', $edited);
+        $this->assertDatabaseHas('games', [
+            'id' => '01JD18AVT9AYM6PQMVHFCM4SRA',
+            'started_at' => '2024-11-05 20:00:00'
+        ]);
     }
 
     public function test_試合の勝敗を変更できる(): void
     {
         $is_winner = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->is_winner;
-        
+
         $this->assertNull($is_winner);
-        
+
         $editGame = app(EditGame::class);
 
         $data = ['is_winner' => true];
-        
+
         $editGame->execute('01JD18AVT9AYM6PQMVHFCM4SRA', $data);
 
         $win = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->is_winner;
@@ -123,7 +125,7 @@ class EditGameTest extends AdminTestCase
         $this->assertTrue($win);
 
         $data = ['is_winner' => false];
-        
+
         $editGame->execute('01JD18AVT9AYM6PQMVHFCM4SRA', $data);
 
         $lose = Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->is_winner;

@@ -90,7 +90,7 @@ class AverageRatingUpdateRulesTest extends AdminTestCase
     public function test_1試合目がインターバル内で更新済みの場合falseを返す()
     {
         Carbon::setTestNow('2024-11-11 02:30:01');
-        
+
         Game::find('01JD18AVTFDMJXM4DJMP4PY57M')->update(['updated_at' => '2024-11-11 02:15:01']);
 
         $rule = new AverageRatingUpdateRules;
@@ -101,7 +101,7 @@ class AverageRatingUpdateRulesTest extends AdminTestCase
     public function test_1試合目が更新済みかつインターバル後の場合trueを返す()
     {
         Carbon::setTestNow('2024-11-11 02:30:02');
-        
+
         Game::find('01JD18AVTFDMJXM4DJMP4PY57M')->update(['updated_at' => '2024-11-11 02:15:01']);
 
         $rule = new AverageRatingUpdateRules;
@@ -112,10 +112,10 @@ class AverageRatingUpdateRulesTest extends AdminTestCase
     public function test_2試合の更新期間がかぶっているかつ1試合目がインターバル外の時idを1つ返す()
     {
         Carbon::setTestNow('2024-11-12 02:30:02');
-        
+
         Game::find('01JD18AVTFDMJXM4DJMP4PY57M')->update(['updated_at' => '2024-11-12 02:15:02']);
         Game::find('01JD18AVT9AYM6PQMVHFCM4SRA')->update(['updated_at' => '2024-11-12 02:15:01']);
-        
+
         $rule = new AverageRatingUpdateRules;
 
         $this->assertCount(1, $rule->gameIdsToUpdate());
@@ -124,7 +124,7 @@ class AverageRatingUpdateRulesTest extends AdminTestCase
     public function test_初期インターバルを超えて更新期間外の時falseを返す()
     {
         Carbon::setTestNow('2024-11-11 06:00:00');
-        
+
         Game::find('01JD18AVTFDMJXM4DJMP4PY57M')->update(['updated_at' => '2024-11-11 05:00:00']);
 
         $rule = new AverageRatingUpdateRules;
@@ -135,7 +135,7 @@ class AverageRatingUpdateRulesTest extends AdminTestCase
     public function test_初期インターバルを超えて更新期間外中の時trueを返す()
     {
         Carbon::setTestNow('2024-11-11 06:00:01');
-        
+
         Game::find('01JD18AVTFDMJXM4DJMP4PY57M')->update(['updated_at' => '2024-11-11 05:00:00']);
 
         $rule = new AverageRatingUpdateRules;

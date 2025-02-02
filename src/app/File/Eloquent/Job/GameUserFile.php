@@ -4,6 +4,7 @@ namespace App\File\Eloquent\Job;
 
 use App\File\Data\FileHandler;
 use App\File\PathInterface;
+use Illuminate\Support\Str;
 
 
 class GameUserFile extends FileHandler implements PathInterface
@@ -12,10 +13,10 @@ class GameUserFile extends FileHandler implements PathInterface
     private const EXTENSION = '.json';
 
     /**
-     * 1310475 2024-10-29 Newcastle   
+     * 1310475 2024-10-29 Newcastle
      * 1208117 2024-11-04 Manchester United
-     */     
-    
+     */
+
     public function get()
     {
         return $this->getFile($this)->toArray();
@@ -32,7 +33,7 @@ class GameUserFile extends FileHandler implements PathInterface
 
                 return $r[$momIndex]['game_player_id'];
             });
-        
+
         $data = collect($this->get())
             ->map(function ($gameUser, $i) use ($momGamePlayerIds) {
                 $gameUser['mom_game_player_id'] = $momGamePlayerIds[$i];
