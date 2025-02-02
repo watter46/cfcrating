@@ -16,10 +16,10 @@ class GameModelsFile extends FileHandler implements PathInterface
     private const JSON_KEYS = ['score', 'teams', 'league'];
 
     /**
-     * 1310475 2024-10-29 Newcastle   
+     * 1310475 2024-10-29 Newcastle
      * 1208117 2024-11-04 Manchester United
-     */     
-    
+     */
+
     public function get()
     {
         return $this->getFile($this)
@@ -41,17 +41,17 @@ class GameModelsFile extends FileHandler implements PathInterface
         $game->is_winner = null;
         $game->is_details_fetched = false;
         $game->started_at = Carbon::create(2024, 11, 11, 0, 0, 0, 'UTC')->format('Y-m-d H:i:s');
-        $game->finished_at = Carbon::create(2024, 11, 11, 0, 0, 0, 'UTC')->addMinutes(1)->format('Y-m-d H:i:s');
+        $game->finished_at = Carbon::create(2024, 11, 11, 0, 0, 0, 'UTC')->addHours(2)->format('Y-m-d H:i:s');
 
         $game2 = Game::whereFixtureId(1208117)->first();
         $game2->is_end = false;
         $game2->is_winner = null;
         $game2->is_details_fetched = false;
-        $game2->started_at = Carbon::create(2024, 11, 11, 0, 1, 0, 'UTC')->format('Y-m-d H:i:s');
-        $game2->finished_at = Carbon::create(2024, 11, 11, 0, 1, 0, 'UTC')->addMinutes(1)->format('Y-m-d H:i:s');
-        
+        $game2->started_at = Carbon::create(2024, 11, 12, 0, 0, 0, 'UTC')->format('Y-m-d H:i:s');
+        $game2->finished_at = Carbon::create(2024, 11, 12, 0, 0, 0, 'UTC')->addHours(2)->format('Y-m-d H:i:s');
+
         $data = collect()->push($game)->push($game2);
-        
+
         $this->writeFile($this, $data);
     }
 

@@ -1,5 +1,3 @@
-version: '3.8'
-
 volumes:
   php-fpm-socket:
   db-store:
@@ -86,20 +84,3 @@ services:
       - MYSQL_DATABASE=${DB_TEST_NAME}
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_ALLOW_EMPTY_PASSWORD="yes"
-      
-  # redis:
-  #   image: "redis:7.2.4-alpine"
-  #   container_name: ${APP_NAME}-redis
-  #   command: redis-server --appendonly yes
-  #   ports:
-  #     - 6379:6379
-  #   volumes:
-  #     - redis-store:/data
-  #     - ./infra/docker/redis/redis.conf:/etc/redis.conf
-
-  # redis-testing:
-  #   image: "redis:7.2.4-alpine"
-  #   container_name: ${APP_NAME}-redis-testing
-  #   command: redis-server --appendonly yes
-  #   ports:
-  #     - 6380:6379

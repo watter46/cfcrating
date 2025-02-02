@@ -23,7 +23,7 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
     public function get(int $fixtureId)
     {
         $this->fixtureId = $fixtureId;
-        
+
         return $this->getFile($this);
     }
 
@@ -59,7 +59,7 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
                 }
 
                 $isEnd = $file->get($fixtureId)->getDotRaw('fixture.status.short') === 'FT';
-                
+
                 return $isEnd;
             })
             ->each(function (int $fixtureId) {
@@ -70,7 +70,7 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
                 }
 
                 $lineups = Lineups::create($file->get($fixtureId)->only(['lineups', 'statistics', 'players']));
-                
+
                 $data = $lineups->get()
                     ->map(function (Collection $player) {
                         $player = $player->only(['id', 'grid', 'assists', 'goal', 'rating']);
@@ -101,7 +101,7 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
         }
 
         $lineups = Lineups::create($file->get($fixtureId)->only(['lineups', 'statistics', 'players']));
-        
+
         $data = $lineups->get()
             ->flatten(1)
             ->map(function (Collection $player) {
@@ -115,7 +115,7 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
                     'rating'  => $player['rating']
                 ];
             });
-            
+
         $this->write($fixtureId, $data);
     }
 
@@ -124,7 +124,7 @@ class GamePlayerModelFile extends FileHandler implements PathInterface
         $this->fixtureId = $fixtureId;
 
         $this->writeFile($this, $data);
-        
+
         return $this->get($fixtureId);
     }
 

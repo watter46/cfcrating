@@ -15,7 +15,7 @@ class UpdatePlayerImages
         private FlashLiveRepositoryInterface $repository,
         private ImageRepositoryInterface $imageRepository
     ) {
-        
+
     }
 
     public function execute(Collection $invalidApiPlayerIds)

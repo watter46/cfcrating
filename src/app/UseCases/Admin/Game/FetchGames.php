@@ -6,7 +6,6 @@ use Exception;
 
 use App\Models\Game;
 
-
 class FetchGames
 {
     public function execute()
