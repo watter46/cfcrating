@@ -13,3 +13,5 @@ src/storage/*.key
 src/vendor
 src/.env
 src/.env.testing
+src/.env.production
+Memo/
