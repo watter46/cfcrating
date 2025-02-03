@@ -7,9 +7,6 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Http\Controllers\Auth\SocialProviderType;
 use App\Http\Controllers\Auth\RoleType;
-use App\File\Eloquent\Insert\PlayerModelsFile;
-use App\File\Eloquent\Insert\GamePlayerModelsFile;
-use App\File\Eloquent\Insert\GameModelsFile;
 
 class ProductionSeeder extends Seeder
 {
@@ -26,18 +23,46 @@ class ProductionSeeder extends Seeder
         ]);
 
         // Game
-        $games = new GameModelsFile;
-
-        DB::table('games')->insert($games->get());
+        DB::table('games')->insert($this->gamesData());
 
         // Player
-        $players = new PlayerModelsFile;
-
-        DB::table('players')->insert($players->get()->toArray());
+        DB::table('players')->insert($this->playersData());
 
         // GamePlayer
-        $gamePlayers = new GamePlayerModelsFile;
+        DB::table('game_player')->insert($this->gamePlayersData());
+    }
 
-        DB::table('game_player')->insert($gamePlayers->get()->toArray());
+    public function gamesData()
+    {
+        $path = 'seeders/data/games.json';
+
+        $file = json_decode(file_get_contents(database_path($path)), true);
+
+        return collect($file)
+            ->recursiveCollect()
+            ->map(function ($game) {
+                return $game->map(function ($column, $key) {
+                    if (collect(['score', 'teams', 'league'])->contains($key)) {
+                        return json_encode($column);
+                    }
+
+                    return $column;
+                });
+            })
+            ->toArray();
+    }
+
+    public function playersData()
+    {
+        $path = 'seeders/data/players.json';
+
+        return json_decode(file_get_contents(database_path($path)), true);
+    }
+
+    public function gamePlayersData()
+    {
+        $path = 'seeders/data/gamePlayers.json';
+
+        return json_decode(file_get_contents(database_path($path)), true);
     }
 }

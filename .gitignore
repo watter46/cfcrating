@@ -1,17 +1,42 @@
+# 環境変数ファイル（機密情報）
 .env
-.vscode/
-doc
-/src/app/Template/
-src/.phpunit.cache
-src/node_modules
-src/public/build
-src/public/hot
-src/public/storage
-src/public/image
-src/public/vendor
-src/storage/*.key
-src/vendor
 src/.env
 src/.env.testing
 src/.env.production
+
+# Laravel のログ・キャッシュ
+src/storage/
+
+# Composer 依存ファイル
+src/vendor/
+
+# Node.js 依存ファイル
+src/node_modules/
+src/package-lock.json
+
+# テンプレートファイル
+src/app/File/Data/Test/
+src/app/File/Eloquent/
+src/app/Template/
+
+# キャッシュ・ビルドファイル
+src/bootstrap/cache/*
+src/public/hot
+src/public/storage
+src/public/mix-manifest.json
+src/public/js/*.map
+src/public/css/*.map
+
+# テスト
+src/.phpunit.xml
+src/.phpunit.result.cache
+src/tests/
+
+# IDE・エディタ関連
 Memo/
+.vscode/
+doc
+src/_ide_helper_models.php
+src/_ide_helper.php
+
+# Docker関連
