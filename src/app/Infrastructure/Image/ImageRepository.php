@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Image;
 
-use App\UseCases\Admin\Api\Util\ImageInterface;
 use App\UseCases\Admin\Api\Util\ImageRepositoryInterface;
+use App\UseCases\Admin\Api\Util\ImageInterface;
 
 
 class ImageRepository implements ImageRepositoryInterface

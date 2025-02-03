@@ -2,13 +2,12 @@
 
 namespace Tests\Unit\Admin\UseCases\Player;
 
-use App\Infrastructure\FlashLive\InMemoryFlashLiveRepository;
-use App\Models\Player;
-use App\UseCases\Admin\Player\UpdateFlash;
-use Database\Seeders\Test\PlayersSeeder;
-use Exception;
-use Mockery\MockInterface;
 use Tests\Unit\Admin\AdminTestCase;
+use Exception;
+use Database\Seeders\Test\PlayersSeeder;
+use App\UseCases\Admin\Player\UpdateFlash;
+use App\Models\Player;
+use App\Infrastructure\FlashLive\MockFlashLiveRepository;
 
 
 class UpdateFlashTest extends AdminTestCase
@@ -28,9 +27,9 @@ class UpdateFlashTest extends AdminTestCase
          * flash_id: n5mG9yn6
          * flash_image_id: lhETALHG-jFu5NFr0
          */
-        
+
     }
-    
+
     public function test_flashIdがnullの選手をFlashLiveから取得してflashIdとflashImageIdを更新できる(): void
     {
         // flash_id flash_image_idをnullにする
@@ -46,8 +45,8 @@ class UpdateFlashTest extends AdminTestCase
             'flash_id' => null,
             'flash_image_id' => null
         ]);
-        
-        $updateFlash = new UpdateFlash(app(InMemoryFlashLiveRepository::class));
+
+        $updateFlash = new UpdateFlash(app(MockFlashLiveRepository::class));
         $updateFlash->execute('01jd18avwgpx3m9msaw5djmf0j');
 
         $this->assertDatabaseHas('players', [
@@ -73,8 +72,8 @@ class UpdateFlashTest extends AdminTestCase
             'id' => '01jd18avwgpx3m9msaw5djmf0j',
             'name' => 'J. Sancho'
         ]);
-        
-        $updateFlash = new UpdateFlash(app(InMemoryFlashLiveRepository::class));
+
+        $updateFlash = new UpdateFlash(app(MockFlashLiveRepository::class));
         $updateFlash->execute('01jd18avwgpx3m9msaw5djmf0j');
 
         $this->assertDatabaseHas('players', [
@@ -100,11 +99,11 @@ class UpdateFlashTest extends AdminTestCase
             'flash_image_id' => null,
             'is_fetched' => true
         ]);
-        
+
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('The player has already been retrieved.');
-        
-        $updateFlash = new UpdateFlash(app(InMemoryFlashLiveRepository::class));
+
+        $updateFlash = new UpdateFlash(app(MockFlashLiveRepository::class));
         $updateFlash->execute('01jd18avwgpx3m9msaw5djmf0j');
     }
 }
