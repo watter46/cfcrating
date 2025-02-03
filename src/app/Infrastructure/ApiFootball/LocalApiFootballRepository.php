@@ -3,25 +3,24 @@
 namespace App\Infrastructure\ApiFootball;
 
 use Exception;
-use Illuminate\Support\Facades\Http;
-
 use App\Models\Util\Season;
-use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
+use App\File\Data\FixtureFile;
+use App\File\Data\FixturesFile;
+use Illuminate\Support\Facades\Http;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\Fixtures;
-use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
 use App\UseCases\Admin\Api\ApiFootball\TeamImage;
-use App\File\Data\FixturesFile;
-use App\File\Data\FixtureFile;
+use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
+use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 
 
-class ApiFootballRepository implements ApiFootballRepositoryInterface
+class LocalApiFootballRepository implements ApiFootballRepositoryInterface
 {
     public function __construct(
         private FixtureFile $fixtureFile,
         private FixturesFile $fixturesFile
     ) {
-        
+
     }
 
     private function httpClient(string $url, ?array $queryParams = null): string
@@ -33,7 +32,7 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
             ])
             ->retry(1, 500)
             ->get($url, $queryParams);
-    
+
             return $response->throw()->body();
 
         } catch (Exception $e) {
@@ -52,7 +51,7 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
             ->recursiveCollect();
 
         $this->fixturesFile->write(Season::current(), $data);
-        
+
         return Fixtures::create($data);
     }
 
@@ -72,7 +71,7 @@ class ApiFootballRepository implements ApiFootballRepositoryInterface
     public function fetchLeagueImage(int $leagueId): LeagueImage
     {
         $image = $this->httpClient("https://media-4.api-sports.io/football/leagues/$leagueId.png");
-        
+
         return new LeagueImage($leagueId, $image);
     }
 
