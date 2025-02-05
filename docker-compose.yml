@@ -15,7 +15,7 @@ services:
         - GROUP_ID=${GROUP_ID}
         - GROUP_NAME=${GROUP_NAME}
     ports:
-      - target: 8080
+      - target: 80
         published: ${WEB_PORT}
         protocol: tcp
         mode: host
