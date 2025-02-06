@@ -1,7 +1,5 @@
 volumes:
-  php-fpm-socket:
   db-store:
-  redis-store:
 
 services:
   web:
@@ -15,19 +13,14 @@ services:
         - GROUP_ID=${GROUP_ID}
         - GROUP_NAME=${GROUP_NAME}
     ports:
-      - target: 8080
+      - target: 80
         published: ${WEB_PORT}
         protocol: tcp
         mode: host
     volumes:
-      - type: volume
-        source: php-fpm-socket
-        target: /var/run/php-fpm
       - type: bind
         source: ./src
         target: /var/www/src
-    environment:
-      - TZ=Asia/Tokyo
 
   app:
     container_name: ${APP_NAME}-app
@@ -42,16 +35,11 @@ services:
         - GROUP_ID=${GROUP_ID}
         - GROUP_NAME=${GROUP_NAME}
     volumes:
-      - type: volume
-        source: php-fpm-socket
-        target: /var/run/php-fpm
       - type: bind
         source: ./src
         target: /var/www/src
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    depends_on:
-      - web
 
   db:
     container_name: ${APP_NAME}-db
