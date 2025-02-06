@@ -39,8 +39,6 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY --from=node /usr/local/bin /usr/local/bin
 COPY --from=node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
 
-COPY ./infra/docker/php/php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
-COPY ./infra/docker/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
 
 ARG GROUP_ID ${GROUP_ID} \
