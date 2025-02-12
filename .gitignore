@@ -26,11 +26,14 @@ src/public/storage
 src/public/mix-manifest.json
 src/public/js/*.map
 src/public/css/*.map
+src/public/build/
 
 # テスト
 src/.phpunit.xml
 src/.phpunit.result.cache
 src/tests/
+bin/
+.github/
 
 # IDE・エディタ関連
 Memo/

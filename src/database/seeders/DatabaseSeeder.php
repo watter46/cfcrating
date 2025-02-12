@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\Test\AverageRatingsSeeder;
 use Illuminate\Database\Seeder;
-
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,9 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,
-            AdminUserSeeder::class,
-            InsertSeeder::class
+            ProductionSeeder::class
         ]);
     }
 }

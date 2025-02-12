@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="shortcut icon" href="{{ asset('/image/favicon.ico') }}" sizes="32x32" type="image/png">
-        
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -18,10 +18,10 @@
 
         @livewireStyles
     </head>
-    <body class="m-0 font-sans antialiased">
+    <body class="m-0 font-sans antialiased bg-[#030423]">
         <!-- Background -->
         <x-ui.background.large />
-        
+
         <div class="min-h-screen">
             @include('layouts.user.navigation')
 
@@ -37,7 +37,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="mb-10 sm:mb-0">
                 {{ $slot }}
             </main>
         </div>

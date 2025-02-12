@@ -1,7 +1,7 @@
 FROM composer:2.7.8 as composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
-	COMPOSER_HOME=/composer
+        COMPOSER_HOME=/composer
 
 FROM node:20.17.0-bullseye-slim as node
 
@@ -18,8 +18,6 @@ RUN apt-get update \
     libjpeg62-turbo-dev \
     libpng-dev \
   && apt-get clean \
-  && pecl install redis \
-  && docker-php-ext-enable redis \
   && docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
   && docker-php-ext-install \
     intl \
