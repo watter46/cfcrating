@@ -138,3 +138,9 @@ update-job-games:
 	docker compose exec app php artisan db:update-job-games
 fresh-spec:
 	docker compose exec app php artisan db:refresh-specific-tables
+	
+# production
+cp-cron:
+	sudo touch /etc/cron.d/letsencrypt-renew
+	sudo chown root:root /etc/cron.d/letsencrypt-renew
+	sudo chmod 644 /etc/cron.d/letsencrypt-renew

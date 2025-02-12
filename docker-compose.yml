@@ -24,8 +24,6 @@ services:
 
   app:
     container_name: ${APP_NAME}-app
-    ports:
-      - 5173:5173
     build:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
@@ -38,8 +36,6 @@ services:
       - type: bind
         source: ./src
         target: /var/www/src
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   db:
     container_name: ${APP_NAME}-db

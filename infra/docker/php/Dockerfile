@@ -18,8 +18,6 @@ RUN apt-get update \
     libjpeg62-turbo-dev \
     libpng-dev \
   && apt-get clean \
-  && pecl install redis \
-  && docker-php-ext-enable redis \
   && docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
   && docker-php-ext-install \
     intl \
