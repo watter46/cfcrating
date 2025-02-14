@@ -1,22 +1,3 @@
-.env
-.vscode/
-doc
-/src/app/Template/
-src/.phpunit.cache
-src/node_modules
-src/public/build
-src/public/hot
-src/public/storage
-src/public/image
-src/public/vendor
-src/storage/*.key
-src/vendor
-src/.env
-src/.env.testing
-src/.env.production
-Memo/
-bin/
-
 # Laravel のログ・キャッシュ
 src/storage/
 
@@ -41,10 +22,18 @@ src/public/mix-manifest.json
 src/public/js/*.map
 src/public/css/*.map
 
+# 環境ファイル
+.env
+.env.local
+src/.env
+src/.env.testing
+src/.env.production
+
 # テスト
 src/.phpunit.xml
 src/.phpunit.result.cache
 src/tests/
+bin/
 
 # IDE・エディタ関連
 Memo/

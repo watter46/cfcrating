@@ -1,12 +1,9 @@
-FROM nginx:1.27
+FROM nginx:1.27 as base
 
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 WORKDIR /var/www/src
 
 ENV TZ=UTC
-
-COPY ./infra/docker/nginx/nginx.conf /etc/nginx/
-COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/
 
 RUN <<EOF
   groupmod -g 1000 nginx
@@ -15,3 +12,11 @@ RUN <<EOF
         /var/run/ \
         /var/log/nginx/
 EOF
+
+FROM base as local
+
+COPY ./infra/docker/nginx/default.local.conf /etc/nginx/conf.d/
+
+FROM base as production
+
+COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/

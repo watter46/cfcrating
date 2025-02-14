@@ -1,56 +1,68 @@
-FROM composer:2.7.8 as composer
+FROM php:8.3-fpm-bullseye AS base
 
-ENV COMPOSER_ALLOW_SUPERUSER=1 \
-	COMPOSER_HOME=/composer
-
-FROM node:20.17.0-bullseye-slim as node
-
-FROM php:8.3.10-fpm-bullseye as base
-WORKDIR /var/www/src
-
-RUN apt-get update \
-  && apt-get install --no-install-recommends -y \
-    git \
-    unzip \
-    libicu-dev \
-    libzip-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
-  && apt-get clean \
-  && docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
-  && docker-php-ext-install \
-    intl \
-    pdo_mysql \
-    zip bcmath \
-    gd \
-  && rm -rf /var/lib/apt/lists/*
-
-
-# 最終イメージ
-FROM base
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 WORKDIR /var/www/src
 
-# マルチステージビルドでphp-fpmコンテナにcomposerとnpmを追加する
+# timezone environment
+ENV TZ=UTC \
+  # locale
+  LANG=en_US.UTF-8 \
+  LANGUAGE=en_US:en \
+  LC_ALL=en_US.UTF-8 \
+  # composer environment
+  COMPOSER_HOME=/composer
+
+FROM composer:2.7.8 as composer
+
+FROM node:20.17.0-bullseye-slim as node
+
+ARG UID=1000
+ARG GID=1000
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY --from=node /usr/local/bin /usr/local/bin
 COPY --from=node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
 
+# hadolint ignore=DL3008
+RUN <<EOF
+  apt-get update
+  apt-get -y install --no-install-recommends \
+    locales \
+    git \
+    unzip \
+    libzip-dev \
+    libicu-dev \
+    libonig-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    default-mysql-client
+  locale-gen en_US.UTF-8
+  localedef -f UTF-8 -i en_US en_US.UTF-8 \
+  docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
+  docker-php-ext-install \
+    intl \
+    pdo_mysql \
+    zip \
+    bcmath \
+    gd
+  # permission denied bind mount in Linux environment
+  groupadd --gid $GID $USER_NAME
+  useradd --uid $UID --gid $GID $USER_NAME
+  chown $USER_NAME:$USER_NAME /composer
+  chown $USER_NAME:$USER_NAME /var/www
+  apt-get clean
+  rm -rf /var/lib/apt/lists/*
+EOF
+
+FROM base AS local
+
+COPY ./infra/docker/php/php.local.ini /usr/local/etc/php/php.ini
+
+USER $USER_NAME
+
+FROM base AS production
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
-
-ARG GROUP_ID ${GROUP_ID} \
-    GROUP_NAME ${GROUP_NAME} \
-    USER_ID ${USER_ID} \
-    USER_NAME ${USER_NAME}
-
-RUN groupadd -g $GROUP_ID $GROUP_NAME \
-  && useradd -m -s /bin/bash -l -u $USER_ID -g $GROUP_ID $USER_NAME \
-  && chown -R $USER_NAME:$GROUP_NAME /var/www/ \
-  && chmod +x /var/www/ \
-  && mkdir /var/run/php-fpm \
-  && chown -R $USER_NAME:$GROUP_NAME /var/www/ \
-  && chown -R $USER_NAME:$GROUP_NAME /var/run/ \
-  && chown -R $USER_NAME:$GROUP_NAME /var/log/
+COPY --chown=$USER_NAME:$USER_NAME ./src /var/www/src/
 
 USER $USER_NAME

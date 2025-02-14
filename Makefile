@@ -1,5 +1,5 @@
 up:
-	docker compose up -d
+	docker compose -f docker-compose.yml -f docker-compose.override.local.yml up -d
 build:
 	docker compose build --no-cache --force-rm
 laravel-install:
@@ -11,7 +11,7 @@ create:
 	@make laravel-install
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
-	docker compose exec app chmod -R 777 storage bootstrap/cache
+	docker compose exec app chmod -R 775 storage bootstrap/cache
 	@make fresh
 init:
 	@make build
@@ -140,6 +140,9 @@ fresh-spec:
 	docker compose exec app php artisan db:refresh-specific-tables
 	
 # production
+up-prod:
+	docker compose up -d
+	
 cp-cron:
 	sudo touch /etc/cron.d/letsencrypt-renew
 	sudo chown root:root /etc/cron.d/letsencrypt-renew
