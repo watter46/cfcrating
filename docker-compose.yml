@@ -7,11 +7,6 @@ services:
     build:
       context: .
       dockerfile: ./infra/docker/nginx/Dockerfile
-      args:
-        - USER_ID=${USER_ID}
-        - USER_NAME=${USER_NAME}
-        - GROUP_ID=${GROUP_ID}
-        - GROUP_NAME=${GROUP_NAME}
       target: ${APP_BUILD_TARGET}
     ports:
       - target: 80
@@ -37,10 +32,9 @@ services:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
       args:
-        - USER_ID=${USER_ID}
+        - UID=${USER_ID}
         - USER_NAME=${USER_NAME}
-        - GROUP_ID=${GROUP_ID}
-        - GROUP_NAME=${GROUP_NAME}
+        - GID=${GROUP_ID}
       target: ${APP_BUILD_TARGET}
     volumes:
       - type: bind

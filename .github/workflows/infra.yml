@@ -2,14 +2,14 @@ name: Deploy Infrastructure (Docker)
 
 on:
   push:
-    paths:
-      - "infra/docker/nginx/**"
-      - "infra/docker/php/**"
-      - "infra/docker/mysql/**"
-      - "docker-compose.yml"
-      - ".github/workflows/infra.yml"
-    branches:
-      - main
+    # paths:
+    #   - "infra/docker/nginx/**"
+    #   - "infra/docker/php/**"
+    #   - "infra/docker/mysql/**"
+    #   - "docker-compose.yml"
+    #   - ".github/workflows/infra.yml"
+    # branches:
+    #   - main
   workflow_dispatch:
     inputs:
       environment:

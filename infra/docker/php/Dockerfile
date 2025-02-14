@@ -1,6 +1,5 @@
 FROM php:8.3-fpm-bullseye AS base
 
-SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 WORKDIR /var/www/src
 
 # timezone environment
@@ -12,16 +11,11 @@ ENV TZ=UTC \
   # composer environment
   COMPOSER_HOME=/composer
 
-FROM composer:2.7.8 as composer
+ARG USER_NAME ${USER_NAME}
+ARG UID ${UID}
+ARG GID ${GID}
 
-FROM node:20.17.0-bullseye-slim as node
-
-ARG UID=1000
-ARG GID=1000
-
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY --from=node /usr/local/bin /usr/local/bin
-COPY --from=node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
 # hadolint ignore=DL3008
 RUN <<EOF
@@ -36,8 +30,9 @@ RUN <<EOF
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
-    default-mysql-client
-  locale-gen en_US.UTF-8
+    default-mysql-client \
+  echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+  locale-gen en_US.UTF-8 \
   localedef -f UTF-8 -i en_US en_US.UTF-8 \
   docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
   docker-php-ext-install \
@@ -55,16 +50,6 @@ RUN <<EOF
   rm -rf /var/lib/apt/lists/*
 EOF
 
-  && apt-get clean \
-  && pecl install redis \
-  && docker-php-ext-enable redis \
-  && docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
-  && docker-php-ext-install \
-    intl \
-    pdo_mysql \
-    zip bcmath \
-    gd \
-  && rm -rf /var/lib/apt/lists/*
 
 FROM base AS local
 
@@ -79,3 +64,11 @@ COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
 COPY --chown=$USER_NAME:$USER_NAME ./src /var/www/src/
 
 USER $USER_NAME
+
+RUN <<EOF
+  composer install --quiet --no-interaction --no-ansi --no-dev --no-scripts --no-progress --prefer-dist
+  composer dump-autoload --optimize
+  chmod -R 755 storage bootstrap/cache
+  php artisan optimize:clear
+  php artisan optimize
+EOF

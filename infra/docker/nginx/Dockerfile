@@ -1,4 +1,4 @@
-FROM nginx:1.27 as base
+FROM nginx:1.27 AS base
 
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 WORKDIR /var/www/src
@@ -13,19 +13,10 @@ RUN <<EOF
         /var/log/nginx/
 EOF
 
-FROM base as local
+FROM base AS local
 
 COPY ./infra/docker/nginx/default.local.conf /etc/nginx/conf.d/
 
-FROM base as production
+FROM base AS production
 
 COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/
-
-FROM nginx:1.27
-
-SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
-WORKDIR /var/www/src
-
-ENV TZ=UTC
-
-COPY ./infra/docker/nginx/*.conf /etc/nginx/conf.d/
