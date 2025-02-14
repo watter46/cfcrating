@@ -55,13 +55,26 @@ RUN <<EOF
   rm -rf /var/lib/apt/lists/*
 EOF
 
+  && apt-get clean \
+  && pecl install redis \
+  && docker-php-ext-enable redis \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
+  && docker-php-ext-install \
+    intl \
+    pdo_mysql \
+    zip bcmath \
+    gd \
+  && rm -rf /var/lib/apt/lists/*
+
 FROM base AS local
 
 COPY ./infra/docker/php/php.local.ini /usr/local/etc/php/php.ini
 
 USER $USER_NAME
 
+
 FROM base AS production
+
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
 COPY --chown=$USER_NAME:$USER_NAME ./src /var/www/src/
 
