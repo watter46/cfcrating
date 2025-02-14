@@ -4,7 +4,7 @@ volumes:
 services:
   web:
     container_name: ${APP_NAME}-web
-    build:
+    build: 
       context: .
       dockerfile: ./infra/docker/nginx/Dockerfile
       args:
@@ -18,21 +18,15 @@ services:
         published: ${WEB_PORT}
         protocol: tcp
         mode: host
-      - target: 443
-        published: 443
-        protocol: tcp
-        mode: host
     volumes:
       - type: bind
         source: ./src
         target: /var/www/src
-      - type: bind
-        source: /etc/letsencrypt
-        target: /etc/letsencrypt
-        read_only: true
 
   app:
     container_name: ${APP_NAME}-app
+    ports:
+      - 5173:5173
     build:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
