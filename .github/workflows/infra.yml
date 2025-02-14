@@ -1,6 +1,15 @@
 name: Deploy Infrastructure (Docker)
 
 on:
+  push:
+    paths:
+      - "infra/docker/nginx/**"
+      - "infra/docker/php/**"
+      - "infra/docker/mysql/**"
+      - "docker-compose.yml"
+      - ".github/workflows/infra.yml"
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       environment:
@@ -99,7 +108,7 @@ jobs:
         with:
           switches: -avzr --delete
           path: docker-compose.yml
-          remote_path: src/cfcrating/
+          remote_path: src/cfcrating/docker-compose.yml
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USER }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -110,7 +119,7 @@ jobs:
         with:
           switches: -avzr --delete
           path: Makefile
-          remote_path: src/cfcrating/
+          remote_path: src/cfcrating/Makefile
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USER }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
