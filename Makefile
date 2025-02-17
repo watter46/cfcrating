@@ -1,7 +1,7 @@
 up:
-	docker compose -f docker-compose.yml -f docker-compose.override.local.yml up -d
+	docker compose -f docker-compose.local.yml --env-file .env.local up -d
 build:
-	docker compose build --no-cache --force-rm
+	docker compose -f docker-compose.local.yml --env-file .env.local build --no-cache --force-rm
 laravel-install:
 	docker compose exec app composer create-project --prefer-dist laravel/laravel . "11.*"
 create:
@@ -140,8 +140,13 @@ fresh-spec:
 	docker compose exec app php artisan db:refresh-specific-tables
 	
 # production
+build-prod:
+	docker compose --env-file .env build --no-cache --force-rm
 up-prod:
-	docker compose up -d
+	docker compose --env-file .env up -d
+restart-prod:
+	@make down
+	@make up-prod
 	
 cp-cron:
 	sudo touch /etc/cron.d/letsencrypt-renew
