@@ -32,9 +32,9 @@ services:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
       args:
-        - UID=${USER_ID}
+        - GID=${GID}
+        - UID=${UID}
         - USER_NAME=${USER_NAME}
-        - GID=${GROUP_ID}
       target: ${APP_BUILD_TARGET}
     volumes:
       - type: bind

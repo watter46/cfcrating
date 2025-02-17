@@ -1,5 +1,5 @@
 up:
-	docker compose -f docker-compose.yml -f docker-compose.override.local.yml up -d
+	docker compose -f docker-compose.local.yml --env-file .env.local up -d
 build:
 	docker compose build --no-cache --force-rm
 laravel-install:
@@ -115,7 +115,7 @@ sql-test:
 watch:
 	docker compose exec app npm run watch
 dev:
-	docker compose exec app npm run dev
+	docker compose exec node npm run dev
 work:
 	docker compose exec app php artisan schedule:work
 run:
@@ -141,7 +141,10 @@ fresh-spec:
 	
 # production
 up-prod:
-	docker compose up -d
+	docker compose --env-file .env up -d
+restart-prod:
+	@make down
+	@make up-prod
 	
 cp-cron:
 	sudo touch /etc/cron.d/letsencrypt-renew

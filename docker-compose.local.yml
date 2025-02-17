@@ -7,11 +7,6 @@ services:
     build: 
       context: .
       dockerfile: ./infra/docker/nginx/Dockerfile
-      args:
-        - USER_ID=${USER_ID}
-        - USER_NAME=${USER_NAME}
-        - GROUP_ID=${GROUP_ID}
-        - GROUP_NAME=${GROUP_NAME}
       target: ${APP_BUILD_TARGET}
     ports:
       - target: 80
@@ -25,23 +20,31 @@ services:
 
   app:
     container_name: ${APP_NAME}-app
-    ports:
-      - 5173:5173
     build:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
       args:
-        - USER_ID=${USER_ID}
+        - UID=${UID}
+        - GID=${GID}
         - USER_NAME=${USER_NAME}
-        - GROUP_ID=${GROUP_ID}
-        - GROUP_NAME=${GROUP_NAME}
       target: ${APP_BUILD_TARGET}
     volumes:
       - type: bind
         source: ./src
         target: /var/www/src
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+
+  node:
+    container_name: ${APP_NAME}-node
+    ports:
+      - 5173:5173
+    build:
+      context: .
+      dockerfile: ./infra/docker/node/Dockerfile
+      target: ${APP_BUILD_TARGET}
+    volumes:
+      - type: bind
+        source: ./src
+        target: /var/www/src
 
   db:
     container_name: ${APP_NAME}-db
@@ -57,6 +60,7 @@ services:
       - type: volume
         source: db-store
         target: /var/lib/mysql
+        
     environment:
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER}

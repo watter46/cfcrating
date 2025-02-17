@@ -15,8 +15,12 @@ EOF
 
 FROM base AS local
 
-COPY ./infra/docker/nginx/default.local.conf /etc/nginx/conf.d/
+ENV APP_ENV=local
+
+COPY ./infra/docker/nginx/default.local.conf /etc/nginx/conf.d/default.conf
 
 FROM base AS production
 
-COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/
+ENV APP_ENV=production
+
+COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/default.conf

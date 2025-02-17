@@ -30,11 +30,10 @@ RUN <<EOF
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
-    default-mysql-client \
-  echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-  locale-gen en_US.UTF-8 \
-  localedef -f UTF-8 -i en_US en_US.UTF-8 \
-  docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ \
+    default-mysql-client
+  locale-gen en_US.UTF-8
+  localedef -f UTF-8 -i en_US en_US.UTF-8
+  docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/
   docker-php-ext-install \
     intl \
     pdo_mysql \
@@ -53,12 +52,16 @@ EOF
 
 FROM base AS local
 
+ENV APP_ENV=local
+
 COPY ./infra/docker/php/php.local.ini /usr/local/etc/php/php.ini
 
 USER $USER_NAME
 
 
 FROM base AS production
+
+ENV APP_ENV=production
 
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
 COPY --chown=$USER_NAME:$USER_NAME ./src /var/www/src/
@@ -68,7 +71,7 @@ USER $USER_NAME
 RUN <<EOF
   composer install --quiet --no-interaction --no-ansi --no-dev --no-scripts --no-progress --prefer-dist
   composer dump-autoload --optimize
-  chmod -R 755 storage bootstrap/cache
+  chmod -R 775 storage bootstrap/cache
   php artisan optimize:clear
   php artisan optimize
 EOF
