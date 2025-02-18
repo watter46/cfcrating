@@ -1,24 +1,7 @@
-name: Deploy All Files
+name: Deploy And Restart Containers
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Select environment"
-        required: true
-        default: "production"
-        type: choice
-        options:
-          - local
-          - test
-          - production
-      deploy_message:
-        description: "Deployment message"
-        required: false
-        type: string
+  workflow_call:
 
 jobs:
   deploy:
@@ -27,12 +10,49 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Deploy All Files
+      - name: Deploy Include Files
         uses: burnett01/rsync-deployments@7.0.2
         with:
-          switches: -avzr --delete --exclude-from=.github/workflows/.actionignore
+          switches: -avzr --include-from=.github/workflows/.actioninclude --exclude='*'
           path: .
           remote_path: /home/${{ secrets.SSH_USER }}/src/cfcrating/
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USER }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  make-env-file:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            mkdir -p /home/${{ secrets.SSH_USER }}/src/cfcrating/src
+          
+            cd /home/${{ secrets.SSH_USER }}/src/cfcrating
+
+            echo "${{ secrets.ENV }}" | base64 --decode > .env
+            echo "${{ secrets.ENV_SRC }}" | base64 --decode > ./src/.env
+          
+  restart:
+    needs: make-env-file
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull image and restart containers
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/${{ secrets.SSH_USER }}/src/cfcrating
+
+            make pull
+            make up
+            make clear
+            make cache
+            make prune-image

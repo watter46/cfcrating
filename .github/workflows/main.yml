@@ -1,0 +1,17 @@
+name: Deploy Workflows
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  docker-push:
+    uses: ./.github/workflows/docker-push.yml
+    secrets: inherit
+
+  deploy:
+    needs: docker-push
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
