@@ -1,7 +1,12 @@
+# Environment
+DOCKER_COMPOSE = docker compose -f docker-compose.prod.yml
+APP_IMAGE = myapp-prod
+WEB_IMAGE = myweb-prod
+
 up:
-	docker compose -f docker-compose.local.yml --env-file .env.local up -d
+	docker compose -f compose.local.yml --env-file .env.local up -d
 build:
-	docker compose -f docker-compose.local.yml --env-file .env.local build --no-cache --force-rm
+	docker compose -f compose.local.yml --env-file .env.local build --no-cache --force-rm
 laravel-install:
 	docker compose exec app composer create-project --prefer-dist laravel/laravel . "11.*"
 create:
@@ -152,3 +157,8 @@ cp-cron:
 	sudo touch /etc/cron.d/letsencrypt-renew
 	sudo chown root:root /etc/cron.d/letsencrypt-renew
 	sudo chmod 644 /etc/cron.d/letsencrypt-renew
+
+p:
+	git add .github/workflows/docker-push.yml .github/workflows/main.yml .github/workflows/deploy.yml
+	git commit --amend -C HEAD
+	git push-f origin main

@@ -15,14 +15,11 @@ ARG USER_NAME ${USER_NAME}
 ARG UID ${UID}
 ARG GID ${GID}
 
-COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
-
 # hadolint ignore=DL3008
 RUN <<EOF
   apt-get update
   apt-get -y install --no-install-recommends \
     locales \
-    git \
     unzip \
     libzip-dev \
     libicu-dev \
@@ -52,52 +49,56 @@ EOF
 # node base
 FROM node:lts-bullseye-slim AS node
 
+WORKDIR /var/www/src
+
 # Local
 FROM base AS local
 
 ENV APP_ENV=local
 
 COPY ./infra/docker/php/php.local.ini /usr/local/etc/php/php.ini
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 COPY --from=node /usr/local/bin /usr/local/bin
 COPY --from=node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
-
-# RUN <<EOF
-#   chown -R $USER_NAME:$GROUP_NAME /var/www/
-#   chmod +x /var/www/
-# EOF
 
 USER $USER_NAME
 
 # Production node builder
-FROM node AS builder
+FROM node AS node-builder
+WORKDIR /var/www/src
 
-COPY ./src /var/www/src/
+COPY src/package.json src/package-lock.json ./
+RUN npm ci
 
-RUN <<EOF
-  npm ci
-  npm run build
-EOF
+COPY ./src/ ./
+RUN npm run build
+
+# Production composer builder
+FROM composer:2.7 AS composer-builder
+WORKDIR /app
+
+COPY ./src .
+
+RUN composer install --prefer-dist --no-dev --optimize-autoloader
 
 # Production
 FROM base AS production
 
 ENV APP_ENV=production
 
+# copy production dockerignore
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
-COPY --from=builder /var/www/src/public/build /var/www/src/public
-COPY ./src /var/www/src/
+COPY ./src/ ./
+COPY --from=composer-builder /app/vendor /var/www/src/vendor/
+COPY --from=node-builder /var/www/src/public/build /var/www/src/public/build
 
 RUN <<EOF
-  mkdir -p /var/www/src/vendor
-  chown -R $USER_NAME:$USER_NAME /var/www/src
+  php artisan config:cache
+  php artisan event:cache
+  php artisan route:cache
+  php artisan view:cache
+  chmod -R 775 storage bootstrap/cache
+  chown -R $USER_NAME:$USER_NAME /var/www
 EOF
 
 USER $USER_NAME
-
-RUN <<EOF
-  composer install --quiet --no-interaction --no-ansi --no-dev --no-scripts --no-progress --prefer-dist
-  composer dump-autoload --optimize
-  chmod -R 775 storage bootstrap/cache
-  php artisan optimize:clear
-  php artisan optimize
-EOF
