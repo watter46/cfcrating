@@ -7,7 +7,7 @@
         <x-default.auth-session-status class="mb-4" :status="session('status')" />
 
         <div class="mb-5 text-center">
-            <img src="{{ asset('storage/background/app-logo.svg') }}" class="h-10 sm:h-12">
+            <img alt="app-logo" src="{{ asset('storage/background/app-logo.svg') }}" class="h-10 sm:h-12">
         </div>
 
         <div class="min-w-[300px] min-h-[200px] flex flex-col">

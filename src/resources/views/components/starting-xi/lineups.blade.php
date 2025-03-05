@@ -14,7 +14,7 @@
                 <p class="text-xs font-black text-center text-gray-400 sm:text-base">@cfcRating</p>
             </div>
         </div>
-        
+
         <!-- StartingXiField -->
         <div id="starting-xi-field" class="relative flex flex-col items-center justify-center w-full">
             <!-- FieldImage -->
@@ -39,12 +39,12 @@
                                             <template x-if="player.isSelected">
                                                 <div class="flex items-center justify-center">
                                                     <div class="relative flex items-center justify-center rounded-full player-image">
-                                                        <img class="rounded-full" :src="player.data?.path">
-                                                        
+                                                        <img alt="player-image" class="rounded-full" :src="player.data?.path">
+
                                                         <p class="absolute text-lg font-black text-white"
                                                             x-show="!player.data?.pathExist"
                                                             x-text="player.data?.number"></p>
-        
+
                                                         <p class="absolute text-xs font-black md:text-xl text-center bg-[#01142E] text-white top-full"
                                                             x-text="player.data?.name"></p>
                                                     </div>
@@ -78,7 +78,7 @@
                     <p class="text-sm font-black text-gray-400">Clear</p>
                 </button>
             </div>
-            
+
             <template x-for="player in playersData">
                 <div class="relative flex items-center p-1 border-b border-gray-700"
                     @click="select(positionId, player.id)">
@@ -91,8 +91,8 @@
 
                         <div class="flex items-center space-x-2">
                             <div class="relative flex items-center justify-center rounded-full size-10 player-image">
-                                <img :src="player.path" class="rounded-full">
-                                
+                                <img alt="player-image" :src="player.path" class="rounded-full">
+
                                 <p class="absolute text-lg font-black text-white"
                                     x-show="!player.pathExist"
                                     x-text="player.number"></p>
@@ -105,7 +105,7 @@
                                 </p>
                                 <p class="text-center text-white" x-text="player.number ?? '-'"></p>
                             </div>
-                            
+
                             <p class="text-white" x-text="player.fullName"></p>
                         </div>
                     </div>
@@ -130,12 +130,12 @@
                                 </template>
                             </select>
                         </form>
-                        
+
                         <div class="flex flex-col items-center justify-center w-fit">
                             <button class="relative flex items-center px-2 py-1 bg-gray-700 rounded-lg w-fit"
                                 @click="$dispatch('reset-all-positions')">
                                 <x-svg.refresh class="size-7 sm:size-10 stroke-gray-400" />
-    
+
                                 <p class="absolute left-0 w-full text-xs font-black text-center text-gray-400 top-full sm:text-base">
                                     Reset
                                 </p>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
             </section>
-    
+
             <!-- TitleInput -->
             <section x-data="initStartingXiTitle()">
                 <label for="starting-xi-title" class="block text-sm font-black text-white sm:text-lg">Title</label>
@@ -154,7 +154,7 @@
                     x-model="title"
                     x-init="nonEditable($el)" />
             </section>
-            
+
             <!-- Download -->
             <x-ui.button.flow-button
                 before="'Download'"

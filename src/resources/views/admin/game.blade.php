@@ -4,7 +4,7 @@
             <h2 class="text-xl font-semibold leading-tight text-gray-200">
                 {{ __('Admin Game') }}
             </h2>
-    
+
             <livewire:admin.update-game-button :gameId="$game['id']" />
         </div>
     </x-slot>
@@ -29,20 +29,20 @@
                         Player
                     </button>
                 </div>
-                
+
                 <!-- Game Table -->
                 <div x-show="isGame">
                     <livewire:admin.game :$game />
                 </div>
-                
-                
+
+
                 <!-- GamePlayer Table -->
                 <div x-show="!isGame">
                     <div class="flex flex-col justify-center w-full h-full lg:mt-5">
                         <p class="px-5 py-3 text-2xl font-black text-gray-300">GamePlayer Table</p>
-                        
+
                         <x-lineups.lineups :$game :maxWidth="600" playerComponent="player.editable">
-                            <img src="{{ asset('storage/background/field.svg') }}" />
+                            <img alt="field" src="{{ asset('storage/background/field.svg') }}" />
                         </x-lineups.lineups>
                     </div>
                 </div>
