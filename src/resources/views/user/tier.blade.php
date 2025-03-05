@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="flex justify-center w-full">
-        <div class="flex flex-col justify-center w-full lg:w-11/12">  
+        <div class="flex flex-col justify-center w-full lg:w-11/12">
             <!-- TierList -->
             <x-tier.tier-list />
 
             <div x-data="initTierPlayers(@js($players))" class="sticky lg:max-h-[40vh] bottom-0 w-full mt-3 lg:mt-10">
                 <div class="w-full bg-black">
                     <p class="hidden p-2 text-2xl font-black text-gray-300 lg:block">Players</p>
-                    
+
                     <!-- Select Player -->
                     <div class="w-full h-full overflow-x-scroll lg:overflow-auto">
                         <div class="sticky left-0 grid h-12 place-items-center lg:hidden">
@@ -17,7 +17,7 @@
                                 <x-svg.right-arrow class="size-6 stroke-white" />
                             </div>
                         </div>
-                        
+
                         <div class="flex items-center w-full min-w-full px-5 py-2 space-x-3 space-y-2 justify-evenly lg:grid lg:grid-cols-12"
                             x-init="initDraggablePlayers($el)">
                             <template x-for="player in players" :key="player.id">
@@ -26,8 +26,8 @@
                                     :data-id="player.id">
                                     <!-- PlayerImage -->
                                     <div class="relative flex items-center justify-center rounded-full size-16 md:size-20">
-                                        <img class="rounded-full" :src="player.path">
-                                        
+                                        <img alt="player" class="rounded-full" :src="player.path">
+
                                         <p class="absolute text-lg font-black text-white"
                                             x-show="!player.pathExist"
                                             x-text="player.number"></p>

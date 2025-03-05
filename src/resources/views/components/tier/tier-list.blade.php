@@ -14,14 +14,14 @@
                     x-show="title">
                 </p>
             </div>
-        
+
             <!-- Logo -->
             <div class="flex flex-col items-center px-5">
-                <img src="{{ asset('storage/background/app-logo.svg') }}" class="h-6">
+                <img alt="app-logo" src="{{ asset('storage/background/app-logo.svg') }}" class="h-6">
                 <p class="hidden text-xl font-black text-gray-400 md:block">@cfcRating</p>
             </div>
         </section>
-        
+
         <!-- Tier List -->
         <ul id="tier-list" x-init="initDraggableList($el)">
             <template x-for="row in rows" :key="row.id" x-ref="list">
@@ -55,7 +55,7 @@
                 <div class="w-full h-full p-2 mt-3 space-y-10"
                     x-data="settingModalData()"
                     @open-modal-tier-setting.window="setTierData(event.detail)">
-                    
+
                     <!-- BackgroundColor -->
                     <div class="space-y-2">
                         <p class="text-xl font-black text-white">Color</p>
@@ -70,7 +70,7 @@
                             </template>
                         </div>
                     </div>
-                    
+
                     <!-- Title Textarea -->
                     <div class="space-y-2">
                         <label for="edit-tier-title">
@@ -92,7 +92,7 @@
                                 <p class="text-lg font-black text-white">Edit</p>
                             </div>
                         </button>
-                        
+
                         <button class="w-full px-3 py-1 bg-red-600 rounded-md sm:w-40 hover:bg-red-500"
                             @click="remove()">
                             <div class="flex items-center justify-center space-x-2">
@@ -109,7 +109,7 @@
     <x-ui.modal.modal id="add-tier-modal" name="add-tier">
         <div class="w-full h-full p-2 mt-3 space-y-10 sm:px-10" x-data="addTierModalData()">
             <p class="text-2xl font-black text-gray-400">NewTier</p>
-            
+
             <!-- BackgroundColor -->
             <div class="space-y-2">
                 <p class="text-xl font-black text-gray-400">Color</p>
@@ -124,7 +124,7 @@
                     </template>
                 </div>
             </div>
-            
+
             <!-- Title Textarea -->
             <div class="space-y-2">
                 <label for="add-tier-title">
@@ -159,7 +159,7 @@
             <button class="relative self-center size-10" @click="$dispatch('open-modal-add-tier')">
                 <span class="absolute inline-flex items-center justify-center px-1.5 text-sm font-black text-white bg-red-700 rounded-full -left-2 -top-2" x-text="remainingCount">
                 </span>
-                
+
                 <x-svg.plus class="self-center size-full fill-gray-400 hover:fill-gray-300" />
             </button>
 
@@ -176,7 +176,7 @@
                     maxlength="20"
                     x-model="title" />
             </section>
-            
+
             <!-- Download -->
             <x-ui.button.flow-button
                 before="'Download'"

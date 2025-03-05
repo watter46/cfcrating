@@ -7,21 +7,21 @@
 
             <x-game-summary.team-score-vertical :$game class="w-full" />
         </section>
-    
+
         <section class="flex flex-col w-full h-full justify-evenly lg:flex-row lg:mt-5">
             <!-- Lineups -->
             <x-lineups.lineups :$game :maxWidth="600" playerComponent="player.rateable">
-                <img src="{{ asset('storage/background/field.svg') }}" />
+                <img alt="field" src="{{ asset('storage/background/field.svg') }}" />
             </x-lineups.lineups>
 
             <!-- Options -->
             <div class="px-2 mt-3 lg:w-1/3 mx-auto max-w-[600px] w-full h-fit lg:mt-0 grid gap-y-3 lg:gap-y-5">
                 <!-- RatedCount -->
                 <livewire:user.game.rated-count :gameId="$game['id']" />
-    
+
                 <!-- ToggleUserMacine -->
                 <livewire:user.game.rating-toggle-button />
-    
+
                 <div class="flex justify-end w-full lg:justify-start">
                     <!-- Result -->
                     <x-result.result :$game />
