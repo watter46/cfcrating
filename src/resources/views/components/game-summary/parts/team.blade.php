@@ -39,7 +39,7 @@
         ->class("flex justify-start items-center w-full")
         ->merge(['class' => $spaceSize]) }}>
         <div class="{{ $bgSize }} text-center justify-items-center grid content-center">
-            <img src="{{ asset($team['path']) }}" class="{{ $imgSize }}">
+            <img alt="team" src="{{ asset($team['path']) }}" class="{{ $imgSize }}" crossorigin="anonymous">
         </div>
 
         @if ($isNameRequired)
@@ -59,7 +59,7 @@
         @endif
 
         <div class="{{ $bgSize }} text-center w-full grid justify-items-center content-center">
-            <img src="{{ asset($team['path']) }}" class=" {{ $imgSize }}">
+            <img alt="team" src="{{ asset($team['path']) }}" class=" {{ $imgSize }}" crossorigin="anonymous">
         </div>
     </div>
 @endif
