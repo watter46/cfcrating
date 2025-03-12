@@ -20,7 +20,7 @@
         })">
 
         <x-result.image-previewer :$game class="lg:w-3/4" />
-    
+
         <div class="flex justify-center mt-5 lg:w-1/4 lg:mt-0 h-fit">
             <div class="flex flex-col justify-center w-full">
                 <!-- Options -->
@@ -42,7 +42,7 @@
                         color="#16a34a">
                         <x-svg.download class="w-5 h-5 stroke-gray-200" />
                     </x-ui.button.flow-button>
-        
+
                     <!-- Copy -->
                     <x-ui.button.flow-button
                         before="'Copy'"

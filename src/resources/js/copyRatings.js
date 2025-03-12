@@ -30,8 +30,8 @@ const formatRating = (includeSubs) => {
 
     const toMom    = (mom) => mom.toLowerCase() === "true" ? '(MOTM✨)' : '';
     const toRating = (rating) => rating !== 'null' ? parseFloat(rating) : '-';
-    const toIsStarter = (isStarter) => parseInt(isStarter) === 1 ? true : false; 
-    
+    const toIsStarter = (isStarter) => parseInt(isStarter) === 1 ? true : false;
+
     const ratings = [...playerDataEls]
         .map(player => {
             const name = player.dataset.name;
@@ -46,11 +46,11 @@ const formatRating = (includeSubs) => {
                 isStarter: toIsStarter(isStarter)
             };
         });
-    
+
     const filtered = includeSubs
         ? ratings
         : ratings.filter(player => player.isStarter)
-    
+
     return filtered
         .map(player => {
             const text =

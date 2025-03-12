@@ -17,13 +17,13 @@ window.initFlowButton = (before, after, method, args) => {
         isAfter()  { return this.status === this.statuses.after },
         async handle() {
             try {
-                await this.beforeProcess();
+                this.beforeProcess();
                 await this.duringProcess();
                 await this.afterProcess();
                 await this.initial();
 
                 this.status = this.statuses.before;
-                
+
             } catch (error) {
                 notify(error.message)
             }
@@ -33,34 +33,32 @@ window.initFlowButton = (before, after, method, args) => {
                 this.disabled();
 
                 this.status = this.statuses.during;
-                
+
                 resolve();
             });
         },
         duringProcess() {
             return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    if (typeof window[method] !== 'function') {
-                        reject();
-                        return;
-                    };
-    
-                    try {
-                        const result = window[method](args);
-                
-                        resolve(result);
-    
-                    } catch (error) {
+                if (typeof window[method] !== 'function') {
+                    reject();
+                    return;
+                };
 
-                        reject(error);
-                    }
-                }, 1000);
+                try {
+                    const result = window[method](args);
+
+                    resolve(result);
+
+                } catch (error) {
+
+                    reject(error);
+                }
             });
         },
         afterProcess() {
             return new Promise(resolve => {
                 this.status = this.statuses.after;
-                
+
                 resolve();
             });
         },
