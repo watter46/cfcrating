@@ -51,6 +51,11 @@
                         color="#ca8a04">
                         <x-svg.copy class="w-5 h-5 fill-gray-200" />
                     </x-ui.button.flow-button>
+
+                    <!-- Copy -->
+                    <x-result.copy-button>
+                        <x-svg.copy class="w-5 h-5 fill-gray-200" />
+                    </x-result.copy-button>
                 </div>
             </div>
         </div>
