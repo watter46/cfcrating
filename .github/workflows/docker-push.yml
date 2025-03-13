@@ -7,6 +7,7 @@ jobs:
   detect_changes:
     runs-on: ubuntu-latest
     outputs:
+      src_changed: ${{ steps.changes.outputs.src }}
       app_changed: ${{ steps.changes.outputs.app }}
       web_changed: ${{ steps.changes.outputs.web }}
       db_changed: ${{ steps.changes.outputs.db }}
@@ -19,8 +20,9 @@ jobs:
         uses: dorny/paths-filter@v3
         with:
           filters: |
-            app:
+            src:
               - 'src/**'
+            app:
               - 'infra/docker/php/**'
             web:
               - 'infra/docker/nginx/**'
@@ -56,6 +58,20 @@ jobs:
             fi
           done < .env
       
+      - name: Build Src Container Image
+        if: needs.detect_changes.outputs.src_changed == 'true'
+        run: |
+          docker buildx build \
+            --cache-from=type=registry,ref=${DOCKER_USERNAME}/cfcrating-app-${ENV}:cache \
+            --cache-to=type=registry,ref=${DOCKER_USERNAME}/cfcrating-app-${ENV}:cache,mode=max \
+            --build-arg GID=${GID} \
+            --build-arg UID=${UID} \
+            --build-arg USER_NAME=${USER_NAME} \
+            --target ${ENV} \
+            -f ${DOCKERFILE_PATH_APP} \
+            -t ${DOCKER_USERNAME}/cfcrating-app-${ENV}:latest \ 
+            --push .
+
       - name: Build App Container Image
         if: needs.detect_changes.outputs.app_changed == 'true'
         run: |
