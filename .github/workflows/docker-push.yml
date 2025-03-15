@@ -41,12 +41,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-
       - name: Decode .env from GitHub Secrets and set environment variables
         run: |
           echo "${{ secrets.ENV }}" | base64 --decode > .env
@@ -57,20 +51,43 @@ jobs:
               echo "$key=$value" >> $GITHUB_ENV
             fi
           done < .env
-      
-      - name: Build Src Container Image
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
         if: needs.detect_changes.outputs.src_changed == 'true'
-        run: |
-          docker buildx build \
-            --cache-from=type=registry,ref=${DOCKER_USERNAME}/cfcrating-app-${ENV}:cache \
-            --cache-to=type=registry,ref=${DOCKER_USERNAME}/cfcrating-app-${ENV}:cache,mode=max \
-            --build-arg GID=${GID} \
-            --build-arg UID=${UID} \
-            --build-arg USER_NAME=${USER_NAME} \
-            --target ${ENV} \
-            -f ${DOCKERFILE_PATH_APP} \
-            -t ${DOCKER_USERNAME}/cfcrating-app-${ENV}:latest \ 
-            --push .
+  
+      - name: Log in to Github container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+        if: needs.detect_changes.outputs.src_changed == 'true'
+
+      - name: Build and push Docker image with cache to GHCR and Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ env.DOCKERFILE_PATH_APP }}
+          target: ${{ env.ENV }}
+          build-args: |
+            GID=${{ env.GID }}
+            UID=${{ env.UID }}
+            USER_NAME=${{ env.USER_NAME }}
+          push: true
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/cfcrating-app-production:latest
+            ghcr.io/${{ env.DOCKER_USERNAME }}/cfcrating-app-production:cache
+          cache-from: |
+            type=registry,ref=ghcr.io/${{ env.DOCKER_USERNAME }}/cfcrating-app-production:cache
+          cache-to: type=registry,ref=ghcr.io/${{ env.DOCKER_USERNAME }}/cfcrating-app-production:cache,mode=max
+        if: needs.detect_changes.outputs.src_changed == 'true'
 
       - name: Build App Container Image
         if: needs.detect_changes.outputs.app_changed == 'true'
