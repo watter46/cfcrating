@@ -1,0 +1,21 @@
+name: rsync
+
+on:
+  workflow_call:
+
+jobs:
+  rsync:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: rsync Include Files
+      uses: burnett01/rsync-deployments@7.0.2
+      with:
+        switches: -avzr --include-from=.github/workflows/.actioninclude --exclude='*'
+        path: .
+        remote_path: /home/${{ secrets.SSH_USER }}/src/cfcrating/
+        remote_host: ${{ secrets.SSH_HOST }}
+        remote_user: ${{ secrets.SSH_USER }}
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}

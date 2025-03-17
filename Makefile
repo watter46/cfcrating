@@ -1,8 +1,3 @@
-# Environment
-DOCKER_COMPOSE = docker compose -f docker-compose.prod.yml
-APP_IMAGE = myapp-prod
-WEB_IMAGE = myweb-prod
-
 up:
 	docker compose -f compose.local.yml --env-file .env.local up -d
 build:
@@ -60,7 +55,7 @@ log-redis:
 log-db-watch:
 	docker compose logs --follow db
 web:
-	docker compose exec web ash
+	docker compose exec web bash
 app:
 	docker compose exec app bash
 migrate:
@@ -143,22 +138,9 @@ update-job-games:
 	docker compose exec app php artisan db:update-job-games
 fresh-spec:
 	docker compose exec app php artisan db:refresh-specific-tables
-	
-# production
-build-prod:
-	docker compose --env-file .env build --no-cache --force-rm
-up-prod:
-	docker compose --env-file .env up -d
-restart-prod:
-	@make down
-	@make up-prod
-	
-cp-cron:
-	sudo touch /etc/cron.d/letsencrypt-renew
-	sudo chown root:root /etc/cron.d/letsencrypt-renew
-	sudo chmod 644 /etc/cron.d/letsencrypt-renew
-
-p:
-	git add .github/workflows/docker-push.yml .github/workflows/main.yml .github/workflows/deploy.yml
-	git commit --amend -C HEAD
-	git push-f origin main
+cat-log:
+	docker compose exec app cat storage/logs/laravel.log
+rm-log:
+	docker compose exec app rm storage/logs/laravel.log
+local-link:
+	docker compose exec app ln -sf .env.local .env

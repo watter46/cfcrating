@@ -29,14 +29,14 @@ FROM base AS local
 WORKDIR /var/www/src
 
 RUN apk add --no-cache \
-        oniguruma-dev \
-        libxml2-dev \
-        libzip-dev \
-        libpng-dev \
-        freetype-dev \
-        libjpeg-turbo-dev \
-        git \
-        vim
+    oniguruma-dev \
+    libxml2-dev \
+    libzip-dev \
+    libpng-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    git \
+    vim
 
 RUN docker-php-ext-configure gd \
         --with-freetype=/usr/include/ \
@@ -59,23 +59,24 @@ USER $USER_NAME
 # ====================================
 # production
 # ====================================
-# Production node builder
-FROM node AS assets
-WORKDIR /var/www/src
-
-COPY src/package.json src/package-lock.json ./
-RUN npm ci
-
-COPY ./src/ ./
-RUN npm run build
-
-
 FROM composer:2.7 AS vendor
 WORKDIR /app
 
-COPY ./src .
+COPY ./src/composer.json ./src/composer.lock ./
 
-RUN composer install --prefer-dist --no-dev --optimize-autoloader
+RUN composer install --prefer-dist --no-dev --optimize-autoloader --no-scripts
+
+
+FROM node AS assets
+WORKDIR /var/www/src
+
+COPY ./src/package.json ./src/package-lock.json ./src/vite.config.js ./
+
+RUN npm ci
+
+COPY ./src/ ./
+
+RUN npm run build
 
 
 FROM base AS production
@@ -83,12 +84,12 @@ FROM base AS production
 WORKDIR /var/www/src
 
 RUN apk add --no-cache \
-        oniguruma \
-        libxml2 \
-        libzip-dev \
-        libpng-dev \
-        freetype-dev \
-        libjpeg-turbo-dev
+    oniguruma \
+    libxml2 \
+    libzip-dev \
+    libpng-dev \
+    freetype-dev \
+    libjpeg-turbo-dev
 
 RUN docker-php-ext-configure gd \
         --with-freetype=/usr/include/ \
@@ -100,9 +101,9 @@ RUN docker-php-ext-configure gd \
     gd
 
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
-COPY ./src/ ./
 COPY --from=vendor /app/vendor /var/www/src/vendor/
 COPY --from=assets /var/www/src/public/build /var/www/src/public/build
+COPY ./src/ ./
 
 RUN chmod -R 775 storage bootstrap/cache && \
     chown -R $USER_NAME:$USER_NAME /var/www

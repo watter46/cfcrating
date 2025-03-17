@@ -13,8 +13,3 @@ button.btn-flat:before {
     background-color: var(--before-color);
     z-index: 0;
 }
-
-button.btn-flat:hover:before {
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-}

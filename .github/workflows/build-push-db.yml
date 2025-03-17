@@ -1,0 +1,32 @@
+name: Build and Push db container
+
+on:
+  workflow_call:
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    env:
+      DOCKERFILE_PATH_DB: infra/docker/mysql/Dockerfile
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push db image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ env.DOCKERFILE_PATH_DB }}
+          target: ${{ env.ENV }}
+          build-args: |
+            GID=${{ env.GID }}
+            UID=${{ env.UID }}
+          push: true
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/cfcrating-db-production:${{ env.VERSION }}

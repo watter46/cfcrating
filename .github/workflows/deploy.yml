@@ -1,39 +1,61 @@
-name: Deploy And Restart Containers
+name: Deploy Workflows
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  detect_changes:
     runs-on: ubuntu-latest
+    outputs:
+      app_changed: ${{ steps.changes.outputs.app }}
+      web_changed: ${{ steps.changes.outputs.web }}
+      db_changed: ${{ steps.changes.outputs.db }}
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy Include Files
-        uses: burnett01/rsync-deployments@7.0.2
+      - name: Detect changes
+        id: changes
+        uses: dorny/paths-filter@v3
         with:
-          switches: -avzr --include-from=.github/workflows/.actioninclude --exclude='*'
-          path: .
-          remote_path: /home/${{ secrets.SSH_USER }}/src/cfcrating/
-          remote_host: ${{ secrets.SSH_HOST }}
-          remote_user: ${{ secrets.SSH_USER }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          filters: |
+            app:
+              - 'infra/docker/php/**'
+              - 'src/**'
+            web:
+              - 'infra/docker/nginx/**'
+            db:
+              - 'infra/docker/mysql/**'
+  
+  call_build_push_app:
+    if: needs.detect_changes.outputs.app_changed == 'true'
+    needs: detect_changes
+    uses: ./.github/workflows/build-push-app.yml
+    secrets: inherit
+  
+  call_build_push_web:
+    if: needs.detect_changes.outputs.web_changed == 'true'
+    needs: detect_changes
+    uses: ./.github/workflows/build-push-web.yml
+    secrets: inherit
 
-  restart:
-    runs-on: ubuntu-latest
-    steps:
-      - name: pull image and restart containers
-        uses: appleboy/ssh-action@v1.2.1
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/${{ secrets.SSH_USER }}/src/cfcrating
+  call_build_push_db:
+    if: needs.detect_changes.outputs.db_changed == 'true'
+    needs: detect_changes
+    uses: ./.github/workflows/build-push-db.yml
+    secrets: inherit
 
-            make pull
-            make up
-            make clear
-            make cache
-            make prune-image
+  call_rsync:
+    needs: detect_changes
+    uses: ./.github/workflows/rsync.yml
+    secrets: inherit
+  
+  deploy:
+    if: always()
+    needs: [call_build_push_app, call_build_push_web, call_build_push_db, call_rsync]
+    uses: ./.github/workflows/pull-and-launch.yml
+    secrets: inherit
+    

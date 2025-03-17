@@ -1,17 +1,16 @@
 volumes:
   db-store:
   storage:
-  public:
 
 services:
   app:
-    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}
+    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:0.0.1
     container_name: ${APP_NAME}-app-${ENV}
     user: "${UID}:${GID}"
     volumes:
       - ./src/.env:/var/www/src/.env
       - storage:/var/www/src/storage
-      - public:/var/www/src/public
+      - ./public:/var/www/src/public
 
   web:
     image: ${DOCKER_USERNAME}/${APP_NAME}-web-${ENV}
@@ -22,7 +21,9 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - storage:/var/www/src/storage
-      - public:/var/www/src/public
+      - ./public:/var/www/src/public
+    depends_on:
+      - app
 
   db:
     image: ${DOCKER_USERNAME}/${APP_NAME}-db-${ENV}

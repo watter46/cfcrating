@@ -35,22 +35,9 @@
                 <!-- Output -->
                 <div class="flex flex-col justify-center w-full space-y-3">
                     <!-- Download -->
-                    <x-ui.button.flow-button
-                        before="'Download Image'"
-                        after="'Downloaded!!'"
-                        method="'downloadImage'"
-                        color="#16a34a">
+                    <x-result.download-button>
                         <x-svg.download class="w-5 h-5 stroke-gray-200" />
-                    </x-ui.button.flow-button>
-
-                    <!-- Copy -->
-                    <x-ui.button.flow-button
-                        before="'Copy'"
-                        after="'Copied!!'"
-                        method="'copy'"
-                        color="#ca8a04">
-                        <x-svg.copy class="w-5 h-5 fill-gray-200" />
-                    </x-ui.button.flow-button>
+                    </x-result.download-button>
 
                     <!-- Copy -->
                     <x-result.copy-button>

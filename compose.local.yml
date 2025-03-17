@@ -7,6 +7,9 @@ services:
     build: 
       context: .
       dockerfile: ./infra/docker/nginx/Dockerfile
+      args:
+        - UID=${UID}
+        - GID=${GID}
       target: ${ENV}
     ports:
       - ${WEB_PORT}:80

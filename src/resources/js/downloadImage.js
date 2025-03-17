@@ -2,15 +2,14 @@ import * as htmlToImage from 'html-to-image';
 
 window.downloadImage = (includeSubs) => {
     const substitutesEl = document.querySelector('#download-substitutes');
-    
+
     if (!includeSubs) {
         substitutesEl.classList.add('hidden');
     }
-    
+
     const wrapper = document.querySelector('#content');
 
-    setTimeout(() => {
-        htmlToImage.toJpeg(wrapper, {
+    return htmlToImage.toJpeg(wrapper, {
             quality: 0.85,
             skipFonts: true,
             preferredFontFormat: 'woff2',
@@ -27,6 +26,5 @@ window.downloadImage = (includeSubs) => {
         })
         .finally(result => {
             substitutesEl.classList.remove('hidden');
-        })
-    }, 1000);
+        });
 }

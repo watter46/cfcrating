@@ -48,6 +48,8 @@ rm-log:
 	docker compose exec app rm storage/logs/laravel.log
 cat-log:
 	docker compose exec app cat storage/logs/laravel.log
+rm-public-volume:
+	docker volume rm cfcrating_public
 cp-cron:
 	sudo touch /etc/cron.d/letsencrypt-renew
 	sudo chown root:root /etc/cron.d/letsencrypt-renew
