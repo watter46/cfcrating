@@ -1,6 +1,7 @@
 volumes:
   db-store:
   storage:
+  build:
 
 services:
   app:
@@ -9,9 +10,8 @@ services:
     user: "${UID}:${GID}"
     volumes:
       - ./src/.env:/var/www/src/.env
-      - storage:/var/www/src/storage
-      - ./src/public:/var/www/src/public
-    command: ["./copy-public.sh"]
+      - storage:/var/www/src/storage/app/public
+      - build:/var/www/src/public
 
   web:
     image: ${DOCKER_USERNAME}/${APP_NAME}-web-${ENV}:${VERSION}
@@ -21,8 +21,8 @@ services:
       - ${SSL_PORT}:443
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
-      - storage:/var/www/src/storage
-      - ./src/public:/var/www/src/public
+      - storage:/var/www/src/storage/app/public
+      - build:/var/www/src/public
     depends_on:
       - app
 

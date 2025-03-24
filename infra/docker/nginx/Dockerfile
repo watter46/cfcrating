@@ -1,3 +1,6 @@
+# ====================================
+# base
+# ====================================
 FROM nginx:1.27 AS base
 
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
@@ -19,17 +22,27 @@ RUN <<EOF
     /var/www/src
 EOF
 
+# ====================================
+# local
+# ====================================
 FROM base AS local
-
-ENV APP_ENV=local
 
 COPY ./infra/docker/nginx/default.local.conf /etc/nginx/conf.d/default.conf
 
-
+# ====================================
+# production
+# ====================================
 FROM base AS production
 
-ENV APP_ENV=production
-
 COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+USER nginx
+
+# ====================================
+# staging
+# ====================================
+FROM production AS staging
+
+COPY ./infra/docker/nginx/default.staging.conf /etc/nginx/conf.d/default.conf
 
 USER nginx
