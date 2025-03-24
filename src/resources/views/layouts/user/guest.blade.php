@@ -14,18 +14,15 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/css/background.css', 'resources/js/app.js'])
     </head>
-    <body class="w-full min-h-screen font-sans antialiased font-black text-white">
-        <!-- Background -->
-        <x-ui.background.large />
-        
+    <body class="w-full min-h-screen font-sans antialiased font-black text-white bg-[#1E1E1E] background">
         <div class="relative flex w-full px-4 py-4 sm:px-6 lg:px-8">
             <!-- Logo -->
             <div class="flex items-center shrink-0">
                 <x-util.app-logo href="{{ route('top') }}" />
             </div>
-            
+
             @if (Route::has('login'))
                 <nav class="flex justify-end flex-1 -mx-3">
                     @auth

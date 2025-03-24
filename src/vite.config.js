@@ -6,6 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/background.css',
                 'resources/css/field.css',
                 'resources/css/flow-button.css',
                 'resources/css/message.css',

@@ -26,13 +26,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKERFILE_PATH_APP: infra/docker/php/Dockerfile
+      DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+      VERSION: ${{ vars.VERSION }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Decode .env from GitHub Secrets and set environment variables
         run: |
-          echo "${{ secrets.ENV }}" | base64 --decode > .env
+          echo "${{ secrets.ENV_STAGING }}" | base64 --decode > .env
 
           while IFS='=' read -r key value; do
             if [[ ! -z "$key" && ! "$key" =~ ^# ]]; then
@@ -44,7 +46,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKER_USERNAME }}
+          username: ${{ env.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Set up Docker Buildx
@@ -69,11 +71,11 @@ jobs:
             USER_NAME=${{ env.USER_NAME }}
           push: true
           tags: |
-            ${{ vars.DOCKER_USERNAME }}/cfcrating-app-production:${{ vars.VERSION }}
-            ghcr.io/${{ vars.DOCKER_USERNAME }}/cfcrating-app-production:cache
+            ${{ env.DOCKER_USERNAME }}/cfcrating-app-${{ env.ENV }}:${{ env.VERSION }}
+            ghcr.io/${{ env.DOCKER_USERNAME }}/cfcrating-app-${{ env.ENV }}:cache
           cache-from: |
-            type=registry,ref=ghcr.io/${{ vars.DOCKER_USERNAME }}/cfcrating-app-production:cache
-          cache-to: type=registry,ref=ghcr.io/${{ vars.DOCKER_USERNAME }}/cfcrating-app-production:cache,mode=max
+            type=registry,ref=ghcr.io/${{ env.DOCKER_USERNAME }}/cfcrating-app-${{ env.ENV }}:cache
+          cache-to: type=registry,ref=ghcr.io/${{ env.DOCKER_USERNAME }}/cfcrating-app-${{ env.ENV }}:cache,mode=max
 
       - name: remove public volume
         if: needs.detect_changes.outputs.assets_changed == 'true'
@@ -83,7 +85,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/${{ secrets.SSH_USER }}/src/cfcrating
+            cd /opt/staging
 
             make down
             make rm-public-volume

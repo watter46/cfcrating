@@ -8,23 +8,21 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="shortcut icon" href="{{ asset('/image/favicon.ico') }}" sizes="32x32" type="image/png">
-        
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/css/background.css', 'resources/js/app.js'])
 
         @livewireStyles
     </head>
-    <body class="m-0 font-sans antialiased">
-        <!-- Background -->
-        <x-ui.background.large />
-        
-        <div class="min-h-screen">
+    <body class="m-0 font-sans antialiased bg-[#1E1E1E]">
+        <div class="min-h-screen background">
             @include('layouts.user.navigation')
 
+            <!-- Message -->
             <livewire:util.message />
 
             <!-- Page Heading -->

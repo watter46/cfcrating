@@ -1,4 +1,4 @@
-name: Build and Push web container
+name: Build and Push db container
 
 on:
   workflow_call:
@@ -7,14 +7,16 @@ jobs:
   build_and_push:
     runs-on: ubuntu-latest
     env:
-      DOCKERFILE_PATH_WEB: infra/docker/nginx/Dockerfile
+      DOCKERFILE_PATH_DB: infra/docker/mysql/Dockerfile
+      DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+      VERSION: ${{ vars.VERSION }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Decode .env from GitHub Secrets and set environment variables
         run: |
-          echo "${{ secrets.ENV }}" | base64 --decode > .env
+          echo "${{ secrets.ENV_STAGING }}" | base64 --decode > .env
 
           while IFS='=' read -r key value; do
             if [[ ! -z "$key" && ! "$key" =~ ^# ]]; then
@@ -26,18 +28,17 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKER_USERNAME }}
+          username: ${{ env.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and push web image
+      - name: Build and push db image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ${{ env.DOCKERFILE_PATH_WEB }}
-          target: ${{ env.ENV }}
+          file: ${{ env.DOCKERFILE_PATH_DB }}
           build-args: |
             GID=${{ env.GID }}
             UID=${{ env.UID }}
           push: true
           tags: |
-            ${{ env.DOCKER_USERNAME }}/cfcrating-web-production:${{ env.VERSION }}
+            ${{ env.DOCKER_USERNAME }}/cfcrating-db-${{ env.ENV }}:${{ env.VERSION }}
