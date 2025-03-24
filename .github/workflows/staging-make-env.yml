@@ -1,0 +1,23 @@
+name: make env file
+
+on:
+  workflow_dispatch:
+
+jobs:
+  make-env:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ vars.VERSION }}
+    steps:
+      - name: make .env and src/.env
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "${{ secrets.ENV_STAGING }}" | base64 --decode > /opt/staging/.env
+            echo "${{ secrets.ENV_SRC_STAGING }}" | base64 --decode > /opt/staging/src/.env
+
+            export VERSION="${{ env.VERSION }}"
+            echo -e "\nVERSION=${{ env.VERSION }}" >> /opt/staging/.env
