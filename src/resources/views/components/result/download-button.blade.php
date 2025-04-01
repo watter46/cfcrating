@@ -1,9 +1,7 @@
 <button x-ref="download_btn"
     x-data="initButton()"
-    x-init="
-        $watch('isProcessing', (value) => disabled($refs.download_btn))
-        $watch('isCompleted', (value) => enabled($refs.download_btn))
-    "
+    :disabled="isProcessing"
+    :class="isProcessing && 'opacity-30'"
     @click="
         isProcessing = true;
         downloadImage(includeSubs)
