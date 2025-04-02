@@ -26,4 +26,4 @@
     </span>
 </button>
 
-@vite(['resources/css/flow-button.css', 'resources/js/flowButton.js'])
+@vite(['resources/css/flow-button.css'])
