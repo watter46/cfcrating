@@ -1,8 +1,5 @@
 <x-guest-layout>
-    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7">
-        <!-- Background -->
-        <x-ui.background.medium />
-
+    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7 bg-[#181a42]">
         <div class="mb-4 text-sm text-gray-400">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
         </div>

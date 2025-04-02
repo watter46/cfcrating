@@ -1,15 +1,12 @@
 <x-guest-layout>
-    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7">
-        <!-- Background -->
-        <x-ui.background.medium />
-        
+    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7 bg-[#181a42]">
         <!-- Session Status -->
         <x-default.auth-session-status class="mb-4" :status="session('status')" />
 
         <div class="mb-5 text-center">
             <img src="{{ asset('storage/background/app-logo.svg') }}" class="h-10 sm:h-12">
         </div>
-        
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 

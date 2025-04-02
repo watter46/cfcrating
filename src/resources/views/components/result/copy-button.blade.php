@@ -1,9 +1,10 @@
 <button x-ref="copy_btn"
-    x-data="initButton()"
-    x-init="
-        $watch('isProcessing', (value) => disabled($refs.copy_btn))
-        $watch('isCompleted', (value) => enabled($refs.copy_btn))
-    "
+    x-data="{
+        isProcessing: false,
+        isCompleted: false,
+    }"
+    :disabled="isProcessing"
+    :class="isProcessing && 'opacity-30'"
     @click="
         isProcessing = true;
         copy(includeSubs)

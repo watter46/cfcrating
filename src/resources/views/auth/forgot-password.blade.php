@@ -1,8 +1,5 @@
 <x-guest-layout>
-    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7">
-        <!-- Background -->
-        <x-ui.background.medium />
-
+    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7 bg-[#181a42]">
         <div class="mb-4 text-sm text-gray-400">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>

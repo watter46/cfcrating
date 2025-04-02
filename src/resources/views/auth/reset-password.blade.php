@@ -1,8 +1,5 @@
 <x-guest-layout>
-    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7">
-        <!-- Background -->
-        <x-ui.background.medium />
-    
+    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7 bg-[#181a42]">
         <form method="POST" action="{{ route('password.store') }}">
             @csrf
 
