@@ -32,7 +32,6 @@ export default defineConfig({
                 'resources/js/copyRatings.js',
                 'resources/js/downloadImage.js',
                 'resources/js/field.js',
-                'resources/js/flowButton.js',
                 'resources/js/modal.js',
                 'resources/js/notify.js',
                 'resources/js/rating.js'

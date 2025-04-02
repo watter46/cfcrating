@@ -7,15 +7,17 @@
     :class="isProcessing && 'opacity-30'"
     @click="
         isProcessing = true;
-        downloadImage(includeSubs)
-            .then(() => {
-                isProcessing = false;
-                isCompleted = true;
-                setTimeout(() => isCompleted = false, 2000);
-            })
-            .catch(() => {
-                isProcessing = false;
-            });
+        $nextTick(() => {
+            downloadImage(includeSubs)
+                .then(() => {
+                    isProcessing = false;
+                    isCompleted = true;
+                    setTimeout(() => isCompleted = false, 2000);
+                })
+                .catch(() => {
+                    isProcessing = false;
+                });
+        });
     "
     {{ $attributes->class('relative z-0 h-10 overflow-hidden bg-black rounded-md btn btn-flat w-full') }}
     style="--before-color: #16a34a"
@@ -26,4 +28,4 @@
     </span>
 </button>
 
-@vite(['resources/css/flow-button.css', 'resources/js/flowButton.js'])
+@vite(['resources/css/flow-button.css'])
