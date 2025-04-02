@@ -1,5 +1,8 @@
 <button x-ref="download_btn"
-    x-data="initButton()"
+    x-data="{
+        isProcessing: false,
+        isCompleted: false,
+    }"
     :disabled="isProcessing"
     :class="isProcessing && 'opacity-30'"
     @click="
