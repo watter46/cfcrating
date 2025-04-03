@@ -18,7 +18,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center w-full min-w-full px-5 py-2 space-x-3 space-y-2 justify-evenly lg:grid lg:grid-cols-12"
+                        <div class="flex items-center w-full min-w-[max-content] px-5 py-2 space-x-3 space-y-2 justify-evenly lg:grid lg:grid-cols-12"
                             x-init="initDraggablePlayers($el)">
                             <template x-for="player in players" :key="player.id">
                                 <!-- Player -->
