@@ -178,13 +178,9 @@
             </section>
 
             <!-- Download -->
-            <x-ui.button.flow-button
-                before="'Download'"
-                after="'Downloaded!!'"
-                method="'downloadTierImage'"
-                color="#16a34a">
+            <x-tier.download-button>
                 <x-svg.download class="w-5 h-5 stroke-gray-200" />
-            </x-ui.button.flow-button>
+            </x-tier.download-button>
         </div>
     </div>
 </div>
