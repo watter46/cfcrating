@@ -148,7 +148,7 @@
             <!-- TitleInput -->
             <section x-data="initStartingXiTitle()">
                 <label for="starting-xi-title" class="block text-sm font-black text-white sm:text-lg">Title</label>
-                <input id="starting-xi-title" class="w-full text-sm font-black text-white break-all bg-transparent rounded-md resize-none sm:text-lg"
+                <input id="starting-xi-title" class="w-full text-[16px] bg-gray-700 border-gray-600 font-black text-white break-all rounded-md resize-none sm:text-lg"
                     maxlength="20"
                     x-ref="inputField"
                     x-model="title"
