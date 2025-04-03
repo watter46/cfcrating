@@ -9,7 +9,7 @@
                     <p class="hidden p-2 text-2xl font-black text-gray-300 lg:block">Players</p>
 
                     <!-- Select Player -->
-                    <div class="w-full h-full overflow-x-scroll lg:overflow-auto">
+                    <div class="w-full h-full scroll-smooth overflow-x-auto lg:overflow-auto">
                         <div class="sticky left-0 grid h-12 place-items-center lg:hidden">
                             <div class="flex items-center">
                                 <x-svg.left-arrow class="size-6 stroke-white" />
@@ -18,7 +18,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center w-full min-w-full px-5 py-2 space-x-3 space-y-2 justify-evenly lg:grid lg:grid-cols-12"
+                        <div class="flex items-center w-full min-w-[max-content] px-5 py-2 space-x-3 space-y-2 justify-evenly lg:grid lg:grid-cols-12"
                             x-init="initDraggablePlayers($el)">
                             <template x-for="player in players" :key="player.id">
                                 <!-- Player -->
