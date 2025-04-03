@@ -156,13 +156,9 @@
             </section>
 
             <!-- Download -->
-            <x-ui.button.flow-button
-                before="'Download'"
-                after="'Downloaded!!'"
-                method="'downloadStartingXi'"
-                color="#16a34a">
+            <x-starting-xi.download-button>
                 <x-svg.download class="w-5 h-5 stroke-gray-200" />
-            </x-ui.button.flow-button>
+            </x-starting-xi.download-button>
         </div>
     </div>
 </div>
