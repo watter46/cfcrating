@@ -3,8 +3,6 @@
 
 <div id="tier" class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()">
     <section id="tier-content" class="relative">
-        <x-ui.background.medium />
-
         <!-- Tier Header -->
         <section class="flex items-center justify-between w-full space-x-2">
             <!-- Title -->
