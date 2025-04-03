@@ -170,7 +170,7 @@
             <!-- TitleInput -->
             <section class="w-full max-w-lg">
                 <label for="starting-xi-title" class="block text-sm font-black text-white sm:text-lg">Title</label>
-                <input id="starting-xi-title" class="w-full text-sm font-black text-white break-all bg-transparent rounded-md resize-none sm:text-lg"
+                <input id="starting-xi-title" class="w-full text-[16px] font-black text-white break-all bg-gray-700 border-gray-600 rounded-md resize-none sm:text-lg"
                     maxlength="20"
                     x-model="title" />
             </section>

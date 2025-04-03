@@ -11,7 +11,7 @@ window.tierListData = (maxCount) => {
 
     return {
         maxCount: maxCount,
-        title: 'Chelsea',
+        title: '',
         rows: rows,
         remainingCount() {
             return this.maxCount - this.rows.length;
@@ -39,7 +39,7 @@ window.tierListData = (maxCount) => {
             window.addEventListener('add-tier', (event) => {
                 const title = event.detail.title;
                 const color = event.detail.color;
-                
+
                 if (this.isZero()) {
                     notify('Tier list limit is 10 items.');
                     return;
@@ -48,7 +48,7 @@ window.tierListData = (maxCount) => {
                 // 今の並び順をAlpine側で同期する
                 const order = [...document.querySelectorAll('.tier-list')]
                     .map(tier => Number(tier.dataset.id));
-                
+
                 this.$refs.list._x_prevKeys = order;
 
                 const createNewOrder = () => {
@@ -59,20 +59,20 @@ window.tierListData = (maxCount) => {
                             .map(id => this.rows.find(row => row.id === id))
                             .concat({ id: nextId, title: title, bg: color });
                     }
-                    
+
                     return [{ id: 1, title: title, bg: color }];
                 }
-                    
+
                 this.rows = createNewOrder();
-                
+
                 window.dispatchEvent(new CustomEvent('close-modal-add-tier'));
-            }); 
+            });
 
             window.addEventListener('edit-tier', (event) => {
                 const id = event.detail.id;
                 const title = event.detail.title;
                 const bg = event.detail.bg;
-                
+
                 this.rows = this.rows
                     .map(row => {
                         if (row.id !== id) {
@@ -104,7 +104,7 @@ window.tierListData = (maxCount) => {
                 }
 
                 this.rows = this.rows.filter(row => row.id !== id);
-                
+
                 window.dispatchEvent(new CustomEvent('close-modal-tier-setting'));
             });
         }
