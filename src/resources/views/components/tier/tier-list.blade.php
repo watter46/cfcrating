@@ -3,8 +3,6 @@
 
 <div id="tier" class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()">
     <section id="tier-content" class="relative">
-        <x-ui.background.medium />
-
         <!-- Tier Header -->
         <section class="flex items-center justify-between w-full space-x-2">
             <!-- Title -->
@@ -178,13 +176,9 @@
             </section>
 
             <!-- Download -->
-            <x-ui.button.flow-button
-                before="'Download'"
-                after="'Downloaded!!'"
-                method="'downloadTierImage'"
-                color="#16a34a">
+            <x-tier.download-button>
                 <x-svg.download class="w-5 h-5 stroke-gray-200" />
-            </x-ui.button.flow-button>
+            </x-tier.download-button>
         </div>
     </div>
 </div>

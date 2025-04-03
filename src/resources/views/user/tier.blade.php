@@ -9,7 +9,7 @@
                     <p class="hidden p-2 text-2xl font-black text-gray-300 lg:block">Players</p>
 
                     <!-- Select Player -->
-                    <div class="w-full h-full overflow-x-scroll lg:overflow-auto">
+                    <div class="w-full h-full scroll-smooth overflow-x-auto lg:overflow-auto">
                         <div class="sticky left-0 grid h-12 place-items-center lg:hidden">
                             <div class="flex items-center">
                                 <x-svg.left-arrow class="size-6 stroke-white" />
