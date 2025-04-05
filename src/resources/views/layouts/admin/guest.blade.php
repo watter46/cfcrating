@@ -16,10 +16,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="w-full h-full min-h-screen font-sans antialiased font-black text-white">
-        <!-- Background -->
-        <x-ui.background.large />
-
+    <body class="w-full h-full min-h-screen font-sans antialiased font-black text-white bg-[#1E1E1E]">
         <div class="relative flex w-full px-4 py-4 sm:px-6 lg:px-8">
             <!-- Logo -->
             <div class="flex items-center shrink-0">

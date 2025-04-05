@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Presenters;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Collection;
 
 use App\Models\Util\PositionType;
 use App\Models\Player;
@@ -16,7 +16,7 @@ class PlayersPresenter
     {
 
     }
-    
+
     public function present(Collection $players)
     {
         return $players
@@ -30,7 +30,7 @@ class PlayersPresenter
                 $player['pathExist'] = $this->playerImage->exist($player->api_player_id);
                 $player['positionGroup'] = PositionType::from($player['position'])->text();
                 $player['position']      = PositionType::from($player['position'])->name;
-                
+
                 return $player;
             })
             ->recursiveCollect()

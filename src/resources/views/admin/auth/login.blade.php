@@ -1,8 +1,5 @@
 <x-admin-guest-layout>
     <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7">
-        <!-- Background -->
-        <x-ui.background.medium />
-
         <!-- Session Status -->
         <x-default.auth-session-status class="mb-4" :status="session('status')" />
 
