@@ -1,8 +1,5 @@
 <x-admin-guest-layout>
     <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7">
-        <!-- Background -->
-        <x-ui.background.medium />
-
         <!-- Session Status -->
         <x-default.auth-session-status class="mb-4" :status="session('status')" />
         <div class="grid grid-cols-1 gap-16">
@@ -15,7 +12,7 @@
             <div class="mt-4">
                 <p class="mb-2 text-sm text-gray-400">アプリに表示されている文字列を入力してください。30秒ごとに変わります。</p>
             </div>
-            
+
             <form method="POST" action="{{ route('admin.enable2fa') }}">
                 @csrf
                 <div class="mt-4">
@@ -34,7 +31,7 @@
                     </button>
                 </div>
             </form>
-            
+
             <div class="flex items-center justify-start mt-4">
                 <div>
                     <form method="POST" action="{{ route('admin.logout') }}">
