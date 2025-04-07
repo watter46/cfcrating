@@ -45,7 +45,7 @@ class GameRepository implements GameRepositoryInterface
         try {
             $game = Game::query()
                 ->select('id')
-                ->whereFixtureId($fixture->fixtureId())
+                ->whereFixtureId($fixture->getFixtureId())
                 ->firstOrFail();
 
             $game->update($this->gameBuilder->fromFixture($fixture));

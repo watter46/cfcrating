@@ -2,14 +2,14 @@
 
 namespace App\UseCases\Admin\Game;
 
-use App\Events\UpdateGameImages;
-use Exception;
 use Illuminate\Support\Facades\DB;
-
-use App\Models\Game;
-use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
-use App\UseCases\Admin\CheckAdminKey;
+use Exception;
 use App\UseCases\Admin\Exception\FixtureNotEndedException;
+
+use App\UseCases\Admin\CheckAdminKey;
+use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
+use App\Models\Game;
+use App\Events\UpdateGameImages;
 
 class UpdateGame extends CheckAdminKey
 {
