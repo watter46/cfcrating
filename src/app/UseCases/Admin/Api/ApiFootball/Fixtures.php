@@ -25,21 +25,9 @@ class Fixtures
         );
     }
 
-    public function asCollection()
+    public function getFixtures()
     {
-        return $this->fixtures
-            ->map(function (Fixture $fixture) {
-                return collect([
-                    'fixture_id' => $fixture->fixtureId(),
-                    'league_id' => $fixture->getLeagueId(),
-                    'season' => $fixture->getSeason(),
-                    'started_at' => $fixture->getDate(),
-                    'is_end' => $fixture->getIsEnd(),
-                    'score' => $fixture->getScore(),
-                    'teams' => $fixture->getTeams(),
-                    'league' => $fixture->getLeague(),
-                ]);
-            });
+        return $this->fixtures;
     }
 
     public function filterIsEnd()
