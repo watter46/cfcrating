@@ -1,15 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Infrastructure\ApiFootball;
 
-use App\Models\Util\Season;
-use App\File\Data\FixtureFile;
-use App\UseCases\Admin\Api\ApiFootball\Fixture;
-use App\File\Data\Test\ApiFootball\FixturesFile;
-use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 use App\UseCases\Admin\Api\ApiFootball\TeamImage;
 use App\UseCases\Admin\Api\ApiFootball\LeagueImage;
+use App\UseCases\Admin\Api\ApiFootball\Fixtures;
+use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
+use App\Models\Util\Season;
+use App\File\Data\Test\ApiFootball\FixturesFile;
+use App\File\Data\FixtureFile;
 
 
 class MockApiFootballRepository implements ApiFootballRepositoryInterface
