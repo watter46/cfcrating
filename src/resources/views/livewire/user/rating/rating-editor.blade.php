@@ -30,14 +30,14 @@
         <div class="flex justify-center mt-8 md:justify-end gap-x-5">
             <div class="w-full max-w-80 gap-x-5 flex justify-center">
                 <div class="w-fit">
-                    <div class="w-full mb-1 rounded-lg bg-gray-800 grid-flow-col grid gap-1
+                    <div class="w-full bg-orange-500 mb-1 rounded-lg bg-gray-800 grid-flow-col grid gap-1
                         grid-cols-{{ $player['momLimit'] }}">
                         @foreach($remainingMomCountRange as $count)
-                            <x-svg.remaining-count class="fill-amber-300" />
+                            <x-svg.remaining-count class="fill-amber-300 w-1/5" />
                         @endforeach
 
                         @foreach($momCountRange as $count)
-                            <x-svg.count />
+                            <x-svg.count class="w-1/5" />
                         @endforeach
                     </div>
 
