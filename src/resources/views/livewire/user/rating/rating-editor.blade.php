@@ -29,19 +29,19 @@
 
         <div class="flex justify-center mt-8 md:justify-end gap-x-5">
             <div class="w-full max-w-80 gap-x-5 flex justify-center">
-                <div class="w-fit">
+                <div class="w-full max-w-40">
                     <div class="w-full bg-orange-500 mb-1 rounded-lg bg-gray-800 grid-flow-col grid gap-1
                         grid-cols-{{ $player['momLimit'] }}">
                         @foreach($remainingMomCountRange as $count)
-                            <x-svg.remaining-count class="fill-amber-300 w-1/5" />
+                            <x-svg.remaining-count class="fill-amber-300" />
                         @endforeach
 
                         @foreach($momCountRange as $count)
-                            <x-svg.count class="w-1/5" />
+                            <x-svg.count />
                         @endforeach
                     </div>
 
-                    <button class="px-8 py-1 border-2 border-gray-200 rounded-lg bg-amber-400"
+                    <button class="px-8 py-1 border-2 w-full border-gray-200 rounded-lg bg-amber-400"
                         :class="!canMom ? 'pointer-events-none opacity-30' : ''"
                         wire:click="decideMom">
                         <p class="font-bold text-center text-gray-200">★ MOM</p>
