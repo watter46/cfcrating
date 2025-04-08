@@ -29,7 +29,7 @@
 
         <div class="flex justify-center mt-8 md:justify-end gap-x-5">
             <div class="w-fit">
-                <div class="w-full mb-1 rounded-lg bg-gray-800 grid-flow-col grid gap-1
+                <div class="w-full mb-1 rounded-lg grid-flow-col grid gap-1
                     grid-cols-{{ $player['momLimit'] }}">
                     @foreach($remainingMomCountRange as $count)
                         <x-svg.remaining-count class="fill-amber-300 h-1" />
@@ -48,7 +48,7 @@
             </div>
 
             <div class="w-fit">
-                <div class="w-full mb-1 bg-gray-800 rounded-lg grid-flow-col grid gap-1
+                <div class="w-full mb-1 rounded-lg grid-flow-col grid gap-1
                     grid-cols-{{ $player['rateLimit'] }}">
                     @foreach($remainingRateCountRange as $count)
                         <x-svg.remaining-count class="fill-sky-500 h-1" />
