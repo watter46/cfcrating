@@ -18,8 +18,8 @@
             <div class="absolute inset-0 opacity-75 bg-gray-950"></div>
         </div>
 
-        <div x-show="open" class="flex justify-center w-full h-fit zoom-in sm:py-10">
-            <div class="rounded-lg bg-[#05172F] w-full h-full min-h-[90%] pb-5 md:w-11/12"
+        <div x-show="open" class="grid w-full h-full min-h-screen zoom-in sm:py-10">
+            <div class="place-self-center rounded-lg bg-[#05172F] w-full h-fit pb-5 md:w-11/12"
                 @click.outside="$dispatch('close-modal-{{ $name }}')">
 
                 <!-- CloseButton -->
