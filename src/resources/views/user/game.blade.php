@@ -12,6 +12,7 @@
             <!-- Lineups -->
             <x-lineups.lineups :$game :maxWidth="600" playerComponent="player.rateable">
                 <img alt="field" src="{{ asset('storage/background/field.svg') }}" />
+                <x-util.cr-icon class="size-8 absolute bottom-0 left-1" />
             </x-lineups.lineups>
 
             <!-- Options -->

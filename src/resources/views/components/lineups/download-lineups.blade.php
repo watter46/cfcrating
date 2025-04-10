@@ -4,7 +4,7 @@
         <img alt="filed" src="{{ asset('storage/background/field.svg') }}" />
 
         <!-- CR icon -->
-        <img alt="cr-icon" src="{{ asset('storage/background/cr-icon.svg') }}" class="absolute bottom-5 left-7 w-14 h-14">
+        <img alt="cr-icon" src="{{ asset('storage/background/cr-icon.svg') }}" class="absolute bottom-5 left-7 size-16">
 
         <!-- StartXI -->
         <div class="absolute w-full h-full">
