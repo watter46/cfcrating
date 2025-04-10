@@ -1,9 +1,7 @@
 <div class="flex flex-col items-center justify-center">
     <x-player.player :$player :clickable="true"
-        id="player-data"
+        class="player-data"
         data-name="{{ $player['name'] }}"
-        data-mom="{{ $player['myMom'] ? 'true' : 'false' }}"
-        data-rating="{{ $player['myRating'] ?? 'null' }}"
         data-is-starter="{{ $player['isStarter'] }}">
 
         <x-slot:frame>
