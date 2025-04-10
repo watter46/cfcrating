@@ -11,14 +11,14 @@
             @if($clickable) @click="$dispatch('open-modal-player-{{ $player['id'] }}')" @endif>
                 <!-- Frame -->
                 {{ $frame  ?? ''}}
-            
+
                 <!-- PlayerImage -->
                 <x-player.parts.player-image
                     class="{{ $size }}"
                     :path="$player['path']"
                     :number="$player['number']"
                     :exist="$player['pathExist']" />
-                    
+
                 <!-- TopLeft -->
                 <div class="absolute top-0 left-0 -translate-x-[60%]">
                     {{ $topLeft ?? '' }}
