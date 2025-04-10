@@ -1,10 +1,3 @@
-@php
-    $componentName = match ($player['myMom']) {
-        false,null => 'svg.player-frame',
-        true       => 'svg.mom-player-frame',
-    };
-@endphp
-
 <div class="flex flex-col items-center justify-center">
     <x-player.player :$player :clickable="true"
         id="player-data"
@@ -16,7 +9,7 @@
         <x-slot:frame>
             <x-player.frames.dynamic-frame :playerId="$player['id']" :mom="$player['myMom']" />
         </x-slot:frame>
-        
+
         <x-slot:top-left>
             <!-- Goals -->
             <x-player.parts.goals :goals="$player['goals']" />
@@ -26,7 +19,7 @@
             <!-- Assists -->
             <x-player.parts.assists :assists="$player['assists']" />
         </x-slot:top-right>
-            
+
         <x-slot:bottom-right>
             <!-- Rating -->
             <div x-data="{
@@ -58,7 +51,7 @@
                 </template>
             </div>
         </x-slot:bottom-right>
-            
+
         <x-slot:modal>
             <x-player.modals.rate :$player />
         </x-slot:modal>
