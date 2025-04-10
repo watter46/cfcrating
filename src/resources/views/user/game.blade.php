@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div x-data x-cloak class="flex flex-col justify-center w-full p-2">
+    <div x-data x-cloak class="flex flex-col justify-center w-full px-2 py-5 sm:pb-0">
         <!-- Score -->
         <section id="score" class="w-full mb-5 md:px-5"
             data-away-team-name="{{ $game['teams']['away']['name'] }}"
