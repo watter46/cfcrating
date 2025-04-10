@@ -26,7 +26,7 @@ const formatScore = () => {
 }
 
 const formatRating = (includeSubs) => {
-    const playerDataEls = document.querySelectorAll('#player-data');
+    const playerDataEls = document.querySelectorAll('.player-data');
 
     const toMom    = (mom) => mom.toLowerCase() === "true" ? '(MOTM✨)' : '';
     const toRating = (rating) => rating !== 'null' ? parseFloat(rating) : '-';
@@ -35,9 +35,11 @@ const formatRating = (includeSubs) => {
     const ratings = [...playerDataEls]
         .map(player => {
             const name = player.dataset.name;
-            const mom = player.dataset.mom;
-            const rating = player.dataset.rating;
             const isStarter = player.dataset.isStarter;
+
+            const ratingData = player.querySelector('.rating-data');
+            const mom = ratingData.dataset.mom;
+            const rating = ratingData.dataset.rating;
 
             return {
                 name: name,
