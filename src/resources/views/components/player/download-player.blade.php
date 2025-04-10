@@ -1,9 +1,9 @@
 <div class="flex flex-col items-center justify-center player">
-    <x-player.player :$player :clickable="false" size="sizes-[100px]">
+    <x-player.player :$player :clickable="false" size="size-[100px]">
         <x-slot:frame>
             <x-player.frames.dynamic-frame :playerId="$player['id']" :mom="$player['myMom']" />
         </x-slot:frame>
-        
+
         <x-slot:top-left>
             <!-- Goals -->
             <x-player.parts.goals
