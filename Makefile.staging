@@ -54,3 +54,5 @@ rm-public-volume:
 	docker volume rm staging_build
 scheduler-log:
 	docker compose exec scheduler cat storage/logs/laravel.log
+queue-log:
+	docker compose exec scheduler cat storage/logs/worker.log
