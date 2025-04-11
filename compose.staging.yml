@@ -52,7 +52,7 @@ services:
   queue:
     image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
     container_name: ${APP_NAME}-queue-${ENV}
-    command: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+    command: /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
     volumes:
       - ./src/.env:/var/www/src/.env
       - storage:/var/www/src/storage/app/public
