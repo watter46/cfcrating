@@ -29,24 +29,24 @@
                 @toggle-states-updated.window="toggleStates = event.detail.state">
 
                 <!-- MyRating -->
-                <template x-if="isMy()">
+                <div x-show="isMy()">
                     <livewire:user.rating.rating-display
                         :playerId="$player['id']"
                         :mom="$player['myMom']"
                         :rating="$player['myRating']" />
-                </template>
+                </div>
 
                 <!-- UserRating -->
-                <template x-if="isUsers()">
+                <div x-show="isUsers()">
                     <x-player.parts.rating
                         :mom="$player['usersMom']"
                         :rating="$player['usersRating']" />
-                </template>
+                </div>
 
                 <!-- MachineRating -->
-                <template x-if="isMachine()">
+                <div x-show="isMachine()">
                     <x-player.parts.rating :rating="$player['machineRating']" />
-                </template>
+                </div>
             </div>
         </x-slot:bottom-right>
 
