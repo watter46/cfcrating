@@ -40,3 +40,11 @@ services:
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASS}
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
+
+  scheduler:
+    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
+    container_name: ${APP_NAME}-scheduler-${ENV}
+    user: "${UID}:${GID}"
+    command: sh -c "while true; do php /var/www/src/artisan schedule:run; sleep 60; done"
+    volumes:
+      - ./src/.env:/var/www/src/.env
