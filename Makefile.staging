@@ -33,6 +33,10 @@ web:
 	docker compose exec web bash
 sql:
 	docker compose exec db bash -c 'mysql -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
+scheduler:
+	docker compose exec scheduler bash
+queue:
+	docker compose exec queue bash
 clear:
 	docker compose exec app php artisan cache:clear
 	docker compose exec app php artisan config:clear
@@ -55,4 +59,4 @@ rm-public-volume:
 scheduler-log:
 	docker compose exec scheduler cat storage/logs/laravel.log
 queue-log:
-	docker compose exec scheduler cat storage/logs/worker.log
+	docker compose exec queue cat storage/logs/laravel.log
