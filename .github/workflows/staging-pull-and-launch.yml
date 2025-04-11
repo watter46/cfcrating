@@ -21,3 +21,4 @@ jobs:
             make clear
             make cache
             make prune-image
+            make link
