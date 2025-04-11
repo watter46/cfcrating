@@ -43,7 +43,7 @@ services:
 
   scheduler:
     image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
-    container_name: ${APP_NAME}-app-${ENV}
+    container_name: ${APP_NAME}-scheduler-${ENV}
     user: "${UID}:${GID}"
     command: sh -c "while true; do php /var/www/src/artisan schedule:run; sleep 60; done"
     volumes:
