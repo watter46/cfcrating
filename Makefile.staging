@@ -48,7 +48,9 @@ key:
 	docker compose exec app php artisan key:generate
 rm-log:
 	docker compose exec app rm storage/logs/laravel.log
-cat-log:
+laravel-log:
 	docker compose exec app cat storage/logs/laravel.log
 rm-public-volume:
 	docker volume rm staging_build
+scheduler-log:
+	docker compose exec scheduler cat storage/logs/laravel.log
