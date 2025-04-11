@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
 use Illuminate\Support\Facades\Schedule;
-
-use Illuminate\Support\Facades\Log;
 use App\Jobs\UpdateUsersRatingJob;
-use App\Jobs\UpdateGamesJob;
 
+use App\Jobs\UpdateGamesJob;
 use App\Jobs\UpdateGameJob;
 
-Log::info("Scheduled command started at " . now());
+use App\Jobs\StagingJob;
+
+Schedule::job(new StagingJob)->everyMinute();
 
 // /** 試合後にFixtureデータをAPIから取得してDBを更新 */
 // Schedule::job(new UpdateGameJob)

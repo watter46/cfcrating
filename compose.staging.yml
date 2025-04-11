@@ -48,3 +48,12 @@ services:
     command: sh -c "while true; do php /var/www/src/artisan schedule:run; sleep 60; done"
     volumes:
       - ./src/.env:/var/www/src/.env
+
+  queue:
+    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
+    container_name: ${APP_NAME}-queue-${ENV}
+    command: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+    volumes:
+      - ./src/.env:/var/www/src/.env
+      - storage:/var/www/src/storage/app/public
+      - ./supervisor/queue.conf:/etc/supervisor/conf.d/queue.conf
