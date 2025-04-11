@@ -91,7 +91,8 @@ RUN apk add --no-cache \
     libzip-dev \
     libpng-dev \
     freetype-dev \
-    libjpeg-turbo-dev
+    libjpeg-turbo-dev \
+    supervisor
 
 RUN docker-php-ext-configure gd \
         --with-freetype=/usr/include/ \
