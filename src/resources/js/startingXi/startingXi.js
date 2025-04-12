@@ -15,9 +15,9 @@ window.initLineups = (playersData) => {
                     isSelected: false,
                     data: null
                 }));
-    
+
             const lineups = new Lineups(initPlayers);
-            
+
             return lineups.init();
         },
         select(positionId, playerId) {
@@ -36,11 +36,11 @@ window.initLineups = (playersData) => {
 
                             return player;
                         }
-                        
+
                         if (player.positionId !== positionId) {
                             return player;
                         }
-                        
+
                         player['isSelected'] = true;
                         player['data'] = playerData;
 
@@ -55,7 +55,7 @@ window.initLineups = (playersData) => {
                     .flat()
                     .filter(player => player.isSelected)
                     .map(player => player.data.id);
-        
+
                 this.selectedPlayerIds = selectedPlayerIds;
             }, 300);
         },
@@ -69,7 +69,7 @@ window.initLineups = (playersData) => {
                         if (player.positionId !== positionId) {
                             return player;
                         }
-                        
+
                         player['isSelected'] = false;
                         player['data'] = null;
 
@@ -81,7 +81,7 @@ window.initLineups = (playersData) => {
                 .flat()
                 .filter(player => player.isSelected)
                 .map(player => player.data.id);
-        
+
             this.selectedPlayerIds = selectedPlayerIds;
 
             window.dispatchEvent(new CustomEvent('close-modal-startingxi'));
@@ -107,7 +107,7 @@ const positionTextColor = (position) => {
 }
 
 window.positionColor = (el, position) => {
-    el.classList.add(positionTextColor(position)); 
+    el.classList.add(positionTextColor(position));
 }
 
 window.initFormation = () => {
@@ -126,7 +126,7 @@ window.initFormation = () => {
 
 window.downloadStartingXi = () => {
     const startingXiEl = document.getElementById('starting-xi');
-    
+
     const originalAttributes = [];
 
     // 属性を削除し、元の状態を保存
@@ -146,29 +146,27 @@ window.downloadStartingXi = () => {
         }
     });
 
-    setTimeout(() => {
-        htmlToImage.toJpeg(startingXiEl, {
-            quality: 0.85,
-            skipFonts: true,
-            preferredFontFormat: 'woff2',
-            width: startingXiEl.scrollWidth,
-            height: startingXiEl.scrollHeight,
-            canvasWidth: startingXiEl.scrollWidth,
-            canvasHeight: startingXiEl.scrollHeight,
-            backgroundColor: '#01142E'
-        })
-        .then(function (dataUrl) {
-            var link = document.createElement('a');
-            link.download = 'cfcRating.jpeg';
-            link.href = dataUrl;
-            link.click();
-        })
-        .finally(() => {
-            originalAttributes.forEach(({ node, attributes }) => {
-                Object.entries(attributes).forEach(([name, value]) => {
-                    node.setAttribute(name, value);
-                });
+    return htmlToImage.toJpeg(startingXiEl, {
+        quality: 0.85,
+        skipFonts: true,
+        preferredFontFormat: 'woff2',
+        width: startingXiEl.scrollWidth,
+        height: startingXiEl.scrollHeight,
+        canvasWidth: startingXiEl.scrollWidth,
+        canvasHeight: startingXiEl.scrollHeight,
+        backgroundColor: '#01142E'
+    })
+    .then(function (dataUrl) {
+        var link = document.createElement('a');
+        link.download = 'cfcRating.jpeg';
+        link.href = dataUrl;
+        link.click();
+    })
+    .finally(() => {
+        originalAttributes.forEach(({ node, attributes }) => {
+            Object.entries(attributes).forEach(([name, value]) => {
+                node.setAttribute(name, value);
             });
         });
-    }, 1000);
+    });
 }

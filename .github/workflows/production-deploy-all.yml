@@ -1,26 +1,26 @@
-name: Deploy all Staging
+name: Deploy all Production
 
 on:
   workflow_dispatch:
 
 jobs:
   call_build_push_app:
-    uses: ./.github/workflows/staging-build-push-app.yml
+    uses: ./.github/workflows/production-build-push-app.yml
     secrets: inherit
   
   call_build_push_web:
-    uses: ./.github/workflows/staging-build-push-web.yml
+    uses: ./.github/workflows/production-build-push-web.yml
     secrets: inherit
 
   call_build_push_db:
-    uses: ./.github/workflows/staging-build-push-db.yml
+    uses: ./.github/workflows/production-build-push-db.yml
     secrets: inherit
 
   call_rsync:
-    uses: ./.github/workflows/staging-rsync.yml
+    uses: ./.github/workflows/production-rsync.yml
     secrets: inherit
   
   deploy:
     needs: [call_build_push_app, call_build_push_web, call_build_push_db, call_rsync]
-    uses: ./.github/workflows/staging-pull-and-launch.yml
+    uses: ./.github/workflows/production-pull-and-launch.yml
     secrets: inherit

@@ -14,10 +14,11 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /opt/staging
+            cd /opt/production
 
             make pull
             make up
             make clear
             make cache
             make prune-image
+            make link

@@ -6,6 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/background.css',
                 'resources/css/field.css',
                 'resources/css/flow-button.css',
                 'resources/css/message.css',
@@ -31,7 +32,6 @@ export default defineConfig({
                 'resources/js/copyRatings.js',
                 'resources/js/downloadImage.js',
                 'resources/js/field.js',
-                'resources/js/flowButton.js',
                 'resources/js/modal.js',
                 'resources/js/notify.js',
                 'resources/js/rating.js'

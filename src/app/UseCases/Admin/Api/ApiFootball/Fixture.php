@@ -2,8 +2,8 @@
 
 namespace App\UseCases\Admin\Api\ApiFootball;
 
-use Exception;
 use Illuminate\Support\Collection;
+use Exception;
 
 use App\UseCases\Admin\Api\ApiFootball\Teams;
 use App\UseCases\Admin\Api\ApiFootball\Score;
@@ -20,7 +20,7 @@ readonly class Fixture
         private Info $info,
         private ?Lineups $lineups
     ) {
-        
+
     }
 
     public static function create(Collection $data)
@@ -50,7 +50,7 @@ readonly class Fixture
     {
         return $this->score->get();
     }
-    
+
     public function getLeague()
     {
         return $this->league->get();
@@ -79,7 +79,7 @@ readonly class Fixture
         return $this->lineups->getPlayerIds();
     }
 
-    public function fixtureId()
+    public function getFixtureId()
     {
         return $this->info->fixtureId();
     }
@@ -97,5 +97,10 @@ readonly class Fixture
     public function getIsEnd()
     {
         return $this->info->getIsEnd();
+    }
+
+    public function getIsWinner()
+    {
+        return $this->teams->getIsWinner();
     }
 }

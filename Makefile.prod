@@ -31,6 +31,12 @@ app:
 	docker compose exec app bash
 web:
 	docker compose exec web bash
+sql:
+	docker compose exec db bash -c 'mysql -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
+scheduler:
+	docker compose exec scheduler bash
+queue:
+	docker compose exec queue bash
 clear:
 	docker compose exec app php artisan cache:clear
 	docker compose exec app php artisan config:clear
@@ -46,11 +52,11 @@ key:
 	docker compose exec app php artisan key:generate
 rm-log:
 	docker compose exec app rm storage/logs/laravel.log
-cat-log:
+laravel-log:
 	docker compose exec app cat storage/logs/laravel.log
 rm-public-volume:
-	docker volume rm cfcrating_public
-cp-cron:
-	sudo touch /etc/cron.d/letsencrypt-renew
-	sudo chown root:root /etc/cron.d/letsencrypt-renew
-	sudo chmod 644 /etc/cron.d/letsencrypt-renew
+	docker volume rm production_build
+scheduler-log:
+	docker compose exec scheduler cat storage/logs/laravel.log
+queue-log:
+	docker compose exec queue cat storage/logs/laravel.log

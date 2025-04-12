@@ -1,10 +1,8 @@
 <!-- Download -->
 <section id="tier-download" class="fixed inset-0 z-[-100]"></section>
 
-<div id="tier" class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()">
+<div id="tier" class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()" x-cloak>
     <section id="tier-content" class="relative">
-        <x-ui.background.medium />
-
         <!-- Tier Header -->
         <section class="flex items-center justify-between w-full space-x-2">
             <!-- Title -->
@@ -172,19 +170,15 @@
             <!-- TitleInput -->
             <section class="w-full max-w-lg">
                 <label for="starting-xi-title" class="block text-sm font-black text-white sm:text-lg">Title</label>
-                <input id="starting-xi-title" class="w-full text-sm font-black text-white break-all bg-transparent rounded-md resize-none sm:text-lg"
+                <input id="starting-xi-title" class="w-full text-[16px] font-black text-white break-all bg-gray-700 border-gray-600 rounded-md resize-none sm:text-lg"
                     maxlength="20"
                     x-model="title" />
             </section>
 
             <!-- Download -->
-            <x-ui.button.flow-button
-                before="'Download'"
-                after="'Downloaded!!'"
-                method="'downloadTierImage'"
-                color="#16a34a">
+            <x-tier.download-button>
                 <x-svg.download class="w-5 h-5 stroke-gray-200" />
-            </x-ui.button.flow-button>
+            </x-tier.download-button>
         </div>
     </div>
 </div>

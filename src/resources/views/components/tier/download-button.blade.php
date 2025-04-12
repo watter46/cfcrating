@@ -1,5 +1,4 @@
-<button x-ref="download_btn"
-    x-data="{
+<button x-data="{
         isProcessing: false,
         isCompleted: false,
     }"
@@ -8,7 +7,7 @@
     @click="
         isProcessing = true;
         $nextTick(() => {
-            downloadImage(includeSubs)
+            downloadTierImage()
                 .then(() => {
                     isProcessing = false;
                     isCompleted = true;
@@ -28,4 +27,4 @@
     </span>
 </button>
 
-@vite(['resources/css/flow-button.css'])
+@vite(['resources/css/flow-button.css', 'resources/js/tier/tier.js',])

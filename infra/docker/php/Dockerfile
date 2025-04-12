@@ -57,7 +57,7 @@ RUN chown -R $USER_NAME:$USER_NAME /var/www/src
 USER $USER_NAME
 
 # ====================================
-# production
+# production builder
 # ====================================
 FROM composer:2.7 AS vendor
 WORKDIR /app
@@ -78,7 +78,9 @@ COPY ./src/ ./
 
 RUN npm run build
 
-
+# ====================================
+# production
+# ====================================
 FROM base AS production
 
 WORKDIR /var/www/src
@@ -89,7 +91,8 @@ RUN apk add --no-cache \
     libzip-dev \
     libpng-dev \
     freetype-dev \
-    libjpeg-turbo-dev
+    libjpeg-turbo-dev \
+    supervisor
 
 RUN docker-php-ext-configure gd \
         --with-freetype=/usr/include/ \
@@ -107,5 +110,14 @@ COPY ./src/ ./
 
 RUN chmod -R 775 storage bootstrap/cache && \
     chown -R $USER_NAME:$USER_NAME /var/www
+
+USER $USER_NAME
+
+# ====================================
+# staging
+# ====================================
+FROM production AS staging
+
+WORKDIR /var/www/src
 
 USER $USER_NAME

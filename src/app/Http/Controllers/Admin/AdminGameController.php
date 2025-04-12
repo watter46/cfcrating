@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Presenters\GamePresenter;
-use App\Http\Controllers\Admin\Presenters\GamesPresenter;
-use App\Http\Controllers\Controller;
-use App\UseCases\Admin\Game\FetchGames;
 use App\UseCases\Admin\Game\FindGame;
-
+use App\UseCases\Admin\Game\FetchGames;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Presenters\GamesPresenter;
+use App\Http\Controllers\Admin\Presenters\GamePresenter;
 
 class AdminGameController extends Controller
 {
@@ -17,9 +16,9 @@ class AdminGameController extends Controller
         private GamesPresenter $gamesPresenter,
         private GamePresenter $gamePresenter
     ) {
-        
+
     }
-    
+
     public function index()
     {
         $games = $this->fetchGames->execute();

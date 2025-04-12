@@ -1,6 +1,6 @@
 <div class="flex items-center justify-center w-full">
     <div class="flex flex-col items-center justify-center w-fit">
-        <x-player.player :$player :clickable="false" size="size-[100px]">
+        <x-player.player :$player :clickable="false" size="size-[60px] md:size-[100px]">
             <x-slot:frame>
                 <x-player.frames.rounded />
             </x-slot:frame>
@@ -28,7 +28,7 @@
         <p class="text-sm font-black text-gray-400 md:text-base">MachineRating</p>
         <p class="text-base font-black text-gray-300 md:text-lg">{{ $player['machineRating'] }}</p>
     </div>
-    
+
     <!-- Goals -->
     <div class="flex flex-col items-center p-0.5">
         <p class="text-sm font-black text-gray-400 md:text-base">Goals</p>
@@ -38,7 +38,7 @@
                 :goals="$player['goals']" />
         </div>
     </div>
-    
+
     <!-- Assists -->
     <div class="flex flex-col items-center p-0.5">
         <p class="text-sm font-black text-gray-400 md:text-base">Assists</p>
@@ -48,6 +48,6 @@
                 :assists="$player['assists']" />
         </div>
     </div>
-    
+
     @vite(['resources/css/rating.css'])
 </div>

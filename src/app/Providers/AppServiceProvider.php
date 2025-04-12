@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        if ($this->app->environment('production')) {
+        if ($this->app->environment('production') || $this->app->environment('staging')) {
             $this->app->bind(ApiFootballRepositoryInterface::class, ProductionApiFootballRepository::class);
             $this->app->bind(FlashLiveRepositoryInterface::class, ProductionFlashLiveRepository::class);
             $this->app->bind(GameRepositoryInterface::class, GameRepository::class);

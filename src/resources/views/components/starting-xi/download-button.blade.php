@@ -8,7 +8,7 @@
     @click="
         isProcessing = true;
         $nextTick(() => {
-            downloadImage(includeSubs)
+            downloadStartingXi()
                 .then(() => {
                     isProcessing = false;
                     isCompleted = true;

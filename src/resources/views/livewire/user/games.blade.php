@@ -1,4 +1,4 @@
-<div class="flex w-full">
+<div class="flex w-full pb-5 sm:pb-0">
     <div class="w-full h-full p-2 md:px-8 lg:px-20">
         <div class="relative flex items-center justify-center w-full h-full">
             <div class="flex items-center w-full h-16">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Score -->
         <div class="w-full mt-2 gap-y-8">
             @foreach($this->games as $game)
@@ -45,7 +45,7 @@
                         href="{{ route('games.game', ['gameId' => $game['id']]) }}">
                         <x-game-summary.game-summary :$game>
                             @if($game['isRated'])
-                                <x-svg.rated-icon class="w-3 h-3 sm:w-5 sm:h-5" />    
+                                <x-svg.rated-icon class="w-3 h-3 sm:w-5 sm:h-5" />
                             @endif
 
                             @if ($game['canRate'])
@@ -53,7 +53,7 @@
                             @else
                                 <x-svg.rating-disabled-icon class="w-3 h-3 sm:w-5 sm:h-5" />
                             @endif
-                            
+
                         </x-game-summary.game-summary>
                     </a>
                 </div>

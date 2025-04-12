@@ -18,7 +18,7 @@
 
         @livewireStyles
     </head>
-    <body class="font-sans antialiased" x-data x-cloak>
+    <body class="font-sans antialiased bg-[#1E1E1E]" x-data x-cloak>
         <div class="flex flex-col min-h-screen bg-teal-950">
             @include('layouts.admin.navigation')
 

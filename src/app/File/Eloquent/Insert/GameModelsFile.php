@@ -2,11 +2,11 @@
 
 namespace App\File\Eloquent\Insert;
 
-use App\File\Data\FileHandler;
-use App\File\Eloquent\GameModelsFile as EqGameModelsFile;
-use App\File\PathInterface;
-use App\Models\Game;
 use App\Models\Util\Season;
+use App\Models\Game;
+use App\File\PathInterface;
+use App\File\Eloquent\GameModelsFile as EqGameModelsFile;
+use App\File\Data\FileHandler;
 
 class GameModelsFile extends FileHandler implements PathInterface
 {
@@ -30,15 +30,7 @@ class GameModelsFile extends FileHandler implements PathInterface
 
     public function write()
     {
-        $data = Game::orderBy('started_at', 'asc')
-            ->get()
-            ->map(function ($game) {
-                $is_winner = $game['teams']->firstWhere('id', config('api-football.chelsea-id'))['isWinner'];
-
-                $game['is_winner'] = $is_winner;
-
-                return $game;
-            });
+        $data = Game::orderBy('started_at', 'asc')->get();
 
         $this->writeFile($this, $data);
     }

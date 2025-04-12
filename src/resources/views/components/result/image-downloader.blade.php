@@ -13,7 +13,7 @@
                                 :isNameRequired="false"
                                 :size="'md'" />
                         </div>
-                        
+
                         <!-- Score -->
                         <div class="grid content-center text-center">
                             @php
@@ -23,12 +23,12 @@
                                     null  => 'bg-gray-600'
                                 };
                             @endphp
-                                
+
                             <div class="flex tabular-nums justify-center items-center text-gray-300 rounded-md py-1 px-2 space-x-1 text-2xl {{ $bgScore }}">
                                 <p>{{ $game['score']['fulltime']['home'] }} - {{ $game['score']['fulltime']['away'] }}</p>
                             </div>
                         </div>
-                    
+
                         <!-- Away Team -->
                         <div class="flex justify-start">
                             <x-game-summary.parts.team class="text-xl"
@@ -39,13 +39,13 @@
                     </div>
                 </section>
             </div>
-            
+
             <div class="flex items-center justify-center w-full">
                 <x-svg.my-ratings />
             </div>
-            
+
             <div class="flex flex-col items-center justify-center">
-                <x-util.app-logo />
+                <x-util.cfc-rating-icon class="h-8" />
                 <p class="text-xl font-black text-gray-400">@cfcRating</p>
             </div>
         </div>

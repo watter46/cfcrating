@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 
 readonly class Teams
-{    
+{
     /**
      * __construct
      *
@@ -15,9 +15,9 @@ readonly class Teams
      */
     private function __construct(private Collection $teams)
     {
-        
+
     }
-    
+
     public static function create(Collection $rawTeams): self
     {
         return new self(
@@ -40,5 +40,12 @@ readonly class Teams
     public function get()
     {
         return $this->teams;
+    }
+
+    public function getIsWinner(): ?bool
+    {
+        return $this->teams
+            ->first(fn(array $team) => $team['id'] === config('api-football.chelsea-id'))
+            ['isWinner'];
     }
 }

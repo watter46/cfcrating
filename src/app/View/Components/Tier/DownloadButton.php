@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Ui\Background;
+namespace App\View\Components\Tier;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Large extends Component
+class DownloadButton extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Large extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.ui.background.large');
+        return view('components.tier.download-button');
     }
 }

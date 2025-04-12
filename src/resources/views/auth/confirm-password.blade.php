@@ -1,8 +1,5 @@
 <x-guest-layout>
-    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7">
-        <!-- Background -->
-        <x-ui.background.medium />
-
+    <div class="relative w-full max-w-xl mx-auto overflow-hidden rounded-lg p-7 bg-[#181a42]">
         <div class="mb-4 text-sm text-gray-400">
             {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
         </div>

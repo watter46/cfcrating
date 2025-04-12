@@ -1,32 +1,33 @@
 volumes:
   db-store:
   storage:
+  build:
 
 services:
   app:
-    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:0.0.1
+    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
     container_name: ${APP_NAME}-app-${ENV}
     user: "${UID}:${GID}"
     volumes:
       - ./src/.env:/var/www/src/.env
-      - storage:/var/www/src/storage
-      - ./public:/var/www/src/public
+      - storage:/var/www/src/storage/app/public
+      - build:/var/www/src/public
 
   web:
-    image: ${DOCKER_USERNAME}/${APP_NAME}-web-${ENV}
+    image: ${DOCKER_USERNAME}/${APP_NAME}-web-${ENV}:${VERSION}
     container_name: ${APP_NAME}-web-${ENV}
     ports:
       - ${WEB_PORT}:80
       - ${SSL_PORT}:443
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
-      - storage:/var/www/src/storage
-      - ./public:/var/www/src/public
+      - storage:/var/www/src/storage/app/public
+      - build:/var/www/src/public
     depends_on:
       - app
 
   db:
-    image: ${DOCKER_USERNAME}/${APP_NAME}-db-${ENV}
+    image: ${DOCKER_USERNAME}/${APP_NAME}-db-${ENV}:${VERSION}
     container_name: ${APP_NAME}-db-${ENV}
     ports:
       - ${DB_PORT}:3306
@@ -39,3 +40,20 @@ services:
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASS}
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
+
+  scheduler:
+    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
+    container_name: ${APP_NAME}-scheduler-${ENV}
+    user: "${UID}:${GID}"
+    command: sh -c "while true; do php /var/www/src/artisan schedule:run; sleep 60; done"
+    volumes:
+      - ./src/.env:/var/www/src/.env
+
+  queue:
+    image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
+    container_name: ${APP_NAME}-queue-${ENV}
+    command: /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+    volumes:
+      - ./src/.env:/var/www/src/.env
+      - storage:/var/www/src/storage/app/public
+      - ./supervisor/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf

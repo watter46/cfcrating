@@ -13,9 +13,9 @@ jobs:
     - name: rsync Include Files
       uses: burnett01/rsync-deployments@7.0.2
       with:
-        switches: -avzr --include-from=.github/workflows/staging-.actioninclude --exclude='*'
+        switches: -avzr --include-from=.github/workflows/production-.actioninclude --exclude='*'
         path: .
-        remote_path: /opt/staging/
+        remote_path: /opt/production/
         remote_host: ${{ secrets.SSH_HOST }}
         remote_user: ${{ secrets.SSH_USER }}
         remote_key: ${{ secrets.SSH_PRIVATE_KEY }}

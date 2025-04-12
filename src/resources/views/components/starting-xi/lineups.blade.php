@@ -148,7 +148,7 @@
             <!-- TitleInput -->
             <section x-data="initStartingXiTitle()">
                 <label for="starting-xi-title" class="block text-sm font-black text-white sm:text-lg">Title</label>
-                <input id="starting-xi-title" class="w-full text-sm font-black text-white break-all bg-transparent rounded-md resize-none sm:text-lg"
+                <input id="starting-xi-title" class="w-full text-[16px] bg-gray-700 border-gray-600 font-black text-white break-all rounded-md resize-none sm:text-lg"
                     maxlength="20"
                     x-ref="inputField"
                     x-model="title"
@@ -156,13 +156,9 @@
             </section>
 
             <!-- Download -->
-            <x-ui.button.flow-button
-                before="'Download'"
-                after="'Downloaded!!'"
-                method="'downloadStartingXi'"
-                color="#16a34a">
+            <x-starting-xi.download-button>
                 <x-svg.download class="w-5 h-5 stroke-gray-200" />
-            </x-ui.button.flow-button>
+            </x-starting-xi.download-button>
         </div>
     </div>
 </div>
