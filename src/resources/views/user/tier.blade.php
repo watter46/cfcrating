@@ -4,7 +4,7 @@
             <!-- TierList -->
             <x-tier.tier-list />
 
-            <div x-data="initTierPlayers(@js($players))" class="sticky lg:max-h-[40vh] bottom-0 w-full mt-3 lg:mt-10">
+            <div class="sticky lg:max-h-[40vh] bottom-0 w-full mt-3 lg:mt-10" x-data="initTierPlayers(@js($players))" x-cloak>
                 <div class="w-full bg-black">
                     <p class="hidden p-2 text-2xl font-black text-gray-300 lg:block">Players</p>
 

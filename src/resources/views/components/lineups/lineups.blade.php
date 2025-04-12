@@ -2,7 +2,7 @@
     <div class="relative flex flex-col items-center justify-center w-full">
         <!-- Field -->
         {{ $slot }}
-        
+
         <!-- StartXI -->
         <div class="absolute w-full h-full startXI">
             <div id="box" class="flex items-end justify-center w-full h-full">
