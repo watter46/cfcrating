@@ -1,7 +1,7 @@
 <!-- Download -->
 <section id="tier-download" class="fixed inset-0 z-[-100]"></section>
 
-<div id="tier" class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()">
+<div id="tier" class="px-1" x-data="tierListData({{ $maxCount }})" x-init="initTierList()" x-cloak>
     <section id="tier-content" class="relative">
         <!-- Tier Header -->
         <section class="flex items-center justify-between w-full space-x-2">
