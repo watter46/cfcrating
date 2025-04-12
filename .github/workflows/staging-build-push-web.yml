@@ -1,4 +1,4 @@
-name: Build and Push db container [production]
+name: Build and Push web container [Staging]
 
 on:
   workflow_call:
@@ -7,7 +7,7 @@ jobs:
   build_and_push:
     runs-on: ubuntu-latest
     env:
-      DOCKERFILE_PATH_DB: infra/docker/mysql/Dockerfile
+      DOCKERFILE_PATH_WEB: infra/docker/nginx/Dockerfile
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
       VERSION: ${{ vars.VERSION }}
     steps:
@@ -16,7 +16,7 @@ jobs:
 
       - name: Decode .env from GitHub Secrets and set environment variables
         run: |
-          echo "${{ secrets.ENV }}" | base64 --decode > .env
+          echo "${{ secrets.ENV_STAGING }}" | base64 --decode > .env
 
           while IFS='=' read -r key value; do
             if [[ ! -z "$key" && ! "$key" =~ ^# ]]; then
@@ -31,14 +31,15 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and push db image
+      - name: Build and push web image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ${{ env.DOCKERFILE_PATH_DB }}
+          file: ${{ env.DOCKERFILE_PATH_WEB }}
+          target: ${{ env.ENV }}
           build-args: |
             GID=${{ env.GID }}
             UID=${{ env.UID }}
           push: true
           tags: |
-            ${{ env.DOCKER_USERNAME }}/cfcrating-db-${{ env.ENV }}:${{ env.VERSION }}
+            ${{ env.DOCKER_USERNAME }}/cfcrating-web-${{ env.ENV }}:${{ env.VERSION }}

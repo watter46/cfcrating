@@ -1,4 +1,4 @@
-name: make env file [production]
+name: make env file [Staging]
 
 on:
   workflow_dispatch:
@@ -16,8 +16,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "${{ secrets.ENV }}" | base64 --decode > /opt/production/.env
-            echo "${{ secrets.ENV_SRC }}" | base64 --decode > /opt/production/src/.env
+            echo "${{ secrets.ENV_STAGING }}" | base64 --decode > /opt/staging/.env
+            echo "${{ secrets.ENV_SRC_STAGING }}" | base64 --decode > /opt/staging/src/.env
 
             export VERSION="${{ env.VERSION }}"
-            echo -e "\nVERSION=${{ env.VERSION }}" >> /opt/production/.env
+            echo -e "\nVERSION=${{ env.VERSION }}" >> /opt/staging/.env

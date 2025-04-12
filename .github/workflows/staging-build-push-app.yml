@@ -1,4 +1,4 @@
-name: Build and Push app container [production]
+name: Build and Push app container [Staging]
 
 on:
   workflow_call:
@@ -34,7 +34,7 @@ jobs:
 
       - name: Decode .env from GitHub Secrets and set environment variables
         run: |
-          echo "${{ secrets.ENV }}" | base64 --decode > .env
+          echo "${{ secrets.ENV_STAGING }}" | base64 --decode > .env
 
           while IFS='=' read -r key value; do
             if [[ ! -z "$key" && ! "$key" =~ ^# ]]; then
@@ -85,7 +85,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /opt/production
+            cd /opt/staging
 
             make down
             make rm-public-volume

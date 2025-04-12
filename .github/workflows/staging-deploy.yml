@@ -1,6 +1,9 @@
-name: Deploy Production [production]
+name: Deploy Staging [Staging]
 
 on:
+  push:
+    branches:
+      - staging
   workflow_dispatch:
 
 jobs:
@@ -30,29 +33,29 @@ jobs:
   call_build_push_app:
     if: needs.detect_changes.outputs.app_changed == 'true'
     needs: detect_changes
-    uses: ./.github/workflows/production-build-push-app.yml
+    uses: ./.github/workflows/staging-build-push-app.yml
     secrets: inherit
   
   call_build_push_web:
     if: needs.detect_changes.outputs.web_changed == 'true'
     needs: detect_changes
-    uses: ./.github/workflows/production-build-push-web.yml
+    uses: ./.github/workflows/staging-build-push-web.yml
     secrets: inherit
 
   call_build_push_db:
     if: needs.detect_changes.outputs.db_changed == 'true'
     needs: detect_changes
-    uses: ./.github/workflows/production-build-push-db.yml
+    uses: ./.github/workflows/staging-build-push-db.yml
     secrets: inherit
 
   call_rsync:
     needs: detect_changes
-    uses: ./.github/workflows/production-rsync.yml
+    uses: ./.github/workflows/staging-rsync.yml
     secrets: inherit
   
   deploy:
     if: always()
     needs: [call_build_push_app, call_build_push_web, call_build_push_db, call_rsync]
-    uses: ./.github/workflows/production-pull-and-launch.yml
+    uses: ./.github/workflows/staging-pull-and-launch.yml
     secrets: inherit
     

@@ -1,4 +1,4 @@
-name: Deploy Containers [production]
+name: Deploy Containers [Staging]
 
 on:
   workflow_call:
@@ -14,7 +14,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /opt/production
+            cd /opt/staging
 
             make pull
             make up
