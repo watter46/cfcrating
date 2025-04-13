@@ -70,17 +70,65 @@
         x-data="{ name: 'startingxi', positionId: null }"
         @open-modal-startingxi.window="positionId = event.detail">
         <div class="w-full h-full mb-10 space-y-1">
-            <div class="flex items-center justify-center space-x-2">
+            <div class="flex items-center justify-evenly space-x-2">
                 <button class="flex items-center px-2 py-1 space-x-1 bg-gray-700 rounded-lg w-fit"
                     @click="clear(positionId)">
                     <x-svg.refresh class="size-5 stroke-gray-400" />
 
                     <p class="text-sm font-black text-gray-400">Clear</p>
                 </button>
+
+                {{-- <button class="flex items-center px-2 py-1 space-x-1 bg-gray-700 rounded-lg w-fit"
+                    @click="$dispatch('open-modal-addNewPlayer')">
+                    <x-svg.plus class="size-5 fill-gray-400" />
+
+                    <p class="text-sm font-black text-gray-400">New</p>
+                </button>
+
+                <x-ui.modal.modal
+                    name="addNewPlayer"
+                    x-data="{ name: 'addNewPlayer'}">
+                    <div class="size-96 bg-orange-500">test</div>
+                </x-ui.modal.modal> --}}
+            </div>
+
+            <div class="flex items-center p-1 border-b border-gray-700"
+                x-data="{
+                    player: {
+                        id: 999,
+                        name: 'bbb',
+                        number: 99,
+                        path: 'storage/image/player/default_player.png',
+                        pathExist: false,
+                        position: 'DEF'
+                    }
+                }"
+                @click="select(positionId, player.id)">
+                <div class="flex items-center justify-center bg-orange-500">
+                    <div class="flex items-center space-x-2">
+                        <div class="relative flex items-center justify-center rounded-full size-10 player-image">
+                            {{-- <img alt="player-image" :src="player.path" class="rounded-full"> --}}
+                            <x-svg.cross class="rotate-45 size-8 fill-gray-400" />
+
+                            {{-- <p class="absolute text-lg font-black text-white"
+                                x-text="player.number"></p> --}}
+                        </div>
+
+                        <div class="flex flex-col justify-center">
+                            <p x-data="{ position: player.position }" class="text-sm font-black"
+                                x-text="position"
+                                x-init="positionColor($el, position)">
+                            </p>
+                            <p class="text-center text-white" x-text="player.number ?? '-'"></p>
+                        </div>
+
+                        <p class="text-white" x-text="player.name"></p>
+                    </div>
+                </div>
             </div>
 
             <template x-for="player in playersData">
-                <div class="relative flex items-center p-1 border-b border-gray-700"
+                <div class="flex items-center p-1 border-b border-gray-700"
                     @click="select(positionId, player.id)">
                     <div class="flex items-center justify-center">
                         <div class="size-6">
@@ -111,6 +159,8 @@
                     </div>
                 </div>
             </template>
+
+
         </div>
     </x-ui.modal.modal>
 
