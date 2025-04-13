@@ -38,7 +38,7 @@ USER nginx
 FROM base AS production
 
 COPY ./infra/docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY ./infra/docker/nginx/nginx.production.conf /etc/nginx/nginx.conf
+COPY ./infra/docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
 USER nginx
 
