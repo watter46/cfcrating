@@ -45,7 +45,7 @@ USER nginx
 # ====================================
 # staging
 # ====================================
-FROM production AS staging
+FROM base AS staging
 
 COPY ./infra/docker/nginx/default.staging.conf /etc/nginx/conf.d/default.conf
 COPY ./infra/docker/nginx/nginx.staging.conf /etc/nginx/nginx.conf
