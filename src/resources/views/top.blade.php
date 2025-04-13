@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="w-full overflow-hidden">
+    <div class="w-full overflow-hidden pb-10">
         <section class="flex w-[1000px] h-14 sm:w-[2000px] sm:h-24 whitespace-nowrap">
             <img alt="headline" src="{{ asset('storage/background/headline.svg') }}" class="px-3 animate-marquee-left">
             <img alt="headline" src="{{ asset('storage/background/headline.svg') }}" class="px-3 animate-marquee-left">
@@ -54,7 +54,7 @@
         <!-- description: rateings & mom -->
         <div class="flex flex-col items-center w-full p-2 mt-5 sm:mt-10 gap-y-2 sm:flex-row">
             <div class="flex items-center justify-center w-full sm:order-2 sm:w-1/2">
-                <img alt="rateable" src="{{ asset('storage/background/ratable.jpg') }}" class="h-48">
+                <img alt="rateable" src="{{ asset('storage/background/ratable.jpg') }}" class="w-full h-auto max-w-[500px]">
             </div>
 
             <article class="w-full px-2 mt-5 text-center sm:m-0 sm:order-1 sm:w-1/2">
@@ -70,7 +70,7 @@
         <!-- description: copy download -->
         <div class="flex flex-col items-center w-full p-2 mt-5 sm:mt-10 gap-y-2 sm:flex-row">
             <div class="flex items-center justify-center w-full sm:w-1/2">
-                <img alt="output" src="{{ asset('storage/background/output.jpg') }}" class="h-56">
+                <img alt="output" src="{{ asset('storage/background/output.jpg') }}" class="w-full h-auto max-w-[350px]">
             </div>
 
             <article class="w-full px-2 mt-5 text-center sm:m-0 sm:w-1/2">
