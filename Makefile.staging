@@ -3,7 +3,7 @@ include .env
 prune-image:
 	docker image prune -af
 ps:
-	docker ps -a --no-trunc
+	docker compose ps -a --no-trunc
 logs:
 	docker compose logs
 log-app:

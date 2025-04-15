@@ -3,8 +3,8 @@ up:
 down:
 	docker compose down
 restart:
-	@down
-	@up
+	@make down
+	@make up
 logs:
 	docker compose logs -f
 ps:
