@@ -10,7 +10,7 @@ use App\UseCases\Admin\Api\ApiFootball\Fixture;
 
 class GameBuilder
 {
-    private const int FETCH_DELAY_MINUTES = 115;
+    private const int FETCH_DELAY_MINUTES = 110;
 
     /**
      * fromFixtures
