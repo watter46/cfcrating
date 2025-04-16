@@ -9,7 +9,7 @@ use App\Jobs\UpdateGameJob;
 /** 試合後にFixtureデータをAPIから取得してDBを更新 */
 Schedule::job(new UpdateGameJob)
     ->when(fn() => UpdateGameJob::shouldScheduleJob())
-    ->everyTenMinutes();
+    ->everyFiveMinutes();
 
 /** FixturesデータをAPIから取得してDBを更新する */
 Schedule::job(new UpdateGamesJob)
