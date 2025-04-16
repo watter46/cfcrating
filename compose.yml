@@ -67,6 +67,8 @@ services:
     command: sh -c "while true; do php /var/www/src/artisan schedule:run; sleep 60; done"
     volumes:
       - ./src/.env:/var/www/src/.env
+    networks:
+      - internal
 
   queue:
     image: ${DOCKER_USERNAME}/${APP_NAME}-app-${ENV}:${VERSION}
@@ -76,3 +78,5 @@ services:
       - ./src/.env:/var/www/src/.env
       - storage:/var/www/src/storage/app/public
       - ./supervisor/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+    networks:
+      - internal
