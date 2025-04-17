@@ -15,21 +15,13 @@ src/app/Template/
 
 # キャッシュ・ビルドファイル
 src/bootstrap/cache/*
-src/public/hot
-src/public/build/
-src/public/storage
-src/public/mix-manifest.json
-src/public/js/*.map
-src/public/css/*.map
+src/public
 
 # 環境ファイル
 .env
-.env.local
-.env.staging
-src/.env
-src/.env.testing
-src/.env.staging
-src/.env.production
+.env.*
+**/.env
+**/.env.*
 
 # テスト
 src/.phpunit.xml

@@ -1,4 +1,4 @@
-name: Deploy Containers [Staging]
+name: Deploy Containers
 
 on:
   workflow_call:

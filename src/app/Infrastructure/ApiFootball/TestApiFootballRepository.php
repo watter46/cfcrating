@@ -8,10 +8,11 @@ use App\UseCases\Admin\Api\ApiFootball\Fixtures;
 use App\UseCases\Admin\Api\ApiFootball\Fixture;
 use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\Models\Util\Season;
-use App\File\Data\FixturesFile;
+use App\File\Data\Test\ApiFootball\FixturesFile;
 use App\File\Data\FixtureFile;
 
-class MockApiFootballRepository implements ApiFootballRepositoryInterface
+
+class TestApiFootballRepository implements ApiFootballRepositoryInterface
 {
     public function __construct(
         private FixturesFile $fixturesFile,

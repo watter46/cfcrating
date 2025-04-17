@@ -1,4 +1,4 @@
-name: Build and Push web container [Staging]
+name: Build and Push web container
 
 on:
   workflow_call:

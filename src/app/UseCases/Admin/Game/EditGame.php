@@ -2,12 +2,12 @@
 
 namespace App\UseCases\Admin\Game;
 
-use Exception;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
-use App\Models\Game;
 use App\UseCases\Admin\CheckAdminKey;
+use App\Models\Game;
 
 
 class EditGame extends CheckAdminKey
@@ -23,6 +23,7 @@ class EditGame extends CheckAdminKey
                 'extratime.home' => 'nullable|integer|min:0',
                 'extratime.away' => 'nullable|integer|min:0',
                 'started_at' => 'nullable|date',
+                'finished_at' => 'nullable|date',
                 'is_winner' => 'nullable|boolean'
             ]);
 

@@ -1,4 +1,4 @@
-name: Build and Push db container [Staging]
+name: Build and Push db container
 
 on:
   workflow_call:

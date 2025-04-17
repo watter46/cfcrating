@@ -14,25 +14,26 @@ use App\UseCases\Admin\Game\EditGame;
 class Game extends Component
 {
     use MessageDispatcher;
-    use SelectiveValidationTrait; 
-    
+    use SelectiveValidationTrait;
+
     public array $game;
 
     public array $original;
     public array $changedProperties;
     public array $score;
     public string $started_at;
+    public string $finished_at;
     public string $is_winner;
 
     private EditGame $editGame;
 
-        
+
     /**
      * changedDataでプロパティが変更されたか判定するので順番を変えないこと
      *
      * @return array
      */
-    public function rules() 
+    public function rules()
     {
         return [
             'score.penalty.away' => 'nullable|integer|min:0',
@@ -42,11 +43,12 @@ class Game extends Component
             'score.extratime.away' => 'nullable|integer|min:0',
             'score.extratime.home' => 'nullable|integer|min:0',
             'started_at' => 'required|date',
+            'finished_at' => 'required|date',
             'is_winner' => 'required|in:true,false,null'
         ];
     }
-    
-    public function messages() 
+
+    public function messages()
     {
         return [
             'score.penalty.home' => 'penalty: least 0',
@@ -56,6 +58,7 @@ class Game extends Component
             'score.extratime.home' => 'extratime least 0',
             'score.extratime.away' => 'extratime least 0',
             'started_at' => 'started_at: invalid started_at',
+            'finished_at' => 'finished_at: invalid finished_at',
             'is_winner' => 'is_winner: true or false or null only'
         ];
     }
@@ -70,6 +73,7 @@ class Game extends Component
         $this->original = [
             'score' => $this->game['score'],
             'started_at' => $this->game['started_at'],
+            'finished_at' => $this->game['finished_at'],
             'is_winner' => match ($this->game['isWinner']) {
                     true  => 'true',
                     false => 'false',
@@ -79,6 +83,7 @@ class Game extends Component
 
         $this->score = $this->original['score'];
         $this->started_at = $this->original['started_at'];
+        $this->finished_at = $this->original['finished_at'];
         $this->is_winner = $this->original['is_winner'];
     }
 
@@ -92,14 +97,14 @@ class Game extends Component
     {
         try {
             if ($this->editGame->checkOrFail($adminKey)) {
-                $this->editGame->execute($this->game['id'], $this->validateOnlyChanged());   
+                $this->editGame->execute($this->game['id'], $this->validateOnlyChanged());
 
                 $this->notifySuccess('Updated!!');
                 $this->dispatch('close-admin-modal');
 
                 $this->changedProperties = [];
             }
-            
+
         } catch (Exception $e) {
             $this->notifyError($e->getMessage());
         }
