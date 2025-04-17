@@ -88,4 +88,4 @@ jobs:
             cd /opt/staging
 
             make down
-            make rm-public-volume
+            make rm-build
