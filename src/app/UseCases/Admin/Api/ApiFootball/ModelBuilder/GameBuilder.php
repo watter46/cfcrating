@@ -64,7 +64,7 @@ class GameBuilder
             'teams' => $fixture->getTeams(),
             'league' => $fixture->getLeague(),
             'started_at' => $fixture->getDate(),
-            'finished_at' => $fixture->getDate()->addMinutes(self::FETCH_DELAY_MINUTES),
+            'finished_at' => $fixture->getDate()->copy()->addMinutes(self::FETCH_DELAY_MINUTES),
             'is_end' => $fixture->getIsEnd(),
             'is_winner' => $fixture->getIsWinner()
         ];
