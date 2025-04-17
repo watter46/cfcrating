@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
+use Illuminate\Database\Eloquent\Builder;
 
-use App\Models\Util\Season;
-use App\UseCases\Admin\Game\AverageRatingUpdateRules;
 use App\UseCases\Util\TournamentType;
+use App\UseCases\Admin\Game\AverageRatingUpdateRules;
+use App\Models\Util\Season;
 
 
 class Game extends Model
@@ -86,7 +86,7 @@ class Game extends Model
      *
      * @param  Builder<Game> $query
      */
-    public function scopeUntilToday(Builder $query,): void
+    public function scopeUntilToday(Builder $query): void
     {
         $query
             ->where('started_at', '<=', now('UTC'))

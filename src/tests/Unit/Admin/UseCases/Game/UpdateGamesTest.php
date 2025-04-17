@@ -7,11 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use Database\Seeders\Test\AdminFiveGamesSeeder;
 use App\UseCases\Admin\Game\UpdateGames;
 use App\UseCases\Admin\Game\GameRepositoryInterface;
-use App\Models\Game;
-use App\Infrastructure\ApiFootball\MockApiFootballRepository;
+use App\Infrastructure\ApiFootball\TestApiFootballRepository;
 use App\File\Data\Test\ApiFootball\FixturesFile;
 use App\File\Data\FixtureFile;
-
 
 class UpdateGamesTest extends AdminTestCase
 {
@@ -27,7 +25,7 @@ class UpdateGamesTest extends AdminTestCase
         $this->assertDatabaseHas('games', ['fixture_id' => 1208094]);
         $this->assertDatabaseHas('games', ['fixture_id' => 1299319]);
 
-        $repository = new MockApiFootballRepository(new FixturesFile, new FixtureFile);
+        $repository = new TestApiFootballRepository(new FixturesFile, new FixtureFile);
 
         $updateGames = new UpdateGames($repository, app(GameRepositoryInterface::class));
         $updateGames->execute();
@@ -68,7 +66,7 @@ class UpdateGamesTest extends AdminTestCase
         $this->assertDatabaseHas('games', ['fixture_id' => 1208094]);
         $this->assertDatabaseHas('games', ['fixture_id' => 1299319]);
 
-        $repository = new MockApiFootballRepository(new FixturesFile, new FixtureFile);
+        $repository = new TestApiFootballRepository(new FixturesFile, new FixtureFile);
 
         $updateGames = new UpdateGames($repository, app(GameRepositoryInterface::class));
         $updateGames->execute();
@@ -110,7 +108,7 @@ class UpdateGamesTest extends AdminTestCase
         $this->assertDatabaseHas('games', ['fixture_id' => 1208094]);
         $this->assertDatabaseHas('games', ['fixture_id' => 1299319]);
 
-        $repository = new MockApiFootballRepository(new FixturesFile, new FixtureFile);
+        $repository = new TestApiFootballRepository(new FixturesFile, new FixtureFile);
 
         $updateGames = new UpdateGames($repository, app(GameRepositoryInterface::class));
         $updateGames->execute();

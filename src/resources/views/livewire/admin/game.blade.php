@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                             </div>
-                    
+
                             <!-- Penalty Scores -->
                             <div class="mb-3">
                                 <h3 class="text-lg font-black">Penalty</h3>
@@ -123,7 +123,7 @@
             </x-slot:action>
         </x-ui.table.table-row>
 
-        <!-- Date -->
+        <!-- StartedAt -->
         <x-ui.table.table-row x-data="{ isEditable: false }">
             <x-slot:column>
                 started_at(UTC)
@@ -145,7 +145,30 @@
                 <x-ui.table.edit-button @click="isEditable = !isEditable" />
             </x-slot:action>
         </x-ui.table.table-row>
-        
+
+        <!-- FinishedAt -->
+        <x-ui.table.table-row x-data="{ isEditable: false }">
+            <x-slot:column>
+                finished_at(UTC)
+            </x-slot:column>
+
+            <x-slot:value>
+                {{ $game['finished_at'] }}
+
+                <!-- Date input -->
+                <div x-show="isEditable" class="flex items-center justify-center w-full">
+                    <div>
+                        <label for="game-finished_at"></label>
+                        <input type="text" id="game-finished_at" wire:model="finished_at" class="h-8 bg-gray-600 border rounded-md">
+                    </div>
+                </div>
+            </x-slot:value>
+
+            <x-slot:action>
+                <x-ui.table.edit-button @click="isEditable = !isEditable" />
+            </x-slot:action>
+        </x-ui.table.table-row>
+
         <!-- isWinner -->
         <x-ui.table.table-row x-data="{ isEditable: false }">
             <x-slot:column>

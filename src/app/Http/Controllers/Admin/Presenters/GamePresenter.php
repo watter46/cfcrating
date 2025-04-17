@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Presenters;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Carbon;
 
 use App\Http\Controllers\User\Presenters\SubstitutesFormatter;
-use App\File\Image\LeagueImageFile;
-use App\File\Image\PlayerImageFile;
 use App\File\Image\TeamImageFile;
+use App\File\Image\PlayerImageFile;
+use App\File\Image\LeagueImageFile;
 
 
 class GamePresenter
@@ -20,9 +20,9 @@ class GamePresenter
         private LeagueImageFile $leagueImageFile,
         private SubstitutesFormatter $mobileSubstitutes
     ) {
-        
+
     }
-    
+
     public function present(Collection $game)
     {
         $players = $game['game_players']
@@ -51,7 +51,7 @@ class GamePresenter
                 $grid = Str::of($player['grid'])->explode(':');
                 $row = $grid->first();
                 $column = $grid->last();
-                
+
                 return $player
                     ->merge([
                         'gridRow' => (int) $row,
@@ -68,6 +68,7 @@ class GamePresenter
         return [
             'id' => $game['id'],
             'started_at' => Carbon::parse($game['started_at'])->toDateTimeString(),
+            'finished_at' => Carbon::parse($game['finished_at'])->toDateTimeString(),
             'score' => $game['score']->toArray(),
             'teams' => $game['teams']
                 ->map(function (Collection $team) {

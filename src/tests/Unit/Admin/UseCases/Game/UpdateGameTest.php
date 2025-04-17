@@ -8,11 +8,10 @@ use Database\Seeders\Test\PlayersSeeder;
 use Database\Seeders\Test\GameSeeder;
 use App\UseCases\Admin\Game\UpdateGame;
 use App\UseCases\Admin\Game\GameRepositoryInterface;
-use App\Infrastructure\ApiFootball\MockApiFootballRepository;
+use App\Infrastructure\ApiFootball\TestApiFootballRepository;
 use App\File\Data\Test\ApiFootball\FixturesFile;
 use App\File\Data\FixtureFile;
 use App\Events\UpdateGameImages;
-
 
 class UpdateGameTest extends AdminTestCase
 {
@@ -30,14 +29,14 @@ class UpdateGameTest extends AdminTestCase
             'fixture_id' => 1208040
         ]);
 
-        $this->assertDatabaseCount('players', 43);
+        $this->assertDatabaseCount('players', 45);
     }
 
     public function test_ApiFootballから取得したfixtureをDBに保存できる(): void
     {
         Event::fake();
 
-        $repository = new MockApiFootballRepository(new FixturesFile, new FixtureFile);
+        $repository = new TestApiFootballRepository(new FixturesFile, new FixtureFile);
 
         $updateGames = new UpdateGame($repository, app(GameRepositoryInterface::class));
         $updateGames->execute('01JD18AVT8PHWC5YRH6EERNW2N');
