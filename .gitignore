@@ -24,11 +24,9 @@ src/public/css/*.map
 
 # 環境ファイル
 .env
-.env.local
-.env.staging
-src/.env
-src/.env.testing
-src/.env.staging
+.env.*
+**/.env
+**/.env.*
 
 # テスト
 src/.phpunit.xml
