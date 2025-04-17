@@ -15,12 +15,7 @@ src/app/Template/
 
 # キャッシュ・ビルドファイル
 src/bootstrap/cache/*
-src/public/hot
-src/public/build/
-src/public/storage
-src/public/mix-manifest.json
-src/public/js/*.map
-src/public/css/*.map
+src/public
 
 # 環境ファイル
 .env
