@@ -2,6 +2,8 @@ volumes:
   db-store:
   storage:
   build:
+  favicon:
+    external: true
 
 networks:
   internal:
@@ -16,7 +18,8 @@ services:
     volumes:
       - ./src/.env:/var/www/src/.env
       - storage:/var/www/src/storage/app/public
-      - build:/var/www/src/public
+      - build:/var/www/src/public/build
+      - favicon:/var/www/src/public/favicon
     networks:
       - internal
 
@@ -33,7 +36,8 @@ services:
       - "traefik.http.services.staging-web.loadbalancer.server.port=80"
     volumes:
       - storage:/var/www/src/storage/app/public
-      - build:/var/www/src/public
+      - build:/var/www/src/public/build
+      - favicon:/var/www/src/public/favicon
     expose:
       - "80"
     networks:
