@@ -1,5 +1,7 @@
 volumes:
   db-store:
+  favicon:
+    external: true
 
 services:
   web:
@@ -17,6 +19,7 @@ services:
       - type: bind
         source: ./src
         target: /var/www/src
+      - favicon:/var/www/src/public/favicon
 
   app:
     container_name: ${APP_NAME}-app-${ENV}
@@ -34,6 +37,7 @@ services:
       - type: bind
         source: ./src
         target: /var/www/src
+      - favicon:/var/www/src/public/favicon
 
   db:
     container_name: ${APP_NAME}-db-${ENV}

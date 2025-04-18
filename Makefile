@@ -138,7 +138,7 @@ update-job-games:
 	docker compose exec app php artisan db:update-job-games
 fresh-spec:
 	docker compose exec app php artisan db:refresh-specific-tables
-cat-log:
+laravel-log:
 	docker compose exec app cat storage/logs/laravel.log
 rm-log:
 	docker compose exec app rm storage/logs/laravel.log
