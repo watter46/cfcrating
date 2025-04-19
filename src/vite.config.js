@@ -38,5 +38,9 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-    ]
+    ],
+    build: {
+        manifest: 'manifest.json',
+        sourcemap: false,
+    }
 });
