@@ -55,7 +55,7 @@ rm-log:
 laravel-log:
 	docker compose exec app cat storage/logs/laravel.log
 rm-public-volume:
-	docker volume rm production_build
+	docker volume rm production_public
 scheduler-log:
 	docker compose exec scheduler cat storage/logs/laravel.log
 queue-log:

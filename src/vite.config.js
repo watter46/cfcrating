@@ -38,5 +38,11 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-    ]
+    ],
+    build: {
+        outDir: 'public/build',
+        manifest: true,
+        sourcemap: false,
+        minify: true
+    }
 });
