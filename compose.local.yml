@@ -20,6 +20,7 @@ services:
         source: ./src
         target: /var/www/src
       - favicon:/var/www/src/public/favicon
+      - ./infra/docker/nginx/.htpasswd:/etc/nginx/.htpasswd:ro
 
   app:
     container_name: ${APP_NAME}-app-${ENV}
