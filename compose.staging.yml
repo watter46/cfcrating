@@ -38,6 +38,7 @@ services:
       - storage:/var/www/src/storage/app/public
       - public:/var/www/src/public
       - favicon:/var/www/src/public/favicon
+      - ./src/.htpasswd:/etc/nginx/.htpasswd:ro
     expose:
       - "80"
     networks:

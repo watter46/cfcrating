@@ -37,3 +37,4 @@ src/_ide_helper_models.php
 src/_ide_helper.php
 
 # Docker関連
+infra/docker/nginx/.htpasswd
