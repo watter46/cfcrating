@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-
+    
     <x-result.image-downloader-side :$game class="w-full" />
 </x-ui.modal.modal>
 
