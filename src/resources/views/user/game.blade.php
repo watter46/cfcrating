@@ -26,9 +26,6 @@
                 <div class="flex justify-end w-full lg:justify-start">
                     <!-- Result -->
                     <x-result.result :$game />
-
-                    <!-- SavueButton -->
-                    {{-- <x-result.save-button :$game /> --}}
                 </div>
             </div>
         </section>

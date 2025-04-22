@@ -19,7 +19,7 @@
             substitutes.classList.toggle('hidden');
         })">
 
-        <x-result.image-previewer :$game class="lg:w-3/4" />
+        <x-result.image-previewer-side :$game class="lg:w-3/4" />
 
         <div class="flex justify-center mt-5 lg:w-1/4 lg:mt-0 h-fit">
             <div class="flex flex-col justify-center w-full">
@@ -47,9 +47,8 @@
             </div>
         </div>
     </div>
-
-    {{-- <x-result.image-downloader :$game /> --}}
-    <x-result.image-downloader2 :$game class="w-full" />
+    
+    <x-result.image-downloader-side :$game class="w-full" />
 </x-ui.modal.modal>
 
 @vite(['resources/js/downloadImage.js', 'resources/js/copyRatings.js'])

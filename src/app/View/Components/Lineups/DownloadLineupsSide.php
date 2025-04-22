@@ -1,17 +1,17 @@
 <?php
 
-namespace App\View\Components\Player;
+namespace App\View\Components\Lineups;
 
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 use Closure;
 
-class DownloadPlayer2 extends Component
+class DownloadLineupsSide extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $player)
+    public function __construct(public array $game)
     {
         //
     }
@@ -21,6 +21,6 @@ class DownloadPlayer2 extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.player.download-player2');
+        return view('components.lineups.download-lineups-side');
     }
 }
