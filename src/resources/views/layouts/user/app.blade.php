@@ -13,6 +13,7 @@
         <link rel="apple-touch-icon" href="{{ asset('/favicon/apple-touch-icon.png') }}" sizes="180x180">
         <link rel="icon" href="{{ asset('/favicon/android-chrome-192x192.png') }}" sizes="192x192" type="image/png">
 
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

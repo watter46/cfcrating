@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Auth\RoleType;
-use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Contracts\User as ContractsUser;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\SocialProviderType;
-use Laravel\Socialite\Contracts\User as ContractsUser;
+use App\Http\Controllers\Auth\RoleType;
 
 
 class UserLoginController extends Controller
@@ -21,7 +21,13 @@ class UserLoginController extends Controller
 
     public function handleProviderCallback(SocialProviderType $provider)
     {
-        $socialiteUser = Socialite::driver($provider->value)->user();
+        try {
+            $socialiteUser = Socialite::driver($provider->value)->user();
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('login')
+                ->with('error', 'login was canceled or failed.');
+        }
 
         $user = $this->findOrCreateUser($socialiteUser, $provider);
 
