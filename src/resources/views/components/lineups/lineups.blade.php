@@ -24,7 +24,7 @@
     <!-- Substitutes -->
     <div class="w-full substitutes">
         <div class="grid w-full grid-cols-6 gap-y-2 justify-items-center">
-            @foreach($game['substitutes'] as $substitute)
+            @foreach($game['subGroups'] as $substitute)
                 @if($loop->odd)
                     @foreach($substitute as $player)
                         <div class="flex justify-center w-full col-span-2">

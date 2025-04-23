@@ -27,7 +27,7 @@
     <!-- Substitutes -->
     <div id="download-substitutes" class="px-3 substitutes">
         <div class="flex flex-col w-full gap-y-2">
-            @foreach($game['substitutes'][0] as $player)
+            @foreach($game['subs'] as $player)
                 <div class="flex justify-center w-full">
                     <x-player.download-player :$player />
                 </div>
