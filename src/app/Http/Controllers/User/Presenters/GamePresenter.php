@@ -19,9 +19,9 @@ class GamePresenter
         private PlayerImageFile $playerImageFile,
         private SubstitutesFormatter $mobileSubstitutes
     ) {
-        
+
     }
-    
+
     /**
      * チーム、リーグ、プレイヤーのファイルパスの画像を取得する
      *
@@ -35,7 +35,7 @@ class GamePresenter
             ->map(function (Collection $gamePlayer) use ($game) {
                 return $this->formatPlayer($gamePlayer, $game);
             });
-        
+
         $startXI = $players
             ->filter(fn (Collection $player) => $player['isStarter'])
             ->shuffle()
@@ -43,7 +43,7 @@ class GamePresenter
                 $grid = Str::of($player['grid'])->explode(':');
                 $row = $grid->first();
                 $column = $grid->last();
-                
+
                 return $player
                     ->merge([
                         'row' => $row,
@@ -80,7 +80,8 @@ class GamePresenter
                 ->get('isWinner'),
             'isRated' => $game->getDotRaw('game_user.is_rated'),
             'startXI' => $startXI->toArray(),
-            'substitutes' => $mobileSubstitutes->toArray(),
+            'subs' => $substitutes->toArray(),
+            'subGroups' => $mobileSubstitutes->toArray(),
         ];
     }
 
@@ -119,7 +120,7 @@ class GamePresenter
             'canMom' => $this->canMom($gamePlayer['canMom'], $myMom)
         ]);
     }
-    
+
     /**
      * すでにMOMならMOMを選択できないようにする
      *
