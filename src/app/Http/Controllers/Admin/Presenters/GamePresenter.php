@@ -62,8 +62,9 @@ class GamePresenter
             ->sortByDesc(fn (Collection $player) => $player['gridRow'])
             ->groupBy(fn (Collection $player) => $player['gridRow']);
 
-        $substitutes = $this->mobileSubstitutes
-            ->format($players->filter(fn (Collection $player) => !$player['isStarter']));
+        $substitutes = $players->filter(fn (Collection $player) => !$player['isStarter']);
+
+        $mobileSubstitutes = $this->mobileSubstitutes->format($substitutes);
 
         return [
             'id' => $game['id'],
@@ -85,7 +86,8 @@ class GamePresenter
                 ],
             'isWinner' => $game['is_winner'],
             'startXI' => $startXI->toArray(),
-            'substitutes' => $substitutes->toArray(),
+            'subs' => $substitutes->toArray(),
+            'subGroups' => $mobileSubstitutes->toArray(),
         ];
     }
 }
