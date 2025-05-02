@@ -14,7 +14,6 @@ use App\Infrastructure\FlashLive\MockFlashLiveRepository;
 use App\Infrastructure\FlashLive\LocalFlashLiveRepository;
 use App\Infrastructure\ApiFootball\TestApiFootballRepository;
 use App\Infrastructure\ApiFootball\ProductionApiFootballRepository;
-use App\Infrastructure\ApiFootball\MockApiFootballRepository;
 use App\Infrastructure\ApiFootball\LocalApiFootballRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,15 +29,10 @@ class AppServiceProvider extends ServiceProvider
         }
 
         if ($this->app->environment('local')) {
-            $this->app->bind(ApiFootballRepositoryInterface::class, MockApiFootballRepository::class);
-            $this->app->bind(FlashLiveRepositoryInterface::class, MockFlashLiveRepository::class);
+            $this->app->bind(ApiFootballRepositoryInterface::class, LocalApiFootballRepository::class);
+            $this->app->bind(FlashLiveRepositoryInterface::class, LocalFlashLiveRepository::class);
             $this->app->bind(GameRepositoryInterface::class, GameRepository::class);
             $this->app->bind(ImageRepositoryInterface::class, ImageRepository::class);
-
-            // $this->app->bind(ApiFootballRepositoryInterface::class, LocalApiFootballRepository::class);
-            // $this->app->bind(FlashLiveRepositoryInterface::class, LocalFlashLiveRepository::class);
-            // $this->app->bind(GameRepositoryInterface::class, GameRepository::class);
-            // $this->app->bind(ImageRepositoryInterface::class, ImageRepository::class);
             return;
         }
 

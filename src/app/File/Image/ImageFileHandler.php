@@ -2,9 +2,9 @@
 
 namespace App\File\Image;
 
-use Exception;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class ImageFileHandler
 {
@@ -40,6 +40,10 @@ class ImageFileHandler
     {
         Storage::disk('public')->makeDirectory($path->getDirPath());
 
-        Storage::disk('public')->put($path->path(), $image);
+        $success = Storage::disk('public')->put($path->path(), $image);
+
+        if (!$success) {
+            Log::error("Failed to write file to storage: " . $path->path());
+        }
     }
 }

@@ -3,10 +3,8 @@
 namespace App\UseCases\Admin\GameEvent;
 
 use Illuminate\Support\Collection;
-
-use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 use App\UseCases\Admin\Api\Util\ImageRepositoryInterface;
-
+use App\UseCases\Admin\Api\ApiFootball\ApiFootballRepositoryInterface;
 
 class UpdateTeamImages
 {
@@ -14,9 +12,9 @@ class UpdateTeamImages
         private ApiFootballRepositoryInterface $apiFootballRepository,
         private ImageRepositoryInterface $imageRepository
     ) {
-        
+
     }
-        
+
     /**
      * execute
      *
