@@ -29,13 +29,13 @@ jobs:
               - 'infra/docker/nginx/**'
             db:
               - 'infra/docker/mysql/**'
-  
+
   call_build_push_app:
     if: needs.detect_changes.outputs.app_changed == 'true'
     needs: detect_changes
     uses: ./.github/workflows/staging-build-push-app.yml
     secrets: inherit
-  
+
   call_build_push_web:
     if: needs.detect_changes.outputs.web_changed == 'true'
     needs: detect_changes
@@ -52,10 +52,10 @@ jobs:
     needs: detect_changes
     uses: ./.github/workflows/staging-rsync.yml
     secrets: inherit
-  
+
   deploy:
     if: always()
-    needs: [call_build_push_app, call_build_push_web, call_build_push_db, call_rsync]
+    needs:
+      [call_build_push_app, call_build_push_web, call_build_push_db, call_rsync]
     uses: ./.github/workflows/staging-pull-and-launch.yml
     secrets: inherit
-    
