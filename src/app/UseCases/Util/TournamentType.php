@@ -10,6 +10,7 @@ enum TournamentType: int
     case FA_CUP = 45;
     case LEAGUE_CUP = 48;
     case ECL = 848;
+    case CWC = 15;
     
     /**
      * シーズンのTournamentのみ取得する
@@ -21,7 +22,8 @@ enum TournamentType: int
         return [
             self::PREMIER_LEAGUE->value,
             self::FA_CUP->value,
-            self::LEAGUE_CUP->value
+            self::LEAGUE_CUP->value,
+            self::CWC->value
         ];
     }
 
@@ -42,7 +44,8 @@ enum TournamentType: int
             self::PREMIER_LEAGUE => 'Premier League',
             self::FA_CUP => 'FA Cup',
             self::LEAGUE_CUP => 'League Cup',
-            self::ECL => 'Europa Conference League'
+            self::ECL => 'Europa Conference League',
+            self::CWC => 'FIFA Club World Cup'
         };
     }
 
@@ -64,7 +67,8 @@ enum TournamentType: int
             self::PREMIER_LEAGUE => 'premier_league',
             self::FA_CUP => 'fa_cup',
             self::LEAGUE_CUP => 'league_cup',
-            self::ECL => 'ecl'
+            self::ECL => 'ecl',
+            self::CWC => 'cwc'
         };
     }
 
