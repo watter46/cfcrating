@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Events\UpdateGameImages;
-use App\Events\UpdateGamesImages;
 use App\UseCases\Admin\GameEvent\UpdateTeamImages;
+use App\Events\UpdateGamesImages;
+use App\Events\UpdateGameImages;
 
 
 class UpdateTeamImagesListener

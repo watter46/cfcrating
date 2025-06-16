@@ -2,8 +2,6 @@
 
 namespace App\UseCases\Admin\Api\FlashLive;
 
-use Intervention\Image\ImageManager;
-
 use App\UseCases\Admin\Api\Util\ImageInterface;
 use App\File\Image\PlayerImageFile;
 

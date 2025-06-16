@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 
 final readonly class Season
 {
-    private const SEASON_END_MONTH = 6;
+    private const SEASON_END_MONTH = 5;
     
     public static function current(): int
     {
